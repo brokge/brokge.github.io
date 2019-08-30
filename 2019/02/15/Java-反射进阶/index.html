@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Java 反射进阶 · 吾与尔</title><meta name="description" content="参考博客
+获取不存在的对象？1. 获取不到 class 对象
+
+通过一个对象的 getClass() 方法。
+通过 .class 关键字。
+通过 Class.forName()。
+
+抛出 ClassNotFoundException 异常。
+2. 获取不到 Field
+获取不到 Field 的情况分"><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">吾与尔</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Java 反射进阶</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-02-15</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><p><a href="https://blog.csdn.net/briblue/article/details/76223206" target="_blank" rel="noopener">参考博客</a></p>
+<h3 id="获取不存在的对象？"><a href="#获取不存在的对象？" class="headerlink" title="获取不存在的对象？"></a>获取不存在的对象？</h3><p><strong>1. 获取不到 class 对象</strong></p>
+<ul>
+<li>通过一个对象的 getClass() 方法。</li>
+<li>通过 .class 关键字。</li>
+<li>通过 Class.forName()。</li>
+</ul>
+<p>抛出 ClassNotFoundException 异常。</p>
+<p><strong>2. 获取不到 Field</strong></p>
+<p>获取不到 Field 的情况分3种： </p>
+<ul>
+<li><p>确实不存在这个 Field </p>
+<p>抛出 NoSuchFieldException</p>
+</li>
+<li><p>由于修饰符导致的权限问题。</p>
+<p>抛出 SecurityException</p>
+</li>
+<li><p>Field 存在，但获取不到</p>
+<p>抛出 NoSuchFieldException </p>
+</li>
+</ul>
+<p>针对 Field 存在，但获取不到情况：<br>由于 getField 和 getDeclaredField 在父类获取的限制（参照反射.md）。<br>可以先获取 当前类的 父类，即 superClass ，然后 通过 getField或者getDeclaredField的方式获取</p>
+<pre><code>Class superClass = clzBase.getSuperclass();
+</code></pre><p><strong>3. 获取不到 Method</strong></p>
+<ul>
+<li><p>获取本身就不存在的 Method</p>
+<p> 抛出 NoSuchMethodException</p>
+</li>
+<li><p>参数类型不匹配而找不到</p>
+<p> 抛出NoSuchMethodException，传递参数的方式：<br><code>`</code><br>Method methodtest = class1.getDeclaredMethod(“test”,int.class,float.class);</p>
+</li>
+</ul>
+<p>Method methodtest = class1.getDeclaredMethod(“test”,new Class[]{int.class,float.class});</p>
+<pre><code>
+**4. 获取不到 Constructor**
+
+与 method 的类似
+
+**5. getInterfaces() 的作用**
+
+大家可能都会觉得 getInterfaces() 的作用是获取一个类中定义的接口，但是其实不是的，getInterfaces() 获取的是一个类所有实现的接口。
+
+### 反射中的权限问题
+
+**1. 操纵非 public 修饰的 Field**
+抛出 IllegalAccessException 错误
+
+</code></pre><p>field.setAccessible(true);</p>
+<pre><code>
+我这里以 private 为例，其实 protected 和 default 也是一样的，但是它们不同于 private 的地方在于，它们在本 package 范围内是可见的，有兴趣的同学可以测试一下，测试代码在一个 package，而测试的类在另外一个 package。
+
+**2. 操纵一个 final 类型的 Field**
+抛出 IllegalAccessException 错误
+</code></pre><p>setAccessible(true)</p>
+<pre><code>虽然被 public 修饰，但是它同样被 final 修饰，这在正常的开发流程说明这个属性不能够再被改变。
+
+如果要解决这个问题，同样可以使用 setAccessible(true) 方法
+
+**3. 操纵非 public 修饰的 Method**
+</code></pre><p>method.setAccessible(true);</p>
+<pre><code>通过 setAccessible(true) 同样可以解决这个问题。
+
+**4. 操纵非 public 修饰的 Constructor**
+
+同前面两种，同样是通过 setAccessible(true) 来搞定。
+
+所以，在反射中如果要操作被 private 修饰的对象，那么就必须调用它的 setAccessible(true)。
+
+### setAccessible() 的秘密
+
+### Class.newInstance() 和 Constructor.newInstance() 的区别
+
+Class.newInstance() 的使用有严格的限制，那就是一个 Class 对象中，必须存在一个无参数的 Constructor，并且这个 Constructor 必须要有访问的权限。
+
+通过 Constructor.newInstance() 却没有这种限制。Constructor.newInstance() 适应任何类型的 Constructor,无论它们有参数还是无参数，只要通过 setAccessible() 控制好访问权限就可以了。
+
+### 谨慎使用 Method.invoke() 方法
+
+</code></pre><p>public Object invoke(Object obj, Object… args)<br>        throws IllegalAccessException, IllegalArgumentException,<br>           InvocationTargetException</p>
+<pre><code>
+第一个 Object 参数代表的是对应的 Class 对象实例，这在上面一节已经见识到了。而后面的参数就是可变形参了，它接受多个参数。我们考虑一种特殊情况。
+</code></pre><p>public class TestT<t>{</t></p>
+<pre><code>public  void test(T t){}
+</code></pre><p>}</p>
+<pre><code>这是一个泛型类，T 表示接受任意类型的参数。
+</code></pre><p> Method tMethod = clzT.getDeclaredMethod(“test”,Integer.class);<br> tMethod.setAccessible(true);<br> tMethod.invoke(new TestT<integer>(),1);</integer></p>
+<pre><code>报错 ：
+NoSuchMethodException，提示找不到这个方法。原因是类型擦除。
+当一个方法有泛型参数时，编译器会自动向上转型，T 向上转型是 Object。所以实际上是 void test(Object t); 上面的代码试图去找 test(Integer t) 这个方法，自然是找不到。
+
+</code></pre><p>Method tMethod = clzT.getDeclaredMethod(“test”,Object.class);<br>tMethod.setAccessible(true);</p>
+<p>tMethod.invoke(new TestT<integer>(),1);<br><code>`</code></integer></p>
+<h3 id="Method-中处理-Exception"><a href="#Method-中处理-Exception" class="headerlink" title="Method 中处理 Exception"></a>Method 中处理 Exception</h3><p>在 Java 反射中，一个 Method 执行时遭遇的异常会被包装在一个特定的异常中，这个异常就是 InvocationTargetException。</p>
+<p>总结：</p>
+<table>
+<thead>
+<tr>
+<th>异常名称</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ClassNotFoundException</td>
+<td>1. class.forName() 传入的包名有误 2.Class本身不存在</td>
+</tr>
+<tr>
+<td>NoSuchFieldException</td>
+<td>1. Field 名称不正确。2. getDeclaredField 和 getField()方法使用不当。</td>
+</tr>
+<tr>
+<td>NoSuchMethodException</td>
+<td>1. 方法本身不存在。2. 传入的参数的类型不匹配。3. 传入的参数 个数不匹配。</td>
+</tr>
+<tr>
+<td>IllegalAccessException</td>
+<td>1. 访问非 public修饰的对象如Field、Method、Consturctor。2. 操作 final 修饰的 Field.</td>
+</tr>
+<tr>
+<td>IllegalArgumentException</td>
+<td>1. Method.invoke 中参数匹配。2. Field 操作时设置的值不匹配。3. Constructor.newInstance() 传入的参数不匹配。</td>
+</tr>
+<tr>
+<td>InvocationTargetException</td>
+<td>1. Method 运行时产生异常.2.Constructor.newInstance() 作用时产生异常</td>
+</tr>
+<tr>
+<td>InstantiationException</td>
+<td>1. Class.newInstance() 或者Constructor.newInstance()异常。</td>
+</tr>
+</tbody>
+</table>
+<p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2019/02/15/Java-反射进阶/%20吾与尔%20Java 反射进阶" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/04/16/Android-Dagger2分析/" title="Android Dagger2分析"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Android Dagger2分析</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/02/10/Java-反射/" title="Java 反射">下一篇: Java 反射&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
+    new Valine({
+    el: '#vcomments',
+    appId: 'UmwJ3stwyISCG9WnW9Nc3SAN-gzGzoHsz',
+    appKey: 'UKq878kYn6RXJWx34b77lma6'})
+})();
+</script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>
