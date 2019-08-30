@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://brokge.github.io/"/>
-  <updated>2019-08-30T12:56:02.213Z</updated>
+  <updated>2019-08-30T13:10:46.032Z</updated>
   <id>https://brokge.github.io/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android 性能优化总结</title>
+    <link href="https://brokge.github.io/2019/08/30/Android-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%80%BB%E7%BB%93/"/>
+    <id>https://brokge.github.io/2019/08/30/Android-性能优化总结/</id>
+    <published>2019-08-30T13:09:53.000Z</published>
+    <updated>2019-08-30T13:10:46.032Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="用户手中好的应用指标："><a href="#用户手中好的应用指标：" class="headerlink" title="用户手中好的应用指标："></a>用户手中好的应用指标：</h2><ol><li>满足需求</li><li>合理的交互</li><li>高性能</li></ol><h2 id="Android-性能优化总结"><a href="#Android-性能优化总结" class="headerlink" title="Android 性能优化总结"></a>Android 性能优化总结</h2><h4 id="目标"><a href="#目标" class="headerlink" title="目标:"></a>目标:</h4><ol><li>流畅</li><li>稳定</li><li>省电、省流量</li><li>安装包小</li></ol><p>简称： 快、稳、省、小</p><h4 id="建议："><a href="#建议：" class="headerlink" title="建议："></a>建议：</h4><h5 id="1-流畅"><a href="#1-流畅" class="headerlink" title="1. 流畅"></a>1. 流畅</h5><p>卡顿场景：<br>UI 绘制、应用启动、页面跳转、事件响应</p><p>卡顿原因：</p><ol><li>界面绘制。<blockquote><p>主要原因是绘制的层级深、页面复杂、刷新不合理，由于这些原因导致卡顿的场景更多出现在 UI 和启动后的初始界面以及跳转到页面的绘制上。</p></blockquote></li><li>数据处理。<blockquote><p>导致这种卡顿场景的原因是数据处理量太大，一般分为三种情况，一是数据在处理 UI 线程，二是数据处理占用 CPU 高，导致主线程拿不到时间片，三是内存增加导致 GC 频繁，从而引起卡顿。</p></blockquote></li></ol><p>UI 绘制:</p><p>原理： Android 应用程序把经过Measure、Layout、Draw后的 surface 缓存数据，通过 SurfaceFlinger 服务把数据渲染到显示屏幕上， 通过 Android 的刷新机制来刷新数据。也就是说应用层负责绘制，系统层负责渲染，通过进程间通信把应用层需要绘制的数据传递到系统层服务，系统层服务通过刷新机制把数据更新到屏幕上。</p><p>卡顿根本原因：</p><ol><li>绘制任务太重，绘制一帧内容耗时太长。</li><li>主线程太忙，根据系统传递过来的 VSYNC 信号来时还没准备好数据导致丢帧。</li></ol><p>常用工具：<br>通过性能分析工具 Profile GPU Rendering、TraceView、Systrace UI 性能分析<br>找出出现问题的点，然后解决。</p><p>优化建议：</p><ol><li>布局优化</li><li>避免过度绘制</li><li>启动优化</li><li>合理的刷新机制</li><li>在实现动画效果时，需要根据不同场景选择合适的动画框架来实现。有些情况下，可以用硬件加速方式来提供流畅度。</li></ol><h5 id="2-稳定"><a href="#2-稳定" class="headerlink" title="2. 稳定"></a>2. 稳定</h5><blockquote><p>Android 应用的稳定性定义很宽泛，影响稳定性的原因很多，比如内存使用不合理、代码异常场景考虑不周全、代码逻辑不合理等，都会对应用的稳定性造成影响。其中最常见的两个场景是：Crash 和 ANR，这两个错误将会使得程序无法使用，比较常用的解决方式如下：</p></blockquote><h5 id="2-1-内存优化"><a href="#2-1-内存优化" class="headerlink" title="2.1.内存优化"></a>2.1.内存优化</h5><p>虚拟机有两种运行模式：Dalvik 和 ART。</p><p>Android 内存控制权 Generational Heap Memory 。</p><ul><li>对象的生命周期：</li></ul><p>创建阶段-&gt;应用阶段-&gt;不可见阶段-&gt;不可达阶段-&gt;收集阶段-&gt;终结阶段-&gt;对象空间重新分配阶段</p><p>Zygote 进程是所有的应用程序进程之父。</p><p>每个应用 都有 Dalvik Heap Size 最大阈值。有 RAM 大小不同会有所差异。</p><ul><li>内存回收<br>young Generation(年轻代)、Old Generation(年老代)、Permanent Generation(持久代)</li></ul><p>根据对象的生命周期、所处的代区域、不同的内存数据类型，执行不同的GC 操作。</p><blockquote><p>分配的对象会存放在 Young Generation 区域。对象在某个时机触发 GC 回收垃圾，而没有回收的就根据不同规则，有可能被移动到 Old Generation，最后累积一定时间在移动到 Permanent Generation 区域。系统会根据内存中不同的内存数据类型分别执行不同的 GC 操作。GC 通过确定对象是否被活动对象引用来确定是否收集对象，进而动态回收无任何引用的对象占据的内存空间。但需要注意的是频繁的 GC 会增加应用的卡顿情况，影响应用的流畅性，因此需要尽量减少系统 GC 行为，以便提高应用的流畅度，减小卡顿发生的概率。</p></blockquote><p>分析工具：</p><ol><li>Memory Monitor</li><li>Heap Viewer</li><li>Allocation Tracker</li><li>Memory Analyzer Tool(MAT)</li><li>LeakCanary 第三方库.</li></ol><p>常见内存泄漏场景:</p><ol><li>资源性对象未关闭。比如Cursor、File文件等，往往都用了一些缓冲，在不使用时，应该及时关闭它们。</li><li>注册对象未注销。比如事件注册后未注销，会导致观察者列表中维持着对象的引用。</li><li>类的静态变量持有大数据对象。</li><li>非静态内部类的静态实例.</li><li>Handler临时性内存泄漏。如果Handler是非静态的，容易导致 Activity 或 Service 不会被回收。</li><li>容器中的对象没清理造成的内存泄漏。</li><li>WebView。WebView 存在着内存泄漏的问题，在应用中只要使用一次 WebView，内存就不会被释放掉。</li></ol><p>优化内存空间：</p><ol><li>对象引用。强引用、软引用、弱引用、虚引用四种引用类型，根据业务需求合理使用不同，选择不同的引用类型。</li><li>减少不必要的内存开销。注意自动装箱，增加内存复用，比如有效利用系统自带的资源、视图复用、对象池、Bitmap对象的复用。</li><li>使用最优的数据类型。比如针对数据类容器结构，可以使用ArrayMap数据结构，避免使用枚举类型，使用缓存Lrucache等等。</li><li>图片内存优化。可以设置位图规格，根据采样因子做压缩，用一些图片缓存方式对图片进行管理等等。</li></ol><h5 id="2-2-提高代码质量"><a href="#2-2-提高代码质量" class="headerlink" title="2.2. 提高代码质量"></a>2.2. 提高代码质量</h5><blockquote><p>提高代码质量。比如开发期间的代码审核，看些代码设计逻辑，业务合理性等。<br>代码静态扫描工具。常见工具有Android Lint、Findbugs、Checkstyle、PMD等等。<br>Crash监控。把一些崩溃的信息，异常信息及时地记录下来，以便后续分析解决。<br>Crash上传机制。在Crash后，尽量先保存日志到本地，然后等下一次网络正常时再上传日志信息。</p></blockquote><h5 id="3-电量优化"><a href="#3-电量优化" class="headerlink" title="3. 电量优化"></a>3. 电量优化</h5><ol><li>优化耗时的计算。</li></ol><h5 id="4-安装包大小"><a href="#4-安装包大小" class="headerlink" title="4. 安装包大小"></a>4. 安装包大小</h5><ol><li>代码混淆。</li><li>资源优化。比如使用 Android Lint 删除冗余资源。</li><li>图片优化。比如利用 AAPT 工具对 PNG 格式的图片做压缩处理，降低图片色彩位数、使用 WebP图片格式等。</li><li>避免重复功能的库。</li><li>插件化。</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;用户手中好的应用指标：&quot;&gt;&lt;a href=&quot;#用户手中好的应用指标：&quot; class=&quot;headerlink&quot; title=&quot;用户手中好的应用指标：&quot;&gt;&lt;/a&gt;用户手中好的应用指标：&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;满足需求&lt;/li&gt;
+&lt;li&gt;合理的交互&lt;/li&gt;
+&lt;li
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://brokge.github.io/categories/Android/"/>
+    
+      <category term="性能优化" scheme="https://brokge.github.io/categories/Android/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    
+    
+      <category term="Android" scheme="https://brokge.github.io/tags/Android/"/>
+    
+      <category term="性能优化" scheme="https://brokge.github.io/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
   
   <entry>
     <title>JVM 类加载和初始化</title>
@@ -69,11 +101,40 @@
   </entry>
   
   <entry>
+    <title>Android 数据结构之 LinkedHashMap</title>
+    <link href="https://brokge.github.io/2019/07/24/Android-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B-LinkedHashMap/"/>
+    <id>https://brokge.github.io/2019/07/24/Android-数据结构之-LinkedHashMap/</id>
+    <published>2019-07-24T13:07:42.000Z</published>
+    <updated>2019-08-30T13:08:31.990Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="原理分析："><a href="#原理分析：" class="headerlink" title="原理分析："></a>原理分析：</h4><p> LinkedHashMap 是 HashMap 的子类，其在 HashMap 的基础上只添加了一个双向链表和一个顺序模式属性，其每次 put 元素都会往这个双向链表上添加节点，其构造方法比 HashMap 多了一个 boolean 类型的 accessOrder 参数，当该参数为 true 时则按照元素最后访问时间在双向链表中排序，为 false 则按照插入顺序排序，默认为 false。<br> 具体源码如下：</p><pre><code>public class LinkedHashMap&lt;K,V&gt; extends HashMap&lt;K,V&gt; implements Map&lt;K,V&gt; {    /**     * The head of the doubly linked list.     */    private transient LinkedHashMapEntry&lt;K,V&gt; header;    private final boolean accessOrder;    public LinkedHashMap(int initialCapacity,                         float loadFactor,                         boolean accessOrder) {        super(initialCapacity, loadFactor);        this.accessOrder = accessOrder;    }}</code></pre><p>LinkedHashMap 继承自 HashMap，所以其 put 和 get 操作重写了父类的实现</p><pre><code>    /**     * This override differs from addEntry in that it doesn&#39;t resize the     * table or remove the eldest entry.     */    void createEntry(int hash, K key, V value, int bucketIndex) {        HashMapEntry&lt;K,V&gt; old = table[bucketIndex];        LinkedHashMapEntry&lt;K,V&gt; e = new LinkedHashMapEntry&lt;&gt;(hash, key, value, old);        table[bucketIndex] = e;        e.addBefore(header);        size++;    }    public V get(Object key) {        LinkedHashMapEntry&lt;K,V&gt; e = (LinkedHashMapEntry&lt;K,V&gt;)getEntry(key);        if (e == null)            return null;        e.recordAccess(this);        return e.value;    } private static class LinkedHashMapEntry&lt;K,V&gt; extends HashMapEntry&lt;K,V&gt; {    LinkedHashMapEntry&lt;K,V&gt; before, after;    LinkedHashMapEntry(int hash, K key, V value, HashMapEntry&lt;K,V&gt; next) {            super(hash, key, value, next);        }    /**     * Removes this entry from the linked list.     */    private void remove() {            before.after = after;            after.before = before;    }    /**     * Inserts this entry before the specified existing entry in the list.     */    private void addBefore(LinkedHashMapEntry&lt;K,V&gt; existingEntry) {            after  = existingEntry;            before = existingEntry.before;            before.after = this;            after.before = this;    }    /**     * This method is invoked by the superclass whenever the value     * of a pre-existing entry is read by Map.get or modified by Map.set.     * If the enclosing Map is access-ordered, it moves the entry     * to the end of the list; otherwise, it does nothing.     */    void recordAccess(HashMap&lt;K,V&gt; m) {            LinkedHashMap&lt;K,V&gt; lm = (LinkedHashMap&lt;K,V&gt;)m;            if (lm.accessOrder) {                lm.modCount++;                remove();                addBefore(lm.header);            }    }    void recordRemoval(HashMap&lt;K,V&gt; m) {            remove();    } }</code></pre><p>可以看到 LinkedHashMapMap 中所有 put 进来的 Entry 最终除过按照 HashMap 的 put 操作进行哈希表存储后又额外添加进了一个以 head 为头结点的双向循环链表尾部。==所以说 KinkedHashMap 完全具备 HashMap 的所有特性，也允许 key 和 value 为 null 值，此外自己比 HashMap 厉害的地方在于保证了访问的有序性==。</p><p>接着在进行迭代器访问时与 HashMap 的区别在于 LinkedHashMap 是直接迭代遍历操作其自己维护的双向有序链表，以此来保证顺序性，如下：</p><pre><code>private abstract class LinkedHashIterator&lt;T&gt; implements Iterator&lt;T&gt; {        LinkedHashMapEntry&lt;K,V&gt; nextEntry    = header.after;        LinkedHashMapEntry&lt;K,V&gt; lastReturned = null;        /**         * The modCount value that the iterator believes that the backing         * List should have.  If this expectation is violated, the iterator         * has detected concurrent modification.         */        int expectedModCount = modCount;        public boolean hasNext() {            return nextEntry != header;        }        public void remove() {            if (lastReturned == null)                throw new IllegalStateException();            if (modCount != expectedModCount)                throw new ConcurrentModificationException();            LinkedHashMap.this.remove(lastReturned.key);            lastReturned = null;            expectedModCount = modCount;        }        Entry&lt;K,V&gt; nextEntry() {            if (modCount != expectedModCount)                throw new ConcurrentModificationException();            if (nextEntry == header)                throw new NoSuchElementException();            LinkedHashMapEntry&lt;K,V&gt; e = lastReturned = nextEntry;            nextEntry = e.after;            return e;        }    }</code></pre><p>所以 <code>LinkedHashMap</code> 继承自 <code>HashMap</code>，除过具备 <code>HashMap</code> 的一切优缺点外自身具备插入有序性或者访问有序性，其实现依赖 <code>HashMap</code> 自身的存储结构不变外在 put、get 操作处添加了一个对自己内部维护的双向有序链表的操作。</p><p>场景使用 </p><ol><li>LRU 的结合：</li></ol><blockquote><p>LRU 是一种流行的替换算法，它的全称是 <code>Least Recently Used</code>，最近最少使用，常常在缓存设计的场景中充当一种策略，它的核心思路是最近刚被使用的很快再次被用的可能性最高，而最久没被访问的很快再次被用的可能性最低，所以被优先清理。</p></blockquote><ol start="2"><li>LRU 容器的实现</li></ol><blockquote><p>在添加元素到<code>LinkedHashMap</code> 后会调用 <code>removeEldesEntry</code>方法，传递的参数是最久没被访问的键值对，如果这个方法返回<code>true</code> 则这个最久的键值对就会被删除，<code>LinkedHashMap</code>的实现总是返回<code>false</code>，所有容量没有限制。</p></blockquote><ul><li>LinkedHashMap 的实现<pre><code>protected boolean removeEldestEntry(Map.Entry&lt;K,V&gt; eldest) {      return false;  }</code></pre></li><li>重写后的实现</li></ul><pre><code>public class LRUCache&lt;k,v&gt; extents LinkedHashMap&lt;k,v&gt;{    private int maxEntries;    public LRUCache(int maxEntries){        super(16,0.75,true);        this.maxEntries=maxEntries;    }    @override    protected boolean removeEldesEntry(Entry&lt;k,v&gt; eldest){        return size()&gt;maxentries;    }}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;原理分析：&quot;&gt;&lt;a href=&quot;#原理分析：&quot; class=&quot;headerlink&quot; title=&quot;原理分析：&quot;&gt;&lt;/a&gt;原理分析：&lt;/h4&gt;&lt;p&gt; LinkedHashMap 是 HashMap 的子类，其在 HashMap 的基础上只添加了一个双向链表和一个顺
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://brokge.github.io/categories/Android/"/>
+    
+      <category term="数据结构" scheme="https://brokge.github.io/categories/Android/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="Android" scheme="https://brokge.github.io/tags/Android/"/>
+    
+      <category term="数据结构" scheme="https://brokge.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android 应用内存分析</title>
     <link href="https://brokge.github.io/2019/06/30/Android-%E5%BA%94%E7%94%A8%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90/"/>
     <id>https://brokge.github.io/2019/06/30/Android-应用内存分析/</id>
     <published>2019-06-30T02:56:51.000Z</published>
-    <updated>2019-08-30T12:59:44.275Z</updated>
+    <updated>2019-08-30T13:10:49.968Z</updated>
     
     <content type="html"><![CDATA[<p>Android 开发场景中，分析内存泄漏情况</p><h2 id="所需工具"><a href="#所需工具" class="headerlink" title="所需工具"></a>所需工具</h2><h3 id="1-MTA"><a href="#1-MTA" class="headerlink" title="1. MTA"></a>1. MTA</h3><p>Eclipse Memory Analysis Tools (MAT) 是一个分析 Java堆数据的专业工具，用它可以定位内存泄漏的原因。</p><p>工具地址 : <a href="https://www.eclipse.org/mat/" target="_blank" rel="noopener">https://www.eclipse.org/mat/</a></p><h3 id="2-AndroidStudio"><a href="#2-AndroidStudio" class="headerlink" title="2. AndroidStudio"></a>2. AndroidStudio</h3><ul><li>monitor</li></ul><p>存在 sdk/toools/ 下的 monitor</p><p>Dalvik Debug Monitor Server (DDMS) 是 ADT插件的一部分，其中有两项功能可用于内存检查 :</p><blockquote><ol><li>heap 查看堆的分配情况</li><li>allocation tracker跟踪内存分配情况</li></ol></blockquote><p>DDMS 这两项功能有助于找到内存泄漏的操作行为。</p><ul><li>profiler </li></ul><p>AndroidStudio 内置的 内存检测工具，可以回收内存和下载dump。</p><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol><li>通过 AndroidStudio 内置工具 profiler 进行分析并获取到.hprof 文件。</li></ol><blockquote><p>操作步骤</p><ol><li>打开 profiler 窗口。</li><li>切换到 memory .</li><li>针对需要检测的页面，点击 <code>回收箱</code> 按钮，进行强制 GC.然后 点击 <code>下载图标</code> 按钮  获取堆栈信息.</li><li>排序方式 Arrange by package ，查看待检测的泄漏对象。</li><li>导出 .hprof 文件。</li></ol></blockquote><ol start="2"><li>通过 sdk 目录 platform-tools/hprof-conv 工具进行转换</li></ol><pre><code>hrpof-conv -z [待转换.hprof]  [转换后.hprof]</code></pre><ol start="3"><li>以上转换后的 .hprof文件，通过 mat 打开，然后点击  histogram 。</li></ol><blockquote><p>进入Histogram<br>可以点击表头进行排序,在表的第一行可以输入正则表达式来匹配结果,找到我们想要找的类，然后右键选择<code>merge shortest paths to Gc roots</code> 然后在选择<code>exclude all phantom/weak/soft etc.references</code>选项.</p></blockquote><h2 id="分析小技巧"><a href="#分析小技巧" class="headerlink" title="分析小技巧"></a>分析小技巧</h2><ol><li><code>Histogram</code> 对比</li></ol><p>为查找内存泄漏，通常需要两个 Dump结果作对比，打开 <code>Navigator History</code>面板，将两个表的 <code>Histogram</code>结果都添加到 <code>Compare Basket</code>中去 :<br>添加好后，打开 Compare Basket面板，得到结果。</p><ol start="2"><li>使用 <code>android:largeHeap=&quot;true&quot;</code>标记 (API Level &gt;= 11) </li></ol><p>在 <code>AndroidManifest.xml</code>中的 Application节点中声明即可分配到更大的堆内存, <code>android:largeHeap</code>标记在 Android系统应用中也有广泛的应用 ,比如 Launcher, Browser这些内存大户上均有使用.</p><ol start="3"><li>mat 打开工具栏 <code>QQL</code>图标，可以使用 类sql 语句筛查<pre><code>select * from instanceof android.app.Activity</code></pre></li><li>mat 中 Actions 中的概念</li></ol><pre><code># Histogram列出内存中的对象，对象的个数以及大小。# Dominator Tree列出最大的对象以及其依赖存活的Object （大小是以Retained Heap为标准排序的）。# Top Consumers通过图形列出最大的object。# Shallow heapShallow size就是对象本身占用内存的大小，不包含其引用的对象。针对非数组类型的对象，它的大小就是对象与它所有的成员变量大小的总和。当然这里面还会包括一些java语言特性的数据存储单元。针对数组类型的对象，它的大小是数组元素对象的大小总和。#Retained Heap它表示如果一个对象被释放掉，那会因为该对象的释放而减少引用进而被释放的所有的对象（包括被递归释放的）所占用的heap大小。(间接引用的含义：A-&gt;B-&gt;C, C就是间接引用。不过，释放的时候还要排除被GC Roots直接或间接引用的对象。他们暂时不会被被当做Garbage）</code></pre>]]></content>
     
@@ -89,8 +150,12 @@
     
       <category term="Android" scheme="https://brokge.github.io/categories/Android/"/>
     
+      <category term="性能优化" scheme="https://brokge.github.io/categories/Android/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    
     
       <category term="Android" scheme="https://brokge.github.io/tags/Android/"/>
+    
+      <category term="性能优化" scheme="https://brokge.github.io/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     
   </entry>
   

@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Android 数据结构之 LinkedHashMap · 吾与尔</title><meta name="description" content="原理分析： LinkedHashMap 是 HashMap 的子类，其在 HashMap 的基础上只添加了一个双向链表和一个顺序模式属性，其每次 put 元素都会往这个双向链表上添加节点，其构造方法比 HashMap 多了一个 boolean 类型的 accessOrder 参数，当该参数为 tru"><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">吾与尔</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Android 数据结构之 LinkedHashMap</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-07-24</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/categories/Android/数据结构/" title="数据结构" class="a-tag">数据结构</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/tags/数据结构/" title="数据结构" class="a-tag">数据结构</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><h4 id="原理分析："><a href="#原理分析：" class="headerlink" title="原理分析："></a>原理分析：</h4><p> LinkedHashMap 是 HashMap 的子类，其在 HashMap 的基础上只添加了一个双向链表和一个顺序模式属性，其每次 put 元素都会往这个双向链表上添加节点，其构造方法比 HashMap 多了一个 boolean 类型的 accessOrder 参数，当该参数为 true 时则按照元素最后访问时间在双向链表中排序，为 false 则按照插入顺序排序，默认为 false。<br> 具体源码如下：</p>
+<pre><code>public class LinkedHashMap&lt;K,V&gt; extends HashMap&lt;K,V&gt; implements Map&lt;K,V&gt; {
+    /**
+     * The head of the doubly linked list.
+     */
+    private transient LinkedHashMapEntry&lt;K,V&gt; header;
+
+    private final boolean accessOrder;
+
+
+    public LinkedHashMap(int initialCapacity,
+                         float loadFactor,
+                         boolean accessOrder) {
+        super(initialCapacity, loadFactor);
+        this.accessOrder = accessOrder;
+    }
+}
+
+
+</code></pre><p>LinkedHashMap 继承自 HashMap，所以其 put 和 get 操作重写了父类的实现</p>
+<pre><code>    /**
+     * This override differs from addEntry in that it doesn&#39;t resize the
+     * table or remove the eldest entry.
+     */
+    void createEntry(int hash, K key, V value, int bucketIndex) {
+        HashMapEntry&lt;K,V&gt; old = table[bucketIndex];
+        LinkedHashMapEntry&lt;K,V&gt; e = new LinkedHashMapEntry&lt;&gt;(hash, key, value, old);
+        table[bucketIndex] = e;
+        e.addBefore(header);
+        size++;
+    }
+
+    public V get(Object key) {
+        LinkedHashMapEntry&lt;K,V&gt; e = (LinkedHashMapEntry&lt;K,V&gt;)getEntry(key);
+        if (e == null)
+            return null;
+        e.recordAccess(this);
+        return e.value;
+    }
+
+
+ private static class LinkedHashMapEntry&lt;K,V&gt; extends HashMapEntry&lt;K,V&gt; {
+
+    LinkedHashMapEntry&lt;K,V&gt; before, after;
+
+    LinkedHashMapEntry(int hash, K key, V value, HashMapEntry&lt;K,V&gt; next) {
+            super(hash, key, value, next);
+        }
+
+    /**
+     * Removes this entry from the linked list.
+     */
+    private void remove() {
+            before.after = after;
+            after.before = before;
+    }
+
+    /**
+     * Inserts this entry before the specified existing entry in the list.
+     */
+    private void addBefore(LinkedHashMapEntry&lt;K,V&gt; existingEntry) {
+            after  = existingEntry;
+            before = existingEntry.before;
+            before.after = this;
+            after.before = this;
+    }
+
+    /**
+     * This method is invoked by the superclass whenever the value
+     * of a pre-existing entry is read by Map.get or modified by Map.set.
+     * If the enclosing Map is access-ordered, it moves the entry
+     * to the end of the list; otherwise, it does nothing.
+     */
+    void recordAccess(HashMap&lt;K,V&gt; m) {
+            LinkedHashMap&lt;K,V&gt; lm = (LinkedHashMap&lt;K,V&gt;)m;
+            if (lm.accessOrder) {
+                lm.modCount++;
+                remove();
+                addBefore(lm.header);
+            }
+    }
+
+    void recordRemoval(HashMap&lt;K,V&gt; m) {
+            remove();
+    }
+
+ }
+
+
+</code></pre><p>可以看到 LinkedHashMapMap 中所有 put 进来的 Entry 最终除过按照 HashMap 的 put 操作进行哈希表存储后又额外添加进了一个以 head 为头结点的双向循环链表尾部。==所以说 KinkedHashMap 完全具备 HashMap 的所有特性，也允许 key 和 value 为 null 值，此外自己比 HashMap 厉害的地方在于保证了访问的有序性==。</p>
+<p>接着在进行迭代器访问时与 HashMap 的区别在于 LinkedHashMap 是直接迭代遍历操作其自己维护的双向有序链表，以此来保证顺序性，如下：</p>
+<pre><code>
+private abstract class LinkedHashIterator&lt;T&gt; implements Iterator&lt;T&gt; {
+        LinkedHashMapEntry&lt;K,V&gt; nextEntry    = header.after;
+        LinkedHashMapEntry&lt;K,V&gt; lastReturned = null;
+
+        /**
+         * The modCount value that the iterator believes that the backing
+         * List should have.  If this expectation is violated, the iterator
+         * has detected concurrent modification.
+         */
+        int expectedModCount = modCount;
+
+        public boolean hasNext() {
+            return nextEntry != header;
+        }
+
+        public void remove() {
+            if (lastReturned == null)
+                throw new IllegalStateException();
+            if (modCount != expectedModCount)
+                throw new ConcurrentModificationException();
+
+            LinkedHashMap.this.remove(lastReturned.key);
+            lastReturned = null;
+            expectedModCount = modCount;
+        }
+
+        Entry&lt;K,V&gt; nextEntry() {
+            if (modCount != expectedModCount)
+                throw new ConcurrentModificationException();
+            if (nextEntry == header)
+                throw new NoSuchElementException();
+
+            LinkedHashMapEntry&lt;K,V&gt; e = lastReturned = nextEntry;
+            nextEntry = e.after;
+            return e;
+        }
+    }
+
+
+</code></pre><p>所以 <code>LinkedHashMap</code> 继承自 <code>HashMap</code>，除过具备 <code>HashMap</code> 的一切优缺点外自身具备插入有序性或者访问有序性，其实现依赖 <code>HashMap</code> 自身的存储结构不变外在 put、get 操作处添加了一个对自己内部维护的双向有序链表的操作。</p>
+<p>场景使用 </p>
+<ol>
+<li>LRU 的结合：</li>
+</ol>
+<blockquote>
+<p>LRU 是一种流行的替换算法，它的全称是 <code>Least Recently Used</code>，最近最少使用，常常在缓存设计的场景中充当一种策略，它的核心思路是最近刚被使用的很快再次被用的可能性最高，而最久没被访问的很快再次被用的可能性最低，所以被优先清理。</p>
+</blockquote>
+<ol start="2">
+<li>LRU 容器的实现</li>
+</ol>
+<blockquote>
+<p>在添加元素到<code>LinkedHashMap</code> 后会调用 <code>removeEldesEntry</code>方法，传递的参数是最久没被访问的键值对，如果这个方法返回<code>true</code> 则这个最久的键值对就会被删除，<code>LinkedHashMap</code>的实现总是返回<code>false</code>，所有容量没有限制。</p>
+</blockquote>
+<ul>
+<li>LinkedHashMap 的实现<pre><code>protected boolean removeEldestEntry(Map.Entry&lt;K,V&gt; eldest) {
+      return false;
+  }
+</code></pre></li>
+<li>重写后的实现</li>
+</ul>
+<pre><code>public class LRUCache&lt;k,v&gt; extents LinkedHashMap&lt;k,v&gt;{
+    private int maxEntries;
+    public LRUCache(int maxEntries){
+        super(16,0.75,true);
+        this.maxEntries=maxEntries;
+    }
+
+    @override
+    protected boolean removeEldesEntry(Entry&lt;k,v&gt; eldest){
+        return size()&gt;maxentries;
+    }
+}
+
+</code></pre><p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2019/07/24/Android-数据结构之-LinkedHashMap/%20吾与尔%20Android 数据结构之 LinkedHashMap" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/08/30/Java-注解/" title="Java  注解"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Java  注解</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/06/30/Android-应用内存分析/" title="Android 应用内存分析">下一篇: Android 应用内存分析&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
+    new Valine({
+    el: '#vcomments',
+    appId: 'UmwJ3stwyISCG9WnW9Nc3SAN-gzGzoHsz',
+    appKey: 'UKq878kYn6RXJWx34b77lma6'})
+})();
+</script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>
