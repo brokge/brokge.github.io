@@ -30,14 +30,15 @@
 </li>
 </ul>
 <p>针对 Field 存在，但获取不到情况：<br>由于 getField 和 getDeclaredField 在父类获取的限制（参照反射.md）。<br>可以先获取 当前类的 父类，即 superClass ，然后 通过 getField或者getDeclaredField的方式获取</p>
-<pre><code>Class superClass = clzBase.getSuperclass();
-</code></pre><p><strong>3. 获取不到 Method</strong></p>
+<pre class="line-numbers language-java"><code class="language-java">Class <span class="token class-name">superClass</span> <span class="token operator">=</span> clzBase<span class="token punctuation">.</span><span class="token function">getSuperclass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><strong>3. 获取不到 Method</strong></p>
 <ul>
 <li><p>获取本身就不存在的 Method</p>
 <p> 抛出 NoSuchMethodException</p>
 </li>
 <li><p>参数类型不匹配而找不到</p>
-<p> 抛出NoSuchMethodException，传递参数的方式：<br><code>`</code><br>Method methodtest = class1.getDeclaredMethod(“test”,int.class,float.class);</p>
+<p> 抛出NoSuchMethodException，传递参数的方式：<br><code>`</code>java<br>Method methodtest = class1.getDeclaredMethod(“test”,int.class,float.class);</p>
 </li>
 </ul>
 <p>Method methodtest = class1.getDeclaredMethod(“test”,new Class[]{int.class,float.class});</p>
@@ -55,51 +56,46 @@
 **1. 操纵非 public 修饰的 Field**
 抛出 IllegalAccessException 错误
 
-</code></pre><p>field.setAccessible(true);</p>
-<pre><code>
-我这里以 private 为例，其实 protected 和 default 也是一样的，但是它们不同于 private 的地方在于，它们在本 package 范围内是可见的，有兴趣的同学可以测试一下，测试代码在一个 package，而测试的类在另外一个 package。
+```java
+field.setAccessible(true);
+</code></pre><p>我这里以 private 为例，其实 protected 和 default 也是一样的，但是它们不同于 private 的地方在于，它们在本 package 范围内是可见的，有兴趣的同学可以测试一下，测试代码在一个 package，而测试的类在另外一个 package。</p>
+<p><strong>2. 操纵一个 final 类型的 Field</strong><br>抛出 IllegalAccessException 错误</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>虽然被 public 修饰，但是它同样被 final 修饰，这在正常的开发流程说明这个属性不能够再被改变。</p>
+<p>如果要解决这个问题，同样可以使用 setAccessible(true) 方法</p>
+<p><strong>3. 操纵非 public 修饰的 Method</strong></p>
+<pre class="line-numbers language-java"><code class="language-java">method<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>通过 setAccessible(true) 同样可以解决这个问题。</p>
+<p><strong>4. 操纵非 public 修饰的 Constructor</strong></p>
+<p>同前面两种，同样是通过 setAccessible(true) 来搞定。</p>
+<p>所以，在反射中如果要操作被 private 修饰的对象，那么就必须调用它的 setAccessible(true)。</p>
+<h3 id="setAccessible-的秘密"><a href="#setAccessible-的秘密" class="headerlink" title="setAccessible() 的秘密"></a>setAccessible() 的秘密</h3><h3 id="Class-newInstance-和-Constructor-newInstance-的区别"><a href="#Class-newInstance-和-Constructor-newInstance-的区别" class="headerlink" title="Class.newInstance() 和 Constructor.newInstance() 的区别"></a>Class.newInstance() 和 Constructor.newInstance() 的区别</h3><p>Class.newInstance() 的使用有严格的限制，那就是一个 Class 对象中，必须存在一个无参数的 Constructor，并且这个 Constructor 必须要有访问的权限。</p>
+<p>通过 Constructor.newInstance() 却没有这种限制。Constructor.newInstance() 适应任何类型的 Constructor,无论它们有参数还是无参数，只要通过 setAccessible() 控制好访问权限就可以了。</p>
+<h3 id="谨慎使用-Method-invoke-方法"><a href="#谨慎使用-Method-invoke-方法" class="headerlink" title="谨慎使用 Method.invoke() 方法"></a>谨慎使用 Method.invoke() 方法</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span> Object<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span>
+        <span class="token keyword">throws</span> IllegalAccessException<span class="token punctuation">,</span> IllegalArgumentException<span class="token punctuation">,</span>
+           InvocationTargetException
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>第一个 Object 参数代表的是对应的 Class 对象实例，这在上面一节已经见识到了。而后面的参数就是可变形参了，它接受多个参数。我们考虑一种特殊情况。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestT</span><span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">{</span>
 
-**2. 操纵一个 final 类型的 Field**
-抛出 IllegalAccessException 错误
-</code></pre><p>setAccessible(true)</p>
-<pre><code>虽然被 public 修饰，但是它同样被 final 修饰，这在正常的开发流程说明这个属性不能够再被改变。
+    <span class="token keyword">public</span>  <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span>T t<span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
 
-如果要解决这个问题，同样可以使用 setAccessible(true) 方法
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这是一个泛型类，T 表示接受任意类型的参数。</p>
+<pre class="line-numbers language-java"><code class="language-java"> Method tMethod <span class="token operator">=</span> clzT<span class="token punctuation">.</span><span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">,</span>Integer<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ tMethod<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ tMethod<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestT</span><span class="token operator">&lt;</span>Integer<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-**3. 操纵非 public 修饰的 Method**
-</code></pre><p>method.setAccessible(true);</p>
-<pre><code>通过 setAccessible(true) 同样可以解决这个问题。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>报错 ：<br>NoSuchMethodException，提示找不到这个方法。原因是类型擦除。<br>当一个方法有泛型参数时，编译器会自动向上转型，T 向上转型是 Object。所以实际上是 void test(Object t); 上面的代码试图去找 test(Integer t) 这个方法，自然是找不到。</p>
+<pre class="line-numbers language-java"><code class="language-java">Method tMethod <span class="token operator">=</span> clzT<span class="token punctuation">.</span><span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">,</span>Object<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+tMethod<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-**4. 操纵非 public 修饰的 Constructor**
-
-同前面两种，同样是通过 setAccessible(true) 来搞定。
-
-所以，在反射中如果要操作被 private 修饰的对象，那么就必须调用它的 setAccessible(true)。
-
-### setAccessible() 的秘密
-
-### Class.newInstance() 和 Constructor.newInstance() 的区别
-
-Class.newInstance() 的使用有严格的限制，那就是一个 Class 对象中，必须存在一个无参数的 Constructor，并且这个 Constructor 必须要有访问的权限。
-
-通过 Constructor.newInstance() 却没有这种限制。Constructor.newInstance() 适应任何类型的 Constructor,无论它们有参数还是无参数，只要通过 setAccessible() 控制好访问权限就可以了。
-
-### 谨慎使用 Method.invoke() 方法
-
-</code></pre><p>public Object invoke(Object obj, Object… args)<br>        throws IllegalAccessException, IllegalArgumentException,<br>           InvocationTargetException</p>
-<pre><code>
-第一个 Object 参数代表的是对应的 Class 对象实例，这在上面一节已经见识到了。而后面的参数就是可变形参了，它接受多个参数。我们考虑一种特殊情况。
-</code></pre><p>public class TestT<t>{</t></p>
-<pre><code>public  void test(T t){}
-</code></pre><p>}</p>
-<pre><code>这是一个泛型类，T 表示接受任意类型的参数。
-</code></pre><p> Method tMethod = clzT.getDeclaredMethod(“test”,Integer.class);<br> tMethod.setAccessible(true);<br> tMethod.invoke(new TestT<integer>(),1);</integer></p>
-<pre><code>报错 ：
-NoSuchMethodException，提示找不到这个方法。原因是类型擦除。
-当一个方法有泛型参数时，编译器会自动向上转型，T 向上转型是 Object。所以实际上是 void test(Object t); 上面的代码试图去找 test(Integer t) 这个方法，自然是找不到。
-
-</code></pre><p>Method tMethod = clzT.getDeclaredMethod(“test”,Object.class);<br>tMethod.setAccessible(true);</p>
-<p>tMethod.invoke(new TestT<integer>(),1);<br><code>`</code></integer></p>
+tMethod<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestT</span><span class="token operator">&lt;</span>Integer<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="Method-中处理-Exception"><a href="#Method-中处理-Exception" class="headerlink" title="Method 中处理 Exception"></a>Method 中处理 Exception</h3><p>在 Java 反射中，一个 Method 执行时遭遇的异常会被包装在一个特定的异常中，这个异常就是 InvocationTargetException。</p>
 <p>总结：</p>
 <table>

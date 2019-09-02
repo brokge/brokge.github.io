@@ -5,57 +5,58 @@ Java 类加载和初始化我们知道 当要实例化一个类时，JVM会首�
 <h1 id="Java-类加载和初始化"><a href="#Java-类加载和初始化" class="headerlink" title="Java 类加载和初始化"></a>Java 类加载和初始化</h1><p>我们知道 当要实例化一个类时，JVM会首先加载该类，并且在加载过程中检查这个类是否有静态属性以及静态代码块，如果有，就按顺序分配内存并初始化他们，并且只在类加载的过程中初始化一次。</p>
 <p>对于构造代码块，以及普通属性，是在类实例化时进行的，并且每次实例化都会调用，并且普通属性先于构造代码块，构造代码块先于构造方法执行。</p>
 <p><img src="https://raw.githubusercontent.com/brokge/drawio/master/java-load-class.png" alt="流程图"></p>
-<pre><code>public class Main {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
 
-    //1
-    private static String staticValue = &quot;第一步 main 静态属性&quot; + System.currentTimeMillis();
+    <span class="token comment" spellcheck="true">//1</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> String staticValue <span class="token operator">=</span> <span class="token string">"第一步 main 静态属性"</span> <span class="token operator">+</span> System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    //3
-    private String value = &quot;第三步 main 普通属性&quot; + System.currentTimeMillis();
+    <span class="token comment" spellcheck="true">//3</span>
+    <span class="token keyword">private</span> String value <span class="token operator">=</span> <span class="token string">"第三步 main 普通属性"</span> <span class="token operator">+</span> System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    //2
-    static {
-        System.out.println(System.currentTimeMillis() + &quot;&quot;);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
+    <span class="token comment" spellcheck="true">//2</span>
+    <span class="token keyword">static</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-        }
-        System.out.println(staticValue);
-        System.out.println(System.currentTimeMillis() + &quot;&quot;);
-        System.out.println(&quot;第二步 main 静态代码块&quot;);
-    }
+        <span class="token punctuation">}</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>staticValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第二步 main 静态代码块"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    //4
-    {
-        System.out.println(System.currentTimeMillis() + &quot;&quot;);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
+    <span class="token comment" spellcheck="true">//4</span>
+    <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-        }
-        System.out.println(&quot;第四步 main 构造代码块 &quot;+System.currentTimeMillis());
-        //通过查看时间戳，常规属性是在 构造代码块之前就初始化。
-        System.out.println(value);
-    }
+        <span class="token punctuation">}</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第四步 main 构造代码块 "</span><span class="token operator">+</span>System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//通过查看时间戳，常规属性是在 构造代码块之前就初始化。</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    //5
-    private Main() {
-        System.out.println(&quot;第五步 main 构造方法&quot;);
-    }
+    <span class="token comment" spellcheck="true">//5</span>
+    <span class="token keyword">private</span> <span class="token function">Main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第五步 main 构造方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
 
-    public static String getString() {
-        System.out.println(&quot;getString()&quot;);
-        return &quot;&quot;;
-    }
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">getString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"getString()"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) {
-        Main main = new Main();
-    }
-}
-</code></pre><p>控制台输出：</p>
-<pre><code>1565683686844
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Main main <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>控制台输出：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">1565683686844
 第一步 main 静态属性1565683686844
 1565683687848
 第二步 main 静态代码块
@@ -64,7 +65,8 @@ Java 类加载和初始化我们知道 当要实例化一个类时，JVM会首�
 第三步 main 普通属性1565683687849
 第五步 main 构造方法
 
-</code></pre><p>可以发现第三步和第四步顺序是掉换的，但是根据时间戳知道，第三步是发生在第四部之前，也就是说第三步的普通属性的初始化在构造代码块之前执行。</p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以发现第三步和第四步顺序是掉换的，但是根据时间戳知道，第三步是发生在第四部之前，也就是说第三步的普通属性的初始化在构造代码块之前执行。</p>
 <h3 id="类什么时候加载？"><a href="#类什么时候加载？" class="headerlink" title="类什么时候加载？"></a>类什么时候加载？</h3><p>加载时机：</p>
 <blockquote>
 <ol>
@@ -92,8 +94,9 @@ Java 类加载和初始化我们知道 当要实例化一个类时，JVM会首�
 <ul>
 <li>静态域=静态变量</li>
 </ul>
-<pre><code>private static String staticValue =&quot;静态域&quot;;
-</code></pre><blockquote>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> String staticValue <span class="token operator">=</span><span class="token string">"静态域"</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
 <p>静态域：如果将类中的域定义为static，则这个域属于这个类，而不属于这个类的某个对象，每个类中只有 一个这样的域，而每一个类对象对于所有的实例域(即没有定义为static的域)都有自己的一份拷贝。例如：</p>
 <pre><code>class Employee {
 　　private int id;
@@ -104,41 +107,47 @@ Java 类加载和初始化我们知道 当要实例化一个类时，JVM会首�
 <ul>
 <li>实例域=非静态变量</li>
 </ul>
-<pre><code>private  String staticValue =&quot;实例域&quot;;
-</code></pre><ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span>  String staticValue <span class="token operator">=</span><span class="token string">"实例域"</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
 <li>静态常量=final</li>
 </ul>
-<pre><code>private final static String staticValue =&quot;静态常量&quot;;
-</code></pre><ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> String staticValue <span class="token operator">=</span><span class="token string">"静态常量"</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
 <li>静态方法</li>
 </ul>
-<pre><code>public static String getString() {
-        System.out.println(&quot;getString()&quot;);
-        return &quot;&quot;;
-}
-</code></pre><ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">getString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"getString()"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
 <li>静态代码块</li>
 </ul>
-<pre><code>static {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">static</span> <span class="token punctuation">{</span>
 
-}
-</code></pre><ul>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ul>
 <li>构造代码块</li>
 </ul>
-<pre><code>{
-    System.out.println(&quot;构造代码块&quot;);
-}
+<pre class="line-numbers language-java"><code class="language-java"><span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"构造代码块"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-</code></pre><ul>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
 <li>构造方法</li>
 </ul>
-<pre><code>class main{
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">main</span><span class="token punctuation">{</span>
 
-   private main(){
-        System.out.println(&quot;构造方法&quot;);
-    }
-}
-</code></pre><h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/index.html" target="_blank" rel="noopener">类加载器</a></p>
+   <span class="token keyword">private</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"构造方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/index.html" target="_blank" rel="noopener">类加载器</a></p>
 <p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2019/07/30/JVM-类加载和初始化/%20吾与尔%20JVM 类加载和初始化" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/08/30/Java-注解/" title="Java  注解"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Java  注解</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/07/24/Android-数据结构之-LinkedHashMap/" title="Android 数据结构之 LinkedHashMap">下一篇: Android 数据结构之 LinkedHashMap&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
     new Valine({
     el: '#vcomments',

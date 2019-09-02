@@ -3,12 +3,13 @@ Bundle 相当于传输过程的邮包，"><meta name="keywords" content="吾与�
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">吾与尔</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Android Bundle 详解 </a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-07-10</span></p><p class="post-abstract"></p><h2 id="Bundle"><a href="#Bundle" class="headerlink" title="Bundle"></a>Bundle</h2><p>我们都知道，在 Android 应用开发中，需要数据和状态的传递，其中还包括在 跨进程 之间的传递 （比如 IPC/Binder）。关于数据传递有多种方式，其中最常见的就是通过 Bundle 。Bundle 中文意思：捆; 一批，顾名思义就很直观了。</p>
 <p>Bundle 相当于传输过程的邮包，里面包裹的是具体的数据。</p>
 <h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><p>Activity 之间可以通过 创建 intent 并传递参数 的方式来传递，</p>
-<pre><code>Intent intent = new Intent(this, MyActivity.class);
-intent.putExtra(&quot;media_id&quot;, &quot;a1b2c3&quot;);
-...
-startActivity(intent);
+<pre class="line-numbers language-java"><code class="language-java">Intent intent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Intent</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> MyActivity<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+intent<span class="token punctuation">.</span><span class="token function">putExtra</span><span class="token punctuation">(</span><span class="token string">"media_id"</span><span class="token punctuation">,</span> <span class="token string">"a1b2c3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token function">startActivity</span><span class="token punctuation">(</span>intent<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-</code></pre><p>在当前 Activity 打包数据，在 目标 Activity 解包数据。</p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在当前 Activity 打包数据，在 目标 Activity 解包数据。</p>
 <blockquote>
 <p>通过查看 Api ,我们可以知道 一些常规数据类型，如：int、string、boolean 等经过简单的设置，都没什么问题。但是我们如果想通过一定机制，传递一些复杂的复合对象呢？<br>这就需要 Parcelables 了。<br>传递复杂数据 可以查看相应的文章。</p>
 </blockquote>
@@ -25,54 +26,59 @@ startActivity(intent);
 <p>Parcel不是通用的序列化机制（Serializable是通用的序列化机制） 所以不能把 Parcel数据存储在磁盘上或通过网络发送出去。</p>
 </blockquote>
 <h5 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h5><p>通过源码查看，Bundle 继承 BaseBundle 且实现了 Parcelable 接口。BaseBundle 内部 维护一个 ArrayMap&lt;String, Object&gt; mMap 常量来承载我们需要操作的对象。</p>
-<pre><code>public final class Bundle extends BaseBundle implements Cloneable, Parcelable
-</code></pre><p>BaseBundle 声明常量 mMap：</p>
-<pre><code> ArrayMap&lt;String, Object&gt; mMap = null;
-</code></pre><p>通过 </p>
-<pre><code>Bundle bundle=new Bundle();
-bundle.putXX(Object object);
-</code></pre><p>实际上内部执行的是对 ArrayMap 的操作</p>
-<pre><code>void putXXX(@Nullable String key, Object value) {
-        unparcel();
-        mMap.put(key, value);
-    }
-</code></pre><h2 id="Parcelable"><a href="#Parcelable" class="headerlink" title="Parcelable"></a>Parcelable</h2><p>假设我们需要将<code>String  str = &quot;Hanmeimei&quot;;</code>，从 Activity  A 传递到 Activity B 时，我们可以使用  intent.putExtra(“name”,str ); 这样在 Activity B 中就能获取到由 Activity A 传递过来的字符串 str  .那么如果我想将一个对象由 Activity  A 传递到  Activity B 该怎么办，比如 User 对象。</p>
-<pre><code>public class User {
-    private String name;
-    private String password;
-    private String age;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Bundle</span> <span class="token keyword">extends</span> <span class="token class-name">BaseBundle</span> <span class="token keyword">implements</span> <span class="token class-name">Cloneable</span><span class="token punctuation">,</span> Parcelable
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>BaseBundle 声明常量 mMap：</p>
+<pre class="line-numbers language-java"><code class="language-java"> ArrayMap<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> mMap <span class="token operator">=</span> null<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>通过 </p>
+<pre class="line-numbers language-java"><code class="language-java">Bundle bundle<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Bundle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+bundle<span class="token punctuation">.</span><span class="token function">putXX</span><span class="token punctuation">(</span>Object object<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>实际上内部执行的是对 ArrayMap 的操作</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">putXXX</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> String key<span class="token punctuation">,</span> Object value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">unparcel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Parcelable"><a href="#Parcelable" class="headerlink" title="Parcelable"></a>Parcelable</h2><p>假设我们需要将<code>String  str = &quot;Hanmeimei&quot;;</code>，从 Activity  A 传递到 Activity B 时，我们可以使用  intent.putExtra(“name”,str ); 这样在 Activity B 中就能获取到由 Activity A 传递过来的字符串 str  .那么如果我想将一个对象由 Activity  A 传递到  Activity B 该怎么办，比如 User 对象。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String password<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String age<span class="token punctuation">;</span>
 
-    public String getName() {
-        return name;
-    }
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public String getPassword() {
-        return password;
-    }
+    <span class="token keyword">public</span> String <span class="token function">getPassword</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> password<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setPassword</span><span class="token punctuation">(</span>String password<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>password <span class="token operator">=</span> password<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public String getAge() {
-        return age;
-    }
+    <span class="token keyword">public</span> String <span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void setAge(String age) {
-        this.age = age;
-    }
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAge</span><span class="token punctuation">(</span>String age<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public User(String name, String password, String age) {
-        this.name = name;
-        this.password = password;
-        this.age = age;
-    }
-}
-</code></pre><p>Android 并没有提供在两个 activity之间传递任意对象或者引用的方法，但是就是需要传递对象该怎么办呢，这个时候就需要  让该对象实现 Android 提供的 parcelable接口，说到 parcelable 就得说Parcel。</p>
+    <span class="token keyword">public</span> <span class="token function">User</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> String password<span class="token punctuation">,</span> String age<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>password <span class="token operator">=</span> password<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Android 并没有提供在两个 activity之间传递任意对象或者引用的方法，但是就是需要传递对象该怎么办呢，这个时候就需要  让该对象实现 Android 提供的 parcelable接口，说到 parcelable 就得说Parcel。</p>
 <h4 id="Parcel-是什么？"><a href="#Parcel-是什么？" class="headerlink" title="Parcel 是什么？"></a>Parcel 是什么？</h4><p>简单说Parcel就是一个存放读取数据的容器， Android系统中的binder进程间通信(IPC)就使用了Parcel类来进行客户端与服务端数据的交互，而且AIDL的数据也是通过Parcel来交互的。在Java空间和C++都实现了Parcel，由于它在C/C++中，直接使用了内存来读取数据，因此，它更有效率。Parcel不是通用的序列化机制（Serialize 是通用的序列化机制） 所以不能把 Parcel数据存储在磁盘上或通过网络传输。</p>
 <p>Parcel 的标记接口 是 Parcelable，如果该对象实现了parcelable接口，且实现了对应的方法，就拥有了 Parcel 的特性。</p>
 <h4 id="Parcelable-在数据传递的用法"><a href="#Parcelable-在数据传递的用法" class="headerlink" title="Parcelable 在数据传递的用法"></a>Parcelable 在数据传递的用法</h4><p>在Android 对象传递需求中，那么就可以利用下图红框中的方法进行传递了，putExtra(String name,Parcelable user);可以看出，我们可以传递一个实现 Parcelable接口的对象了</p>
@@ -82,10 +88,11 @@ bundle.putXX(Object object);
 <li>默认的序列化是深度系列化（即类中嵌套其他对象引用的对象也会被序列化）。</li>
 <li>静态成员不会被默认序列化，要让一个类支持序列化只要让这个类实现接口 java.io.Serializable 即可</li>
 </ol>
-<pre><code>package java.io;
-public interface Serializable {
-}
-</code></pre><p>以上是 <code>Serializable</code> 的接口定义，且 <code>Serializable</code> 只是一个没有定义任何方法的标记接口。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> java<span class="token punctuation">.</span>io<span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Serializable</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>以上是 <code>Serializable</code> 的接口定义，且 <code>Serializable</code> 只是一个没有定义任何方法的标记接口。</p>
 <p>#####为什么定义标记接口即可实现序列化了呢？</p>
 <p>声明实现 <code>Serializable</code> 接口后保存读取对象就可以使用 <code>ObjectOutputStream</code>、<code>ObjectInputStream</code> 流了，<code>ObjectOutputStream</code> 是 <code>OutputStream</code> 的子类，但实现了 <code>ObjectOutput</code> 接口，<code>ObjectOutput</code> 是 <code>DataOutput</code> 的子接口，增加了一个 <code>writeObject(Object obj)</code> 方法将对象转化为字节写到流中，<code>ObjectInputStream</code> 是 <code>InputStream</code> 的子类，实现了<code>ObjectInput</code> 接口，<code>ObjectInput</code> 是 <code>DataInput</code> 的子接口，增加了一个 <code>readObject()</code> 方法从流中读取字节转为对象。</p>
 <blockquote>
@@ -96,32 +103,33 @@ public interface Serializable {
 <p>虚拟机是否允许反序列化不仅取决于类路径和功能代码是否一致，还取决于另一个非常重要的点是两个类的序列化 ID 是否一致（就是 <code>private static final long serialVersionUID = 1L</code>）。</p>
 <p>因为声明实现 <code>Serializable</code> 接口后保存读取对象就可以使用 <code>ObjectOutputStream</code>、<code>ObjectInputStream</code> 流了，<code>ObjectOutputStream</code> 的 <code>writeObject(Object obj)</code>方法将对象转化为字节写到流中，<code>ObjectInputStream</code> 的 <code>readObject()</code> 方法从流中读取字节转为对象，<code>Serializable</code> 虽然是一个空接口，但是在调用 <code>writeObject</code> 方法时却充当了一种健全的校验作用，如果对象没有实现 <code>Serializable</code> 则在调用 <code>writeObject</code> 时就会抛出异常，所以说 <code>Serializable</code> 算是一种接口标识机制。</p>
 <p>如下为 <code>ObjectOutputStream</code> 中 <code>writeObject(Object obj)</code> 的核心标记判断：</p>
-<pre><code> private void writeObject0 (Object obj, boolean unshared) throws IOException {
-        try {
-            if(obj instanceof Class) {
-                writeClass((Class) obj, unshared);
-            } else if(obj instanceof ObjectStreamClass) {
-                writeClassDesc((ObjectStreamClass) obj, unshared);
-            } else if(obj instanceof String) {
-                writeString((String) obj, unshared);
-            } else if(cl.isArray()) {
-                writeArray(obj, desc, unshared);
-            } else if(obj instanceof Enum) {
-                writeEnum((Enum) obj, desc, unshared);
-            } else if(obj instanceof Serializable) {
-                writeOrdinaryObject(obj, desc, unshared);
-            } else {
-                if(extendedDebugInfo) {
-                    throw new NotSerializableException(cl.getName() + &quot;\n&quot; + debugInfoStack.toString());
-                } else {
-                    throw new NotSerializableException(cl.getName());
-                }
-            }
-        } finally {
-        }
-    }
+<pre class="line-numbers language-java"><code class="language-java"> <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">writeObject0</span> <span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span> <span class="token keyword">boolean</span> unshared<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>obj <span class="token keyword">instanceof</span> <span class="token class-name">Class</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">writeClass</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Class<span class="token punctuation">)</span> obj<span class="token punctuation">,</span> unshared<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>obj <span class="token keyword">instanceof</span> <span class="token class-name">ObjectStreamClass</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">writeClassDesc</span><span class="token punctuation">(</span><span class="token punctuation">(</span>ObjectStreamClass<span class="token punctuation">)</span> obj<span class="token punctuation">,</span> unshared<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>obj <span class="token keyword">instanceof</span> <span class="token class-name">String</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">writeString</span><span class="token punctuation">(</span><span class="token punctuation">(</span>String<span class="token punctuation">)</span> obj<span class="token punctuation">,</span> unshared<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>cl<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">writeArray</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> desc<span class="token punctuation">,</span> unshared<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>obj <span class="token keyword">instanceof</span> <span class="token class-name">Enum</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">writeEnum</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Enum<span class="token punctuation">)</span> obj<span class="token punctuation">,</span> desc<span class="token punctuation">,</span> unshared<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>obj <span class="token keyword">instanceof</span> <span class="token class-name">Serializable</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">writeOrdinaryObject</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> desc<span class="token punctuation">,</span> unshared<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>extendedDebugInfo<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NotSerializableException</span><span class="token punctuation">(</span>cl<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"\n"</span> <span class="token operator">+</span> debugInfoStack<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NotSerializableException</span><span class="token punctuation">(</span>cl<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-</code></pre><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>通过以上我们了解 Serializable 和 Parcelable都可以实现复杂数据结构的封装传输，两者的区别是什么？</p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>通过以上我们了解 Serializable 和 Parcelable都可以实现复杂数据结构的封装传输，两者的区别是什么？</p>
 <blockquote>
 <ul>
 <li><strong>两者的设计初衷：</strong></li>

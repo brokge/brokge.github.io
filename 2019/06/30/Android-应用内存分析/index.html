@@ -37,9 +37,10 @@
 <ol start="2">
 <li>通过 sdk 目录 platform-tools/hprof-conv 工具进行转换</li>
 </ol>
-<pre><code>hrpof-conv -z [待转换.hprof]  [转换后.hprof]
+<pre class="line-numbers language-bash"><code class="language-bash">hrpof-conv -z <span class="token punctuation">[</span>待转换.hprof<span class="token punctuation">]</span>  <span class="token punctuation">[</span>转换后.hprof<span class="token punctuation">]</span>
 
-</code></pre><ol start="3">
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="3">
 <li>以上转换后的 .hprof文件，通过 mat 打开，然后点击  histogram 。</li>
 </ol>
 <blockquote>
@@ -54,25 +55,27 @@
 </ol>
 <p>在 <code>AndroidManifest.xml</code>中的 Application节点中声明即可分配到更大的堆内存, <code>android:largeHeap</code>标记在 Android系统应用中也有广泛的应用 ,比如 Launcher, Browser这些内存大户上均有使用.</p>
 <ol start="3">
-<li>mat 打开工具栏 <code>QQL</code>图标，可以使用 类sql 语句筛查<pre><code>select * from instanceof android.app.Activity
-</code></pre></li>
+<li>mat 打开工具栏 <code>QQL</code>图标，可以使用 类sql 语句筛查<pre class="line-numbers language-bash"><code class="language-bash"><span class="token keyword">select</span> * from instanceof android.app.Activity
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
 <li>mat 中 Actions 中的概念</li>
 </ol>
-<pre><code># Histogram
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># Histogram</span>
 列出内存中的对象，对象的个数以及大小。
 
-# Dominator Tree
+<span class="token comment" spellcheck="true"># Dominator Tree</span>
 列出最大的对象以及其依赖存活的Object （大小是以Retained Heap为标准排序的）。
 
-# Top Consumers
+<span class="token comment" spellcheck="true"># Top Consumers</span>
 通过图形列出最大的object。
 
-# Shallow heap
+<span class="token comment" spellcheck="true"># Shallow heap</span>
 Shallow size就是对象本身占用内存的大小，不包含其引用的对象。针对非数组类型的对象，它的大小就是对象与它所有的成员变量大小的总和。当然这里面还会包括一些java语言特性的数据存储单元。针对数组类型的对象，它的大小是数组元素对象的大小总和。
 
-#Retained Heap
-它表示如果一个对象被释放掉，那会因为该对象的释放而减少引用进而被释放的所有的对象（包括被递归释放的）所占用的heap大小。(间接引用的含义：A-&gt;B-&gt;C, C就是间接引用。不过，释放的时候还要排除被GC Roots直接或间接引用的对象。他们暂时不会被被当做Garbage）
-</code></pre><p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2019/06/30/Android-应用内存分析/%20吾与尔%20Android 应用内存分析" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/07/10/Android-Bundle/" title="Android Bundle 详解 "><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Android Bundle 详解 </a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/05/20/Android-多线程开发实践/" title="Android 多线程开发实践">下一篇: Android 多线程开发实践&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
+<span class="token comment" spellcheck="true">#Retained Heap</span>
+它表示如果一个对象被释放掉，那会因为该对象的释放而减少引用进而被释放的所有的对象（包括被递归释放的）所占用的heap大小。<span class="token punctuation">(</span>间接引用的含义：A-<span class="token operator">></span>B-<span class="token operator">></span>C, C就是间接引用。不过，释放的时候还要排除被GC Roots直接或间接引用的对象。他们暂时不会被被当做Garbage）
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2019/06/30/Android-应用内存分析/%20吾与尔%20Android 应用内存分析" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/07/10/Android-Bundle/" title="Android Bundle 详解 "><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Android Bundle 详解 </a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/05/20/Android-多线程开发实践/" title="Android 多线程开发实践">下一篇: Android 多线程开发实践&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
     new Valine({
     el: '#vcomments',
     appId: 'UmwJ3stwyISCG9WnW9Nc3SAN-gzGzoHsz',

@@ -27,17 +27,18 @@
 <ul>
 <li>用 @Singleton 标注在目标单例上，然后用 @Singleton 标注在 Component 对象上。</li>
 <li><p>如果要以 @Provides 方式提供单例的话，需要用 @Singleton 注解依赖提供的方法</p>
-<pre><code> @Module
- public class SecondActivityModule {
+<pre class="line-numbers language-java"><code class="language-java"> <span class="token annotation punctuation">@Module</span>
+ <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SecondActivityModule</span> <span class="token punctuation">{</span>
 
-     @Provides
-     @Singleton
-     public TestSingleton provideTestSingleton(){
-         return new TestSingleton();
-      }
- }
+     <span class="token annotation punctuation">@Provides</span>
+     <span class="token annotation punctuation">@Singleton</span>
+     <span class="token keyword">public</span> TestSingleton <span class="token function">provideTestSingleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+         <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">TestSingleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
 
-</code></pre></li>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 <li>@Singleton 是一个注解，但是它被一个元注解 @Scope 注解了</li>
 <li>为什么要用 @Singleton 同时标注 @Provides 和 @Component ?<blockquote>
 <p>Component 是联系需求与依赖的纽带，所以用 @Singleton 确定的单例作用域应该也是在 Component 的范围内。也就是说 @Scope 的作用范围其实就是单例能力范围，这个范围在单个的 Component 中.</p>
@@ -46,86 +47,93 @@
 </ul>
 <p><strong>@Qualifiers 和 @Name</strong></p>
 <p>@Name 只是被 @Qualifier 注解的一个注解。所以，它能够有效完全是因为 @Qualifier</p>
-<pre><code>@Qualifier
-@Documented
-@Retention(RUNTIME)
-public @interface Named {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Qualifier</span>
+<span class="token annotation punctuation">@Documented</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RUNTIME<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Named</span> <span class="token punctuation">{</span>
 
-    /** The name. */
-    String value() default &quot;&quot;;
-}
-</code></pre><p>完全可以自定义不同的注解，避免通过 Named 的方式容易拼错的问题。 </p>
-<pre><code>@Qualifier
-@Documented
-@Target({ElementType.FIELD,ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface B {
-}
-</code></pre><p>使用时</p>
-<pre><code>   @Provides
-    @Named(&quot;A&quot;)
-    public int provideIntA(){
-        return 111;
-    }
-    @Provides
-    @B
-    public int provideIntB(){
-        return 222;
-    }
+    <span class="token comment" spellcheck="true">/** The name. */</span>
+    String <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">""</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>完全可以自定义不同的注解，避免通过 Named 的方式容易拼错的问题。 </p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Qualifier</span>
+<span class="token annotation punctuation">@Documented</span>
+<span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span>ElementType<span class="token punctuation">.</span>FIELD<span class="token punctuation">,</span>ElementType<span class="token punctuation">.</span>METHOD<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">B</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用时</p>
+<pre class="line-numbers language-java"><code class="language-java">   <span class="token annotation punctuation">@Provides</span>
+    <span class="token annotation punctuation">@Named</span><span class="token punctuation">(</span><span class="token string">"A"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">provideIntA</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">111</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Provides</span>
+    <span class="token annotation punctuation">@B</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">provideIntB</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">222</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    @Inject
-    @Named(&quot;A&quot;)
-    int testValueA;
+    <span class="token annotation punctuation">@Inject</span>
+    <span class="token annotation punctuation">@Named</span><span class="token punctuation">(</span><span class="token string">"A"</span><span class="token punctuation">)</span>
+    <span class="token keyword">int</span> testValueA<span class="token punctuation">;</span>
 
-    @Inject
-    @B
-    int testValueB;
-</code></pre><p><strong>Dagger2 中的延迟加载</strong></p>
+    <span class="token annotation punctuation">@Inject</span>
+    <span class="token annotation punctuation">@B</span>
+    <span class="token keyword">int</span> testValueB<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>Dagger2 中的延迟加载</strong></p>
 <p>所谓的延迟加载，是当我们使用的时候再去实例化,比如以下方式。</p>
-<pre><code>public class TestLazy {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestLazy</span> <span class="token punctuation">{</span>
 
-    String name;
+    String name<span class="token punctuation">;</span>
 
-    public String getName() {
-        if ( name == null ) {
-            name = &quot;TestLazy&quot;;
-        }
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span> name <span class="token operator">==</span> null <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            name <span class="token operator">=</span> <span class="token string">"TestLazy"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        return name;
-    }
-}
-</code></pre><p>Dagger2 提供了延迟加载能力。只需要通过 Lazy 就好了，Lazy 是泛型类，接受任何类型的参数。</p>
-<pre><code>public class TestLazy {
+        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Dagger2 提供了延迟加载能力。只需要通过 Lazy 就好了，Lazy 是泛型类，接受任何类型的参数。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestLazy</span> <span class="token punctuation">{</span>
 
-    @Inject
-    @Named(&quot;TestLazy&quot;)
-    Lazy&lt;String&gt; name;
+    <span class="token annotation punctuation">@Inject</span>
+    <span class="token annotation punctuation">@Named</span><span class="token punctuation">(</span><span class="token string">"TestLazy"</span><span class="token punctuation">)</span>
+    Lazy<span class="token operator">&lt;</span>String<span class="token operator">></span> name<span class="token punctuation">;</span>
 
-    public String getName() {
-        return name.get();
-    }
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> name<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-}
+<span class="token punctuation">}</span>
 
-</code></pre><p><strong>多个component之间的依赖</strong></p>
-<pre><code>@Component(modules = {ShangjiaAModule.class, XiaoChiModule.class},dependencies = XiaoChiComponent.class)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>多个component之间的依赖</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Component</span><span class="token punctuation">(</span>modules <span class="token operator">=</span> <span class="token punctuation">{</span>ShangjiaAModule<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> XiaoChiModule<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">,</span>dependencies <span class="token operator">=</span> XiaoChiComponent<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
 
-</code></pre><p><strong>SubComponent</strong><br>Java 软件开发中，我们经常面临的就是“组合”和“继承”的概念。它们都是为了扩展某个类的功能。<br>前面的 Component 的依赖采用 @Component(dependecies=othercomponent.class) 就相当于组合。<br>那么在 Dagger2 中，运用 @SubComponent 标记一个 Component 的行为相当于继承。</p>
-<pre><code>@Subcomponent(modules = FoodModule.class)
-public interface SubComponent {
-    void inject(ThirdActivity activity);
-}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>SubComponent</strong><br>Java 软件开发中，我们经常面临的就是“组合”和“继承”的概念。它们都是为了扩展某个类的功能。<br>前面的 Component 的依赖采用 @Component(dependecies=othercomponent.class) 就相当于组合。<br>那么在 Dagger2 中，运用 @SubComponent 标记一个 Component 的行为相当于继承。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Subcomponent</span><span class="token punctuation">(</span>modules <span class="token operator">=</span> FoodModule<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">SubComponent</span> <span class="token punctuation">{</span>
+    <span class="token keyword">void</span> <span class="token function">inject</span><span class="token punctuation">(</span>ThirdActivity activity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-@Component(modules = XiaoChiModule.class)
-public interface ParentComponent {
-    SubComponent provideSubComponent();
-}
+<span class="token annotation punctuation">@Component</span><span class="token punctuation">(</span>modules <span class="token operator">=</span> XiaoChiModule<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">ParentComponent</span> <span class="token punctuation">{</span>
+    SubComponent <span class="token function">provideSubComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
 
-DaggerParentComponent.builder().build()
-                .provideSubComponent().inject(this);
+DaggerParentComponent<span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">provideSubComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">inject</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-</code></pre><p>使用 Subcomponent 时，还是要先构造 ParentComponent 对象，然后通过它提供的 SubComponent 再去进行依赖注入。</p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用 Subcomponent 时，还是要先构造 ParentComponent 对象，然后通过它提供的 SubComponent 再去进行依赖注入。</p>
 <p>大家可以细细观察下它与 depedency 方法的不同之处。</p>
 <p>但是，SubComponent 同时具备了 ParentComponent 和自身的 @Scope 作用域。所以，这经常会造成混乱的地方。大家需要注意。</p>
 <p>如果你要我比较，SubComponent 和 dependency 形式哪种更好时，我承认各有优点，但我自己倾向于 dependency，因为它更灵活。</p>

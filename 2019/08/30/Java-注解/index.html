@@ -91,94 +91,107 @@ java 内置注解
 </ul>
 <h3 id="定义注解"><a href="#定义注解" class="headerlink" title="定义注解"></a>定义注解</h3><p><strong>1. 基本定义</strong></p>
 <p>定义新的注解类型使用 @interface 关键字。</p>
-<pre><code>public @interface Cup{
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Cup</span><span class="token punctuation">{</span>
 
-}
+<span class="token punctuation">}</span>
 
-</code></pre><p>程序中使用该注解：</p>
-<pre><code>@Cup
-public class AnnotationTest{
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>程序中使用该注解：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Cup</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AnnotationTest</span><span class="token punctuation">{</span>
 
-}
+<span class="token punctuation">}</span>
 
-</code></pre><p><strong>2. 定义成员变量(注解的属性)</strong></p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>2. 定义成员变量(注解的属性)</strong></p>
 <p>注解 只有成员变量，没有方法。注解的成员变量在注解定义中以“无形参的方法”形式来声明，其“方法名”定义了该成员变量的名字，其返回值定义了该成员变量的类型；</p>
-<pre><code>public @interface Cup{
-    String name();
-    int price();
-}
-</code></pre><p>上面两个成员变量以方法的形式来定义。使用该注解时候就应该为该成员变量赋值</p>
-<pre><code>pubilc class AnnotationTest(){
-    @Cup(name=&quot;马克杯&quot;,price=100)
-    public void drink(){
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Cup</span><span class="token punctuation">{</span>
+    String <span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token function">price</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面两个成员变量以方法的形式来定义。使用该注解时候就应该为该成员变量赋值</p>
+<pre class="line-numbers language-java"><code class="language-java">pubilc <span class="token keyword">class</span> <span class="token class-name">AnnotationTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Cup</span><span class="token punctuation">(</span>name<span class="token operator">=</span><span class="token string">"马克杯"</span><span class="token punctuation">,</span>price<span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">drink</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
 
-    }
-}
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-</code></pre><p>也可以在定义注解的时候通过 default 来指定默认值：</p>
-<pre><code>public @interface Cup{
-   String name() default &quot;马克杯&quot;;
-   int price() default 100;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>也可以在定义注解的时候通过 default 来指定默认值：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Cup</span><span class="token punctuation">{</span>
+   String <span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">"马克杯"</span><span class="token punctuation">;</span>
+   <span class="token keyword">int</span> <span class="token function">price</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token number">100</span><span class="token punctuation">;</span>
 
-}
-</code></pre><p><strong>3. 定义运行时注解</strong></p>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>3. 定义运行时注解</strong></p>
 <p>使用@Retention 来设定注解的保留策略 ，这三哥策略的生命周期长度为：SOURCE&lt;CLASS&lt;RUNTIME.</p>
-<pre><code>@Retention(RetentionPolicy.RUNTIME)
-public @interface Cup{
-    String name() default &quot;马克杯&quot;;
-    int price() default 100;
-}
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Cup</span><span class="token punctuation">{</span>
+    String <span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">"马克杯"</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token function">price</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token number">100</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-</code></pre><p><strong>4. 定义编译时注解</strong></p>
-<pre><code>@Retention(RetentionPolicy.CLASS)
-public @interface Cup{
-    String name() default &quot;马克杯&quot;;
-    int price() default 100;
-}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>4. 定义编译时注解</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>CLASS<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Cup</span><span class="token punctuation">{</span>
+    String <span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">"马克杯"</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token function">price</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token number">100</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-</code></pre><p><strong>5. Repeatable 定义可重复注解</strong></p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>5. Repeatable 定义可重复注解</strong></p>
 <p>Repeatable 自然是可重复的意思。@Repeatable 是 Java 1.8 才加进来的，所以算是一个新的特性。</p>
 <p>什么样的注解会多次应用呢？通常是注解的值可以同时取多个。</p>
 <p>举个例子，一个人他既是程序员又是产品经理,同时他还是个画家。</p>
-<pre><code>
-@interface Persons {
-    Person[]  value();
-}
+<pre class="line-numbers language-java"><code class="language-java">
+@<span class="token keyword">interface</span> <span class="token class-name">Persons</span> <span class="token punctuation">{</span>
+    Person<span class="token punctuation">[</span><span class="token punctuation">]</span>  <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
 
-@Repeatable(Persons.class)
-@interface Person{
-    String role default &quot;&quot;;
-}
+<span class="token annotation punctuation">@Repeatable</span><span class="token punctuation">(</span>Persons<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+@<span class="token keyword">interface</span> <span class="token class-name">Person</span><span class="token punctuation">{</span>
+    String role <span class="token keyword">default</span> <span class="token string">""</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
 
-@Person(role=&quot;artist&quot;)
-@Person(role=&quot;coder&quot;)
-@Person(role=&quot;PM&quot;)
-public class SuperMan{
+<span class="token annotation punctuation">@Person</span><span class="token punctuation">(</span>role<span class="token operator">=</span><span class="token string">"artist"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Person</span><span class="token punctuation">(</span>role<span class="token operator">=</span><span class="token string">"coder"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Person</span><span class="token punctuation">(</span>role<span class="token operator">=</span><span class="token string">"PM"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SuperMan</span><span class="token punctuation">{</span>
 
-}
+<span class="token punctuation">}</span>
 
 
-</code></pre><p>注意上面的代码，@Repeatable 注解了 Person。而 @Repeatable 后面括号中的类相当于一个容器注解。</p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>注意上面的代码，@Repeatable 注解了 Person。而 @Repeatable 后面括号中的类相当于一个容器注解。</p>
 <p>什么是容器注解呢？就是用来存放其它注解的地方。它本身也是一个注解。</p>
 <p>以下代码中就是相关容器注解。</p>
-<pre><code>@interface Persons {
-    Person[]  value();
-}
+<pre class="line-numbers language-java"><code class="language-java">@<span class="token keyword">interface</span> <span class="token class-name">Persons</span> <span class="token punctuation">{</span>
+    Person<span class="token punctuation">[</span><span class="token punctuation">]</span>  <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-</code></pre><h3 id="二、注解的提取"><a href="#二、注解的提取" class="headerlink" title="二、注解的提取"></a>二、注解的提取</h3><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
-<pre><code>public boolean isAnnotationPresent(Class&lt;? extends Annotation&gt; annotationClass) {}
-</code></pre><p>然后通过 getAnnotation() 方法来获取 Annotation 对象。</p>
-<pre><code>public &lt;A extends Annotation&gt; A getAnnotation(Class&lt;A&gt; annotationClass) {}
-</code></pre><p>或者是 getAnnotations() 方法。</p>
-<pre><code>public Annotation[] getAnnotations() {}
-</code></pre><p>前一种方法返回指定类型的注解，后一种方法返回注解到这个元素上的所有注解。</p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="二、注解的提取"><a href="#二、注解的提取" class="headerlink" title="二、注解的提取"></a>二、注解的提取</h3><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isAnnotationPresent</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然后通过 getAnnotation() 方法来获取 Annotation 对象。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token operator">&lt;</span>A <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> A <span class="token function">getAnnotation</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span>A<span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>或者是 getAnnotations() 方法。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Annotation<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getAnnotations</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>前一种方法返回指定类型的注解，后一种方法返回注解到这个元素上的所有注解。</p>
 <p>在处理的注解的过程中可能会用到以下方法</p>
-<pre><code>Field getDeclaredField(String attrbuteName);
+<pre class="line-numbers language-java"><code class="language-java">Field <span class="token function">getDeclaredField</span><span class="token punctuation">(</span>String attrbuteName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-Method getDeclaredMethod(String methodName);
-</code></pre><h3 id="三、其他"><a href="#三、其他" class="headerlink" title="三、其他"></a>三、其他</h3><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
+Method <span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span>String methodName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="三、其他"><a href="#三、其他" class="headerlink" title="三、其他"></a>三、其他</h3><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
 <p>运行时注解：<br>例如：ButterKnife ，黑科技、低性能</p>
 <p>编译时注解：<br>Dagger2：生成中间代码，所以性能高</p>
 <p>注解处理器：<br>编译时处理器、<br>运行时处理器。</p>
