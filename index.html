@@ -320,8 +320,7 @@ Method getDeclaredMethod(String methodName);
 <h1 id="Java-类加载和初始化"><a href="#Java-类加载和初始化" class="headerlink" title="Java 类加载和初始化"></a>Java 类加载和初始化</h1><p>我们知道 当要实例化一个类时，JVM会首先加载该类，并且在加载过程中检查这个类是否有静态属性以及静态代码块，如果有，就按顺序分配内存并初始化他们，并且只在类加载的过程中初始化一次。</p>
 <p>对于构造代码块，以及普通属性，是在类实例化时进行的，并且每次实例化都会调用，并且普通属性先于构造代码块，构造代码块先于构造方法执行。</p>
 <p><img src="https://raw.githubusercontent.com/brokge/drawio/master/java-load-class.png" alt="流程图"></p>
-<pre><code>
-public class Main {
+<pre><code>public class Main {
 
     //1
     private static String staticValue = &quot;第一步 main 静态属性&quot; + System.currentTimeMillis();
@@ -370,8 +369,6 @@ public class Main {
         Main main = new Main();
     }
 }
-
-
 </code></pre><p>控制台输出：</p>
 <pre><code>1565683686844
 第一步 main 静态属性1565683686844
@@ -408,36 +405,55 @@ public class Main {
 </ol>
 <h2 id="名词说明"><a href="#名词说明" class="headerlink" title="名词说明"></a>名词说明</h2><p><strong>类的初始化和类的实例化是不同的</strong>:<br>类的初始化发生在类实例化之前。</p>
 <ul>
-<li>静态域=静态变量<br><code>`</code><br>private static String staticValue =”静态域”;</li>
+<li>静态域=静态变量</li>
 </ul>
-<pre><code>&gt;静态域：如果将类中的域定义为static，则这个域属于这个类，而不属于这个类的某个对象，每个类中只有 一个这样的域，而每一个类对象对于所有的实例域(即没有定义为static的域)都有自己的一份拷贝。例如：
-&gt;
+<pre><code>private static String staticValue =&quot;静态域&quot;;
 </code></pre><blockquote>
-<p>class Employee {<br>　　private int id;<br>　　private static String staticValue =”静态域”;<br>}<br><code>`</code><br>如果有1000个Employee对象，则有1000个实例域 id，但是只有一个静态域 staticValue；即使没有一个Employee对象，静态域nextId也存在，它属于类，不属于任何对象。</p>
+<p>静态域：如果将类中的域定义为static，则这个域属于这个类，而不属于这个类的某个对象，每个类中只有 一个这样的域，而每一个类对象对于所有的实例域(即没有定义为static的域)都有自己的一份拷贝。例如：</p>
+<pre><code>class Employee {
+　　private int id;
+　　private static String staticValue =&quot;静态域&quot;;
+}
+</code></pre><p>如果有1000个Employee对象，则有1000个实例域 id，但是只有一个静态域 staticValue；即使没有一个Employee对象，静态域nextId也存在，它属于类，不属于任何对象。</p>
 </blockquote>
 <ul>
-<li>实例域=非静态变量<pre><code>private  String staticValue =&quot;实例域&quot;;
-</code></pre></li>
-<li>静态常量=final<pre><code>private final static String staticValue =&quot;静态常量&quot;;
-</code></pre></li>
-<li>静态方法<pre><code>public static String getString() {
-      System.out.println(&quot;getString()&quot;);
-      return &quot;&quot;;
+<li>实例域=非静态变量</li>
+</ul>
+<pre><code>private  String staticValue =&quot;实例域&quot;;
+</code></pre><ul>
+<li>静态常量=final</li>
+</ul>
+<pre><code>private final static String staticValue =&quot;静态常量&quot;;
+</code></pre><ul>
+<li>静态方法</li>
+</ul>
+<pre><code>public static String getString() {
+        System.out.println(&quot;getString()&quot;);
+        return &quot;&quot;;
 }
-</code></pre></li>
+</code></pre><ul>
 <li>静态代码块</li>
 </ul>
 <pre><code>static {
 
 }
 </code></pre><ul>
-<li>构造代码块<br><code>`</code><br>{<br>  System.out.println(“构造代码块”);<br>}</li>
+<li>构造代码块</li>
 </ul>
-<pre><code>- 构造方法
-</code></pre><p>class main{</p>
-<p>   private main(){<br>        System.out.println(“构造方法”);<br>    }<br>}</p>
-<p><code>`</code></p>
-<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/index.html" target="_blank" rel="noopener">类加载器</a></p>
+<pre><code>{
+    System.out.println(&quot;构造代码块&quot;);
+}
+
+</code></pre><ul>
+<li>构造方法</li>
+</ul>
+<pre><code>class main{
+
+   private main(){
+        System.out.println(&quot;构造方法&quot;);
+    }
+}
+</code></pre><h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/index.html" target="_blank" rel="noopener">类加载器</a></p>
 
       
     </div>
