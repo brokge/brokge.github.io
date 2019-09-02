@@ -501,8 +501,11 @@ footer * {
   border-collapse: collapse;
 }
 .post-container th{
-  border:1px solid #3f587d;
+  border: 1px solid #3f587d;
   border-collapse: collapse;
+  text-align: center;
+  color: white;
+  background: #3f587d;
 }
 .post-container td{
   border:1px solid #3f587d;
