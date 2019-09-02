@@ -496,7 +496,19 @@ footer * {
 .post-container {
   margin: 0 0 20px 0;
   font-weight: normal; }
-
+.post-container table{
+  border:1px solid #3f587d;
+  border-collapse: collapse;
+}
+.post-container th{
+  border:1px solid #3f587d;
+  border-collapse: collapse;
+}
+.post-container td{
+  border:1px solid #3f587d;
+  border-collapse: collapse;
+  padding: 1px 8px 1px 1px;
+}
 .post-title {
   font-size: 24px;
   font-weight: bold;
