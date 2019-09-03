@@ -400,13 +400,13 @@ body {
 .main-container h1 {
   padding-bottom: 0.3em;
   color: red;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid #ff00004d;
 }
 
 .main-container h2 {
   padding-bottom: 0.3em;
   color: red;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid #ff00004d;
 }
 
 .main-container :nth-child(1) {
@@ -685,6 +685,9 @@ footer * {
   margin: 10px 0;
   color:red;
 }
+.post-meta span{
+  color: red;
+}
 
 .post-abstract {
   font-size: 18px;
@@ -808,12 +811,12 @@ figure .code pre {
   .main-container h1 {
     padding-bottom: 0.3em;
     color: red;
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid #ff00004d;
   }
 
   .main-container h2 {
     padding-bottom: 0.3em;
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid #ff00004d;
   }
 
   .side-container {
@@ -855,6 +858,9 @@ figure .code pre {
     font-size: 14px;
     margin: 10px 0;
     color:red;
+  }
+  .post-meta span{
+    color: red;
   }
 
   .post-abstract {
@@ -990,12 +996,12 @@ figure .code pre {
   .main-container h1 {
     padding-bottom: 0.3em;
     color: red;
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid #ff00004d;
   }
 
   .main-container h2 {
     padding-bottom: 0.3em;
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid #ff00004d;
   }
 
   .side-container {
@@ -1037,6 +1043,10 @@ figure .code pre {
     font-size: 14px;
     margin: 10px 0;
     color:red;
+  }
+
+  .post-meta span{
+    color: red;
   }
 
   .post-abstract {
