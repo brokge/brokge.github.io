@@ -320,7 +320,7 @@ font-family: "PT Serif", "Source Han Serif CN", "Source Han Serif SC", "Source H
  "Source Han Sans TC", "PingFang SC", "PingFang HK", "PingFang TC", "Source Sans Pro", sans-serif;
  */
   font-family: "Source Sans Pro", "Roboto", "Helvetica", "Helvetica Neue", "Source Han Sans SC", "Source Han Sans TC", "PingFang SC", "PingFang HK", "PingFang TC", sans-serif;
-  color: red;
+  color: #3f587d;
 }
 
 html {
@@ -399,12 +399,14 @@ body {
 
 .main-container h1 {
   padding-bottom: 0.3em;
-  border-bottom: 1px solid red4d;
+  color: red;
+  border-bottom: 1px solid red;
 }
 
 .main-container h2 {
   padding-bottom: 0.3em;
-  border-bottom: 1px solid red4d;
+  color: red;
+  border-bottom: 1px solid red;
 }
 
 .main-container :nth-child(1) {
@@ -681,6 +683,7 @@ footer * {
 .post-meta {
   font-size: 16px;
   margin: 10px 0;
+  color:red;
 }
 
 .post-abstract {
@@ -804,12 +807,13 @@ figure .code pre {
 
   .main-container h1 {
     padding-bottom: 0.3em;
-    border-bottom: 1px solid red4d;
+    color: red;
+    border-bottom: 1px solid red;
   }
 
   .main-container h2 {
     padding-bottom: 0.3em;
-    border-bottom: 1px solid red4d;
+    border-bottom: 1px solid red;
   }
 
   .side-container {
@@ -850,6 +854,7 @@ figure .code pre {
   .post-meta {
     font-size: 14px;
     margin: 10px 0;
+    color:red;
   }
 
   .post-abstract {
@@ -984,12 +989,13 @@ figure .code pre {
 
   .main-container h1 {
     padding-bottom: 0.3em;
-    border-bottom: 1px solid red4d;
+    color: red;
+    border-bottom: 1px solid red;
   }
 
   .main-container h2 {
     padding-bottom: 0.3em;
-    border-bottom: 1px solid red4d;
+    border-bottom: 1px solid red;
   }
 
   .side-container {
@@ -1030,6 +1036,7 @@ figure .code pre {
   .post-meta {
     font-size: 14px;
     margin: 10px 0;
+    color:red;
   }
 
   .post-abstract {
