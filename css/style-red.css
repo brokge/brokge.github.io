@@ -320,7 +320,7 @@ font-family: "PT Serif", "Source Han Serif CN", "Source Han Serif SC", "Source H
  "Source Han Sans TC", "PingFang SC", "PingFang HK", "PingFang TC", "Source Sans Pro", sans-serif;
  */
   font-family: "Source Sans Pro", "Roboto", "Helvetica", "Helvetica Neue", "Source Han Sans SC", "Source Han Sans TC", "PingFang SC", "PingFang HK", "PingFang TC", sans-serif;
-  color: #2e405b;
+  color: red;
 }
 
 html {
@@ -328,7 +328,7 @@ html {
 }
 
 .foreground {
-  background: #2e405b !important;
+  background: red !important;
 }
 
 .background {
@@ -336,7 +336,7 @@ html {
 }
 
 .foreground-text * {
-  color: #2e405b !important;
+  color: red !important;
 }
 
 .background-text * {
@@ -399,12 +399,12 @@ body {
 
 .main-container h1 {
   padding-bottom: 0.3em;
-  border-bottom: 1px solid #2e405b4d;
+  border-bottom: 1px solid red4d;
 }
 
 .main-container h2 {
   padding-bottom: 0.3em;
-  border-bottom: 1px solid #2e405b4d;
+  border-bottom: 1px solid red4d;
 }
 
 .main-container :nth-child(1) {
@@ -464,15 +464,15 @@ body {
   text-align: left;
   font-size: 0.5em;
   padding: 0 0 50px 0;
-  border-left: solid #2e405b 2px;
+  border-left: solid red 2px;
   transition: padding 0.8s ease 0s, background 0.8s ease 0s;
 }
 
 .site-title:hover {
   padding: 15px 0 35px 0;
   color: #ffffff !important;
-  background: #2e405b !important;
-  border-left: solid #2e405b 2px;
+  background: red !important;
+  border-left: solid red 2px;
 }
 
 .site-title:hover * {
@@ -525,7 +525,7 @@ body {
 }
 
 .site-title-links a {
-  border-bottom: solid #2e405b 2px;
+  border-bottom: solid red 2px;
 }
 
 .no-margin-left {
@@ -545,12 +545,12 @@ body {
 }
 
 a {
-  color: #2e405b;
+  color: red;
   transition: color 0.3s ease 0s, background-color 0.3s ease 0s;
   -moz-transition: color 0.3s ease 0s, background-color 0.3s ease 0s;
   -o-transition: color 0.3s ease 0s, background-color 0.3s ease 0s;
   -webkit-transition: color 0.3s ease 0s, background-color 0.3s ease 0s;
-  border-bottom: solid #2e405b 2px;
+  border-bottom: solid red 2px;
   padding: 0;
   cursor: pointer;
   cursor: hand;
@@ -558,7 +558,7 @@ a {
 
 a:hover {
   color: #ffffff !important;
-  background-color: #2e405b;
+  background-color: red;
   text-decoration: none;
   border-bottom: solid transparent 2px;
 }
@@ -583,26 +583,26 @@ a:focus {
 }
 
 .current {
-  border-bottom: solid #2e405b 3px !important;
+  border-bottom: solid red 3px !important;
 }
 
 .a-mute {
   background-color: transparent;
-  color: #2e405b !important;
+  color: red !important;
   text-decoration: none;
   border-bottom: none;
 }
 
 .a-mute:hover {
   background-color: transparent;
-  color: #2e405b !important;
+  color: red !important;
   text-decoration: none;
   border-bottom: none;
 }
 
 .a-mute:focus {
   background-color: transparent;
-  color: #2e405b !important;
+  color: red !important;
   text-decoration: none;
   border-bottom: none;
 }
@@ -783,14 +783,14 @@ figure .code pre {
   }
 
   .site-title:hover {
-    color: #2e405b !important;
+    color: red !important;
     background: transparent !important;
     padding: 0;
     border: none;
   }
 
   .site-title:hover * {
-    color: #2e405b !important;
+    color: red !important;
     background: transparent !important;
   }
 
@@ -804,12 +804,12 @@ figure .code pre {
 
   .main-container h1 {
     padding-bottom: 0.3em;
-    border-bottom: 1px solid #2e405b4d;
+    border-bottom: 1px solid red4d;
   }
 
   .main-container h2 {
     padding-bottom: 0.3em;
-    border-bottom: 1px solid #2e405b4d;
+    border-bottom: 1px solid red4d;
   }
 
   .side-container {
@@ -963,14 +963,14 @@ figure .code pre {
   }
 
   .site-title:hover {
-    color: #2e405b !important;
+    color: red !important;
     background: transparent !important;
     padding: 0;
     border: none;
   }
 
   .site-title:hover * {
-    color: #2e405b !important;
+    color: red !important;
     background: transparent !important;
   }
 
@@ -984,12 +984,12 @@ figure .code pre {
 
   .main-container h1 {
     padding-bottom: 0.3em;
-    border-bottom: 1px solid #2e405b4d;
+    border-bottom: 1px solid red4d;
   }
 
   .main-container h2 {
     padding-bottom: 0.3em;
-    border-bottom: 1px solid #2e405b4d;
+    border-bottom: 1px solid red4d;
   }
 
   .side-container {
