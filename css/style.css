@@ -251,13 +251,13 @@ html {
   color: #ffffff !important; }
 
 h1 {
-  font-size: 42px; }
+  font-size: 46px; }
 
 h2 {
-  font-size: 36px; }
+  font-size: 32px; }
 
 h3 {
-  font-size: 30px; }
+  font-size: 28px; }
 
 h4 {
   font-size: 24px; }
@@ -293,6 +293,15 @@ body {
   padding: 80px 40px;
   overflow: hidden;
   float: left; }
+.main-container h1 {
+    padding-bottom: 0.3em;
+    font-size: 2em;
+    border-bottom: 1px solid #2e405b;
+}
+.main-container h2 {
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #2e405b;
+}
 
 .main-container :nth-child(1) {
   margin-top: 0; }
@@ -602,6 +611,15 @@ figure .code pre {
     margin: 0;
     padding: 20px 30px;
     overflow: auto; }
+  .main-container h1 {
+      padding-bottom: 0.3em;
+      font-size: 2em;
+      border-bottom: 1px solid #2e405b;
+  }
+  .main-container h2 {
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #2e405b;
+  }
   .side-container {
     padding: 40px 30px 0 30px;
     height: auto;
@@ -660,9 +678,9 @@ figure .code pre {
   body {
     line-height: normal; }
   h1 {
-    font-size: 40px; }
+    font-size: 36px; }
   h2 {
-    font-size: 34px; }
+    font-size: 32px; }
   h3 {
     font-size: 28px; }
   h4 {
@@ -709,11 +727,11 @@ figure .code pre {
   .main-container h1 {
       padding-bottom: 0.3em;
       font-size: 2em;
-      border-bottom: 1px solid #eaecef;
+      border-bottom: 1px solid #2e405b;
   }
   .main-container h2 {
     padding-bottom: 0.3em;
-    border-bottom: 1px solid #eaecef;
+    border-bottom: 1px solid #2e405b;
   }
 
   .side-container {
