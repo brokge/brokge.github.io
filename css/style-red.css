@@ -683,7 +683,7 @@ footer * {
 }
 
 .post-title {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   margin: 3px 0;
 }
@@ -699,7 +699,7 @@ footer * {
 }
 
 .post-abstract {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 li {
