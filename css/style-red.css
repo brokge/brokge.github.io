@@ -379,6 +379,14 @@ body {
   min-height: 100vh;
 }
 
+blockquote {
+  padding: 10px 20px;
+  margin: 0 0 20px;
+  font-size: 17.5px;
+  border-left: 5px solid #ff0000fa;
+  background: #fff9f9;
+}
+
 .container {
   background-color: #ffffff;
   padding: 0;
