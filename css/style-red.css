@@ -320,7 +320,7 @@ font-family: "PT Serif", "Source Han Serif CN", "Source Han Serif SC", "Source H
  "Source Han Sans TC", "PingFang SC", "PingFang HK", "PingFang TC", "Source Sans Pro", sans-serif;
  */
   /**font-family: "Source Sans Pro", "Roboto", "Helvetica", "Helvetica Neue", "Source Han Sans SC", "Source Han Sans TC", "PingFang SC Light", "PingFang HK", "PingFang TC", sans-serif;*/
-  color: #3f587d;
+  color: #333333;
 }
 
 html {
@@ -664,6 +664,7 @@ footer * {
 .post-container table {
   border: 1px solid #3f587d;
   border-collapse: collapse;
+  margin: 10px 0 10px 0;
 }
 
 .post-container th {
@@ -672,12 +673,13 @@ footer * {
   text-align: center;
   color: white;
   background: #3f587d;
+  padding: 8px;
 }
 
 .post-container td {
   border: 1px solid #3f587d;
   border-collapse: collapse;
-  padding: 1px 8px 1px 1px;
+  padding: 8px;
 }
 
 .post-title {
@@ -973,6 +975,8 @@ figure .code pre {
     border-left: none;
     text-align: center;
     transition: none;
+    background:transparent;
+    color:red;
   }
 
   .site-title * {
