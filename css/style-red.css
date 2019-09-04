@@ -310,10 +310,11 @@ h3,
 h4,
 h5,
 h6 {
-  
-font-family: "Source Han Serif CN", "Source Han Serif SC", "Source Han Serif TC",
+  font-family: "PingFang SC Light", "Noto Sans CJK SC", Helvetica, sans-serif;
+  /**font-family: "Source Han Serif CN", "Source Han Serif SC", "Source Han Serif TC",
 "Source Sans Pro", "Source Han Sans SC", "Source Han Sans TC",
 "PingFang SC Light", "PingFang HK", "PingFang TC", sans-serif;
+**/
   /*
 font-family: "PT Serif", "Source Han Serif CN", "Source Han Serif SC", "Source Han Serif TC", "Source Han Sans SC",
  "Source Han Sans TC", "PingFang SC", "PingFang HK", "PingFang TC", "Source Sans Pro", sans-serif;
@@ -470,7 +471,8 @@ body {
   border-left: solid red 2px;
   transition: padding 0.8s ease 0s, background 0.8s ease 0s;
 }
-.site-title a{
+
+.site-title a {
   color: #ffffff;
 }
 
@@ -687,9 +689,10 @@ footer * {
 .post-meta {
   font-size: 16px;
   margin: 10px 0;
-  color:red;
+  color: red;
 }
-.post-meta span{
+
+.post-meta span {
   color: red;
 }
 
@@ -861,9 +864,10 @@ figure .code pre {
   .post-meta {
     font-size: 14px;
     margin: 10px 0;
-    color:red;
+    color: red;
   }
-  .post-meta span{
+
+  .post-meta span {
     color: red;
   }
 
@@ -1046,10 +1050,10 @@ figure .code pre {
   .post-meta {
     font-size: 14px;
     margin: 10px 0;
-    color:red;
+    color: red;
   }
 
-  .post-meta span{
+  .post-meta span {
     color: red;
   }
 
