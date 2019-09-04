@@ -662,7 +662,7 @@ footer * {
 }
 
 .post-container table {
-  border: 1px solid #3f587d;
+  border: 1px solid #ff00004d;;
   border-collapse: collapse;
   margin: 10px 0 10px 0;
 }
@@ -672,12 +672,12 @@ footer * {
   border-collapse: collapse;
   text-align: center;
   color: white;
-  background: #3f587d;
+  background: #ff00004d;;
   padding: 8px;
 }
 
 .post-container td {
-  border: 1px solid #3f587d;
+  border: 1px solid #ff00004d;;
   border-collapse: collapse;
   padding: 8px;
 }
