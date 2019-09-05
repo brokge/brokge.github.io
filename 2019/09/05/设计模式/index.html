@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>设计模式 · 吾與爾</title><meta name="description" content="设计模式概述：23种
+设计模式可分为创建型(Creational)，结构型(Structural)和行为型(Behavioral)三种，其中创建型模式主要用于描述如何创建对象，结构型模式主要用于描述如何实现类或对象的组合，行为型模式主要用于描述类或对象怎样交互以及怎样分配职责
+
+原则
+单一职责
+开放"><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">吾與爾</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>设计模式</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-05</span></p><p class="post-abstract"></p><h2 id="设计模式概述："><a href="#设计模式概述：" class="headerlink" title="设计模式概述："></a>设计模式概述：</h2><h3 id="23种"><a href="#23种" class="headerlink" title="23种"></a>23种</h3><blockquote>
+<p>设计模式可分为<strong>创建型</strong>(Creational)，<strong>结构型</strong>(Structural)和<strong>行为型</strong>(Behavioral)三种，其中创建型模式主要用于描述如何创建对象，结构型模式主要用于描述如何实现类或对象的组合，行为型模式主要用于描述类或对象怎样交互以及怎样分配职责</p>
+</blockquote>
+<h3 id="原则"><a href="#原则" class="headerlink" title="原则"></a>原则</h3><ol>
+<li>单一职责</li>
+<li>开放封闭原则</li>
+<li><strong>依赖倒转</strong><blockquote>
+<p>抽象不应该依赖于细节，细节应当依赖于抽象。换言之，要针对接口编程，而不是针对实现编程,依赖倒转原则要求我们在程序代码中传递参数时或在关联关系中，尽量引用层次高的抽象层类，即使用接口和抽象类进行变量类型声明、参数类型声明、方法返回类型声明，以及数据类型的转换等，而不要用具体类来做这些事情。<strong>实现依赖倒转原则时</strong>，我们需要针对抽象层编程，而将具体类的对象通过依赖注入(DependencyInjection, DI)的方式注入到其他对象中，依赖注入是指当一个对象要与其他对象发生依赖关系时，通过抽象来注入所依赖的对象。常用的注入方式有三种，分别是：构造注入，设值注入（Setter注入）和接口注入</p>
+</blockquote>
+</li>
+<li><strong>里氏替换原则</strong><blockquote>
+<p>所有引用基类（父类）的地方必须能透明地使用其子类的对象。<br>在软件中将一个基类对象替换成它的子类对象，程序将不会产生任何错误和异常，反过来则不成立，如果一个软件实体使用的是一个子类对象的话，那么它不一定能够使用基类对象。</p>
+</blockquote>
+</li>
+<li><strong>组合复用原则</strong><blockquote>
+<p>尽量使用对象组合，而不是继承来达到复用的目的。<br>如果两个类之间是“Has-A”的关系应使用组合或聚合，如果是“Is-A”关系可使用继承。”Is-A”是严格的分类学意义上的定义，意思是一个类是另一个类的”一种”；而”Has-A”则不同，它表示某一个角色具有某一项责任。</p>
+</blockquote>
+</li>
+<li><strong>接口隔离原则</strong><blockquote>
+<p>使用多个特定的接口，而不使用单一的总接口，即客户端不应该依赖那些它不需要的接口。 在使用接口隔离原则时，我们需要注意控制接口的粒度，接口不能太小，如果太小会导致系统中接口泛滥，不利于维护；接口也不能太大，太大的接口将违背接口隔离原则，灵活性较差，使用起来很不方便。<br><strong>接口隔离原则=使用单一职责原则的思想+考虑客户端具体的功能需求+适当切分定义接口文件+编程语言支持可实现多接口的语法特性</strong></p>
+</blockquote>
+</li>
+<li><strong>迪米特原则</strong><blockquote>
+<p>一个软件实体应当尽可能少地与其他实体发生相互作用。<br>应该尽量减少对象之间的交互，如果两个对象之间不必彼此直接通信，那么这两个对象就不应当发生任何直接的相互作用，如果其中的一个对象需要调用另一个对象的某一个方法的话，可以通过<strong>第三者</strong>转发这个调用。简言之，就是通过引入一个合理的第三者来降低现有对象之间的耦合度。 迪米特法则目的是降低系统的耦合度，使类与类之间保持松散的耦合关系</p>
+</blockquote>
+</li>
+</ol>
+<p>在代码的重构中，很多时候以上原则是相铺相成互相结合。</p>
+<p>开闭原则是目标，里氏代换原则是基础，依赖倒转原则是手段。相互补充，目标一致，只是分析问题时所站角度不同而已。</p>
+<h2 id="创建型"><a href="#创建型" class="headerlink" title="创建型"></a>创建型</h2><ol>
+<li>简单工厂</li>
+<li>工厂方法</li>
+<li>抽象工厂</li>
+<li>单例模式</li>
+<li>原型模式</li>
+<li>建造者模式</li>
+</ol>
+<h2 id="结构型"><a href="#结构型" class="headerlink" title="结构型"></a>结构型</h2><ol>
+<li>适配器模式</li>
+<li>桥接模式</li>
+<li>组合模式</li>
+<li>装饰模式</li>
+<li>外观模式</li>
+<li>享元模式</li>
+<li>代理模式</li>
+</ol>
+<h2 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h2><ol>
+<li>职责链模式</li>
+<li>命令模式</li>
+<li>解释器模式</li>
+<li>迭代器模式</li>
+<li>中介者模式</li>
+<li>备忘录模式</li>
+<li>观察者模式</li>
+<li>状态模式</li>
+<li>策略模式</li>
+<li>模版方法模式</li>
+<li>访问者模式</li>
+</ol>
+<p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2019/09/05/设计模式/%20吾與爾%20设计模式" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/09/03/线程池详解/" title="线程池详解 ">下一篇: 线程池详解 &nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
+    new Valine({
+    el: '#vcomments',
+    appId: 'UmwJ3stwyISCG9WnW9Nc3SAN-gzGzoHsz',
+    appKey: 'UKq878kYn6RXJWx34b77lma6'})
+})();
+</script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>
