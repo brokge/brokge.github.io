@@ -1,33 +1,33 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Android 性能优化总结 · 吾與爾</title><meta name="description" content="用户手中好的应用指标：
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Android 性能优化总结 · 吾與爾</title><meta name="description" content="用户手中好的应用指标：#
 满足需求
 合理的交互
 高性能
 
-Android 性能优化总结目标:
+Android 性能优化总结#目标:#
 流畅
 稳定
 省电、省流量
 安装包小
 
 简称： 快、稳、省、小
-建议：1. 流畅卡顿场景：UI 绘制、应用启动、页面跳转、事件响应
+建议：#1. 流畅#卡顿场景：UI 绘制、应用启动、页面跳转、事件响应
 卡顿原因：
 
 界面绘制。
-主要原因是绘制的层级深、页面复杂、刷新不合理，由于这"><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">吾與爾</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Android 性能优化总结</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-07-16</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/categories/Android/性能优化/" title="性能优化" class="a-tag">性能优化</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/tags/性能优化/" title="性能优化" class="a-tag">性能优化</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><h2 id="用户手中好的应用指标："><a href="#用户手中好的应用指标：" class="headerlink" title="用户手中好的应用指标："></a>用户手中好的应用指标：</h2><ol>
+主要原因是绘制的层级深、页面复杂、刷新不合"><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">吾與爾</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Android 性能优化总结</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-07-16</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/categories/Android/性能优化/" title="性能优化" class="a-tag">性能优化</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/tags/性能优化/" title="性能优化" class="a-tag">性能优化</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><h2><span id="yong-hu-shou-zhong-hao-de-ying-yong-zhi-biao">用户手中好的应用指标：</span><a href="#yong-hu-shou-zhong-hao-de-ying-yong-zhi-biao" class="header-anchor">#</a></h2><ol>
 <li>满足需求</li>
 <li>合理的交互</li>
 <li>高性能</li>
 </ol>
-<h2 id="Android-性能优化总结"><a href="#Android-性能优化总结" class="headerlink" title="Android 性能优化总结"></a>Android 性能优化总结</h2><h4 id="目标"><a href="#目标" class="headerlink" title="目标:"></a>目标:</h4><ol>
+<h2><span id="android-xing-neng-you-hua-zong-jie">Android 性能优化总结</span><a href="#android-xing-neng-you-hua-zong-jie" class="header-anchor">#</a></h2><h4><span id="mu-biao">目标:</span><a href="#mu-biao" class="header-anchor">#</a></h4><ol>
 <li>流畅</li>
 <li>稳定</li>
 <li>省电、省流量</li>
 <li>安装包小</li>
 </ol>
 <p>简称： 快、稳、省、小</p>
-<h4 id="建议："><a href="#建议：" class="headerlink" title="建议："></a>建议：</h4><h5 id="1-流畅"><a href="#1-流畅" class="headerlink" title="1. 流畅"></a>1. 流畅</h5><p>卡顿场景：<br>UI 绘制、应用启动、页面跳转、事件响应</p>
+<h4><span id="jian-yi">建议：</span><a href="#jian-yi" class="header-anchor">#</a></h4><h5><span id="1-liu-chang">1. 流畅</span><a href="#1-liu-chang" class="header-anchor">#</a></h5><p>卡顿场景：<br>UI 绘制、应用启动、页面跳转、事件响应</p>
 <p>卡顿原因：</p>
 <ol>
 <li>界面绘制。<blockquote>
@@ -55,10 +55,10 @@ Android 性能优化总结目标:
 <li>合理的刷新机制</li>
 <li>在实现动画效果时，需要根据不同场景选择合适的动画框架来实现。有些情况下，可以用硬件加速方式来提供流畅度。</li>
 </ol>
-<h5 id="2-稳定"><a href="#2-稳定" class="headerlink" title="2. 稳定"></a>2. 稳定</h5><blockquote>
+<h5><span id="2-wen-ding">2. 稳定</span><a href="#2-wen-ding" class="header-anchor">#</a></h5><blockquote>
 <p>Android 应用的稳定性定义很宽泛，影响稳定性的原因很多，比如内存使用不合理、代码异常场景考虑不周全、代码逻辑不合理等，都会对应用的稳定性造成影响。其中最常见的两个场景是：Crash 和 ANR，这两个错误将会使得程序无法使用，比较常用的解决方式如下：</p>
 </blockquote>
-<h5 id="2-1-内存优化"><a href="#2-1-内存优化" class="headerlink" title="2.1.内存优化"></a>2.1.内存优化</h5><p>虚拟机有两种运行模式：Dalvik 和 ART。</p>
+<h5><span id="2-1-nei-cun-you-hua">2.1.内存优化</span><a href="#2-1-nei-cun-you-hua" class="header-anchor">#</a></h5><p>虚拟机有两种运行模式：Dalvik 和 ART。</p>
 <p>Android 内存控制权 Generational Heap Memory 。</p>
 <ul>
 <li>对象的生命周期：</li>
@@ -98,13 +98,13 @@ Android 性能优化总结目标:
 <li>使用最优的数据类型。比如针对数据类容器结构，可以使用ArrayMap数据结构，避免使用枚举类型，使用缓存Lrucache等等。</li>
 <li>图片内存优化。可以设置位图规格，根据采样因子做压缩，用一些图片缓存方式对图片进行管理等等。</li>
 </ol>
-<h5 id="2-2-提高代码质量"><a href="#2-2-提高代码质量" class="headerlink" title="2.2. 提高代码质量"></a>2.2. 提高代码质量</h5><blockquote>
+<h5><span id="2-2-ti-gao-dai-ma-zhi-liang">2.2. 提高代码质量</span><a href="#2-2-ti-gao-dai-ma-zhi-liang" class="header-anchor">#</a></h5><blockquote>
 <p>提高代码质量。比如开发期间的代码审核，看些代码设计逻辑，业务合理性等。<br>代码静态扫描工具。常见工具有Android Lint、Findbugs、Checkstyle、PMD等等。<br>Crash监控。把一些崩溃的信息，异常信息及时地记录下来，以便后续分析解决。<br>Crash上传机制。在Crash后，尽量先保存日志到本地，然后等下一次网络正常时再上传日志信息。</p>
 </blockquote>
-<h5 id="3-电量优化"><a href="#3-电量优化" class="headerlink" title="3. 电量优化"></a>3. 电量优化</h5><ol>
+<h5><span id="3-dian-liang-you-hua">3. 电量优化</span><a href="#3-dian-liang-you-hua" class="header-anchor">#</a></h5><ol>
 <li>优化耗时的计算。</li>
 </ol>
-<h5 id="4-安装包大小"><a href="#4-安装包大小" class="headerlink" title="4. 安装包大小"></a>4. 安装包大小</h5><ol>
+<h5><span id="4-an-zhuang-bao-da-xiao">4. 安装包大小</span><a href="#4-an-zhuang-bao-da-xiao" class="header-anchor">#</a></h5><ol>
 <li>代码混淆。</li>
 <li>资源优化。比如使用 Android Lint 删除冗余资源。</li>
 <li>图片优化。比如利用 AAPT 工具对 PNG 格式的图片做压缩处理，降低图片色彩位数、使用 WebP图片格式等。</li>
