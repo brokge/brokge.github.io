@@ -1,227 +1,226 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>正则 · 吾與爾</title><meta name="description" content="正则表达式在几乎所有语言中都可以使用，无论是前端的 JavaScript、还是后端的 Java、c#。他们都提供相应的接口函数支持正则表达式。
-但很神奇的是：无论你大学选择哪一门计算机语言，都没有关于正则表达式的课程给你修，在你学会正则之前，你只能看着那些正则大师们，写了一串外星文似的字符串，替代了"><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>正则 · 吾與爾</title><meta name="description" content="&amp;#x6B63;&amp;#x5219;&amp;#x8868;&amp;#x8FBE;&amp;#x5F0F;&amp;#x5728;&amp;#x51E0;&amp;#x4E4E;&amp;#x6240;&amp;#x6709;&amp;#x8BED;&amp;#x8A00;&amp;#x4E2D;&amp;#x90FD;&amp;#x53EF;&amp;#x4EE5;&amp;#x4F7F;&amp;#x7528;&amp;#xFF0"><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">吾與爾</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
- </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>正则</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-01-05</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/知识库/" title="知识库" class="a-tag">知识库</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/正则/" title="正则" class="a-tag">正则</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><p>正则表达式在几乎所有语言中都可以使用，无论是前端的 JavaScript、还是后端的 Java、c#。他们都提供相应的接口函数支持正则表达式。</p>
-<p>但很神奇的是：无论你大学选择哪一门计算机语言，都没有关于正则表达式的课程给你修，在你学会正则之前，你只能看着那些正则大师们，写了一串外星文似的字符串，替代了你用一大篇幅的 if else代码来做一些数据校验。</p>
-<p>既然喜欢，那就动手学呗，可当你百度出一一堆相关资料时，你发现无一不例外的枯燥至极，难以学习（实话说，当年不理君也是这样的心态😂😂）。</p>
-<p>下面，不理君尝试用一种比较通俗点的方式讲一下正则，让你能在读完之后，能自己写出一些简单的正则，再不济，能看懂别人写的正则，那也不错了。</p>
-<h1><a href="#yi-yuan-zi-fu" class="header-anchor">#</a><span id="yi-yuan-zi-fu">一、元字符</span></h1><p>万物皆有缘，正则也是如此，元字符是构造正则表达式的一种基本元素。<br>我们先来记几个常用的元字符：</p>
+ </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>正则</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-01-05</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/知识库/" title="知识库" class="a-tag">知识库</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/正则/" title="正则" class="a-tag">正则</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><p>&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5728;&#x51E0;&#x4E4E;&#x6240;&#x6709;&#x8BED;&#x8A00;&#x4E2D;&#x90FD;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#xFF0C;&#x65E0;&#x8BBA;&#x662F;&#x524D;&#x7AEF;&#x7684; JavaScript&#x3001;&#x8FD8;&#x662F;&#x540E;&#x7AEF;&#x7684; Java&#x3001;c#&#x3002;&#x4ED6;&#x4EEC;&#x90FD;&#x63D0;&#x4F9B;&#x76F8;&#x5E94;&#x7684;&#x63A5;&#x53E3;&#x51FD;&#x6570;&#x652F;&#x6301;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x3002;</p>
+<p>&#x4F46;&#x5F88;&#x795E;&#x5947;&#x7684;&#x662F;&#xFF1A;&#x65E0;&#x8BBA;&#x4F60;&#x5927;&#x5B66;&#x9009;&#x62E9;&#x54EA;&#x4E00;&#x95E8;&#x8BA1;&#x7B97;&#x673A;&#x8BED;&#x8A00;&#xFF0C;&#x90FD;&#x6CA1;&#x6709;&#x5173;&#x4E8E;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x8BFE;&#x7A0B;&#x7ED9;&#x4F60;&#x4FEE;&#xFF0C;&#x5728;&#x4F60;&#x5B66;&#x4F1A;&#x6B63;&#x5219;&#x4E4B;&#x524D;&#xFF0C;&#x4F60;&#x53EA;&#x80FD;&#x770B;&#x7740;&#x90A3;&#x4E9B;&#x6B63;&#x5219;&#x5927;&#x5E08;&#x4EEC;&#xFF0C;&#x5199;&#x4E86;&#x4E00;&#x4E32;&#x5916;&#x661F;&#x6587;&#x4F3C;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x66FF;&#x4EE3;&#x4E86;&#x4F60;&#x7528;&#x4E00;&#x5927;&#x7BC7;&#x5E45;&#x7684; if else&#x4EE3;&#x7801;&#x6765;&#x505A;&#x4E00;&#x4E9B;&#x6570;&#x636E;&#x6821;&#x9A8C;&#x3002;</p>
+<p>&#x65E2;&#x7136;&#x559C;&#x6B22;&#xFF0C;&#x90A3;&#x5C31;&#x52A8;&#x624B;&#x5B66;&#x5457;&#xFF0C;&#x53EF;&#x5F53;&#x4F60;&#x767E;&#x5EA6;&#x51FA;&#x4E00;&#x4E00;&#x5806;&#x76F8;&#x5173;&#x8D44;&#x6599;&#x65F6;&#xFF0C;&#x4F60;&#x53D1;&#x73B0;&#x65E0;&#x4E00;&#x4E0D;&#x4F8B;&#x5916;&#x7684;&#x67AF;&#x71E5;&#x81F3;&#x6781;&#xFF0C;&#x96BE;&#x4EE5;&#x5B66;&#x4E60;&#xFF08;&#x5B9E;&#x8BDD;&#x8BF4;&#xFF0C;&#x5F53;&#x5E74;&#x4E0D;&#x7406;&#x541B;&#x4E5F;&#x662F;&#x8FD9;&#x6837;&#x7684;&#x5FC3;&#x6001;&#x1F602;&#x1F602;&#xFF09;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#xFF0C;&#x4E0D;&#x7406;&#x541B;&#x5C1D;&#x8BD5;&#x7528;&#x4E00;&#x79CD;&#x6BD4;&#x8F83;&#x901A;&#x4FD7;&#x70B9;&#x7684;&#x65B9;&#x5F0F;&#x8BB2;&#x4E00;&#x4E0B;&#x6B63;&#x5219;&#xFF0C;&#x8BA9;&#x4F60;&#x80FD;&#x5728;&#x8BFB;&#x5B8C;&#x4E4B;&#x540E;&#xFF0C;&#x80FD;&#x81EA;&#x5DF1;&#x5199;&#x51FA;&#x4E00;&#x4E9B;&#x7B80;&#x5355;&#x7684;&#x6B63;&#x5219;&#xFF0C;&#x518D;&#x4E0D;&#x6D4E;&#xFF0C;&#x80FD;&#x770B;&#x61C2;&#x522B;&#x4EBA;&#x5199;&#x7684;&#x6B63;&#x5219;&#xFF0C;&#x90A3;&#x4E5F;&#x4E0D;&#x9519;&#x4E86;&#x3002;</p>
+<h1><a href="#yi-yuan-zi-fu" class="header-anchor">#</a><span id="yi-yuan-zi-fu">&#x4E00;&#x3001;&#x5143;&#x5B57;&#x7B26;</span></h1><p>&#x4E07;&#x7269;&#x7686;&#x6709;&#x7F18;&#xFF0C;&#x6B63;&#x5219;&#x4E5F;&#x662F;&#x5982;&#x6B64;&#xFF0C;&#x5143;&#x5B57;&#x7B26;&#x662F;&#x6784;&#x9020;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x4E00;&#x79CD;&#x57FA;&#x672C;&#x5143;&#x7D20;&#x3002;<br>&#x6211;&#x4EEC;&#x5148;&#x6765;&#x8BB0;&#x51E0;&#x4E2A;&#x5E38;&#x7528;&#x7684;&#x5143;&#x5B57;&#x7B26;&#xFF1A;</p>
 <table>
 <thead>
 <tr>
-<th>元字符</th>
-<th>说明</th>
+<th>&#x5143;&#x5B57;&#x7B26;</th>
+<th>&#x8BF4;&#x660E;</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>.</td>
-<td>匹配除换行符以外的任意字符</td>
+<td>&#x5339;&#x914D;&#x9664;&#x6362;&#x884C;&#x7B26;&#x4EE5;&#x5916;&#x7684;&#x4EFB;&#x610F;&#x5B57;&#x7B26;</td>
 </tr>
 <tr>
 <td>\w</td>
-<td>匹配字母或数字或下划线或汉字</td>
+<td>&#x5339;&#x914D;&#x5B57;&#x6BCD;&#x6216;&#x6570;&#x5B57;&#x6216;&#x4E0B;&#x5212;&#x7EBF;&#x6216;&#x6C49;&#x5B57;</td>
 </tr>
 <tr>
 <td>\s</td>
-<td>匹配任意的空白符</td>
+<td>&#x5339;&#x914D;&#x4EFB;&#x610F;&#x7684;&#x7A7A;&#x767D;&#x7B26;</td>
 </tr>
 <tr>
 <td>\d</td>
-<td>匹配数字</td>
+<td>&#x5339;&#x914D;&#x6570;&#x5B57;</td>
 </tr>
 <tr>
 <td>\b</td>
-<td>匹配单词的开始或结束</td>
+<td>&#x5339;&#x914D;&#x5355;&#x8BCD;&#x7684;&#x5F00;&#x59CB;&#x6216;&#x7ED3;&#x675F;</td>
 </tr>
 <tr>
 <td>^</td>
-<td>匹配字符串的开始</td>
+<td>&#x5339;&#x914D;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5F00;&#x59CB;</td>
 </tr>
 <tr>
 <td>$</td>
-<td>匹配字符串结束</td>
+<td>&#x5339;&#x914D;&#x5B57;&#x7B26;&#x4E32;&#x7ED3;&#x675F;</td>
 </tr>
 </tbody>
 </table>
-<p>有了元字符之后，我们就可以利用这些元字符来写一些简单的正则表达式了，</p>
-<p>比如：</p>
+<p>&#x6709;&#x4E86;&#x5143;&#x5B57;&#x7B26;&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x5229;&#x7528;&#x8FD9;&#x4E9B;&#x5143;&#x5B57;&#x7B26;&#x6765;&#x5199;&#x4E00;&#x4E9B;&#x7B80;&#x5355;&#x7684;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x4E86;&#xFF0C;</p>
+<p>&#x6BD4;&#x5982;&#xFF1A;</p>
 <ol>
-<li>匹配有abc开头的字符串：<pre class="line-numbers language-bash"><code class="language-bash">\babc或者^abc
+<li>&#x5339;&#x914D;&#x6709;abc&#x5F00;&#x5934;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF1A;<pre class="line-numbers language-bash"><code class="language-bash">\babc&#x6216;&#x8005;^abc
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
-<li>匹配8位数字的QQ号码：<pre class="line-numbers language-bash"><code class="language-bash">^\d\d\d\d\d\d\d\d$
+<li>&#x5339;&#x914D;8&#x4F4D;&#x6570;&#x5B57;&#x7684;QQ&#x53F7;&#x7801;&#xFF1A;<pre class="line-numbers language-bash"><code class="language-bash">^\d\d\d\d\d\d\d\d$
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
-<li>匹配1开头11位数字的手机号码：<pre class="line-numbers language-bash"><code class="language-bash">^1\d\d\d\d\d\d\d\d\d\d$
+<li>&#x5339;&#x914D;1&#x5F00;&#x5934;11&#x4F4D;&#x6570;&#x5B57;&#x7684;&#x624B;&#x673A;&#x53F7;&#x7801;&#xFF1A;<pre class="line-numbers language-bash"><code class="language-bash">^1\d\d\d\d\d\d\d\d\d\d$
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 </ol>
-<h1><a href="#er-chong-fu-xian-ding-fu" class="header-anchor">#</a><span id="er-chong-fu-xian-ding-fu">二、重复限定符</span></h1><p>有了元字符就可以写不少的正则表达式了，但细心的你们可能会发现：别人写的正则简洁明了，而不理君写的正则一堆乱七八糟而且重复的元字符组成的。正则没提供办法处理这些重复的元字符吗？</p>
-<p>答案是有的！</p>
-<p>为了处理这些重复问题，正则表达式中一些重复限定符，把重复部分用合适的限定符替代，下面我们来看一些限定符：</p>
+<h1><a href="#er-chong-fu-xian-ding-fu" class="header-anchor">#</a><span id="er-chong-fu-xian-ding-fu">&#x4E8C;&#x3001;&#x91CD;&#x590D;&#x9650;&#x5B9A;&#x7B26;</span></h1><p>&#x6709;&#x4E86;&#x5143;&#x5B57;&#x7B26;&#x5C31;&#x53EF;&#x4EE5;&#x5199;&#x4E0D;&#x5C11;&#x7684;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x4E86;&#xFF0C;&#x4F46;&#x7EC6;&#x5FC3;&#x7684;&#x4F60;&#x4EEC;&#x53EF;&#x80FD;&#x4F1A;&#x53D1;&#x73B0;&#xFF1A;&#x522B;&#x4EBA;&#x5199;&#x7684;&#x6B63;&#x5219;&#x7B80;&#x6D01;&#x660E;&#x4E86;&#xFF0C;&#x800C;&#x4E0D;&#x7406;&#x541B;&#x5199;&#x7684;&#x6B63;&#x5219;&#x4E00;&#x5806;&#x4E71;&#x4E03;&#x516B;&#x7CDF;&#x800C;&#x4E14;&#x91CD;&#x590D;&#x7684;&#x5143;&#x5B57;&#x7B26;&#x7EC4;&#x6210;&#x7684;&#x3002;&#x6B63;&#x5219;&#x6CA1;&#x63D0;&#x4F9B;&#x529E;&#x6CD5;&#x5904;&#x7406;&#x8FD9;&#x4E9B;&#x91CD;&#x590D;&#x7684;&#x5143;&#x5B57;&#x7B26;&#x5417;&#xFF1F;</p>
+<p>&#x7B54;&#x6848;&#x662F;&#x6709;&#x7684;&#xFF01;</p>
+<p>&#x4E3A;&#x4E86;&#x5904;&#x7406;&#x8FD9;&#x4E9B;&#x91CD;&#x590D;&#x95EE;&#x9898;&#xFF0C;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x4E2D;&#x4E00;&#x4E9B;&#x91CD;&#x590D;&#x9650;&#x5B9A;&#x7B26;&#xFF0C;&#x628A;&#x91CD;&#x590D;&#x90E8;&#x5206;&#x7528;&#x5408;&#x9002;&#x7684;&#x9650;&#x5B9A;&#x7B26;&#x66FF;&#x4EE3;&#xFF0C;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E00;&#x4E9B;&#x9650;&#x5B9A;&#x7B26;&#xFF1A;</p>
 <table>
 <thead>
 <tr>
-<th>语法</th>
-<th>说明</th>
+<th>&#x8BED;&#x6CD5;</th>
+<th>&#x8BF4;&#x660E;</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>*</td>
-<td>重复零次或更多次</td>
+<td>&#x91CD;&#x590D;&#x96F6;&#x6B21;&#x6216;&#x66F4;&#x591A;&#x6B21;</td>
 </tr>
 <tr>
 <td>+</td>
-<td>重复一次或更多次</td>
+<td>&#x91CD;&#x590D;&#x4E00;&#x6B21;&#x6216;&#x66F4;&#x591A;&#x6B21;</td>
 </tr>
 <tr>
 <td>?</td>
-<td>重复零次或一次</td>
+<td>&#x91CD;&#x590D;&#x96F6;&#x6B21;&#x6216;&#x4E00;&#x6B21;</td>
 </tr>
 <tr>
 <td>{n}</td>
-<td>重复n次</td>
+<td>&#x91CD;&#x590D;n&#x6B21;</td>
 </tr>
 <tr>
 <td>{n,}</td>
-<td>重复n次或更多次</td>
+<td>&#x91CD;&#x590D;n&#x6B21;&#x6216;&#x66F4;&#x591A;&#x6B21;</td>
 </tr>
 <tr>
 <td>{n,m}</td>
-<td>重复n到m次</td>
+<td>&#x91CD;&#x590D;n&#x5230;m&#x6B21;</td>
 </tr>
 </tbody>
 </table>
-<p>有了这些限定符之后，我们就可以对之前的正则表达式进行改造了。</p>
-<p>比如：</p>
+<p>&#x6709;&#x4E86;&#x8FD9;&#x4E9B;&#x9650;&#x5B9A;&#x7B26;&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x5BF9;&#x4E4B;&#x524D;&#x7684;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x8FDB;&#x884C;&#x6539;&#x9020;&#x4E86;&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#xFF1A;</p>
 <ol>
-<li>匹配8位数字的QQ号码：<pre class="line-numbers language-bash"><code class="language-bash">^\d<span class="token punctuation">{</span>8<span class="token punctuation">}</span>$
+<li>&#x5339;&#x914D;8&#x4F4D;&#x6570;&#x5B57;&#x7684;QQ&#x53F7;&#x7801;&#xFF1A;<pre class="line-numbers language-bash"><code class="language-bash">^\d<span class="token punctuation">{</span>8<span class="token punctuation">}</span>$
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
-<li>匹配1开头11位数字的手机号码：<pre class="line-numbers language-bash"><code class="language-bash">^1\d<span class="token punctuation">{</span>10<span class="token punctuation">}</span>$
+<li>&#x5339;&#x914D;1&#x5F00;&#x5934;11&#x4F4D;&#x6570;&#x5B57;&#x7684;&#x624B;&#x673A;&#x53F7;&#x7801;&#xFF1A;<pre class="line-numbers language-bash"><code class="language-bash">^1\d<span class="token punctuation">{</span>10<span class="token punctuation">}</span>$
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
-<li>匹配银行卡号是14~18位的数字：<pre class="line-numbers language-bash"><code class="language-bash">^\d<span class="token punctuation">{</span>14,18<span class="token punctuation">}</span>$
+<li>&#x5339;&#x914D;&#x94F6;&#x884C;&#x5361;&#x53F7;&#x662F;14~18&#x4F4D;&#x7684;&#x6570;&#x5B57;&#xFF1A;<pre class="line-numbers language-bash"><code class="language-bash">^\d<span class="token punctuation">{</span>14,18<span class="token punctuation">}</span>$
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
-<li>匹配以a开头的，0个或多个b结尾的字符串<pre class="line-numbers language-bash"><code class="language-bash">^ab*$
+<li>&#x5339;&#x914D;&#x4EE5;a&#x5F00;&#x5934;&#x7684;&#xFF0C;0&#x4E2A;&#x6216;&#x591A;&#x4E2A;b&#x7ED3;&#x5C3E;&#x7684;&#x5B57;&#x7B26;&#x4E32;<pre class="line-numbers language-bash"><code class="language-bash">^ab*$
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 </ol>
-<h1><a href="#san-fen-zu" class="header-anchor">#</a><span id="san-fen-zu">三、 分组</span></h1><p>从上面的例子（4）中看到，限定符是作用在与他左边最近的一个字符，那么问题来了，如果我想要 ab 同时被限定那怎么办呢？</p>
-<p><strong>正则表达式中用小括号 <code>()</code> 来做分组，也就是括号中的内容作为一个整体。</strong></p>
-<p>因此当我们要匹配多个 ab 时，我们可以这样。<br>如：</p>
+<h1><a href="#san-fen-zu" class="header-anchor">#</a><span id="san-fen-zu">&#x4E09;&#x3001; &#x5206;&#x7EC4;</span></h1><p>&#x4ECE;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#xFF08;4&#xFF09;&#x4E2D;&#x770B;&#x5230;&#xFF0C;&#x9650;&#x5B9A;&#x7B26;&#x662F;&#x4F5C;&#x7528;&#x5728;&#x4E0E;&#x4ED6;&#x5DE6;&#x8FB9;&#x6700;&#x8FD1;&#x7684;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x90A3;&#x4E48;&#x95EE;&#x9898;&#x6765;&#x4E86;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x60F3;&#x8981; ab &#x540C;&#x65F6;&#x88AB;&#x9650;&#x5B9A;&#x90A3;&#x600E;&#x4E48;&#x529E;&#x5462;&#xFF1F;</p>
+<p><strong>&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x4E2D;&#x7528;&#x5C0F;&#x62EC;&#x53F7; <code>()</code> &#x6765;&#x505A;&#x5206;&#x7EC4;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x62EC;&#x53F7;&#x4E2D;&#x7684;&#x5185;&#x5BB9;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x6574;&#x4F53;&#x3002;</strong></p>
+<p>&#x56E0;&#x6B64;&#x5F53;&#x6211;&#x4EEC;&#x8981;&#x5339;&#x914D;&#x591A;&#x4E2A; ab &#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x3002;<br>&#x5982;&#xFF1A;</p>
 <ol>
-<li>匹配字符串中包含 0 到多个 ab 开头：<pre class="line-numbers language-bash"><code class="language-bash">^<span class="token punctuation">(</span>ab<span class="token punctuation">)</span>*
+<li>&#x5339;&#x914D;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x5305;&#x542B; 0 &#x5230;&#x591A;&#x4E2A; ab &#x5F00;&#x5934;&#xFF1A;<pre class="line-numbers language-bash"><code class="language-bash">^<span class="token punctuation">(</span>ab<span class="token punctuation">)</span>*
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 </ol>
-<h1><a href="#si-zhuan-yi" class="header-anchor">#</a><span id="si-zhuan-yi">四、 转义</span></h1><p>我们看到正则表达式用小括号来做分组。</p>
-<p>那么问题来了：<br>如果要匹配的字符串中本身就包含小括号，那是不是冲突？应该怎么办？</p>
-<p>针对这种情况，正则提供了转义的方式，也就是要把这些元字符、限定符或者关键字转义成普通的字符，做法很简答，就是在要转义的字符前面加个斜杠，也就是\即可。<br>如：</p>
+<h1><a href="#si-zhuan-yi" class="header-anchor">#</a><span id="si-zhuan-yi">&#x56DB;&#x3001; &#x8F6C;&#x4E49;</span></h1><p>&#x6211;&#x4EEC;&#x770B;&#x5230;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x7528;&#x5C0F;&#x62EC;&#x53F7;&#x6765;&#x505A;&#x5206;&#x7EC4;&#x3002;</p>
+<p>&#x90A3;&#x4E48;&#x95EE;&#x9898;&#x6765;&#x4E86;&#xFF1A;<br>&#x5982;&#x679C;&#x8981;&#x5339;&#x914D;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x672C;&#x8EAB;&#x5C31;&#x5305;&#x542B;&#x5C0F;&#x62EC;&#x53F7;&#xFF0C;&#x90A3;&#x662F;&#x4E0D;&#x662F;&#x51B2;&#x7A81;&#xFF1F;&#x5E94;&#x8BE5;&#x600E;&#x4E48;&#x529E;&#xFF1F;</p>
+<p>&#x9488;&#x5BF9;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x6B63;&#x5219;&#x63D0;&#x4F9B;&#x4E86;&#x8F6C;&#x4E49;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8981;&#x628A;&#x8FD9;&#x4E9B;&#x5143;&#x5B57;&#x7B26;&#x3001;&#x9650;&#x5B9A;&#x7B26;&#x6216;&#x8005;&#x5173;&#x952E;&#x5B57;&#x8F6C;&#x4E49;&#x6210;&#x666E;&#x901A;&#x7684;&#x5B57;&#x7B26;&#xFF0C;&#x505A;&#x6CD5;&#x5F88;&#x7B80;&#x7B54;&#xFF0C;&#x5C31;&#x662F;&#x5728;&#x8981;&#x8F6C;&#x4E49;&#x7684;&#x5B57;&#x7B26;&#x524D;&#x9762;&#x52A0;&#x4E2A;&#x659C;&#x6760;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;\&#x5373;&#x53EF;&#x3002;<br>&#x5982;&#xFF1A;</p>
 <ol>
-<li>要匹配以 (ab) 开头：<pre class="line-numbers language-bash"><code class="language-bash">1 ^<span class="token punctuation">(</span>\<span class="token punctuation">(</span>ab\<span class="token punctuation">))</span>*
+<li>&#x8981;&#x5339;&#x914D;&#x4EE5; (ab) &#x5F00;&#x5934;&#xFF1A;<pre class="line-numbers language-bash"><code class="language-bash">1 ^<span class="token punctuation">(</span>\<span class="token punctuation">(</span>ab\<span class="token punctuation">))</span>*
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 </ol>
-<h1><a href="#wu-tiao-jian-huo" class="header-anchor">#</a><span id="wu-tiao-jian-huo">五、 条件或</span></h1><p>回到我们刚才的手机号匹配，我们都知道：国内号码都来自三大网，它们都有属于自己的号段，比如联通有 130/131/132/155/156/185/186/145/176 等号段，假如让我们匹配一个联通的号码，那按照我们目前所学到的正则，应该无从下手的，因为这里包含了一些并列的条件，也就是“或”，那么在正则中是如何表示“或”的呢？</p>
-<p><strong>正则用符号 | 来表示或，也叫做分支条件</strong>，当满足正则里的分支条件的任何一种条件时，都会当成是匹配成功。<br>那么我们就可以用或条件来处理这个问题：</p>
+<h1><a href="#wu-tiao-jian-huo" class="header-anchor">#</a><span id="wu-tiao-jian-huo">&#x4E94;&#x3001; &#x6761;&#x4EF6;&#x6216;</span></h1><p>&#x56DE;&#x5230;&#x6211;&#x4EEC;&#x521A;&#x624D;&#x7684;&#x624B;&#x673A;&#x53F7;&#x5339;&#x914D;&#xFF0C;&#x6211;&#x4EEC;&#x90FD;&#x77E5;&#x9053;&#xFF1A;&#x56FD;&#x5185;&#x53F7;&#x7801;&#x90FD;&#x6765;&#x81EA;&#x4E09;&#x5927;&#x7F51;&#xFF0C;&#x5B83;&#x4EEC;&#x90FD;&#x6709;&#x5C5E;&#x4E8E;&#x81EA;&#x5DF1;&#x7684;&#x53F7;&#x6BB5;&#xFF0C;&#x6BD4;&#x5982;&#x8054;&#x901A;&#x6709; 130/131/132/155/156/185/186/145/176 &#x7B49;&#x53F7;&#x6BB5;&#xFF0C;&#x5047;&#x5982;&#x8BA9;&#x6211;&#x4EEC;&#x5339;&#x914D;&#x4E00;&#x4E2A;&#x8054;&#x901A;&#x7684;&#x53F7;&#x7801;&#xFF0C;&#x90A3;&#x6309;&#x7167;&#x6211;&#x4EEC;&#x76EE;&#x524D;&#x6240;&#x5B66;&#x5230;&#x7684;&#x6B63;&#x5219;&#xFF0C;&#x5E94;&#x8BE5;&#x65E0;&#x4ECE;&#x4E0B;&#x624B;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x91CC;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x4E9B;&#x5E76;&#x5217;&#x7684;&#x6761;&#x4EF6;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x201C;&#x6216;&#x201D;&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x6B63;&#x5219;&#x4E2D;&#x662F;&#x5982;&#x4F55;&#x8868;&#x793A;&#x201C;&#x6216;&#x201D;&#x7684;&#x5462;&#xFF1F;</p>
+<p><strong>&#x6B63;&#x5219;&#x7528;&#x7B26;&#x53F7; | &#x6765;&#x8868;&#x793A;&#x6216;&#xFF0C;&#x4E5F;&#x53EB;&#x505A;&#x5206;&#x652F;&#x6761;&#x4EF6;</strong>&#xFF0C;&#x5F53;&#x6EE1;&#x8DB3;&#x6B63;&#x5219;&#x91CC;&#x7684;&#x5206;&#x652F;&#x6761;&#x4EF6;&#x7684;&#x4EFB;&#x4F55;&#x4E00;&#x79CD;&#x6761;&#x4EF6;&#x65F6;&#xFF0C;&#x90FD;&#x4F1A;&#x5F53;&#x6210;&#x662F;&#x5339;&#x914D;&#x6210;&#x529F;&#x3002;<br>&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x7528;&#x6216;&#x6761;&#x4EF6;&#x6765;&#x5904;&#x7406;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;</p>
 <pre class="line-numbers language-bash"><code class="language-bash">^<span class="token punctuation">(</span>130<span class="token operator">|</span>131<span class="token operator">|</span>132<span class="token operator">|</span>155<span class="token operator">|</span>156<span class="token operator">|</span>185<span class="token operator">|</span>186<span class="token operator">|</span>145<span class="token operator">|</span>176<span class="token punctuation">)</span>\d<span class="token punctuation">{</span>8<span class="token punctuation">}</span>$
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1><a href="#liu-qu-jian" class="header-anchor">#</a><span id="liu-qu-jian">六、区间</span></h1><p>看到上面的例子，是不是看到有什么规律？是不是还有一种想要简化的冲动？</p>
-<p>实际是有的。</p>
-<p><strong>正则提供一个元字符中括号 [] 来表示区间条件。</strong></p>
-<p>限定 0 到 9 可以写成 <code>[0-9]</code></p>
-<p>限定 A-Z 写成 <code>[A-Z]</code></p>
-<p>限定某些数字 <code>[165]</code></p>
-<p>那上面的正则我们还改成这样：</p>
+<h1><a href="#liu-qu-jian" class="header-anchor">#</a><span id="liu-qu-jian">&#x516D;&#x3001;&#x533A;&#x95F4;</span></h1><p>&#x770B;&#x5230;&#x4E0A;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x662F;&#x4E0D;&#x662F;&#x770B;&#x5230;&#x6709;&#x4EC0;&#x4E48;&#x89C4;&#x5F8B;&#xFF1F;&#x662F;&#x4E0D;&#x662F;&#x8FD8;&#x6709;&#x4E00;&#x79CD;&#x60F3;&#x8981;&#x7B80;&#x5316;&#x7684;&#x51B2;&#x52A8;&#xFF1F;</p>
+<p>&#x5B9E;&#x9645;&#x662F;&#x6709;&#x7684;&#x3002;</p>
+<p><strong>&#x6B63;&#x5219;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x5143;&#x5B57;&#x7B26;&#x4E2D;&#x62EC;&#x53F7; [] &#x6765;&#x8868;&#x793A;&#x533A;&#x95F4;&#x6761;&#x4EF6;&#x3002;</strong></p>
+<p>&#x9650;&#x5B9A; 0 &#x5230; 9 &#x53EF;&#x4EE5;&#x5199;&#x6210; <code>[0-9]</code></p>
+<p>&#x9650;&#x5B9A; A-Z &#x5199;&#x6210; <code>[A-Z]</code></p>
+<p>&#x9650;&#x5B9A;&#x67D0;&#x4E9B;&#x6570;&#x5B57; <code>[165]</code></p>
+<p>&#x90A3;&#x4E0A;&#x9762;&#x7684;&#x6B63;&#x5219;&#x6211;&#x4EEC;&#x8FD8;&#x6539;&#x6210;&#x8FD9;&#x6837;&#xFF1A;</p>
 <pre class="line-numbers language-bash"><code class="language-bash"> ^<span class="token punctuation">((</span>13<span class="token punctuation">[</span>0-2<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">|</span><span class="token punctuation">(</span>15<span class="token punctuation">[</span>56<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">|</span><span class="token punctuation">(</span>18<span class="token punctuation">[</span>5-6<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">|</span>145<span class="token operator">|</span>176<span class="token punctuation">)</span>\d<span class="token punctuation">{</span>8<span class="token punctuation">}</span>$
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1><a href="#qi-ling-kuan-duan-yan" class="header-anchor">#</a><span id="qi-ling-kuan-duan-yan">七、零宽断言</span></h1><p>无论是零宽还是断言，听起来都古古怪怪的，那先解释一下这两个词。</p>
-<p><strong>断言</strong>：俗话的断言就是“我断定什么什么”，而正则中的断言，就是说正则可以指明在指定的内容的前面或后面会出现满足指定规则的内容，意思正则也可以像人类那样断定什么什么，比如”ss1aa2bb3”, 正则可以用断言找出 aa2 前面有 bb3，也可以找出 aa2 后面有 ss1.</p>
-<p><strong>零宽</strong>：就是没有宽度，在正则中，断言只是匹配位置，不占字符，也就是说，匹配结果里是不会返回断言本身。</p>
-<p>意思是讲明白了，那他有什么用呢？<br>我们来举个栗子：<br>假设我们要用爬虫抓取 csdn 里的文章阅读量。通过查看源代码可以看到文章阅读量这个内容是这样的结构。</p>
-<pre class="line-numbers language-html"><code class="language-html">"<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>read-count<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>阅读数：641<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>"
+<h1><a href="#qi-ling-kuan-duan-yan" class="header-anchor">#</a><span id="qi-ling-kuan-duan-yan">&#x4E03;&#x3001;&#x96F6;&#x5BBD;&#x65AD;&#x8A00;</span></h1><p>&#x65E0;&#x8BBA;&#x662F;&#x96F6;&#x5BBD;&#x8FD8;&#x662F;&#x65AD;&#x8A00;&#xFF0C;&#x542C;&#x8D77;&#x6765;&#x90FD;&#x53E4;&#x53E4;&#x602A;&#x602A;&#x7684;&#xFF0C;&#x90A3;&#x5148;&#x89E3;&#x91CA;&#x4E00;&#x4E0B;&#x8FD9;&#x4E24;&#x4E2A;&#x8BCD;&#x3002;</p>
+<p><strong>&#x65AD;&#x8A00;</strong>&#xFF1A;&#x4FD7;&#x8BDD;&#x7684;&#x65AD;&#x8A00;&#x5C31;&#x662F;&#x201C;&#x6211;&#x65AD;&#x5B9A;&#x4EC0;&#x4E48;&#x4EC0;&#x4E48;&#x201D;&#xFF0C;&#x800C;&#x6B63;&#x5219;&#x4E2D;&#x7684;&#x65AD;&#x8A00;&#xFF0C;&#x5C31;&#x662F;&#x8BF4;&#x6B63;&#x5219;&#x53EF;&#x4EE5;&#x6307;&#x660E;&#x5728;&#x6307;&#x5B9A;&#x7684;&#x5185;&#x5BB9;&#x7684;&#x524D;&#x9762;&#x6216;&#x540E;&#x9762;&#x4F1A;&#x51FA;&#x73B0;&#x6EE1;&#x8DB3;&#x6307;&#x5B9A;&#x89C4;&#x5219;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x610F;&#x601D;&#x6B63;&#x5219;&#x4E5F;&#x53EF;&#x4EE5;&#x50CF;&#x4EBA;&#x7C7B;&#x90A3;&#x6837;&#x65AD;&#x5B9A;&#x4EC0;&#x4E48;&#x4EC0;&#x4E48;&#xFF0C;&#x6BD4;&#x5982;&#x201D;ss1aa2bb3&#x201D;, &#x6B63;&#x5219;&#x53EF;&#x4EE5;&#x7528;&#x65AD;&#x8A00;&#x627E;&#x51FA; aa2 &#x524D;&#x9762;&#x6709; bb3&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x627E;&#x51FA; aa2 &#x540E;&#x9762;&#x6709; ss1.</p>
+<p><strong>&#x96F6;&#x5BBD;</strong>&#xFF1A;&#x5C31;&#x662F;&#x6CA1;&#x6709;&#x5BBD;&#x5EA6;&#xFF0C;&#x5728;&#x6B63;&#x5219;&#x4E2D;&#xFF0C;&#x65AD;&#x8A00;&#x53EA;&#x662F;&#x5339;&#x914D;&#x4F4D;&#x7F6E;&#xFF0C;&#x4E0D;&#x5360;&#x5B57;&#x7B26;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x5339;&#x914D;&#x7ED3;&#x679C;&#x91CC;&#x662F;&#x4E0D;&#x4F1A;&#x8FD4;&#x56DE;&#x65AD;&#x8A00;&#x672C;&#x8EAB;&#x3002;</p>
+<p>&#x610F;&#x601D;&#x662F;&#x8BB2;&#x660E;&#x767D;&#x4E86;&#xFF0C;&#x90A3;&#x4ED6;&#x6709;&#x4EC0;&#x4E48;&#x7528;&#x5462;&#xFF1F;<br>&#x6211;&#x4EEC;&#x6765;&#x4E3E;&#x4E2A;&#x6817;&#x5B50;&#xFF1A;<br>&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x8981;&#x7528;&#x722C;&#x866B;&#x6293;&#x53D6; csdn &#x91CC;&#x7684;&#x6587;&#x7AE0;&#x9605;&#x8BFB;&#x91CF;&#x3002;&#x901A;&#x8FC7;&#x67E5;&#x770B;&#x6E90;&#x4EE3;&#x7801;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x6587;&#x7AE0;&#x9605;&#x8BFB;&#x91CF;&#x8FD9;&#x4E2A;&#x5185;&#x5BB9;&#x662F;&#x8FD9;&#x6837;&#x7684;&#x7ED3;&#x6784;&#x3002;</p>
+<pre class="line-numbers language-html"><code class="language-html">&quot;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>read-count<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>&#x9605;&#x8BFB;&#x6570;&#xFF1A;641<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>&quot;
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>其中只有‘<strong>641</strong>’这个是一个变量，也就是不同文章有不同的值，当我们拿到这个字符串时，需要获得这里边的‘<strong>641</strong>’有很多种办法，但如果使用正则应该怎么匹配呢？</p>
-<p>下面先讲一下几种类型的断言：</p>
-<h3><a href="#1-zheng-xiang-xian-xing-duan-yan-zheng-qian-zhan" class="header-anchor">#</a><span id="1-zheng-xiang-xian-xing-duan-yan-zheng-qian-zhan">1. 正向先行断言（正前瞻）</span></h3><p><strong>语法</strong>：<code>（?=pattern）</code></p>
-<p><strong>作用</strong>：++匹配 pattern 表达式的前面内容，不返回本身。++<br>这样子说，还是一脸懵逼，好吧，回归刚才那个栗子，要取到阅读量，在正则表达式中就意味着要能匹配到<code>&lt;/span&gt;</code>前面的数字内容按照上所说的正向先行断言可以匹配表达式前面的内容，那意思就是:<code>(?=&lt;/span&gt;)</code> 就可以匹配到前面的内容了。匹配什么内容呢？如果要所有内容那就是：</p>
-<pre class="line-numbers language-java"><code class="language-java"> String reg<span class="token operator">=</span><span class="token string">".+(?=&lt;/span>)"</span><span class="token punctuation">;</span>
+<p>&#x5176;&#x4E2D;&#x53EA;&#x6709;&#x2018;<strong>641</strong>&#x2019;&#x8FD9;&#x4E2A;&#x662F;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4E0D;&#x540C;&#x6587;&#x7AE0;&#x6709;&#x4E0D;&#x540C;&#x7684;&#x503C;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x62FF;&#x5230;&#x8FD9;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x83B7;&#x5F97;&#x8FD9;&#x91CC;&#x8FB9;&#x7684;&#x2018;<strong>641</strong>&#x2019;&#x6709;&#x5F88;&#x591A;&#x79CD;&#x529E;&#x6CD5;&#xFF0C;&#x4F46;&#x5982;&#x679C;&#x4F7F;&#x7528;&#x6B63;&#x5219;&#x5E94;&#x8BE5;&#x600E;&#x4E48;&#x5339;&#x914D;&#x5462;&#xFF1F;</p>
+<p>&#x4E0B;&#x9762;&#x5148;&#x8BB2;&#x4E00;&#x4E0B;&#x51E0;&#x79CD;&#x7C7B;&#x578B;&#x7684;&#x65AD;&#x8A00;&#xFF1A;</p>
+<h3><a href="#1-zheng-xiang-xian-xing-duan-yan-zheng-qian-zhan" class="header-anchor">#</a><span id="1-zheng-xiang-xian-xing-duan-yan-zheng-qian-zhan">1. &#x6B63;&#x5411;&#x5148;&#x884C;&#x65AD;&#x8A00;&#xFF08;&#x6B63;&#x524D;&#x77BB;&#xFF09;</span></h3><p><strong>&#x8BED;&#x6CD5;</strong>&#xFF1A;<code>&#xFF08;?=pattern&#xFF09;</code></p>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;++&#x5339;&#x914D; pattern &#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x524D;&#x9762;&#x5185;&#x5BB9;&#xFF0C;&#x4E0D;&#x8FD4;&#x56DE;&#x672C;&#x8EAB;&#x3002;++<br>&#x8FD9;&#x6837;&#x5B50;&#x8BF4;&#xFF0C;&#x8FD8;&#x662F;&#x4E00;&#x8138;&#x61F5;&#x903C;&#xFF0C;&#x597D;&#x5427;&#xFF0C;&#x56DE;&#x5F52;&#x521A;&#x624D;&#x90A3;&#x4E2A;&#x6817;&#x5B50;&#xFF0C;&#x8981;&#x53D6;&#x5230;&#x9605;&#x8BFB;&#x91CF;&#xFF0C;&#x5728;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x4E2D;&#x5C31;&#x610F;&#x5473;&#x7740;&#x8981;&#x80FD;&#x5339;&#x914D;&#x5230;<code>&lt;/span&gt;</code>&#x524D;&#x9762;&#x7684;&#x6570;&#x5B57;&#x5185;&#x5BB9;&#x6309;&#x7167;&#x4E0A;&#x6240;&#x8BF4;&#x7684;&#x6B63;&#x5411;&#x5148;&#x884C;&#x65AD;&#x8A00;&#x53EF;&#x4EE5;&#x5339;&#x914D;&#x8868;&#x8FBE;&#x5F0F;&#x524D;&#x9762;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x90A3;&#x610F;&#x601D;&#x5C31;&#x662F;:<code>(?=&lt;/span&gt;)</code> &#x5C31;&#x53EF;&#x4EE5;&#x5339;&#x914D;&#x5230;&#x524D;&#x9762;&#x7684;&#x5185;&#x5BB9;&#x4E86;&#x3002;&#x5339;&#x914D;&#x4EC0;&#x4E48;&#x5185;&#x5BB9;&#x5462;&#xFF1F;&#x5982;&#x679C;&#x8981;&#x6240;&#x6709;&#x5185;&#x5BB9;&#x90A3;&#x5C31;&#x662F;&#xFF1A;</p>
+<pre class="line-numbers language-java"><code class="language-java"> String reg<span class="token operator">=</span><span class="token string">&quot;.+(?=&lt;/span&gt;)&quot;</span><span class="token punctuation">;</span>
 
- String test <span class="token operator">=</span> <span class="token string">"&lt;span class=\"read-count\">阅读数：641&lt;/span>"</span><span class="token punctuation">;</span>
+ String test <span class="token operator">=</span> <span class="token string">&quot;&lt;span class=\&quot;read-count\&quot;&gt;&#x9605;&#x8BFB;&#x6570;&#xFF1A;641&lt;/span&gt;&quot;</span><span class="token punctuation">;</span>
  Pattern pattern <span class="token operator">=</span> Pattern<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
  Matcher mc<span class="token operator">=</span>    pattern<span class="token punctuation">.</span><span class="token function">matcher</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
  <span class="token keyword">while</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-   System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"匹配结果："</span><span class="token punctuation">)</span>
+   System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;&quot;</span><span class="token punctuation">)</span>
    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
  <span class="token punctuation">}</span>
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>输出：</p>
-<pre class="line-numbers language-html"><code class="language-html"># 匹配结果：
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>read-count<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>阅读数：641
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<pre class="line-numbers language-html"><code class="language-html"># &#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>read-count<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>&#x9605;&#x8BFB;&#x6570;&#xFF1A;641
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>可是老哥我们要的只是前面的数字呀，那也简单咯，匹配数字 <code>\d</code>, 那可以改成：</p>
-<pre class="line-numbers language-java"><code class="language-java">String reg<span class="token operator">=</span><span class="token string">"\\d+(?=&lt;/span>)"</span><span class="token punctuation">;</span>
-String test <span class="token operator">=</span> <span class="token string">"&lt;span class=\"read-count\">阅读数：641&lt;/span>"</span><span class="token punctuation">;</span>
+<p>&#x53EF;&#x662F;&#x8001;&#x54E5;&#x6211;&#x4EEC;&#x8981;&#x7684;&#x53EA;&#x662F;&#x524D;&#x9762;&#x7684;&#x6570;&#x5B57;&#x5440;&#xFF0C;&#x90A3;&#x4E5F;&#x7B80;&#x5355;&#x54AF;&#xFF0C;&#x5339;&#x914D;&#x6570;&#x5B57; <code>\d</code>, &#x90A3;&#x53EF;&#x4EE5;&#x6539;&#x6210;&#xFF1A;</p>
+<pre class="line-numbers language-java"><code class="language-java">String reg<span class="token operator">=</span><span class="token string">&quot;\\d+(?=&lt;/span&gt;)&quot;</span><span class="token punctuation">;</span>
+String test <span class="token operator">=</span> <span class="token string">&quot;&lt;span class=\&quot;read-count\&quot;&gt;&#x9605;&#x8BFB;&#x6570;&#xFF1A;641&lt;/span&gt;&quot;</span><span class="token punctuation">;</span>
 Pattern pattern <span class="token operator">=</span> Pattern<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
 Matcher mc<span class="token operator">=</span>    pattern<span class="token punctuation">.</span><span class="token function">matcher</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">while</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
   System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>输出</p>
-<pre><code>//匹配结果：
+<p>&#x8F93;&#x51FA;</p>
+<pre><code>//&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;
 641
-</code></pre><p>大功告成！</p>
-<h3><a href="#2-zheng-xiang-hou-xing-duan-yan-zheng-hou-gu" class="header-anchor">#</a><span id="2-zheng-xiang-hou-xing-duan-yan-zheng-hou-gu">2. 正向后行断言（正后顾）</span></h3><p><strong>语法</strong>：<code>（?&lt;=pattern）</code></p>
-<p><strong>作用</strong>：匹配 pattern表达式的后面的内容，不返回本身。</p>
-<p>有先行就有后行，先行是匹配前面的内容，那后行就是匹配后面的内容啦。</p>
-<p>上面的栗子，我们也可以用后行断言来处理：</p>
-<pre class="line-numbers language-bash"><code class="language-bash"> <span class="token punctuation">(</span>?<span class="token operator">&lt;=</span><span class="token operator">&lt;</span>span class<span class="token operator">=</span><span class="token string">"read-count"</span><span class="token operator">></span>阅读数：<span class="token punctuation">)</span>\d+
- String reg<span class="token operator">=</span><span class="token string">"(?&lt;=&lt;span class=\"read-count\">阅读数：)\\d+"</span><span class="token punctuation">;</span>
+</code></pre><p>&#x5927;&#x529F;&#x544A;&#x6210;&#xFF01;</p>
+<h3><a href="#2-zheng-xiang-hou-xing-duan-yan-zheng-hou-gu" class="header-anchor">#</a><span id="2-zheng-xiang-hou-xing-duan-yan-zheng-hou-gu">2. &#x6B63;&#x5411;&#x540E;&#x884C;&#x65AD;&#x8A00;&#xFF08;&#x6B63;&#x540E;&#x987E;&#xFF09;</span></h3><p><strong>&#x8BED;&#x6CD5;</strong>&#xFF1A;<code>&#xFF08;?&lt;=pattern&#xFF09;</code></p>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;&#x5339;&#x914D; pattern&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x540E;&#x9762;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x4E0D;&#x8FD4;&#x56DE;&#x672C;&#x8EAB;&#x3002;</p>
+<p>&#x6709;&#x5148;&#x884C;&#x5C31;&#x6709;&#x540E;&#x884C;&#xFF0C;&#x5148;&#x884C;&#x662F;&#x5339;&#x914D;&#x524D;&#x9762;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x90A3;&#x540E;&#x884C;&#x5C31;&#x662F;&#x5339;&#x914D;&#x540E;&#x9762;&#x7684;&#x5185;&#x5BB9;&#x5566;&#x3002;</p>
+<p>&#x4E0A;&#x9762;&#x7684;&#x6817;&#x5B50;&#xFF0C;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x540E;&#x884C;&#x65AD;&#x8A00;&#x6765;&#x5904;&#x7406;&#xFF1A;</p>
+<pre class="line-numbers language-bash"><code class="language-bash"> <span class="token punctuation">(</span>?<span class="token operator">&lt;=</span><span class="token operator">&lt;</span>span class<span class="token operator">=</span><span class="token string">&quot;read-count&quot;</span><span class="token operator">&gt;</span>&#x9605;&#x8BFB;&#x6570;&#xFF1A;<span class="token punctuation">)</span>\d+
+ String reg<span class="token operator">=</span><span class="token string">&quot;(?&lt;=&lt;span class=\&quot;read-count\&quot;&gt;&#x9605;&#x8BFB;&#x6570;&#xFF1A;)\\d+&quot;</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-java"><code class="language-java"> String test <span class="token operator">=</span> <span class="token string">"&lt;span class=\"read-count\">阅读数：641&lt;/span>"</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"> String test <span class="token operator">=</span> <span class="token string">&quot;&lt;span class=\&quot;read-count\&quot;&gt;&#x9605;&#x8BFB;&#x6570;&#xFF1A;641&lt;/span&gt;&quot;</span><span class="token punctuation">;</span>
  Pattern pattern <span class="token operator">=</span> Pattern<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
  Matcher mc<span class="token operator">=</span>    pattern<span class="token punctuation">.</span><span class="token function">matcher</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
          <span class="token keyword">while</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
              System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
          <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p> 输出</p>
-<pre><code># 匹配结果：
+<p> &#x8F93;&#x51FA;</p>
+<pre><code># &#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;
 641
-</code></pre><p>就这么简单。</p>
-<h3><a href="#3-fu-xiang-xian-xing-duan-yan-fu-qian-zhan" class="header-anchor">#</a><span id="3-fu-xiang-xian-xing-duan-yan-fu-qian-zhan">3. 负向先行断言（负前瞻）</span></h3><p><strong>语法</strong>：<code>(?!pattern)</code></p>
-<p><strong>作用</strong>：匹配非 pattern 表达式的前面内容，不返回本身。</p>
-<p>有正向也有负向，负向在这里其实就是非的意思。</p>
+</code></pre><p>&#x5C31;&#x8FD9;&#x4E48;&#x7B80;&#x5355;&#x3002;</p>
+<h3><a href="#3-fu-xiang-xian-xing-duan-yan-fu-qian-zhan" class="header-anchor">#</a><span id="3-fu-xiang-xian-xing-duan-yan-fu-qian-zhan">3. &#x8D1F;&#x5411;&#x5148;&#x884C;&#x65AD;&#x8A00;&#xFF08;&#x8D1F;&#x524D;&#x77BB;&#xFF09;</span></h3><p><strong>&#x8BED;&#x6CD5;</strong>&#xFF1A;<code>(?!pattern)</code></p>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;&#x5339;&#x914D;&#x975E; pattern &#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x524D;&#x9762;&#x5185;&#x5BB9;&#xFF0C;&#x4E0D;&#x8FD4;&#x56DE;&#x672C;&#x8EAB;&#x3002;</p>
+<p>&#x6709;&#x6B63;&#x5411;&#x4E5F;&#x6709;&#x8D1F;&#x5411;&#xFF0C;&#x8D1F;&#x5411;&#x5728;&#x8FD9;&#x91CC;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x975E;&#x7684;&#x610F;&#x601D;&#x3002;</p>
 <blockquote>
-<p>举个栗子：比如有一句 “我爱祖国，我是祖国的花朵”<br>现在要找到不是’的花朵’前面的祖国</p>
+<p>&#x4E3E;&#x4E2A;&#x6817;&#x5B50;&#xFF1A;&#x6BD4;&#x5982;&#x6709;&#x4E00;&#x53E5; &#x201C;&#x6211;&#x7231;&#x7956;&#x56FD;&#xFF0C;&#x6211;&#x662F;&#x7956;&#x56FD;&#x7684;&#x82B1;&#x6735;&#x201D;<br>&#x73B0;&#x5728;&#x8981;&#x627E;&#x5230;&#x4E0D;&#x662F;&#x2019;&#x7684;&#x82B1;&#x6735;&#x2019;&#x524D;&#x9762;&#x7684;&#x7956;&#x56FD;</p>
 </blockquote>
-<p>用正则就可以这样写：</p>
-<pre class="line-numbers language-bash"><code class="language-bash">祖国<span class="token punctuation">(</span>?<span class="token operator">!</span>的花朵<span class="token punctuation">)</span>
+<p>&#x7528;&#x6B63;&#x5219;&#x5C31;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x5199;&#xFF1A;</p>
+<pre class="line-numbers language-bash"><code class="language-bash">&#x7956;&#x56FD;<span class="token punctuation">(</span>?<span class="token operator">!</span>&#x7684;&#x82B1;&#x6735;<span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3><a href="#4-fu-xiang-hou-xing-duan-yan-fu-hou-gu" class="header-anchor">#</a><span id="4-fu-xiang-hou-xing-duan-yan-fu-hou-gu">4. 负向后行断言（负后顾）</span></h3><p><strong>语法</strong>：<code>(?&lt;!pattern)</code></p>
-<p><strong>作用</strong>：匹配非 pattern</p>
-<p>表达式的后面内容，不返回本身。</p>
-<h1><a href="#ba-bu-huo-he-fei-bu-huo" class="header-anchor">#</a><span id="ba-bu-huo-he-fei-bu-huo">八、捕获和非捕获</span></h1><p>单纯说到捕获，他的意思是匹配表达式，但捕获通常和分组联系在一起，也就是“捕获组”。</p>
-<p><strong>捕获组</strong>：匹配子表达式的内容，把匹配结果保存到内存中中数字编号或显示命名的组里，以深度优先进行编号，之后可以通过序号或名称来使用这些匹配结果。</p>
-<p>而根据命名方式的不同，又可以分为两种组：</p>
-<h3><a href="#1-shu-zi-bian-hao-bu-huo-zu" class="header-anchor">#</a><span id="1-shu-zi-bian-hao-bu-huo-zu">1. 数字编号捕获组：</span></h3><p><strong>语法</strong>：<code>(exp)</code></p>
-<p><strong>解释</strong>：从表达式左侧开始，每出现一个左括号和它对应的右括号之间的内容为一个分组，在分组中，第 0 组为整个表达式，第一组开始为分组。<br>比如固定电话的：020-85653333<br>他的正则表达式为：(0\d{2})-(\d{8})<br>按照左括号的顺序，这个表达式有如下分组：</p>
+<h3><a href="#4-fu-xiang-hou-xing-duan-yan-fu-hou-gu" class="header-anchor">#</a><span id="4-fu-xiang-hou-xing-duan-yan-fu-hou-gu">4. &#x8D1F;&#x5411;&#x540E;&#x884C;&#x65AD;&#x8A00;&#xFF08;&#x8D1F;&#x540E;&#x987E;&#xFF09;</span></h3><p><strong>&#x8BED;&#x6CD5;</strong>&#xFF1A;<code>(?&lt;!pattern)</code></p>
+<p><strong>&#x4F5C;&#x7528;</strong>&#xFF1A;&#x5339;&#x914D;&#x975E; pattern</p>
+<p>&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x540E;&#x9762;&#x5185;&#x5BB9;&#xFF0C;&#x4E0D;&#x8FD4;&#x56DE;&#x672C;&#x8EAB;&#x3002;</p>
+<h1><a href="#ba-bu-huo-he-fei-bu-huo" class="header-anchor">#</a><span id="ba-bu-huo-he-fei-bu-huo">&#x516B;&#x3001;&#x6355;&#x83B7;&#x548C;&#x975E;&#x6355;&#x83B7;</span></h1><p>&#x5355;&#x7EAF;&#x8BF4;&#x5230;&#x6355;&#x83B7;&#xFF0C;&#x4ED6;&#x7684;&#x610F;&#x601D;&#x662F;&#x5339;&#x914D;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x4F46;&#x6355;&#x83B7;&#x901A;&#x5E38;&#x548C;&#x5206;&#x7EC4;&#x8054;&#x7CFB;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x201C;&#x6355;&#x83B7;&#x7EC4;&#x201D;&#x3002;</p>
+<p><strong>&#x6355;&#x83B7;&#x7EC4;</strong>&#xFF1A;&#x5339;&#x914D;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x628A;&#x5339;&#x914D;&#x7ED3;&#x679C;&#x4FDD;&#x5B58;&#x5230;&#x5185;&#x5B58;&#x4E2D;&#x4E2D;&#x6570;&#x5B57;&#x7F16;&#x53F7;&#x6216;&#x663E;&#x793A;&#x547D;&#x540D;&#x7684;&#x7EC4;&#x91CC;&#xFF0C;&#x4EE5;&#x6DF1;&#x5EA6;&#x4F18;&#x5148;&#x8FDB;&#x884C;&#x7F16;&#x53F7;&#xFF0C;&#x4E4B;&#x540E;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5E8F;&#x53F7;&#x6216;&#x540D;&#x79F0;&#x6765;&#x4F7F;&#x7528;&#x8FD9;&#x4E9B;&#x5339;&#x914D;&#x7ED3;&#x679C;&#x3002;</p>
+<p>&#x800C;&#x6839;&#x636E;&#x547D;&#x540D;&#x65B9;&#x5F0F;&#x7684;&#x4E0D;&#x540C;&#xFF0C;&#x53C8;&#x53EF;&#x4EE5;&#x5206;&#x4E3A;&#x4E24;&#x79CD;&#x7EC4;&#xFF1A;</p>
+<h3><a href="#1-shu-zi-bian-hao-bu-huo-zu" class="header-anchor">#</a><span id="1-shu-zi-bian-hao-bu-huo-zu">1. &#x6570;&#x5B57;&#x7F16;&#x53F7;&#x6355;&#x83B7;&#x7EC4;&#xFF1A;</span></h3><p><strong>&#x8BED;&#x6CD5;</strong>&#xFF1A;<code>(exp)</code></p>
+<p><strong>&#x89E3;&#x91CA;</strong>&#xFF1A;&#x4ECE;&#x8868;&#x8FBE;&#x5F0F;&#x5DE6;&#x4FA7;&#x5F00;&#x59CB;&#xFF0C;&#x6BCF;&#x51FA;&#x73B0;&#x4E00;&#x4E2A;&#x5DE6;&#x62EC;&#x53F7;&#x548C;&#x5B83;&#x5BF9;&#x5E94;&#x7684;&#x53F3;&#x62EC;&#x53F7;&#x4E4B;&#x95F4;&#x7684;&#x5185;&#x5BB9;&#x4E3A;&#x4E00;&#x4E2A;&#x5206;&#x7EC4;&#xFF0C;&#x5728;&#x5206;&#x7EC4;&#x4E2D;&#xFF0C;&#x7B2C; 0 &#x7EC4;&#x4E3A;&#x6574;&#x4E2A;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x7B2C;&#x4E00;&#x7EC4;&#x5F00;&#x59CB;&#x4E3A;&#x5206;&#x7EC4;&#x3002;<br>&#x6BD4;&#x5982;&#x56FA;&#x5B9A;&#x7535;&#x8BDD;&#x7684;&#xFF1A;020-85653333<br>&#x4ED6;&#x7684;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x4E3A;&#xFF1A;(0\d{2})-(\d{8})<br>&#x6309;&#x7167;&#x5DE6;&#x62EC;&#x53F7;&#x7684;&#x987A;&#x5E8F;&#xFF0C;&#x8FD9;&#x4E2A;&#x8868;&#x8FBE;&#x5F0F;&#x6709;&#x5982;&#x4E0B;&#x5206;&#x7EC4;&#xFF1A;</p>
 <table>
 <thead>
 <tr>
-<th>序号</th>
-<th>编号</th>
-<th>分组</th>
-<th>内容</th>
+<th>&#x5E8F;&#x53F7;</th>
+<th>&#x7F16;&#x53F7;</th>
+<th>&#x5206;&#x7EC4;</th>
+<th>&#x5185;&#x5BB9;</th>
 </tr>
 </thead>
 <tbody>
@@ -245,33 +244,33 @@ Matcher mc<span class="token operator">=</span>    pattern<span class="token pun
 </tr>
 </tbody>
 </table>
-<p>我们用Java来验证一下：</p>
-<pre class="line-numbers language-java"><code class="language-java">String test <span class="token operator">=</span> <span class="token string">"020-85653333"</span><span class="token punctuation">;</span>
-String reg<span class="token operator">=</span><span class="token string">"(0\\d{2})-(\\d{8})"</span><span class="token punctuation">;</span>
+<p>&#x6211;&#x4EEC;&#x7528;Java&#x6765;&#x9A8C;&#x8BC1;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<pre class="line-numbers language-java"><code class="language-java">String test <span class="token operator">=</span> <span class="token string">&quot;020-85653333&quot;</span><span class="token punctuation">;</span>
+String reg<span class="token operator">=</span><span class="token string">&quot;(0\\d{2})-(\\d{8})&quot;</span><span class="token punctuation">;</span>
 Pattern pattern <span class="token operator">=</span> Pattern<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
 Matcher mc<span class="token operator">=</span> pattern<span class="token punctuation">.</span><span class="token function">matcher</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"分组的个数有："</span><span class="token operator">+</span>mc<span class="token punctuation">.</span><span class="token function">groupCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x5206;&#x7EC4;&#x7684;&#x4E2A;&#x6570;&#x6709;&#xFF1A;&quot;</span><span class="token operator">+</span>mc<span class="token punctuation">.</span><span class="token function">groupCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>mc<span class="token punctuation">.</span><span class="token function">groupCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第"</span><span class="token operator">+</span>i<span class="token operator">+</span><span class="token string">"个分组为："</span><span class="token operator">+</span>mc<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x7B2C;&quot;</span><span class="token operator">+</span>i<span class="token operator">+</span><span class="token string">&quot;&#x4E2A;&#x5206;&#x7EC4;&#x4E3A;&#xFF1A;&quot;</span><span class="token operator">+</span>mc<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>输出结果：</p>
-<pre><code>分组的个数有：2
-第0个分组为：020-85653333
-第1个分组为：020
-第2个分组为：85653333
-</code></pre><p>可见，分组个数是2，但是因为第0个为整个表达式本身，因此也一起输出了。</p>
-<h3><a href="#2-ming-ming-bian-hao-bu-huo-zu" class="header-anchor">#</a><span id="2-ming-ming-bian-hao-bu-huo-zu">2. 命名编号捕获组</span></h3><p><strong>语法</strong>：<code>(?&lt;name&gt;exp)</code></p>
-<p><strong>解释</strong>：分组的命名由表达式中的 name 指定<br>比如区号也可以这样写:<code>(?&lt;quhao&gt;\0\d{2})-(?&lt;haoma&gt;\d{8})</code>，按照左括号的顺序，这个表达式有如下分组：</p>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code>&#x5206;&#x7EC4;&#x7684;&#x4E2A;&#x6570;&#x6709;&#xFF1A;2
+&#x7B2C;0&#x4E2A;&#x5206;&#x7EC4;&#x4E3A;&#xFF1A;020-85653333
+&#x7B2C;1&#x4E2A;&#x5206;&#x7EC4;&#x4E3A;&#xFF1A;020
+&#x7B2C;2&#x4E2A;&#x5206;&#x7EC4;&#x4E3A;&#xFF1A;85653333
+</code></pre><p>&#x53EF;&#x89C1;&#xFF0C;&#x5206;&#x7EC4;&#x4E2A;&#x6570;&#x662F;2&#xFF0C;&#x4F46;&#x662F;&#x56E0;&#x4E3A;&#x7B2C;0&#x4E2A;&#x4E3A;&#x6574;&#x4E2A;&#x8868;&#x8FBE;&#x5F0F;&#x672C;&#x8EAB;&#xFF0C;&#x56E0;&#x6B64;&#x4E5F;&#x4E00;&#x8D77;&#x8F93;&#x51FA;&#x4E86;&#x3002;</p>
+<h3><a href="#2-ming-ming-bian-hao-bu-huo-zu" class="header-anchor">#</a><span id="2-ming-ming-bian-hao-bu-huo-zu">2. &#x547D;&#x540D;&#x7F16;&#x53F7;&#x6355;&#x83B7;&#x7EC4;</span></h3><p><strong>&#x8BED;&#x6CD5;</strong>&#xFF1A;<code>(?&lt;name&gt;exp)</code></p>
+<p><strong>&#x89E3;&#x91CA;</strong>&#xFF1A;&#x5206;&#x7EC4;&#x7684;&#x547D;&#x540D;&#x7531;&#x8868;&#x8FBE;&#x5F0F;&#x4E2D;&#x7684; name &#x6307;&#x5B9A;<br>&#x6BD4;&#x5982;&#x533A;&#x53F7;&#x4E5F;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x5199;:<code>(?&lt;quhao&gt;\0\d{2})-(?&lt;haoma&gt;\d{8})</code>&#xFF0C;&#x6309;&#x7167;&#x5DE6;&#x62EC;&#x53F7;&#x7684;&#x987A;&#x5E8F;&#xFF0C;&#x8FD9;&#x4E2A;&#x8868;&#x8FBE;&#x5F0F;&#x6709;&#x5982;&#x4E0B;&#x5206;&#x7EC4;&#xFF1A;</p>
 <table>
 <thead>
 <tr>
-<th>序号</th>
-<th>名称</th>
-<th>分组</th>
-<th>内容</th>
+<th>&#x5E8F;&#x53F7;</th>
+<th>&#x540D;&#x79F0;</th>
+<th>&#x5206;&#x7EC4;</th>
+<th>&#x5185;&#x5BB9;</th>
 </tr>
 </thead>
 <tbody>
@@ -295,236 +294,236 @@ Matcher mc<span class="token operator">=</span> pattern<span class="token punctu
 </tr>
 </tbody>
 </table>
-<p>用代码来验证一下：</p>
-<pre class="line-numbers language-java"><code class="language-java">String test <span class="token operator">=</span> <span class="token string">"020-85653333"</span><span class="token punctuation">;</span>
-String reg<span class="token operator">=</span><span class="token string">"(?&lt;quhao>0\\d{2})-(?&lt;haoma>\\d{8})"</span><span class="token punctuation">;</span>
+<p>&#x7528;&#x4EE3;&#x7801;&#x6765;&#x9A8C;&#x8BC1;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<pre class="line-numbers language-java"><code class="language-java">String test <span class="token operator">=</span> <span class="token string">&quot;020-85653333&quot;</span><span class="token punctuation">;</span>
+String reg<span class="token operator">=</span><span class="token string">&quot;(?&lt;quhao&gt;0\\d{2})-(?&lt;haoma&gt;\\d{8})&quot;</span><span class="token punctuation">;</span>
 Pattern pattern <span class="token operator">=</span> Pattern<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
 Matcher mc<span class="token operator">=</span> pattern<span class="token punctuation">.</span><span class="token function">matcher</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"分组的个数有："</span><span class="token operator">+</span>mc<span class="token punctuation">.</span><span class="token function">groupCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token string">"quhao"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token string">"haoma"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x5206;&#x7EC4;&#x7684;&#x4E2A;&#x6570;&#x6709;&#xFF1A;&quot;</span><span class="token operator">+</span>mc<span class="token punctuation">.</span><span class="token function">groupCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token string">&quot;quhao&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token string">&quot;haoma&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>输出结果：</p>
-<pre><code>分组的个数有：2
-分组名称为:quhao,匹配内容为：020
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code>&#x5206;&#x7EC4;&#x7684;&#x4E2A;&#x6570;&#x6709;&#xFF1A;2
+&#x5206;&#x7EC4;&#x540D;&#x79F0;&#x4E3A;:quhao,&#x5339;&#x914D;&#x5185;&#x5BB9;&#x4E3A;&#xFF1A;020
 
-分组名称为:haoma,匹配内容为：85653333
+&#x5206;&#x7EC4;&#x540D;&#x79F0;&#x4E3A;:haoma,&#x5339;&#x914D;&#x5185;&#x5BB9;&#x4E3A;&#xFF1A;85653333
 
-</code></pre><h3><a href="#3-fei-bu-huo-zu" class="header-anchor">#</a><span id="3-fei-bu-huo-zu">3. 非捕获组</span></h3><p><strong>语法</strong>：<code>(?:exp)</code></p>
-<p><strong>解释</strong>：和捕获组刚好相反，它用来标识那些不需要捕获的分组，说的通俗一点，就是你可以根据需要去保存你的分组。</p>
-<p>比如上面的正则表达式，程序不需要用到第一个分组，那就可以这样写：</p>
+</code></pre><h3><a href="#3-fei-bu-huo-zu" class="header-anchor">#</a><span id="3-fei-bu-huo-zu">3. &#x975E;&#x6355;&#x83B7;&#x7EC4;</span></h3><p><strong>&#x8BED;&#x6CD5;</strong>&#xFF1A;<code>(?:exp)</code></p>
+<p><strong>&#x89E3;&#x91CA;</strong>&#xFF1A;&#x548C;&#x6355;&#x83B7;&#x7EC4;&#x521A;&#x597D;&#x76F8;&#x53CD;&#xFF0C;&#x5B83;&#x7528;&#x6765;&#x6807;&#x8BC6;&#x90A3;&#x4E9B;&#x4E0D;&#x9700;&#x8981;&#x6355;&#x83B7;&#x7684;&#x5206;&#x7EC4;&#xFF0C;&#x8BF4;&#x7684;&#x901A;&#x4FD7;&#x4E00;&#x70B9;&#xFF0C;&#x5C31;&#x662F;&#x4F60;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x9700;&#x8981;&#x53BB;&#x4FDD;&#x5B58;&#x4F60;&#x7684;&#x5206;&#x7EC4;&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#x4E0A;&#x9762;&#x7684;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x7A0B;&#x5E8F;&#x4E0D;&#x9700;&#x8981;&#x7528;&#x5230;&#x7B2C;&#x4E00;&#x4E2A;&#x5206;&#x7EC4;&#xFF0C;&#x90A3;&#x5C31;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x5199;&#xFF1A;</p>
 <pre><code>(?:\0\d{2})-(\d{8})
-</code></pre><p>序号    |编号    |分组    |内容<br>0    |0    |(0\d{2})-(\d{8})    |020-85653333<br>1    |1    |(\d{8})    |85653333<br>验证一下：</p>
-<pre class="line-numbers language-java"><code class="language-java">String test <span class="token operator">=</span> <span class="token string">"020-85653333"</span><span class="token punctuation">;</span>
-String reg<span class="token operator">=</span><span class="token string">"(?:0\\d{2})-(\\d{8})"</span><span class="token punctuation">;</span>
+</code></pre><p>&#x5E8F;&#x53F7;    |&#x7F16;&#x53F7;    |&#x5206;&#x7EC4;    |&#x5185;&#x5BB9;<br>0    |0    |(0\d{2})-(\d{8})    |020-85653333<br>1    |1    |(\d{8})    |85653333<br>&#x9A8C;&#x8BC1;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<pre class="line-numbers language-java"><code class="language-java">String test <span class="token operator">=</span> <span class="token string">&quot;020-85653333&quot;</span><span class="token punctuation">;</span>
+String reg<span class="token operator">=</span><span class="token string">&quot;(?:0\\d{2})-(\\d{8})&quot;</span><span class="token punctuation">;</span>
 Pattern pattern <span class="token operator">=</span> Pattern<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
 Matcher mc<span class="token operator">=</span> pattern<span class="token punctuation">.</span><span class="token function">matcher</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"分组的个数有："</span><span class="token operator">+</span>mc<span class="token punctuation">.</span><span class="token function">groupCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x5206;&#x7EC4;&#x7684;&#x4E2A;&#x6570;&#x6709;&#xFF1A;&quot;</span><span class="token operator">+</span>mc<span class="token punctuation">.</span><span class="token function">groupCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> fi<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>mc<span class="token punctuation">.</span><span class="token function">groupCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第"</span><span class="token operator">+</span>i<span class="token operator">+</span><span class="token string">"个分组为："</span><span class="token operator">+</span>mc<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x7B2C;&quot;</span><span class="token operator">+</span>i<span class="token operator">+</span><span class="token string">&quot;&#x4E2A;&#x5206;&#x7EC4;&#x4E3A;&#xFF1A;&quot;</span><span class="token operator">+</span>mc<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>输出结果：</p>
-<pre><code>分组的个数有：1
-第0个分组为：020-85653333
-第1个分组为：85653333
-</code></pre><h1><a href="#jiu-fan-xiang-yin-yong" class="header-anchor">#</a><span id="jiu-fan-xiang-yin-yong">九、 反向引用</span></h1><p>上面讲到捕获，我们知道：捕获会返回一个捕获组，这个分组是保存在内存中，不仅可以在正则表达式外部通过程序进行引用，也可以在正则表达式内部进行引用，这种引用方式就是反向引用。</p>
-<p>根据捕获组的命名规则，反向引用可分为：</p>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code>&#x5206;&#x7EC4;&#x7684;&#x4E2A;&#x6570;&#x6709;&#xFF1A;1
+&#x7B2C;0&#x4E2A;&#x5206;&#x7EC4;&#x4E3A;&#xFF1A;020-85653333
+&#x7B2C;1&#x4E2A;&#x5206;&#x7EC4;&#x4E3A;&#xFF1A;85653333
+</code></pre><h1><a href="#jiu-fan-xiang-yin-yong" class="header-anchor">#</a><span id="jiu-fan-xiang-yin-yong">&#x4E5D;&#x3001; &#x53CD;&#x5411;&#x5F15;&#x7528;</span></h1><p>&#x4E0A;&#x9762;&#x8BB2;&#x5230;&#x6355;&#x83B7;&#xFF0C;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#xFF1A;&#x6355;&#x83B7;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6355;&#x83B7;&#x7EC4;&#xFF0C;&#x8FD9;&#x4E2A;&#x5206;&#x7EC4;&#x662F;&#x4FDD;&#x5B58;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x5728;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5916;&#x90E8;&#x901A;&#x8FC7;&#x7A0B;&#x5E8F;&#x8FDB;&#x884C;&#x5F15;&#x7528;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5185;&#x90E8;&#x8FDB;&#x884C;&#x5F15;&#x7528;&#xFF0C;&#x8FD9;&#x79CD;&#x5F15;&#x7528;&#x65B9;&#x5F0F;&#x5C31;&#x662F;&#x53CD;&#x5411;&#x5F15;&#x7528;&#x3002;</p>
+<p>&#x6839;&#x636E;&#x6355;&#x83B7;&#x7EC4;&#x7684;&#x547D;&#x540D;&#x89C4;&#x5219;&#xFF0C;&#x53CD;&#x5411;&#x5F15;&#x7528;&#x53EF;&#x5206;&#x4E3A;&#xFF1A;</p>
 <ol>
-<li>数字编号组反向引用：\k 或\number</li>
-<li>命名编号组反向引用：\k 或者\’name’</li>
+<li>&#x6570;&#x5B57;&#x7F16;&#x53F7;&#x7EC4;&#x53CD;&#x5411;&#x5F15;&#x7528;&#xFF1A;\k &#x6216;\number</li>
+<li>&#x547D;&#x540D;&#x7F16;&#x53F7;&#x7EC4;&#x53CD;&#x5411;&#x5F15;&#x7528;&#xFF1A;\k &#x6216;&#x8005;\&#x2019;name&#x2019;</li>
 </ol>
-<p>好了 讲完了，懂吗？不懂！！！</p>
-<p>可能连前面讲的捕获有什么用都还不懂吧？</p>
-<p>其实只是看完捕获不懂不会用是很正常的！</p>
-<p>因为捕获组通常是和反向引用一起使用的</p>
-<p>上面说到捕获组是匹配子表达式的内容按序号或者命名保存起来以便使用。</p>
-<p>注意两个字眼：“内容” 和 “使用”。<br>这里所说的“内容”，是匹配结果，而不是子表达式本身，强调这个有什么用？嗯，先记住。</p>
-<p>那这里所说的“使用”是怎样使用呢？</p>
-<p>因为它的作用主要是用来查找一些重复的内容或者做替换指定字符。</p>
-<p>还是举栗子吧：</p>
-<p>比如要查找一串字母”aabbbbgbddesddfiid”里成对的字母。</p>
-<p>如果按照我们之前学到的正则，什么区间啊限定啊断言啊可能是办不到的，现在我们先用程序思维理一下思路：</p>
+<p>&#x597D;&#x4E86; &#x8BB2;&#x5B8C;&#x4E86;&#xFF0C;&#x61C2;&#x5417;&#xFF1F;&#x4E0D;&#x61C2;&#xFF01;&#xFF01;&#xFF01;</p>
+<p>&#x53EF;&#x80FD;&#x8FDE;&#x524D;&#x9762;&#x8BB2;&#x7684;&#x6355;&#x83B7;&#x6709;&#x4EC0;&#x4E48;&#x7528;&#x90FD;&#x8FD8;&#x4E0D;&#x61C2;&#x5427;&#xFF1F;</p>
+<p>&#x5176;&#x5B9E;&#x53EA;&#x662F;&#x770B;&#x5B8C;&#x6355;&#x83B7;&#x4E0D;&#x61C2;&#x4E0D;&#x4F1A;&#x7528;&#x662F;&#x5F88;&#x6B63;&#x5E38;&#x7684;&#xFF01;</p>
+<p>&#x56E0;&#x4E3A;&#x6355;&#x83B7;&#x7EC4;&#x901A;&#x5E38;&#x662F;&#x548C;&#x53CD;&#x5411;&#x5F15;&#x7528;&#x4E00;&#x8D77;&#x4F7F;&#x7528;&#x7684;</p>
+<p>&#x4E0A;&#x9762;&#x8BF4;&#x5230;&#x6355;&#x83B7;&#x7EC4;&#x662F;&#x5339;&#x914D;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x5185;&#x5BB9;&#x6309;&#x5E8F;&#x53F7;&#x6216;&#x8005;&#x547D;&#x540D;&#x4FDD;&#x5B58;&#x8D77;&#x6765;&#x4EE5;&#x4FBF;&#x4F7F;&#x7528;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#x4E24;&#x4E2A;&#x5B57;&#x773C;&#xFF1A;&#x201C;&#x5185;&#x5BB9;&#x201D; &#x548C; &#x201C;&#x4F7F;&#x7528;&#x201D;&#x3002;<br>&#x8FD9;&#x91CC;&#x6240;&#x8BF4;&#x7684;&#x201C;&#x5185;&#x5BB9;&#x201D;&#xFF0C;&#x662F;&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#x672C;&#x8EAB;&#xFF0C;&#x5F3A;&#x8C03;&#x8FD9;&#x4E2A;&#x6709;&#x4EC0;&#x4E48;&#x7528;&#xFF1F;&#x55EF;&#xFF0C;&#x5148;&#x8BB0;&#x4F4F;&#x3002;</p>
+<p>&#x90A3;&#x8FD9;&#x91CC;&#x6240;&#x8BF4;&#x7684;&#x201C;&#x4F7F;&#x7528;&#x201D;&#x662F;&#x600E;&#x6837;&#x4F7F;&#x7528;&#x5462;&#xFF1F;</p>
+<p>&#x56E0;&#x4E3A;&#x5B83;&#x7684;&#x4F5C;&#x7528;&#x4E3B;&#x8981;&#x662F;&#x7528;&#x6765;&#x67E5;&#x627E;&#x4E00;&#x4E9B;&#x91CD;&#x590D;&#x7684;&#x5185;&#x5BB9;&#x6216;&#x8005;&#x505A;&#x66FF;&#x6362;&#x6307;&#x5B9A;&#x5B57;&#x7B26;&#x3002;</p>
+<p>&#x8FD8;&#x662F;&#x4E3E;&#x6817;&#x5B50;&#x5427;&#xFF1A;</p>
+<p>&#x6BD4;&#x5982;&#x8981;&#x67E5;&#x627E;&#x4E00;&#x4E32;&#x5B57;&#x6BCD;&#x201D;aabbbbgbddesddfiid&#x201D;&#x91CC;&#x6210;&#x5BF9;&#x7684;&#x5B57;&#x6BCD;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x6309;&#x7167;&#x6211;&#x4EEC;&#x4E4B;&#x524D;&#x5B66;&#x5230;&#x7684;&#x6B63;&#x5219;&#xFF0C;&#x4EC0;&#x4E48;&#x533A;&#x95F4;&#x554A;&#x9650;&#x5B9A;&#x554A;&#x65AD;&#x8A00;&#x554A;&#x53EF;&#x80FD;&#x662F;&#x529E;&#x4E0D;&#x5230;&#x7684;&#xFF0C;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x5148;&#x7528;&#x7A0B;&#x5E8F;&#x601D;&#x7EF4;&#x7406;&#x4E00;&#x4E0B;&#x601D;&#x8DEF;&#xFF1A;</p>
 <blockquote>
 <ol>
-<li>匹配到一个字母</li>
-<li>匹配第下一个字母，检查是否和上一个字母是否一样</li>
-<li>如果一样，则匹配成功，否则失败</li>
+<li>&#x5339;&#x914D;&#x5230;&#x4E00;&#x4E2A;&#x5B57;&#x6BCD;</li>
+<li>&#x5339;&#x914D;&#x7B2C;&#x4E0B;&#x4E00;&#x4E2A;&#x5B57;&#x6BCD;&#xFF0C;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x548C;&#x4E0A;&#x4E00;&#x4E2A;&#x5B57;&#x6BCD;&#x662F;&#x5426;&#x4E00;&#x6837;</li>
+<li>&#x5982;&#x679C;&#x4E00;&#x6837;&#xFF0C;&#x5219;&#x5339;&#x914D;&#x6210;&#x529F;&#xFF0C;&#x5426;&#x5219;&#x5931;&#x8D25;</li>
 </ol>
 </blockquote>
-<p>这里的思路 2 中匹配下一个字母时，需要用到上一个字母，那怎么记住上一个字母呢？？？</p>
-<p>这下子捕获就有用处啦，我们可以利用捕获把上一个匹配成功的内容用来作为本次匹配的条件。</p>
-<p>好了，有思路就要实践</p>
-<p>首先匹配一个字母：<code>\w</code>，我们需要做成分组才能捕获，因此写成这样：<code>(\w)</code><br>那这个表达式就有一个捕获组：<code>（\w）</code><br>然后我们要用这个捕获组作为条件，那就可以：<code>(\w)\1</code>这样就大功告成了</p>
-<p>可能有人不明白了，<code>\1</code> 是什么意思呢？</p>
-<p>还记得捕获组有两种命名方式吗，一种是是根据捕获分组顺序命名，一种是自定义命名来作为捕获组的命名在默认情况下都是以数字来命名，而且数字命名的顺序是从 1 开始的。</p>
-<p>因此要引用第一个捕获组，根据反向引用的数字命名规则 就需要 <code>\k&lt;1&gt;</code>或者<code>\1</code>，当然，通常都是是后者。</p>
-<p>我们来测试一下：</p>
-<pre class="line-numbers language-java"><code class="language-java">String test <span class="token operator">=</span> <span class="token string">"aabbbbgbddesddfiid"</span><span class="token punctuation">;</span>
-Pattern pattern <span class="token operator">=</span> Pattern<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span><span class="token string">"(\\w)\\1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<p>&#x8FD9;&#x91CC;&#x7684;&#x601D;&#x8DEF; 2 &#x4E2D;&#x5339;&#x914D;&#x4E0B;&#x4E00;&#x4E2A;&#x5B57;&#x6BCD;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x7528;&#x5230;&#x4E0A;&#x4E00;&#x4E2A;&#x5B57;&#x6BCD;&#xFF0C;&#x90A3;&#x600E;&#x4E48;&#x8BB0;&#x4F4F;&#x4E0A;&#x4E00;&#x4E2A;&#x5B57;&#x6BCD;&#x5462;&#xFF1F;&#xFF1F;&#xFF1F;</p>
+<p>&#x8FD9;&#x4E0B;&#x5B50;&#x6355;&#x83B7;&#x5C31;&#x6709;&#x7528;&#x5904;&#x5566;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5229;&#x7528;&#x6355;&#x83B7;&#x628A;&#x4E0A;&#x4E00;&#x4E2A;&#x5339;&#x914D;&#x6210;&#x529F;&#x7684;&#x5185;&#x5BB9;&#x7528;&#x6765;&#x4F5C;&#x4E3A;&#x672C;&#x6B21;&#x5339;&#x914D;&#x7684;&#x6761;&#x4EF6;&#x3002;</p>
+<p>&#x597D;&#x4E86;&#xFF0C;&#x6709;&#x601D;&#x8DEF;&#x5C31;&#x8981;&#x5B9E;&#x8DF5;</p>
+<p>&#x9996;&#x5148;&#x5339;&#x914D;&#x4E00;&#x4E2A;&#x5B57;&#x6BCD;&#xFF1A;<code>\w</code>&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x505A;&#x6210;&#x5206;&#x7EC4;&#x624D;&#x80FD;&#x6355;&#x83B7;&#xFF0C;&#x56E0;&#x6B64;&#x5199;&#x6210;&#x8FD9;&#x6837;&#xFF1A;<code>(\w)</code><br>&#x90A3;&#x8FD9;&#x4E2A;&#x8868;&#x8FBE;&#x5F0F;&#x5C31;&#x6709;&#x4E00;&#x4E2A;&#x6355;&#x83B7;&#x7EC4;&#xFF1A;<code>&#xFF08;\w&#xFF09;</code><br>&#x7136;&#x540E;&#x6211;&#x4EEC;&#x8981;&#x7528;&#x8FD9;&#x4E2A;&#x6355;&#x83B7;&#x7EC4;&#x4F5C;&#x4E3A;&#x6761;&#x4EF6;&#xFF0C;&#x90A3;&#x5C31;&#x53EF;&#x4EE5;&#xFF1A;<code>(\w)\1</code>&#x8FD9;&#x6837;&#x5C31;&#x5927;&#x529F;&#x544A;&#x6210;&#x4E86;</p>
+<p>&#x53EF;&#x80FD;&#x6709;&#x4EBA;&#x4E0D;&#x660E;&#x767D;&#x4E86;&#xFF0C;<code>\1</code> &#x662F;&#x4EC0;&#x4E48;&#x610F;&#x601D;&#x5462;&#xFF1F;</p>
+<p>&#x8FD8;&#x8BB0;&#x5F97;&#x6355;&#x83B7;&#x7EC4;&#x6709;&#x4E24;&#x79CD;&#x547D;&#x540D;&#x65B9;&#x5F0F;&#x5417;&#xFF0C;&#x4E00;&#x79CD;&#x662F;&#x662F;&#x6839;&#x636E;&#x6355;&#x83B7;&#x5206;&#x7EC4;&#x987A;&#x5E8F;&#x547D;&#x540D;&#xFF0C;&#x4E00;&#x79CD;&#x662F;&#x81EA;&#x5B9A;&#x4E49;&#x547D;&#x540D;&#x6765;&#x4F5C;&#x4E3A;&#x6355;&#x83B7;&#x7EC4;&#x7684;&#x547D;&#x540D;&#x5728;&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#x90FD;&#x662F;&#x4EE5;&#x6570;&#x5B57;&#x6765;&#x547D;&#x540D;&#xFF0C;&#x800C;&#x4E14;&#x6570;&#x5B57;&#x547D;&#x540D;&#x7684;&#x987A;&#x5E8F;&#x662F;&#x4ECE; 1 &#x5F00;&#x59CB;&#x7684;&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#x8981;&#x5F15;&#x7528;&#x7B2C;&#x4E00;&#x4E2A;&#x6355;&#x83B7;&#x7EC4;&#xFF0C;&#x6839;&#x636E;&#x53CD;&#x5411;&#x5F15;&#x7528;&#x7684;&#x6570;&#x5B57;&#x547D;&#x540D;&#x89C4;&#x5219; &#x5C31;&#x9700;&#x8981; <code>\k&lt;1&gt;</code>&#x6216;&#x8005;<code>\1</code>&#xFF0C;&#x5F53;&#x7136;&#xFF0C;&#x901A;&#x5E38;&#x90FD;&#x662F;&#x662F;&#x540E;&#x8005;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x6765;&#x6D4B;&#x8BD5;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<pre class="line-numbers language-java"><code class="language-java">String test <span class="token operator">=</span> <span class="token string">&quot;aabbbbgbddesddfiid&quot;</span><span class="token punctuation">;</span>
+Pattern pattern <span class="token operator">=</span> Pattern<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span><span class="token string">&quot;(\\w)\\1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 Matcher mc<span class="token operator">=</span> pattern<span class="token punctuation">.</span><span class="token function">matcher</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">while</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mc<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>输出结果：</p>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
 <pre><code>1aa
 2bb
 3bb
 4dd
 5dd
 6ii
-</code></pre><p>嗯，这就是我们想要的了。</p>
-<p>在举个替换的例子，假如想要把字符串中abc换成a。</p>
-<pre class="line-numbers language-java"><code class="language-java">String test <span class="token operator">=</span> <span class="token string">"abcbbabcbcgbddesddfiid"</span><span class="token punctuation">;</span>
-String reg<span class="token operator">=</span><span class="token string">"(a)(b)c"</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>test<span class="token punctuation">.</span><span class="token function">replaceAll</span><span class="token punctuation">(</span>reg<span class="token punctuation">,</span> <span class="token string">"$1"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+</code></pre><p>&#x55EF;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x7684;&#x4E86;&#x3002;</p>
+<p>&#x5728;&#x4E3E;&#x4E2A;&#x66FF;&#x6362;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x5047;&#x5982;&#x60F3;&#x8981;&#x628A;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;abc&#x6362;&#x6210;a&#x3002;</p>
+<pre class="line-numbers language-java"><code class="language-java">String test <span class="token operator">=</span> <span class="token string">&quot;abcbbabcbcgbddesddfiid&quot;</span><span class="token punctuation">;</span>
+String reg<span class="token operator">=</span><span class="token string">&quot;(a)(b)c&quot;</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>test<span class="token punctuation">.</span><span class="token function">replaceAll</span><span class="token punctuation">(</span>reg<span class="token punctuation">,</span> <span class="token string">&quot;$1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>输出结果：</p>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
 <pre><code>abbabcgbddesddfiid
-</code></pre><h1><a href="#shi-tan-lan-he-fei-tan-lan" class="header-anchor">#</a><span id="shi-tan-lan-he-fei-tan-lan">十、贪婪和非贪婪</span></h1><h3><a href="#1-tan-lan" class="header-anchor">#</a><span id="1-tan-lan">1. 贪婪</span></h3><p>我们都知道，贪婪就是不满足，尽可能多的要。在正则中，贪婪也是差不多的意思:</p>
-<p><strong>贪婪匹配</strong>：当正则表达式中包含能接受重复的限定符时，通常的行为是（在使整个表达式能得到匹配的前提下）匹配尽可能多的字符，这匹配方式叫做贪婪匹配。</p>
-<p><strong>特性</strong>：一次性读入整个字符串进行匹配，每当不匹配就舍弃最右边一个字符，继续匹配，依次匹配和舍弃（这种匹配 - 舍弃的方式也叫做回溯），直到匹配成功或者把整个字符串舍弃完为止，因此它是一种最大化的数据返回，能多不会少。</p>
-<p>前面我们讲过重复限定符，其实这些限定符就是贪婪量词，比如表达式：</p>
+</code></pre><h1><a href="#shi-tan-lan-he-fei-tan-lan" class="header-anchor">#</a><span id="shi-tan-lan-he-fei-tan-lan">&#x5341;&#x3001;&#x8D2A;&#x5A6A;&#x548C;&#x975E;&#x8D2A;&#x5A6A;</span></h1><h3><a href="#1-tan-lan" class="header-anchor">#</a><span id="1-tan-lan">1. &#x8D2A;&#x5A6A;</span></h3><p>&#x6211;&#x4EEC;&#x90FD;&#x77E5;&#x9053;&#xFF0C;&#x8D2A;&#x5A6A;&#x5C31;&#x662F;&#x4E0D;&#x6EE1;&#x8DB3;&#xFF0C;&#x5C3D;&#x53EF;&#x80FD;&#x591A;&#x7684;&#x8981;&#x3002;&#x5728;&#x6B63;&#x5219;&#x4E2D;&#xFF0C;&#x8D2A;&#x5A6A;&#x4E5F;&#x662F;&#x5DEE;&#x4E0D;&#x591A;&#x7684;&#x610F;&#x601D;:</p>
+<p><strong>&#x8D2A;&#x5A6A;&#x5339;&#x914D;</strong>&#xFF1A;&#x5F53;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x4E2D;&#x5305;&#x542B;&#x80FD;&#x63A5;&#x53D7;&#x91CD;&#x590D;&#x7684;&#x9650;&#x5B9A;&#x7B26;&#x65F6;&#xFF0C;&#x901A;&#x5E38;&#x7684;&#x884C;&#x4E3A;&#x662F;&#xFF08;&#x5728;&#x4F7F;&#x6574;&#x4E2A;&#x8868;&#x8FBE;&#x5F0F;&#x80FD;&#x5F97;&#x5230;&#x5339;&#x914D;&#x7684;&#x524D;&#x63D0;&#x4E0B;&#xFF09;&#x5339;&#x914D;&#x5C3D;&#x53EF;&#x80FD;&#x591A;&#x7684;&#x5B57;&#x7B26;&#xFF0C;&#x8FD9;&#x5339;&#x914D;&#x65B9;&#x5F0F;&#x53EB;&#x505A;&#x8D2A;&#x5A6A;&#x5339;&#x914D;&#x3002;</p>
+<p><strong>&#x7279;&#x6027;</strong>&#xFF1A;&#x4E00;&#x6B21;&#x6027;&#x8BFB;&#x5165;&#x6574;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x8FDB;&#x884C;&#x5339;&#x914D;&#xFF0C;&#x6BCF;&#x5F53;&#x4E0D;&#x5339;&#x914D;&#x5C31;&#x820D;&#x5F03;&#x6700;&#x53F3;&#x8FB9;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x7EE7;&#x7EED;&#x5339;&#x914D;&#xFF0C;&#x4F9D;&#x6B21;&#x5339;&#x914D;&#x548C;&#x820D;&#x5F03;&#xFF08;&#x8FD9;&#x79CD;&#x5339;&#x914D; - &#x820D;&#x5F03;&#x7684;&#x65B9;&#x5F0F;&#x4E5F;&#x53EB;&#x505A;&#x56DE;&#x6EAF;&#xFF09;&#xFF0C;&#x76F4;&#x5230;&#x5339;&#x914D;&#x6210;&#x529F;&#x6216;&#x8005;&#x628A;&#x6574;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x820D;&#x5F03;&#x5B8C;&#x4E3A;&#x6B62;&#xFF0C;&#x56E0;&#x6B64;&#x5B83;&#x662F;&#x4E00;&#x79CD;&#x6700;&#x5927;&#x5316;&#x7684;&#x6570;&#x636E;&#x8FD4;&#x56DE;&#xFF0C;&#x80FD;&#x591A;&#x4E0D;&#x4F1A;&#x5C11;&#x3002;</p>
+<p>&#x524D;&#x9762;&#x6211;&#x4EEC;&#x8BB2;&#x8FC7;&#x91CD;&#x590D;&#x9650;&#x5B9A;&#x7B26;&#xFF0C;&#x5176;&#x5B9E;&#x8FD9;&#x4E9B;&#x9650;&#x5B9A;&#x7B26;&#x5C31;&#x662F;&#x8D2A;&#x5A6A;&#x91CF;&#x8BCD;&#xFF0C;&#x6BD4;&#x5982;&#x8868;&#x8FBE;&#x5F0F;&#xFF1A;</p>
 <pre><code>\d{3,6}
 
-</code></pre><p>用来匹配3到6位数字，在这种情况下，它是一种贪婪模式的匹配，也就是假如字符串里有6个个数字可以匹配，那它就是全部匹配到。</p>
-<p>如:</p>
-<pre class="line-numbers language-java"><code class="language-java">String reg<span class="token operator">=</span><span class="token string">"\\d{3,6}"</span><span class="token punctuation">;</span>        
-String test<span class="token operator">=</span><span class="token string">"61762828 176 2991 871"</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"文本："</span><span class="token operator">+</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"贪婪模式："</span><span class="token operator">+</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>&#x7528;&#x6765;&#x5339;&#x914D;3&#x5230;6&#x4F4D;&#x6570;&#x5B57;&#xFF0C;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5B83;&#x662F;&#x4E00;&#x79CD;&#x8D2A;&#x5A6A;&#x6A21;&#x5F0F;&#x7684;&#x5339;&#x914D;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5047;&#x5982;&#x5B57;&#x7B26;&#x4E32;&#x91CC;&#x6709;6&#x4E2A;&#x4E2A;&#x6570;&#x5B57;&#x53EF;&#x4EE5;&#x5339;&#x914D;&#xFF0C;&#x90A3;&#x5B83;&#x5C31;&#x662F;&#x5168;&#x90E8;&#x5339;&#x914D;&#x5230;&#x3002;</p>
+<p>&#x5982;:</p>
+<pre class="line-numbers language-java"><code class="language-java">String reg<span class="token operator">=</span><span class="token string">&quot;\\d{3,6}&quot;</span><span class="token punctuation">;</span>        
+String test<span class="token operator">=</span><span class="token string">&quot;61762828 176 2991 871&quot;</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x6587;&#x672C;&#xFF1A;&quot;</span><span class="token operator">+</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x8D2A;&#x5A6A;&#x6A21;&#x5F0F;&#xFF1A;&quot;</span><span class="token operator">+</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
 Pattern p1 <span class="token operator">=</span>Pattern<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
 Matcher m1 <span class="token operator">=</span> p1<span class="token punctuation">.</span><span class="token function">matcher</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">while</span><span class="token punctuation">(</span>m1<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"匹配结果："</span><span class="token operator">+</span>m1<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;&quot;</span><span class="token operator">+</span>m1<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>输出结果：</p>
-<pre><code>文本：61762828 176 2991 44 871
-贪婪模式：\d{3,6}
-匹配结果：617628
-匹配结果：176
-匹配结果：2991
-匹配结果：871
-</code></pre><p>由结果可见：本来字符串中的“61762828”这一段，其实只需要出现3个<code>（617）</code>就已经匹配成功了的，但是他并不满足，而是匹配到了最大能匹配的字符，也就是6个。</p>
-<p>一个量词就如此贪婪了，那有人会问，如果多个贪婪量词凑在一起，那他们是如何支配自己的匹配权的呢？</p>
-<p>是这样的，多个贪婪在一起时，如果字符串能满足他们各自最大程度的匹配时，就互不干扰，但如果不能满足时，会根据深度优先原则，也就是从左到右的每一个贪婪量词，优先最大数量的满足，剩余再分配下一个量词匹配。</p>
-<pre class="line-numbers language-java"><code class="language-java">String reg<span class="token operator">=</span><span class="token string">"(\\d{1,2})(\\d{3,4})"</span><span class="token punctuation">;</span>        
-String test<span class="token operator">=</span><span class="token string">"61762828 176 2991 87321"</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"文本："</span><span class="token operator">+</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"贪婪模式："</span><span class="token operator">+</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code>&#x6587;&#x672C;&#xFF1A;61762828 176 2991 44 871
+&#x8D2A;&#x5A6A;&#x6A21;&#x5F0F;&#xFF1A;\d{3,6}
+&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;617628
+&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;176
+&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;2991
+&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;871
+</code></pre><p>&#x7531;&#x7ED3;&#x679C;&#x53EF;&#x89C1;&#xFF1A;&#x672C;&#x6765;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x7684;&#x201C;61762828&#x201D;&#x8FD9;&#x4E00;&#x6BB5;&#xFF0C;&#x5176;&#x5B9E;&#x53EA;&#x9700;&#x8981;&#x51FA;&#x73B0;3&#x4E2A;<code>&#xFF08;617&#xFF09;</code>&#x5C31;&#x5DF2;&#x7ECF;&#x5339;&#x914D;&#x6210;&#x529F;&#x4E86;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x4ED6;&#x5E76;&#x4E0D;&#x6EE1;&#x8DB3;&#xFF0C;&#x800C;&#x662F;&#x5339;&#x914D;&#x5230;&#x4E86;&#x6700;&#x5927;&#x80FD;&#x5339;&#x914D;&#x7684;&#x5B57;&#x7B26;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;6&#x4E2A;&#x3002;</p>
+<p>&#x4E00;&#x4E2A;&#x91CF;&#x8BCD;&#x5C31;&#x5982;&#x6B64;&#x8D2A;&#x5A6A;&#x4E86;&#xFF0C;&#x90A3;&#x6709;&#x4EBA;&#x4F1A;&#x95EE;&#xFF0C;&#x5982;&#x679C;&#x591A;&#x4E2A;&#x8D2A;&#x5A6A;&#x91CF;&#x8BCD;&#x51D1;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x90A3;&#x4ED6;&#x4EEC;&#x662F;&#x5982;&#x4F55;&#x652F;&#x914D;&#x81EA;&#x5DF1;&#x7684;&#x5339;&#x914D;&#x6743;&#x7684;&#x5462;&#xFF1F;</p>
+<p>&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF0C;&#x591A;&#x4E2A;&#x8D2A;&#x5A6A;&#x5728;&#x4E00;&#x8D77;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x5B57;&#x7B26;&#x4E32;&#x80FD;&#x6EE1;&#x8DB3;&#x4ED6;&#x4EEC;&#x5404;&#x81EA;&#x6700;&#x5927;&#x7A0B;&#x5EA6;&#x7684;&#x5339;&#x914D;&#x65F6;&#xFF0C;&#x5C31;&#x4E92;&#x4E0D;&#x5E72;&#x6270;&#xFF0C;&#x4F46;&#x5982;&#x679C;&#x4E0D;&#x80FD;&#x6EE1;&#x8DB3;&#x65F6;&#xFF0C;&#x4F1A;&#x6839;&#x636E;&#x6DF1;&#x5EA6;&#x4F18;&#x5148;&#x539F;&#x5219;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x4ECE;&#x5DE6;&#x5230;&#x53F3;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;&#x8D2A;&#x5A6A;&#x91CF;&#x8BCD;&#xFF0C;&#x4F18;&#x5148;&#x6700;&#x5927;&#x6570;&#x91CF;&#x7684;&#x6EE1;&#x8DB3;&#xFF0C;&#x5269;&#x4F59;&#x518D;&#x5206;&#x914D;&#x4E0B;&#x4E00;&#x4E2A;&#x91CF;&#x8BCD;&#x5339;&#x914D;&#x3002;</p>
+<pre class="line-numbers language-java"><code class="language-java">String reg<span class="token operator">=</span><span class="token string">&quot;(\\d{1,2})(\\d{3,4})&quot;</span><span class="token punctuation">;</span>        
+String test<span class="token operator">=</span><span class="token string">&quot;61762828 176 2991 87321&quot;</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x6587;&#x672C;&#xFF1A;&quot;</span><span class="token operator">+</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x8D2A;&#x5A6A;&#x6A21;&#x5F0F;&#xFF1A;&quot;</span><span class="token operator">+</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
 Pattern p1 <span class="token operator">=</span>Pattern<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
 Matcher m1 <span class="token operator">=</span> p1<span class="token punctuation">.</span><span class="token function">matcher</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">while</span><span class="token punctuation">(</span>m1<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"匹配结果："</span><span class="token operator">+</span>m1<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;&quot;</span><span class="token operator">+</span>m1<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>输出结果：</p>
-<pre><code>文本：61762828 176 2991 87321
-贪婪模式：(\d{1,2})(\d{3,4})
-匹配结果：617628
-匹配结果：2991
-匹配结果：87321
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code>&#x6587;&#x672C;&#xFF1A;61762828 176 2991 87321
+&#x8D2A;&#x5A6A;&#x6A21;&#x5F0F;&#xFF1A;(\d{1,2})(\d{3,4})
+&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;617628
+&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;2991
+&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;87321
 
 </code></pre><blockquote>
-<p>“617628” 是前面的\d{1,2}匹配出了 61，后面的匹配出了 7628<br>“2991” 是前面的\d{1,2}匹配出了 29 ，后面的匹配出了 91<br>“87321”是前面的\d{1,2}匹配出了 87，后面的匹配出了 321</p>
+<p>&#x201C;617628&#x201D; &#x662F;&#x524D;&#x9762;&#x7684;\d{1,2}&#x5339;&#x914D;&#x51FA;&#x4E86; 61&#xFF0C;&#x540E;&#x9762;&#x7684;&#x5339;&#x914D;&#x51FA;&#x4E86; 7628<br>&#x201C;2991&#x201D; &#x662F;&#x524D;&#x9762;&#x7684;\d{1,2}&#x5339;&#x914D;&#x51FA;&#x4E86; 29 &#xFF0C;&#x540E;&#x9762;&#x7684;&#x5339;&#x914D;&#x51FA;&#x4E86; 91<br>&#x201C;87321&#x201D;&#x662F;&#x524D;&#x9762;&#x7684;\d{1,2}&#x5339;&#x914D;&#x51FA;&#x4E86; 87&#xFF0C;&#x540E;&#x9762;&#x7684;&#x5339;&#x914D;&#x51FA;&#x4E86; 321</p>
 </blockquote>
-<h3><a href="#2-lan-duo-fei-tan-lan" class="header-anchor">#</a><span id="2-lan-duo-fei-tan-lan">2. 懒惰（非贪婪）</span></h3><p><strong>懒惰匹配</strong>：当正则表达式中包含能接受重复的限定符时，通常的行为是（在使整个表达式能得到匹配的前提下）匹配尽可能少的字符，这匹配方式叫做懒惰匹配。</p>
-<p><strong>特性</strong>: 从左到右，从字符串的最左边开始匹配，每次试图不读入字符匹配，匹配成功，则完成匹配，否则读入一个字符再匹配，依此循环（读入字符、匹配）直到匹配成功或者把字符串的字符匹配完为止。<br>懒惰量词是在贪婪量词后面加个“？”</p>
+<h3><a href="#2-lan-duo-fei-tan-lan" class="header-anchor">#</a><span id="2-lan-duo-fei-tan-lan">2. &#x61D2;&#x60F0;&#xFF08;&#x975E;&#x8D2A;&#x5A6A;&#xFF09;</span></h3><p><strong>&#x61D2;&#x60F0;&#x5339;&#x914D;</strong>&#xFF1A;&#x5F53;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x4E2D;&#x5305;&#x542B;&#x80FD;&#x63A5;&#x53D7;&#x91CD;&#x590D;&#x7684;&#x9650;&#x5B9A;&#x7B26;&#x65F6;&#xFF0C;&#x901A;&#x5E38;&#x7684;&#x884C;&#x4E3A;&#x662F;&#xFF08;&#x5728;&#x4F7F;&#x6574;&#x4E2A;&#x8868;&#x8FBE;&#x5F0F;&#x80FD;&#x5F97;&#x5230;&#x5339;&#x914D;&#x7684;&#x524D;&#x63D0;&#x4E0B;&#xFF09;&#x5339;&#x914D;&#x5C3D;&#x53EF;&#x80FD;&#x5C11;&#x7684;&#x5B57;&#x7B26;&#xFF0C;&#x8FD9;&#x5339;&#x914D;&#x65B9;&#x5F0F;&#x53EB;&#x505A;&#x61D2;&#x60F0;&#x5339;&#x914D;&#x3002;</p>
+<p><strong>&#x7279;&#x6027;</strong>: &#x4ECE;&#x5DE6;&#x5230;&#x53F3;&#xFF0C;&#x4ECE;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x6700;&#x5DE6;&#x8FB9;&#x5F00;&#x59CB;&#x5339;&#x914D;&#xFF0C;&#x6BCF;&#x6B21;&#x8BD5;&#x56FE;&#x4E0D;&#x8BFB;&#x5165;&#x5B57;&#x7B26;&#x5339;&#x914D;&#xFF0C;&#x5339;&#x914D;&#x6210;&#x529F;&#xFF0C;&#x5219;&#x5B8C;&#x6210;&#x5339;&#x914D;&#xFF0C;&#x5426;&#x5219;&#x8BFB;&#x5165;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x518D;&#x5339;&#x914D;&#xFF0C;&#x4F9D;&#x6B64;&#x5FAA;&#x73AF;&#xFF08;&#x8BFB;&#x5165;&#x5B57;&#x7B26;&#x3001;&#x5339;&#x914D;&#xFF09;&#x76F4;&#x5230;&#x5339;&#x914D;&#x6210;&#x529F;&#x6216;&#x8005;&#x628A;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5B57;&#x7B26;&#x5339;&#x914D;&#x5B8C;&#x4E3A;&#x6B62;&#x3002;<br>&#x61D2;&#x60F0;&#x91CF;&#x8BCD;&#x662F;&#x5728;&#x8D2A;&#x5A6A;&#x91CF;&#x8BCD;&#x540E;&#x9762;&#x52A0;&#x4E2A;&#x201C;&#xFF1F;&#x201D;</p>
 <table>
 <thead>
 <tr>
-<th>代码</th>
-<th>说明</th>
+<th>&#x4EE3;&#x7801;</th>
+<th>&#x8BF4;&#x660E;</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>*?</td>
-<td>重复任意次，但尽可能少重复</td>
+<td>&#x91CD;&#x590D;&#x4EFB;&#x610F;&#x6B21;&#xFF0C;&#x4F46;&#x5C3D;&#x53EF;&#x80FD;&#x5C11;&#x91CD;&#x590D;</td>
 </tr>
 <tr>
 <td>+?</td>
-<td>重复1次或更多次，但尽可能少重复</td>
+<td>&#x91CD;&#x590D;1&#x6B21;&#x6216;&#x66F4;&#x591A;&#x6B21;&#xFF0C;&#x4F46;&#x5C3D;&#x53EF;&#x80FD;&#x5C11;&#x91CD;&#x590D;</td>
 </tr>
 <tr>
 <td>??</td>
-<td>重复0次或1次，但尽可能少重复</td>
+<td>&#x91CD;&#x590D;0&#x6B21;&#x6216;1&#x6B21;&#xFF0C;&#x4F46;&#x5C3D;&#x53EF;&#x80FD;&#x5C11;&#x91CD;&#x590D;</td>
 </tr>
 <tr>
 <td>{n,m}?</td>
-<td>重复n到m次，但尽可能少重复</td>
+<td>&#x91CD;&#x590D;n&#x5230;m&#x6B21;&#xFF0C;&#x4F46;&#x5C3D;&#x53EF;&#x80FD;&#x5C11;&#x91CD;&#x590D;</td>
 </tr>
 <tr>
 <td>{n,}?</td>
-<td>重复n次以上，但尽可能少重复</td>
+<td>&#x91CD;&#x590D;n&#x6B21;&#x4EE5;&#x4E0A;&#xFF0C;&#x4F46;&#x5C3D;&#x53EF;&#x80FD;&#x5C11;&#x91CD;&#x590D;</td>
 </tr>
 </tbody>
 </table>
-<pre class="line-numbers language-java"><code class="language-java">String reg<span class="token operator">=</span><span class="token string">"(\\d{1,2}?)(\\d{3,4})"</span><span class="token punctuation">;</span>        
-String test<span class="token operator">=</span><span class="token string">"61762828 176 2991 87321"</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"文本："</span><span class="token operator">+</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"贪婪模式："</span><span class="token operator">+</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java">String reg<span class="token operator">=</span><span class="token string">&quot;(\\d{1,2}?)(\\d{3,4})&quot;</span><span class="token punctuation">;</span>        
+String test<span class="token operator">=</span><span class="token string">&quot;61762828 176 2991 87321&quot;</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x6587;&#x672C;&#xFF1A;&quot;</span><span class="token operator">+</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x8D2A;&#x5A6A;&#x6A21;&#x5F0F;&#xFF1A;&quot;</span><span class="token operator">+</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
 Pattern p1 <span class="token operator">=</span>Pattern<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span>reg<span class="token punctuation">)</span><span class="token punctuation">;</span>
 Matcher m1 <span class="token operator">=</span> p1<span class="token punctuation">.</span><span class="token function">matcher</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">while</span><span class="token punctuation">(</span>m1<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"匹配结果："</span><span class="token operator">+</span>m1<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;&quot;</span><span class="token operator">+</span>m1<span class="token punctuation">.</span><span class="token function">group</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>输出结果：</p>
-<pre><code>文本：61762828 176 2991 87321
-贪婪模式：(\d{1,2}?)(\d{3,4})
-匹配结果：61762
-匹配结果：2991
-匹配结果：87321
-</code></pre><p>解答：</p>
+<p>&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code>&#x6587;&#x672C;&#xFF1A;61762828 176 2991 87321
+&#x8D2A;&#x5A6A;&#x6A21;&#x5F0F;&#xFF1A;(\d{1,2}?)(\d{3,4})
+&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;61762
+&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;2991
+&#x5339;&#x914D;&#x7ED3;&#x679C;&#xFF1A;87321
+</code></pre><p>&#x89E3;&#x7B54;&#xFF1A;</p>
 <blockquote>
-<p>“61762” 是左边的懒惰匹配出 6，右边的贪婪匹配出 1762 </p>
-<p>“2991” 是左边的懒惰匹配出 2，右边的贪婪匹配出 991</p>
-<p>“87321” 左边的懒惰匹配出 8，右边的贪婪匹配出 7321</p>
+<p>&#x201C;61762&#x201D; &#x662F;&#x5DE6;&#x8FB9;&#x7684;&#x61D2;&#x60F0;&#x5339;&#x914D;&#x51FA; 6&#xFF0C;&#x53F3;&#x8FB9;&#x7684;&#x8D2A;&#x5A6A;&#x5339;&#x914D;&#x51FA; 1762 </p>
+<p>&#x201C;2991&#x201D; &#x662F;&#x5DE6;&#x8FB9;&#x7684;&#x61D2;&#x60F0;&#x5339;&#x914D;&#x51FA; 2&#xFF0C;&#x53F3;&#x8FB9;&#x7684;&#x8D2A;&#x5A6A;&#x5339;&#x914D;&#x51FA; 991</p>
+<p>&#x201C;87321&#x201D; &#x5DE6;&#x8FB9;&#x7684;&#x61D2;&#x60F0;&#x5339;&#x914D;&#x51FA; 8&#xFF0C;&#x53F3;&#x8FB9;&#x7684;&#x8D2A;&#x5A6A;&#x5339;&#x914D;&#x51FA; 7321</p>
 </blockquote>
-<h1><a href="#shi-yi-fan-yi" class="header-anchor">#</a><span id="shi-yi-fan-yi">十一、 反义</span></h1><p>前面说到元字符的都是要匹配什么什么，当然如果你想反着来，不想匹配某些字符，正则也提供了一些常用的反义元字符：</p>
+<h1><a href="#shi-yi-fan-yi" class="header-anchor">#</a><span id="shi-yi-fan-yi">&#x5341;&#x4E00;&#x3001; &#x53CD;&#x4E49;</span></h1><p>&#x524D;&#x9762;&#x8BF4;&#x5230;&#x5143;&#x5B57;&#x7B26;&#x7684;&#x90FD;&#x662F;&#x8981;&#x5339;&#x914D;&#x4EC0;&#x4E48;&#x4EC0;&#x4E48;&#xFF0C;&#x5F53;&#x7136;&#x5982;&#x679C;&#x4F60;&#x60F3;&#x53CD;&#x7740;&#x6765;&#xFF0C;&#x4E0D;&#x60F3;&#x5339;&#x914D;&#x67D0;&#x4E9B;&#x5B57;&#x7B26;&#xFF0C;&#x6B63;&#x5219;&#x4E5F;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E9B;&#x5E38;&#x7528;&#x7684;&#x53CD;&#x4E49;&#x5143;&#x5B57;&#x7B26;&#xFF1A;</p>
 <table>
 <thead>
 <tr>
-<th>元字符</th>
-<th>解释</th>
+<th>&#x5143;&#x5B57;&#x7B26;</th>
+<th>&#x89E3;&#x91CA;</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>\W</td>
-<td>匹配任意不是字母，数字，下划线，汉字的字符</td>
+<td>&#x5339;&#x914D;&#x4EFB;&#x610F;&#x4E0D;&#x662F;&#x5B57;&#x6BCD;&#xFF0C;&#x6570;&#x5B57;&#xFF0C;&#x4E0B;&#x5212;&#x7EBF;&#xFF0C;&#x6C49;&#x5B57;&#x7684;&#x5B57;&#x7B26;</td>
 </tr>
 <tr>
 <td>\S</td>
-<td>匹配任意不是空白符的字符</td>
+<td>&#x5339;&#x914D;&#x4EFB;&#x610F;&#x4E0D;&#x662F;&#x7A7A;&#x767D;&#x7B26;&#x7684;&#x5B57;&#x7B26;</td>
 </tr>
 <tr>
 <td>\D</td>
-<td>匹配任意非数字的字符</td>
+<td>&#x5339;&#x914D;&#x4EFB;&#x610F;&#x975E;&#x6570;&#x5B57;&#x7684;&#x5B57;&#x7B26;</td>
 </tr>
 <tr>
 <td>\B</td>
-<td>匹配不是单词开头或结束的位置</td>
+<td>&#x5339;&#x914D;&#x4E0D;&#x662F;&#x5355;&#x8BCD;&#x5F00;&#x5934;&#x6216;&#x7ED3;&#x675F;&#x7684;&#x4F4D;&#x7F6E;</td>
 </tr>
 <tr>
 <td>[^x]</td>
-<td>匹配除了x以外的任意字符</td>
+<td>&#x5339;&#x914D;&#x9664;&#x4E86;x&#x4EE5;&#x5916;&#x7684;&#x4EFB;&#x610F;&#x5B57;&#x7B26;</td>
 </tr>
 <tr>
 <td>[^aeiou]</td>
-<td>匹配除了aeiou这几个字母以外的任意字符</td>
+<td>&#x5339;&#x914D;&#x9664;&#x4E86;aeiou&#x8FD9;&#x51E0;&#x4E2A;&#x5B57;&#x6BCD;&#x4EE5;&#x5916;&#x7684;&#x4EFB;&#x610F;&#x5B57;&#x7B26;</td>
 </tr>
 </tbody>
 </table>
-<p>正则知识就讲到这里，正则是一门博大精深的语言，其实学会它的一些语法和知识点还算不太难，但想要做到真正学以致用能写出非常 6的正则。</p>
+<p>&#x6B63;&#x5219;&#x77E5;&#x8BC6;&#x5C31;&#x8BB2;&#x5230;&#x8FD9;&#x91CC;&#xFF0C;&#x6B63;&#x5219;&#x662F;&#x4E00;&#x95E8;&#x535A;&#x5927;&#x7CBE;&#x6DF1;&#x7684;&#x8BED;&#x8A00;&#xFF0C;&#x5176;&#x5B9E;&#x5B66;&#x4F1A;&#x5B83;&#x7684;&#x4E00;&#x4E9B;&#x8BED;&#x6CD5;&#x548C;&#x77E5;&#x8BC6;&#x70B9;&#x8FD8;&#x7B97;&#x4E0D;&#x592A;&#x96BE;&#xFF0C;&#x4F46;&#x60F3;&#x8981;&#x505A;&#x5230;&#x771F;&#x6B63;&#x5B66;&#x4EE5;&#x81F4;&#x7528;&#x80FD;&#x5199;&#x51FA;&#x975E;&#x5E38; 6&#x7684;&#x6B63;&#x5219;&#x3002;</p>
 <p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2019/01/05/正则/%20吾與爾%20正则" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/01/06/线程池/" title="Android 线程池实践"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Android 线程池实践</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2018/11/01/大学/" title="大学">下一篇: 大学&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
     new Valine({
     el: '#vcomments',
