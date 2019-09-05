@@ -15,18 +15,8 @@
 <h2><span id="he-gong-han-fang-fa-de-bu-tong">和工厂方法的不同</span><a href="#he-gong-han-fang-fa-de-bu-tong" class="header-anchor">#</a></h2><p>抽象工厂模式是所有形式的工厂模式中最为抽象和最具一般性的一种形式。</p>
 <p>抽象工厂模式与工厂方法模式最大的区别在于，工厂方法模式针对的是<strong>单个产品类型</strong>，而抽象工厂模式针对的是<strong>多个产品类型</strong>，一个工厂类型可以负责多个不同产品类型中的产品对象的创建。当一个工厂类型可以创建出分属于不同产品类型的一个产品族中的所有对象时，抽象工厂模式比工厂方法模式更为简单、更有效率</p>
 <h2><span id="an-li">案例</span><a href="#an-li" class="header-anchor">#</a></h2><p>软件 换肤 功能。</p>
-<pre><code>graph LR
-
-A[皮肤库]--&gt;B[SPRING]
-A[皮肤库]--&gt;C[SUMMER]
-B[SPRING]--&gt;绿色按钮
-B[SPRING]--&gt;绿色文本框
-B[SPRING]--&gt;绿色边框组合框
-
-C[SUMMER]--&gt;蓝色按钮
-C[SUMMER]--&gt;蓝色文本框
-C[SUMMER]--&gt;蓝色边框组合框
-</code></pre><p>采用工厂方法模式设计的问题：</p>
+<p>graph LR;<br>    A[皮肤库]–&gt;B[SPRING];<br>    A[皮肤库]–&gt;C[SUMMER];<br>    B[SPRING]–&gt;绿色按钮;<br>    B[SPRING]–&gt;绿色文本框;<br>    B[SPRING]–&gt;绿色边框组合框;<br>    C[SUMMER]–&gt;蓝色按钮;<br>    C[SUMMER]–&gt;蓝色文本框;<br>    C[SUMMER]–&gt;蓝色边框组合框;</p>
+<p>采用工厂方法模式设计的问题：</p>
 <p>(1) 当需要增加新的皮肤时，虽然不要修改现有代码，但是需要增加大量类，针对每一个新增具体组件都需要增加一个具体工厂，类的个数成对增加，这无疑会导致系统越来越庞大，增加系统的维护成本和运行开销；</p>
 <p>(2) 由于同一种风格的具体界面组件通常要一起显示，因此需要为每个组件都选择一个具体工厂，用户在使用时必须逐个进行设置，如果某个具体工厂选择失误将会导致界面显示混乱，虽然我们可以适当增加一些约束语句，但客户端代码和配置文件都较为复杂。</p>
 <h2><span id="chou-xiang-gong-han-shi-li-dai-ma">抽象工厂 示例代码：</span><a href="#chou-xiang-gong-han-shi-li-dai-ma" class="header-anchor">#</a></h2><pre class="line-numbers language-java"><code class="language-java">
