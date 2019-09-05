@@ -69,7 +69,7 @@
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>可以发现第三步和第四步顺序是掉换的，但是根据时间戳知道，第三步是发生在第四部之前，也就是说第三步的普通属性的初始化在构造代码块之前执行。</p>
-<h3><span id="lei-shi-me-shi-hou-jia-zai">类什么时候加载？</span><a href="#lei-shi-me-shi-hou-jia-zai" class="header-anchor">#</a></h3><p>加载时机：</p>
+<h3><a href="#lei-shi-me-shi-hou-jia-zai" class="header-anchor">#</a><span id="lei-shi-me-shi-hou-jia-zai">类什么时候加载？</span></h3><p>加载时机：</p>
 <blockquote>
 <ol>
 <li>其他类引用时候。</li>
@@ -77,14 +77,14 @@
 </ol>
 </blockquote>
 <p>加载工具： Classloader(类加载器)</p>
-<h3><span id="lei-chu-shi-hua-de-fang-shi">类初始化的方式</span><a href="#lei-chu-shi-hua-de-fang-shi" class="header-anchor">#</a></h3><ol>
+<h3><a href="#lei-chu-shi-hua-de-fang-shi" class="header-anchor">#</a><span id="lei-chu-shi-hua-de-fang-shi">类初始化的方式</span></h3><ol>
 <li>实例通过使用new()关键字创建或者使用class.forName()反射，但它有可能导致ClassNotFoundException。</li>
 <li>类的静态方法被调用。</li>
 <li>类的静态域（静态变量）被赋值。</li>
 <li>静态域被访问，而且不是常量（final）。</li>
 <li>顶层类中执行 assert 语句。</li>
 </ol>
-<h3><span id="lei-chu-shi-hua-gui-ze">类初始化规则：</span><a href="#lei-chu-shi-hua-gui-ze" class="header-anchor">#</a></h3><ol>
+<h3><a href="#lei-chu-shi-hua-gui-ze" class="header-anchor">#</a><span id="lei-chu-shi-hua-gui-ze">类初始化规则：</span></h3><ol>
 <li>类从顶至底部顺序初始化，所以声明在顶部的字段的早于底部的字段初始化</li>
 <li>超类早于子类和衍生类的初始化</li>
 <li>如果类的初始化是由于访问静态域而触发，那么只有声明静态域的类才被初始化，而不会触发超类的初始化或者子类的初始化即使静态域被子类或子接口或者它的实现类所引用。</li>
@@ -92,7 +92,7 @@
 <li>静态域的初始化是在类的静态初始化期间，非静态域的初始化时在类的实例创建期间。这意味这静态域初始化在非静态域之前。</li>
 <li>非静态域通过构造器初始化，子类在做任何初始化之前构造器会隐含地调用父类的构造器，他保证了非静态或实例变量（父类）初始化早于子类。</li>
 </ol>
-<h2><span id="ming-ci-shuo-ming">名词说明</span><a href="#ming-ci-shuo-ming" class="header-anchor">#</a></h2><p><strong>类的初始化和类的实例化是不同的</strong>:<br>类的初始化发生在类实例化之前。</p>
+<h2><a href="#ming-ci-shuo-ming" class="header-anchor">#</a><span id="ming-ci-shuo-ming">名词说明</span></h2><p><strong>类的初始化和类的实例化是不同的</strong>:<br>类的初始化发生在类实例化之前。</p>
 <ul>
 <li>静态域=静态变量</li>
 </ul>
@@ -150,7 +150,7 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="can-kao">参考：</span><a href="#can-kao" class="header-anchor">#</a></h2><ul>
+<h2><a href="#can-kao" class="header-anchor">#</a><span id="can-kao">参考：</span></h2><ul>
 <li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/index.html" target="_blank" rel="noopener">类加载器</a></li>
 </ul>
 <p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2019/07/30/JVM-类加载和初始化/%20吾與爾%20JVM 类加载和初始化" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/08/30/Java-注解/" title="Java  注解"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Java  注解</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/07/24/Android-数据结构之-LinkedHashMap/" title="Android 数据结构之 LinkedHashMap">下一篇: Android 数据结构之 LinkedHashMap&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){

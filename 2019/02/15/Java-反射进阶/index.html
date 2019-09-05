@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Java 反射进阶 · 吾與爾</title><meta name="description" content="参考博客
-获取不存在的对象？#1. 获取不到 class 对象
+#获取不存在的对象？1. 获取不到 class 对象
 
 通过一个对象的 getClass() 方法。
 通过 .class 关键字。
@@ -13,7 +13,7 @@
   mermaid.initialize(options);
 }
  </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Java 反射进阶</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-02-15</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><p><a href="https://blog.csdn.net/briblue/article/details/76223206" target="_blank" rel="noopener">参考博客</a></p>
-<h2><span id="huo-qu-bu-cun-zai-de-dui-xiang">获取不存在的对象？</span><a href="#huo-qu-bu-cun-zai-de-dui-xiang" class="header-anchor">#</a></h2><p><strong>1. 获取不到 class 对象</strong></p>
+<h2><a href="#huo-qu-bu-cun-zai-de-dui-xiang" class="header-anchor">#</a><span id="huo-qu-bu-cun-zai-de-dui-xiang">获取不存在的对象？</span></h2><p><strong>1. 获取不到 class 对象</strong></p>
 <ul>
 <li>通过一个对象的 getClass() 方法。</li>
 <li>通过 .class 关键字。</li>
@@ -75,9 +75,9 @@ field.setAccessible(true);
 <p><strong>4. 操纵非 public 修饰的 Constructor</strong></p>
 <p>同前面两种，同样是通过 setAccessible(true) 来搞定。</p>
 <p>所以，在反射中如果要操作被 private 修饰的对象，那么就必须调用它的 setAccessible(true)。</p>
-<h3><span id="setaccessible-de-mi-mi">setAccessible() 的秘密</span><a href="#setaccessible-de-mi-mi" class="header-anchor">#</a></h3><h3><span id="class-newinstance-he-constructor-newinstance-de-qu-bie">Class.newInstance() 和 Constructor.newInstance() 的区别</span><a href="#class-newinstance-he-constructor-newinstance-de-qu-bie" class="header-anchor">#</a></h3><p>Class.newInstance() 的使用有严格的限制，那就是一个 Class 对象中，必须存在一个无参数的 Constructor，并且这个 Constructor 必须要有访问的权限。</p>
+<h3><a href="#setaccessible-de-mi-mi" class="header-anchor">#</a><span id="setaccessible-de-mi-mi">setAccessible() 的秘密</span></h3><h3><a href="#class-newinstance-he-constructor-newinstance-de-qu-bie" class="header-anchor">#</a><span id="class-newinstance-he-constructor-newinstance-de-qu-bie">Class.newInstance() 和 Constructor.newInstance() 的区别</span></h3><p>Class.newInstance() 的使用有严格的限制，那就是一个 Class 对象中，必须存在一个无参数的 Constructor，并且这个 Constructor 必须要有访问的权限。</p>
 <p>通过 Constructor.newInstance() 却没有这种限制。Constructor.newInstance() 适应任何类型的 Constructor,无论它们有参数还是无参数，只要通过 setAccessible() 控制好访问权限就可以了。</p>
-<h2><span id="jin-shen-shi-yong-method-invoke-fang-fa">谨慎使用 Method.invoke() 方法</span><a href="#jin-shen-shi-yong-method-invoke-fang-fa" class="header-anchor">#</a></h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span> Object<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span>
+<h2><a href="#jin-shen-shi-yong-method-invoke-fang-fa" class="header-anchor">#</a><span id="jin-shen-shi-yong-method-invoke-fang-fa">谨慎使用 Method.invoke() 方法</span></h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span> Object<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span>
         <span class="token keyword">throws</span> IllegalAccessException<span class="token punctuation">,</span> IllegalArgumentException<span class="token punctuation">,</span>
            InvocationTargetException
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -100,8 +100,8 @@ tMethod<span class="token punctuation">.</span><span class="token function">setA
 
 tMethod<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestT</span><span class="token operator">&lt;</span>Integer<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h3><span id="method-zhong-chu-li-exception">Method 中处理 Exception</span><a href="#method-zhong-chu-li-exception" class="header-anchor">#</a></h3><p>在 Java 反射中，一个 Method 执行时遭遇的异常会被包装在一个特定的异常中，这个异常就是 InvocationTargetException。</p>
-<h2><span id="zong-jie">总结：</span><a href="#zong-jie" class="header-anchor">#</a></h2><table>
+<h3><a href="#method-zhong-chu-li-exception" class="header-anchor">#</a><span id="method-zhong-chu-li-exception">Method 中处理 Exception</span></h3><p>在 Java 反射中，一个 Method 执行时遭遇的异常会被包装在一个特定的异常中，这个异常就是 InvocationTargetException。</p>
+<h2><a href="#zong-jie" class="header-anchor">#</a><span id="zong-jie">总结：</span></h2><table>
 <thead>
 <tr>
 <th>异常名称</th>

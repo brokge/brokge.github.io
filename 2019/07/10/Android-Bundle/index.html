@@ -6,7 +6,7 @@ Bundle 相当于传输过程的邮包，里面包裹的是"><meta name="keywords
 }
  </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Android Bundle 详解 </a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-07-10</span></p><p class="post-abstract"></p><p>我们都知道，在 Android 应用开发中，需要数据和状态的传递，其中还包括在 跨进程 之间的传递 （比如 IPC/Binder）。关于数据传递有多种方式，其中最常见的就是通过 Bundle 。Bundle 中文意思：捆; 一批，顾名思义就很直观了。</p>
 <p>Bundle 相当于传输过程的邮包，里面包裹的是具体的数据。</p>
-<h5><span id="shi-xian">实现</span><a href="#shi-xian" class="header-anchor">#</a></h5><p>Activity 之间可以通过 创建 intent 并传递参数 的方式来传递，</p>
+<h5><a href="#shi-xian" class="header-anchor">#</a><span id="shi-xian">实现</span></h5><p>Activity 之间可以通过 创建 intent 并传递参数 的方式来传递，</p>
 <pre class="line-numbers language-java"><code class="language-java">Intent intent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Intent</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> MyActivity<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 intent<span class="token punctuation">.</span><span class="token function">putExtra</span><span class="token punctuation">(</span><span class="token string">"media_id"</span><span class="token punctuation">,</span> <span class="token string">"a1b2c3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
@@ -29,7 +29,7 @@ intent<span class="token punctuation">.</span><span class="token function">putEx
 <blockquote>
 <p>Parcel不是通用的序列化机制（Serializable是通用的序列化机制） 所以不能把 Parcel数据存储在磁盘上或通过网络发送出去。</p>
 </blockquote>
-<h5><span id="yuan-ma-fen-xi">源码分析</span><a href="#yuan-ma-fen-xi" class="header-anchor">#</a></h5><p>通过源码查看，Bundle 继承 BaseBundle 且实现了 Parcelable 接口。BaseBundle 内部 维护一个 ArrayMap&lt;String, Object&gt; mMap 常量来承载我们需要操作的对象。</p>
+<h5><a href="#yuan-ma-fen-xi" class="header-anchor">#</a><span id="yuan-ma-fen-xi">源码分析</span></h5><p>通过源码查看，Bundle 继承 BaseBundle 且实现了 Parcelable 接口。BaseBundle 内部 维护一个 ArrayMap&lt;String, Object&gt; mMap 常量来承载我们需要操作的对象。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Bundle</span> <span class="token keyword">extends</span> <span class="token class-name">BaseBundle</span> <span class="token keyword">implements</span> <span class="token class-name">Cloneable</span><span class="token punctuation">,</span> Parcelable
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>BaseBundle 声明常量 mMap：</p>
@@ -45,7 +45,7 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
         mMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="parcelable">Parcelable</span><a href="#parcelable" class="header-anchor">#</a></h2><p>假设我们需要将<code>String  str = &quot;Hanmeimei&quot;;</code>，从 Activity  A 传递到 Activity B 时，我们可以使用  intent.putExtra(“name”,str ); 这样在 Activity B 中就能获取到由 Activity A 传递过来的字符串 str  .那么如果我想将一个对象由 Activity  A 传递到  Activity B 该怎么办，比如 User 对象。</p>
+<h2><a href="#parcelable" class="header-anchor">#</a><span id="parcelable">Parcelable</span></h2><p>假设我们需要将<code>String  str = &quot;Hanmeimei&quot;;</code>，从 Activity  A 传递到 Activity B 时，我们可以使用  intent.putExtra(“name”,str ); 这样在 Activity B 中就能获取到由 Activity A 传递过来的字符串 str  .那么如果我想将一个对象由 Activity  A 传递到  Activity B 该怎么办，比如 User 对象。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String password<span class="token punctuation">;</span>
@@ -83,10 +83,10 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Android 并没有提供在两个 activity之间传递任意对象或者引用的方法，但是就是需要传递对象该怎么办呢，这个时候就需要  让该对象实现 Android 提供的 parcelable接口，说到 parcelable 就得说Parcel。</p>
-<h4><span id="parcel-shi-shi-me">Parcel 是什么？</span><a href="#parcel-shi-shi-me" class="header-anchor">#</a></h4><p>简单说Parcel就是一个存放读取数据的容器， Android系统中的binder进程间通信(IPC)就使用了Parcel类来进行客户端与服务端数据的交互，而且AIDL的数据也是通过Parcel来交互的。在Java空间和C++都实现了Parcel，由于它在C/C++中，直接使用了内存来读取数据，因此，它更有效率。Parcel不是通用的序列化机制（Serialize 是通用的序列化机制） 所以不能把 Parcel数据存储在磁盘上或通过网络传输。</p>
+<h4><a href="#parcel-shi-shi-me" class="header-anchor">#</a><span id="parcel-shi-shi-me">Parcel 是什么？</span></h4><p>简单说Parcel就是一个存放读取数据的容器， Android系统中的binder进程间通信(IPC)就使用了Parcel类来进行客户端与服务端数据的交互，而且AIDL的数据也是通过Parcel来交互的。在Java空间和C++都实现了Parcel，由于它在C/C++中，直接使用了内存来读取数据，因此，它更有效率。Parcel不是通用的序列化机制（Serialize 是通用的序列化机制） 所以不能把 Parcel数据存储在磁盘上或通过网络传输。</p>
 <p>Parcel 的标记接口 是 Parcelable，如果该对象实现了parcelable接口，且实现了对应的方法，就拥有了 Parcel 的特性。</p>
-<h4><span id="parcelable-zai-shu-ju-chuan-di-de-yong-fa">Parcelable 在数据传递的用法</span><a href="#parcelable-zai-shu-ju-chuan-di-de-yong-fa" class="header-anchor">#</a></h4><p>在Android 对象传递需求中，那么就可以利用下图红框中的方法进行传递了，putExtra(String name,Parcelable user);可以看出，我们可以传递一个实现 Parcelable接口的对象了</p>
-<h2><span id="serializable">Serializable</span><a href="#serializable" class="header-anchor">#</a></h2><h3><span id="gai-nian">概念</span><a href="#gai-nian" class="header-anchor">#</a></h3><ol>
+<h4><a href="#parcelable-zai-shu-ju-chuan-di-de-yong-fa" class="header-anchor">#</a><span id="parcelable-zai-shu-ju-chuan-di-de-yong-fa">Parcelable 在数据传递的用法</span></h4><p>在Android 对象传递需求中，那么就可以利用下图红框中的方法进行传递了，putExtra(String name,Parcelable user);可以看出，我们可以传递一个实现 Parcelable接口的对象了</p>
+<h2><a href="#serializable" class="header-anchor">#</a><span id="serializable">Serializable</span></h2><h3><a href="#gai-nian" class="header-anchor">#</a><span id="gai-nian">概念</span></h3><ol>
 <li>序列化就是将对象转化为字节流。</li>
 <li>反序列化就是将字节流转化为对象。</li>
 <li>默认的序列化是深度系列化（即类中嵌套其他对象引用的对象也会被序列化）。</li>
@@ -133,7 +133,7 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
     <span class="token punctuation">}</span>
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="zui-hou">最后</span><a href="#zui-hou" class="header-anchor">#</a></h2><p>通过以上我们了解 Serializable 和 Parcelable都可以实现复杂数据结构的封装传输，两者的区别是什么？</p>
+<h2><a href="#zui-hou" class="header-anchor">#</a><span id="zui-hou">最后</span></h2><p>通过以上我们了解 Serializable 和 Parcelable都可以实现复杂数据结构的封装传输，两者的区别是什么？</p>
 <blockquote>
 <ul>
 <li><strong>两者的设计初衷：</strong></li>

@@ -8,7 +8,7 @@
 <p>但很神奇的是：无论你大学选择哪一门计算机语言，都没有关于正则表达式的课程给你修，在你学会正则之前，你只能看着那些正则大师们，写了一串外星文似的字符串，替代了你用一大篇幅的 if else代码来做一些数据校验。</p>
 <p>既然喜欢，那就动手学呗，可当你百度出一一堆相关资料时，你发现无一不例外的枯燥至极，难以学习（实话说，当年不理君也是这样的心态😂😂）。</p>
 <p>下面，不理君尝试用一种比较通俗点的方式讲一下正则，让你能在读完之后，能自己写出一些简单的正则，再不济，能看懂别人写的正则，那也不错了。</p>
-<h1><span id="yi-yuan-zi-fu">一、元字符</span><a href="#yi-yuan-zi-fu" class="header-anchor">#</a></h1><p>万物皆有缘，正则也是如此，元字符是构造正则表达式的一种基本元素。<br>我们先来记几个常用的元字符：</p>
+<h1><a href="#yi-yuan-zi-fu" class="header-anchor">#</a><span id="yi-yuan-zi-fu">一、元字符</span></h1><p>万物皆有缘，正则也是如此，元字符是构造正则表达式的一种基本元素。<br>我们先来记几个常用的元字符：</p>
 <table>
 <thead>
 <tr>
@@ -60,7 +60,7 @@
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 </ol>
-<h1><span id="er-chong-fu-xian-ding-fu">二、重复限定符</span><a href="#er-chong-fu-xian-ding-fu" class="header-anchor">#</a></h1><p>有了元字符就可以写不少的正则表达式了，但细心的你们可能会发现：别人写的正则简洁明了，而不理君写的正则一堆乱七八糟而且重复的元字符组成的。正则没提供办法处理这些重复的元字符吗？</p>
+<h1><a href="#er-chong-fu-xian-ding-fu" class="header-anchor">#</a><span id="er-chong-fu-xian-ding-fu">二、重复限定符</span></h1><p>有了元字符就可以写不少的正则表达式了，但细心的你们可能会发现：别人写的正则简洁明了，而不理君写的正则一堆乱七八糟而且重复的元字符组成的。正则没提供办法处理这些重复的元字符吗？</p>
 <p>答案是有的！</p>
 <p>为了处理这些重复问题，正则表达式中一些重复限定符，把重复部分用合适的限定符替代，下面我们来看一些限定符：</p>
 <table>
@@ -113,7 +113,7 @@
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 </ol>
-<h1><span id="san-fen-zu">三、 分组</span><a href="#san-fen-zu" class="header-anchor">#</a></h1><p>从上面的例子（4）中看到，限定符是作用在与他左边最近的一个字符，那么问题来了，如果我想要 ab 同时被限定那怎么办呢？</p>
+<h1><a href="#san-fen-zu" class="header-anchor">#</a><span id="san-fen-zu">三、 分组</span></h1><p>从上面的例子（4）中看到，限定符是作用在与他左边最近的一个字符，那么问题来了，如果我想要 ab 同时被限定那怎么办呢？</p>
 <p><strong>正则表达式中用小括号 <code>()</code> 来做分组，也就是括号中的内容作为一个整体。</strong></p>
 <p>因此当我们要匹配多个 ab 时，我们可以这样。<br>如：</p>
 <ol>
@@ -121,7 +121,7 @@
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 </ol>
-<h1><span id="si-zhuan-yi">四、 转义</span><a href="#si-zhuan-yi" class="header-anchor">#</a></h1><p>我们看到正则表达式用小括号来做分组。</p>
+<h1><a href="#si-zhuan-yi" class="header-anchor">#</a><span id="si-zhuan-yi">四、 转义</span></h1><p>我们看到正则表达式用小括号来做分组。</p>
 <p>那么问题来了：<br>如果要匹配的字符串中本身就包含小括号，那是不是冲突？应该怎么办？</p>
 <p>针对这种情况，正则提供了转义的方式，也就是要把这些元字符、限定符或者关键字转义成普通的字符，做法很简答，就是在要转义的字符前面加个斜杠，也就是\即可。<br>如：</p>
 <ol>
@@ -129,11 +129,11 @@
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 </ol>
-<h1><span id="wu-tiao-jian-huo">五、 条件或</span><a href="#wu-tiao-jian-huo" class="header-anchor">#</a></h1><p>回到我们刚才的手机号匹配，我们都知道：国内号码都来自三大网，它们都有属于自己的号段，比如联通有 130/131/132/155/156/185/186/145/176 等号段，假如让我们匹配一个联通的号码，那按照我们目前所学到的正则，应该无从下手的，因为这里包含了一些并列的条件，也就是“或”，那么在正则中是如何表示“或”的呢？</p>
+<h1><a href="#wu-tiao-jian-huo" class="header-anchor">#</a><span id="wu-tiao-jian-huo">五、 条件或</span></h1><p>回到我们刚才的手机号匹配，我们都知道：国内号码都来自三大网，它们都有属于自己的号段，比如联通有 130/131/132/155/156/185/186/145/176 等号段，假如让我们匹配一个联通的号码，那按照我们目前所学到的正则，应该无从下手的，因为这里包含了一些并列的条件，也就是“或”，那么在正则中是如何表示“或”的呢？</p>
 <p><strong>正则用符号 | 来表示或，也叫做分支条件</strong>，当满足正则里的分支条件的任何一种条件时，都会当成是匹配成功。<br>那么我们就可以用或条件来处理这个问题：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">^<span class="token punctuation">(</span>130<span class="token operator">|</span>131<span class="token operator">|</span>132<span class="token operator">|</span>155<span class="token operator">|</span>156<span class="token operator">|</span>185<span class="token operator">|</span>186<span class="token operator">|</span>145<span class="token operator">|</span>176<span class="token punctuation">)</span>\d<span class="token punctuation">{</span>8<span class="token punctuation">}</span>$
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1><span id="liu-qu-jian">六、区间</span><a href="#liu-qu-jian" class="header-anchor">#</a></h1><p>看到上面的例子，是不是看到有什么规律？是不是还有一种想要简化的冲动？</p>
+<h1><a href="#liu-qu-jian" class="header-anchor">#</a><span id="liu-qu-jian">六、区间</span></h1><p>看到上面的例子，是不是看到有什么规律？是不是还有一种想要简化的冲动？</p>
 <p>实际是有的。</p>
 <p><strong>正则提供一个元字符中括号 [] 来表示区间条件。</strong></p>
 <p>限定 0 到 9 可以写成 <code>[0-9]</code></p>
@@ -142,7 +142,7 @@
 <p>那上面的正则我们还改成这样：</p>
 <pre class="line-numbers language-bash"><code class="language-bash"> ^<span class="token punctuation">((</span>13<span class="token punctuation">[</span>0-2<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">|</span><span class="token punctuation">(</span>15<span class="token punctuation">[</span>56<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">|</span><span class="token punctuation">(</span>18<span class="token punctuation">[</span>5-6<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">|</span>145<span class="token operator">|</span>176<span class="token punctuation">)</span>\d<span class="token punctuation">{</span>8<span class="token punctuation">}</span>$
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1><span id="qi-ling-kuan-duan-yan">七、零宽断言</span><a href="#qi-ling-kuan-duan-yan" class="header-anchor">#</a></h1><p>无论是零宽还是断言，听起来都古古怪怪的，那先解释一下这两个词。</p>
+<h1><a href="#qi-ling-kuan-duan-yan" class="header-anchor">#</a><span id="qi-ling-kuan-duan-yan">七、零宽断言</span></h1><p>无论是零宽还是断言，听起来都古古怪怪的，那先解释一下这两个词。</p>
 <p><strong>断言</strong>：俗话的断言就是“我断定什么什么”，而正则中的断言，就是说正则可以指明在指定的内容的前面或后面会出现满足指定规则的内容，意思正则也可以像人类那样断定什么什么，比如”ss1aa2bb3”, 正则可以用断言找出 aa2 前面有 bb3，也可以找出 aa2 后面有 ss1.</p>
 <p><strong>零宽</strong>：就是没有宽度，在正则中，断言只是匹配位置，不占字符，也就是说，匹配结果里是不会返回断言本身。</p>
 <p>意思是讲明白了，那他有什么用呢？<br>我们来举个栗子：<br>假设我们要用爬虫抓取 csdn 里的文章阅读量。通过查看源代码可以看到文章阅读量这个内容是这样的结构。</p>
@@ -150,7 +150,7 @@
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>其中只有‘<strong>641</strong>’这个是一个变量，也就是不同文章有不同的值，当我们拿到这个字符串时，需要获得这里边的‘<strong>641</strong>’有很多种办法，但如果使用正则应该怎么匹配呢？</p>
 <p>下面先讲一下几种类型的断言：</p>
-<h3><span id="1-zheng-xiang-xian-xing-duan-yan-zheng-qian-zhan">1. 正向先行断言（正前瞻）</span><a href="#1-zheng-xiang-xian-xing-duan-yan-zheng-qian-zhan" class="header-anchor">#</a></h3><p><strong>语法</strong>：<code>（?=pattern）</code></p>
+<h3><a href="#1-zheng-xiang-xian-xing-duan-yan-zheng-qian-zhan" class="header-anchor">#</a><span id="1-zheng-xiang-xian-xing-duan-yan-zheng-qian-zhan">1. 正向先行断言（正前瞻）</span></h3><p><strong>语法</strong>：<code>（?=pattern）</code></p>
 <p><strong>作用</strong>：++匹配 pattern 表达式的前面内容，不返回本身。++<br>这样子说，还是一脸懵逼，好吧，回归刚才那个栗子，要取到阅读量，在正则表达式中就意味着要能匹配到<code>&lt;/span&gt;</code>前面的数字内容按照上所说的正向先行断言可以匹配表达式前面的内容，那意思就是:<code>(?=&lt;/span&gt;)</code> 就可以匹配到前面的内容了。匹配什么内容呢？如果要所有内容那就是：</p>
 <pre class="line-numbers language-java"><code class="language-java"> String reg<span class="token operator">=</span><span class="token string">".+(?=&lt;/span>)"</span><span class="token punctuation">;</span>
 
@@ -180,7 +180,7 @@ Matcher mc<span class="token operator">=</span>    pattern<span class="token pun
 <pre><code>//匹配结果：
 641
 </code></pre><p>大功告成！</p>
-<h3><span id="2-zheng-xiang-hou-xing-duan-yan-zheng-hou-gu">2. 正向后行断言（正后顾）</span><a href="#2-zheng-xiang-hou-xing-duan-yan-zheng-hou-gu" class="header-anchor">#</a></h3><p><strong>语法</strong>：<code>（?&lt;=pattern）</code></p>
+<h3><a href="#2-zheng-xiang-hou-xing-duan-yan-zheng-hou-gu" class="header-anchor">#</a><span id="2-zheng-xiang-hou-xing-duan-yan-zheng-hou-gu">2. 正向后行断言（正后顾）</span></h3><p><strong>语法</strong>：<code>（?&lt;=pattern）</code></p>
 <p><strong>作用</strong>：匹配 pattern表达式的后面的内容，不返回本身。</p>
 <p>有先行就有后行，先行是匹配前面的内容，那后行就是匹配后面的内容啦。</p>
 <p>上面的栗子，我们也可以用后行断言来处理：</p>
@@ -198,7 +198,7 @@ Matcher mc<span class="token operator">=</span>    pattern<span class="token pun
 <pre><code># 匹配结果：
 641
 </code></pre><p>就这么简单。</p>
-<h3><span id="3-fu-xiang-xian-xing-duan-yan-fu-qian-zhan">3. 负向先行断言（负前瞻）</span><a href="#3-fu-xiang-xian-xing-duan-yan-fu-qian-zhan" class="header-anchor">#</a></h3><p><strong>语法</strong>：<code>(?!pattern)</code></p>
+<h3><a href="#3-fu-xiang-xian-xing-duan-yan-fu-qian-zhan" class="header-anchor">#</a><span id="3-fu-xiang-xian-xing-duan-yan-fu-qian-zhan">3. 负向先行断言（负前瞻）</span></h3><p><strong>语法</strong>：<code>(?!pattern)</code></p>
 <p><strong>作用</strong>：匹配非 pattern 表达式的前面内容，不返回本身。</p>
 <p>有正向也有负向，负向在这里其实就是非的意思。</p>
 <blockquote>
@@ -207,13 +207,13 @@ Matcher mc<span class="token operator">=</span>    pattern<span class="token pun
 <p>用正则就可以这样写：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">祖国<span class="token punctuation">(</span>?<span class="token operator">!</span>的花朵<span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3><span id="4-fu-xiang-hou-xing-duan-yan-fu-hou-gu">4. 负向后行断言（负后顾）</span><a href="#4-fu-xiang-hou-xing-duan-yan-fu-hou-gu" class="header-anchor">#</a></h3><p><strong>语法</strong>：<code>(?&lt;!pattern)</code></p>
+<h3><a href="#4-fu-xiang-hou-xing-duan-yan-fu-hou-gu" class="header-anchor">#</a><span id="4-fu-xiang-hou-xing-duan-yan-fu-hou-gu">4. 负向后行断言（负后顾）</span></h3><p><strong>语法</strong>：<code>(?&lt;!pattern)</code></p>
 <p><strong>作用</strong>：匹配非 pattern</p>
 <p>表达式的后面内容，不返回本身。</p>
-<h1><span id="ba-bu-huo-he-fei-bu-huo">八、捕获和非捕获</span><a href="#ba-bu-huo-he-fei-bu-huo" class="header-anchor">#</a></h1><p>单纯说到捕获，他的意思是匹配表达式，但捕获通常和分组联系在一起，也就是“捕获组”。</p>
+<h1><a href="#ba-bu-huo-he-fei-bu-huo" class="header-anchor">#</a><span id="ba-bu-huo-he-fei-bu-huo">八、捕获和非捕获</span></h1><p>单纯说到捕获，他的意思是匹配表达式，但捕获通常和分组联系在一起，也就是“捕获组”。</p>
 <p><strong>捕获组</strong>：匹配子表达式的内容，把匹配结果保存到内存中中数字编号或显示命名的组里，以深度优先进行编号，之后可以通过序号或名称来使用这些匹配结果。</p>
 <p>而根据命名方式的不同，又可以分为两种组：</p>
-<h3><span id="1-shu-zi-bian-hao-bu-huo-zu">1. 数字编号捕获组：</span><a href="#1-shu-zi-bian-hao-bu-huo-zu" class="header-anchor">#</a></h3><p><strong>语法</strong>：<code>(exp)</code></p>
+<h3><a href="#1-shu-zi-bian-hao-bu-huo-zu" class="header-anchor">#</a><span id="1-shu-zi-bian-hao-bu-huo-zu">1. 数字编号捕获组：</span></h3><p><strong>语法</strong>：<code>(exp)</code></p>
 <p><strong>解释</strong>：从表达式左侧开始，每出现一个左括号和它对应的右括号之间的内容为一个分组，在分组中，第 0 组为整个表达式，第一组开始为分组。<br>比如固定电话的：020-85653333<br>他的正则表达式为：(0\d{2})-(\d{8})<br>按照左括号的顺序，这个表达式有如下分组：</p>
 <table>
 <thead>
@@ -263,7 +263,7 @@ Matcher mc<span class="token operator">=</span> pattern<span class="token punctu
 第1个分组为：020
 第2个分组为：85653333
 </code></pre><p>可见，分组个数是2，但是因为第0个为整个表达式本身，因此也一起输出了。</p>
-<h3><span id="2-ming-ming-bian-hao-bu-huo-zu">2. 命名编号捕获组</span><a href="#2-ming-ming-bian-hao-bu-huo-zu" class="header-anchor">#</a></h3><p><strong>语法</strong>：<code>(?&lt;name&gt;exp)</code></p>
+<h3><a href="#2-ming-ming-bian-hao-bu-huo-zu" class="header-anchor">#</a><span id="2-ming-ming-bian-hao-bu-huo-zu">2. 命名编号捕获组</span></h3><p><strong>语法</strong>：<code>(?&lt;name&gt;exp)</code></p>
 <p><strong>解释</strong>：分组的命名由表达式中的 name 指定<br>比如区号也可以这样写:<code>(?&lt;quhao&gt;\0\d{2})-(?&lt;haoma&gt;\d{8})</code>，按照左括号的顺序，这个表达式有如下分组：</p>
 <table>
 <thead>
@@ -313,7 +313,7 @@ Matcher mc<span class="token operator">=</span> pattern<span class="token punctu
 
 分组名称为:haoma,匹配内容为：85653333
 
-</code></pre><h3><span id="3-fei-bu-huo-zu">3. 非捕获组</span><a href="#3-fei-bu-huo-zu" class="header-anchor">#</a></h3><p><strong>语法</strong>：<code>(?:exp)</code></p>
+</code></pre><h3><a href="#3-fei-bu-huo-zu" class="header-anchor">#</a><span id="3-fei-bu-huo-zu">3. 非捕获组</span></h3><p><strong>语法</strong>：<code>(?:exp)</code></p>
 <p><strong>解释</strong>：和捕获组刚好相反，它用来标识那些不需要捕获的分组，说的通俗一点，就是你可以根据需要去保存你的分组。</p>
 <p>比如上面的正则表达式，程序不需要用到第一个分组，那就可以这样写：</p>
 <pre><code>(?:\0\d{2})-(\d{8})
@@ -333,7 +333,7 @@ Matcher mc<span class="token operator">=</span> pattern<span class="token punctu
 <pre><code>分组的个数有：1
 第0个分组为：020-85653333
 第1个分组为：85653333
-</code></pre><h1><span id="jiu-fan-xiang-yin-yong">九、 反向引用</span><a href="#jiu-fan-xiang-yin-yong" class="header-anchor">#</a></h1><p>上面讲到捕获，我们知道：捕获会返回一个捕获组，这个分组是保存在内存中，不仅可以在正则表达式外部通过程序进行引用，也可以在正则表达式内部进行引用，这种引用方式就是反向引用。</p>
+</code></pre><h1><a href="#jiu-fan-xiang-yin-yong" class="header-anchor">#</a><span id="jiu-fan-xiang-yin-yong">九、 反向引用</span></h1><p>上面讲到捕获，我们知道：捕获会返回一个捕获组，这个分组是保存在内存中，不仅可以在正则表达式外部通过程序进行引用，也可以在正则表达式内部进行引用，这种引用方式就是反向引用。</p>
 <p>根据捕获组的命名规则，反向引用可分为：</p>
 <ol>
 <li>数字编号组反向引用：\k 或\number</li>
@@ -387,7 +387,7 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>输出结果：</p>
 <pre><code>abbabcgbddesddfiid
-</code></pre><h1><span id="shi-tan-lan-he-fei-tan-lan">十、贪婪和非贪婪</span><a href="#shi-tan-lan-he-fei-tan-lan" class="header-anchor">#</a></h1><h3><span id="1-tan-lan">1. 贪婪</span><a href="#1-tan-lan" class="header-anchor">#</a></h3><p>我们都知道，贪婪就是不满足，尽可能多的要。在正则中，贪婪也是差不多的意思:</p>
+</code></pre><h1><a href="#shi-tan-lan-he-fei-tan-lan" class="header-anchor">#</a><span id="shi-tan-lan-he-fei-tan-lan">十、贪婪和非贪婪</span></h1><h3><a href="#1-tan-lan" class="header-anchor">#</a><span id="1-tan-lan">1. 贪婪</span></h3><p>我们都知道，贪婪就是不满足，尽可能多的要。在正则中，贪婪也是差不多的意思:</p>
 <p><strong>贪婪匹配</strong>：当正则表达式中包含能接受重复的限定符时，通常的行为是（在使整个表达式能得到匹配的前提下）匹配尽可能多的字符，这匹配方式叫做贪婪匹配。</p>
 <p><strong>特性</strong>：一次性读入整个字符串进行匹配，每当不匹配就舍弃最右边一个字符，继续匹配，依次匹配和舍弃（这种匹配 - 舍弃的方式也叫做回溯），直到匹配成功或者把整个字符串舍弃完为止，因此它是一种最大化的数据返回，能多不会少。</p>
 <p>前面我们讲过重复限定符，其实这些限定符就是贪婪量词，比如表达式：</p>
@@ -435,7 +435,7 @@ Matcher m1 <span class="token operator">=</span> p1<span class="token punctuatio
 </code></pre><blockquote>
 <p>“617628” 是前面的\d{1,2}匹配出了 61，后面的匹配出了 7628<br>“2991” 是前面的\d{1,2}匹配出了 29 ，后面的匹配出了 91<br>“87321”是前面的\d{1,2}匹配出了 87，后面的匹配出了 321</p>
 </blockquote>
-<h3><span id="2-lan-duo-fei-tan-lan">2. 懒惰（非贪婪）</span><a href="#2-lan-duo-fei-tan-lan" class="header-anchor">#</a></h3><p><strong>懒惰匹配</strong>：当正则表达式中包含能接受重复的限定符时，通常的行为是（在使整个表达式能得到匹配的前提下）匹配尽可能少的字符，这匹配方式叫做懒惰匹配。</p>
+<h3><a href="#2-lan-duo-fei-tan-lan" class="header-anchor">#</a><span id="2-lan-duo-fei-tan-lan">2. 懒惰（非贪婪）</span></h3><p><strong>懒惰匹配</strong>：当正则表达式中包含能接受重复的限定符时，通常的行为是（在使整个表达式能得到匹配的前提下）匹配尽可能少的字符，这匹配方式叫做懒惰匹配。</p>
 <p><strong>特性</strong>: 从左到右，从字符串的最左边开始匹配，每次试图不读入字符匹配，匹配成功，则完成匹配，否则读入一个字符再匹配，依此循环（读入字符、匹配）直到匹配成功或者把字符串的字符匹配完为止。<br>懒惰量词是在贪婪量词后面加个“？”</p>
 <table>
 <thead>
@@ -489,7 +489,7 @@ Matcher m1 <span class="token operator">=</span> p1<span class="token punctuatio
 <p>“2991” 是左边的懒惰匹配出 2，右边的贪婪匹配出 991</p>
 <p>“87321” 左边的懒惰匹配出 8，右边的贪婪匹配出 7321</p>
 </blockquote>
-<h1><span id="shi-yi-fan-yi">十一、 反义</span><a href="#shi-yi-fan-yi" class="header-anchor">#</a></h1><p>前面说到元字符的都是要匹配什么什么，当然如果你想反着来，不想匹配某些字符，正则也提供了一些常用的反义元字符：</p>
+<h1><a href="#shi-yi-fan-yi" class="header-anchor">#</a><span id="shi-yi-fan-yi">十一、 反义</span></h1><p>前面说到元字符的都是要匹配什么什么，当然如果你想反着来，不想匹配某些字符，正则也提供了一些常用的反义元字符：</p>
 <table>
 <thead>
 <tr>

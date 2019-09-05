@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Java  注解 · 吾與爾</title><meta name="description" content="注解#注解是代码里的特殊标记，这些标记可以在编译、类加载、运行时被读取。并执行相应的处理。
-一 、注解分类#
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Java  注解 · 吾與爾</title><meta name="description" content="#注解注解是代码里的特殊标记，这些标记可以在编译、类加载、运行时被读取。并执行相应的处理。
+#一 、注解分类
 java 内置注解 
 @Override、 @Deprecated、@SuppressWarnings、@SafeVarargs(jdk 7 新增)
 
@@ -11,8 +11,8 @@ java 内置注解
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
- </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Java  注解</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-08-30</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><h2><span id="zhu-jie">注解</span><a href="#zhu-jie" class="header-anchor">#</a></h2><p>注解是代码里的特殊标记，这些标记可以在编译、类加载、运行时被读取。并执行相应的处理。</p>
-<h3><span id="yi-zhu-jie-fen-lei">一 、注解分类</span><a href="#yi-zhu-jie-fen-lei" class="header-anchor">#</a></h3><ol>
+ </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Java  注解</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-08-30</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><h2><a href="#zhu-jie" class="header-anchor">#</a><span id="zhu-jie">注解</span></h2><p>注解是代码里的特殊标记，这些标记可以在编译、类加载、运行时被读取。并执行相应的处理。</p>
+<h3><a href="#yi-zhu-jie-fen-lei" class="header-anchor">#</a><span id="yi-zhu-jie-fen-lei">一 、注解分类</span></h3><ol>
 <li><p><strong>java 内置注解</strong> </p>
 <p>@Override、 @Deprecated、@SuppressWarnings、@SafeVarargs(jdk 7 新增)</p>
 </li>
@@ -93,7 +93,7 @@ java 内置注解
 </blockquote>
 </li>
 </ul>
-<h3><span id="ding-yi-zhu-jie">定义注解</span><a href="#ding-yi-zhu-jie" class="header-anchor">#</a></h3><p><strong>1. 基本定义</strong></p>
+<h3><a href="#ding-yi-zhu-jie" class="header-anchor">#</a><span id="ding-yi-zhu-jie">定义注解</span></h3><p><strong>1. 基本定义</strong></p>
 <p>定义新的注解类型使用 @interface 关键字。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Cup</span><span class="token punctuation">{</span>
 
@@ -180,7 +180,7 @@ java 内置注解
 <span class="token punctuation">}</span>
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h3><span id="er-zhu-jie-de-ti-qu">二、注解的提取</span><a href="#er-zhu-jie-de-ti-qu" class="header-anchor">#</a></h3><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
+<h3><a href="#er-zhu-jie-de-ti-qu" class="header-anchor">#</a><span id="er-zhu-jie-de-ti-qu">二、注解的提取</span></h3><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isAnnotationPresent</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后通过 getAnnotation() 方法来获取 Annotation 对象。</p>
@@ -195,7 +195,7 @@ java 内置注解
 
 Method <span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span>String methodName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3><span id="san-qi-ta">三、其他</span><a href="#san-qi-ta" class="header-anchor">#</a></h3><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
+<h3><a href="#san-qi-ta" class="header-anchor">#</a><span id="san-qi-ta">三、其他</span></h3><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
 <p>运行时注解：<br>例如：ButterKnife ，黑科技、低性能</p>
 <p>编译时注解：<br>Dagger2：生成中间代码，所以性能高</p>
 <p>注解处理器：<br>编译时处理器、<br>运行时处理器。</p>
