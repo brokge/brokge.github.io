@@ -8,66 +8,67 @@
  </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>简单工厂</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-06</span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><p>[toc]</p>
 <h1><span id="简单工厂">简单工厂</span></h1><h2><span id="概念">概念</span></h2><p>定义一个工厂类，它可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于创建实例的方法是静态(static)方法，因此简单工厂模式又被称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。</p>
 <h2><span id="特点">特点</span></h2><p>当你需要什么，只需要传入一个正确的参数，就可以获取你所需要的对象，而无须知道其创建细节。<br>达到 <strong>创建和使用分离</strong>。</p>
-<h2><span id="示例代码">示例代码：</span></h2><pre><code>//抽象图表接口：抽象产品类
-interface Chart {
-    public void display();
-}
+<h2><span id="示例代码">示例代码：</span></h2><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//抽象图表接口：抽象产品类</span>
+<span class="token keyword">interface</span> <span class="token class-name">Chart</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">display</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-//柱状图类：具体产品类
-class HistogramChart implements Chart {
-    public HistogramChart() {
-        System.out.println(&quot;创建柱状图！&quot;);
-    }
+<span class="token comment" spellcheck="true">//柱状图类：具体产品类</span>
+<span class="token keyword">class</span> <span class="token class-name">HistogramChart</span> <span class="token keyword">implements</span> <span class="token class-name">Chart</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token function">HistogramChart</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"创建柱状图！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void display() {
-        System.out.println(&quot;显示柱状图！&quot;);
-    }
-}
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">display</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"显示柱状图！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-//饼状图类：具体产品类
-class PieChart implements Chart {
-    public PieChart() {
-        System.out.println(&quot;创建饼状图！&quot;);
-    }
+<span class="token comment" spellcheck="true">//饼状图类：具体产品类</span>
+<span class="token keyword">class</span> <span class="token class-name">PieChart</span> <span class="token keyword">implements</span> <span class="token class-name">Chart</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token function">PieChart</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"创建饼状图！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void display() {
-        System.out.println(&quot;显示饼状图！&quot;);
-    }
-}
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">display</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"显示饼状图！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-//折线图类：具体产品类
-class LineChart implements Chart {
-    public LineChart() {
-        System.out.println(&quot;创建折线图！&quot;);
-    }
+<span class="token comment" spellcheck="true">//折线图类：具体产品类</span>
+<span class="token keyword">class</span> <span class="token class-name">LineChart</span> <span class="token keyword">implements</span> <span class="token class-name">Chart</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token function">LineChart</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"创建折线图！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public void display() {
-        System.out.println(&quot;显示折线图！&quot;);
-    }
-}
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">display</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"显示折线图！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-//图表工厂类：工厂类
-class ChartFactory {
-    //静态工厂方法
-    public static Chart getChart(String type) {
-        Chart chart = null;
-        if (type.equalsIgnoreCase(&quot;histogram&quot;)) {
-            chart = new HistogramChart();
-            System.out.println(&quot;初始化设置柱状图！&quot;);
-        }
-        else if (type.equalsIgnoreCase(&quot;pie&quot;)) {
-            chart = new PieChart();
-            System.out.println(&quot;初始化设置饼状图！&quot;);
-        }
-        else if (type.equalsIgnoreCase(&quot;line&quot;)) {
-            chart = new LineChart();
-            System.out.println(&quot;初始化设置折线图！&quot;);            
-        }
-        return chart;
-    }
-}
+<span class="token comment" spellcheck="true">//图表工厂类：工厂类</span>
+<span class="token keyword">class</span> <span class="token class-name">ChartFactory</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//静态工厂方法</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Chart <span class="token function">getChart</span><span class="token punctuation">(</span>String type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Chart chart <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>type<span class="token punctuation">.</span><span class="token function">equalsIgnoreCase</span><span class="token punctuation">(</span><span class="token string">"histogram"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            chart <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HistogramChart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"初始化设置柱状图！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>type<span class="token punctuation">.</span><span class="token function">equalsIgnoreCase</span><span class="token punctuation">(</span><span class="token string">"pie"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            chart <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PieChart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"初始化设置饼状图！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>type<span class="token punctuation">.</span><span class="token function">equalsIgnoreCase</span><span class="token punctuation">(</span><span class="token string">"line"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            chart <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LineChart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"初始化设置折线图！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> chart<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-</code></pre><h2><span id="简单工厂模式总结">简单工厂模式总结</span></h2><p>简单工厂模式提供了专门的工厂类用于创建对象，将对象的创建和对象的使用分离开。</p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2><span id="简单工厂模式总结">简单工厂模式总结</span></h2><p>简单工厂模式提供了专门的工厂类用于创建对象，将对象的创建和对象的使用分离开。</p>
 <h3><span id="优点"><strong>优点</strong></span></h3><p> 简单工厂模式的主要优点如下：</p>
 <blockquote>
 <p>(1) 工厂类包含必要的判断逻辑，可以决定在什么时候创建哪一个产品类的实例，客户端可以免除直接创建产品对象的职责，而仅仅“消费”产品，简单工厂模式实现了对象创建和使用的分离。</p>
