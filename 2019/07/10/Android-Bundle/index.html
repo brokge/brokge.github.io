@@ -4,7 +4,7 @@ Bundle 相当于传输过程的邮包，里面包裹的是"><meta name="keywords
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
- </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Android Bundle 详解 </a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-07-10</span></p><p class="post-abstract"><!--toc-->
+ </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Android Bundle 详解 </a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-07-10</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span></span></p><p class="post-abstract"><!--toc-->
 </p><p>我们都知道，在 Android 应用开发中，需要数据和状态的传递，其中还包括在 跨进程 之间的传递 （比如 IPC/Binder）。关于数据传递有多种方式，其中最常见的就是通过 Bundle 。Bundle 中文意思：捆; 一批，顾名思义就很直观了。</p>
 <p>Bundle 相当于传输过程的邮包，里面包裹的是具体的数据。</p>
 <h5><span id="实现">实现</span></h5><p>Activity 之间可以通过 创建 intent 并传递参数 的方式来传递，</p>
