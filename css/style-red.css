@@ -674,7 +674,9 @@ footer * {
   border-collapse: collapse;
   margin: 10px 0 10px 0;
 }
-
+.post-container tr{
+  border: 1px solid #ff00004d;
+}
 .post-container th {
   border: 1px solid #ff00004d;
   border-collapse: collapse;
@@ -688,6 +690,7 @@ footer * {
   border: 1px solid #ff00004d;;
   border-collapse: collapse;
   padding: 8px;
+  min-width: 80px;
 }
 
 .post-title {
