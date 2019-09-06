@@ -84,9 +84,9 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Android 并没有提供在两个 activity之间传递任意对象或者引用的方法，但是就是需要传递对象该怎么办呢，这个时候就需要  让该对象实现 Android 提供的 parcelable接口，说到 parcelable 就得说Parcel。</p>
-<h4><span id="parcel-是什么">Parcel 是什么？</span></h4><p>简单说Parcel就是一个存放读取数据的容器， Android系统中的binder进程间通信(IPC)就使用了Parcel类来进行客户端与服务端数据的交互，而且AIDL的数据也是通过Parcel来交互的。在Java空间和C++都实现了Parcel，由于它在C/C++中，直接使用了内存来读取数据，因此，它更有效率。Parcel不是通用的序列化机制（Serialize 是通用的序列化机制） 所以不能把 Parcel数据存储在磁盘上或通过网络传输。</p>
+<h3><span id="parcel-是什么">Parcel 是什么？</span></h3><p>简单说Parcel就是一个存放读取数据的容器， Android系统中的binder进程间通信(IPC)就使用了Parcel类来进行客户端与服务端数据的交互，而且AIDL的数据也是通过Parcel来交互的。在Java空间和C++都实现了Parcel，由于它在C/C++中，直接使用了内存来读取数据，因此，它更有效率。Parcel不是通用的序列化机制（Serialize 是通用的序列化机制） 所以不能把 Parcel数据存储在磁盘上或通过网络传输。</p>
 <p>Parcel 的标记接口 是 Parcelable，如果该对象实现了parcelable接口，且实现了对应的方法，就拥有了 Parcel 的特性。</p>
-<h4><span id="parcelable-在数据传递的用法">Parcelable 在数据传递的用法</span></h4><p>在Android 对象传递需求中，那么就可以利用下图红框中的方法进行传递了，putExtra(String name,Parcelable user);可以看出，我们可以传递一个实现 Parcelable接口的对象了</p>
+<h3><span id="parcelable-在数据传递的用法">Parcelable 在数据传递的用法</span></h3><p>在Android 对象传递需求中，那么就可以利用下图红框中的方法进行传递了，putExtra(String name,Parcelable user);可以看出，我们可以传递一个实现 Parcelable接口的对象了</p>
 <h2><span id="serializable">Serializable</span></h2><h3><span id="概念">概念</span></h3><ol>
 <li>序列化就是将对象转化为字节流。</li>
 <li>反序列化就是将字节流转化为对象。</li>
@@ -98,12 +98,27 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>以上是 <code>Serializable</code> 的接口定义，且 <code>Serializable</code> 只是一个没有定义任何方法的标记接口。</p>
-<p>#####为什么定义标记接口即可实现序列化了呢？</p>
-<p>声明实现 <code>Serializable</code> 接口后保存读取对象就可以使用 <code>ObjectOutputStream</code>、<code>ObjectInputStream</code> 流了，<code>ObjectOutputStream</code> 是 <code>OutputStream</code> 的子类，但实现了 <code>ObjectOutput</code> 接口，<code>ObjectOutput</code> 是 <code>DataOutput</code> 的子接口，增加了一个 <code>writeObject(Object obj)</code> 方法将对象转化为字节写到流中，<code>ObjectInputStream</code> 是 <code>InputStream</code> 的子类，实现了<code>ObjectInput</code> 接口，<code>ObjectInput</code> 是 <code>DataInput</code> 的子接口，增加了一个 <code>readObject()</code> 方法从流中读取字节转为对象。</p>
+<h3><span id="为什么定义标记接口即可实现序列化了呢">为什么定义标记接口即可实现序列化了呢？</span></h3><p>声明实现 <code>Serializable</code> 接口后保存读取对象就可以使用 <code>ObjectOutputStream</code>、<code>ObjectInputStream</code> 流了，<code>ObjectOutputStream</code> 是 <code>OutputStream</code> 的子类，但实现了 <code>ObjectOutput</code> 接口，<code>ObjectOutput</code> 是 <code>DataOutput</code> 的子接口，增加了一个 <code>writeObject(Object obj)</code> 方法将对象转化为字节写到流中，<code>ObjectInputStream</code> 是 <code>InputStream</code> 的子类，实现了<code>ObjectInput</code> 接口，<code>ObjectInput</code> 是 <code>DataInput</code> 的子接口，增加了一个 <code>readObject()</code> 方法从流中读取字节转为对象。</p>
 <blockquote>
 <p>序列化和反序列化的实质在于 <code>ObjectOutputStream</code> 的 <code>writeObject</code> 和 <code>ObjectInputStream</code> 的 <code>readObject</code> 方法实现，常见的 <code>String</code>、<code>Date</code>、<code>Double</code>、<code>ArrayList</code>、<code>LinkedList</code>、<code>HashMap</code>、<code>TreeMap</code> 等都默认实现了 <code>Serializable</code>,.</p>
 </blockquote>
-<p>有时候我们对象有些字段的值可能与内存位置（<code>hashcode</code>）、当前时间等有关，所以我们不想序列化他（因为反序列化后的值是没有意义的），或者有时候如果类中的字段表示的是类的实现细节而非逻辑信息则默认序列化也是不适合的，所以我们需要定制序列化，Java 提供的定制主要有<code>transient</code> 关键字方式和实现 <code>writeObject</code>、<code>readObject</code> 方式及 <code>Externalizable</code> 接口 <code>readResolve</code>、<code>writeReplace</code> 方式，还可以将字段声明为 <code>transient</code> 后通过 <code>writeObject</code>、<code>readObject</code> 方法来自己保存该字段。</p>
+<p>有时候我们对象有些字段的值可能与内存位置（<code>hashcode</code>）、当前时间等有关，所以我们不想序列化他（因为反序列化后的值是没有意义的）。或者有时候如果类中的字段，表示的是类的实现细节，而非逻辑信息则默认序列化，也是不适合的。</p>
+<p><strong>由于以上原因</strong>：所以我们需要定制序列化，Java 提供的定制主要有<code>transient</code> 关键字方式 和 实现 <code>writeObject</code>、<code>readObject</code> 方式 及 <code>Externalizable</code> 接口 <code>readExternal</code>、<code>writeExternal</code> 方式。还可以将字段声明为 <code>transient</code> 后通过 <code>writeObject</code>、<code>readObject</code> 方法来自己保存该字段。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span>ElementType<span class="token punctuation">.</span>METHOD<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Transient</span> <span class="token punctuation">{</span>
+    <span class="token keyword">boolean</span> <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Externalizable.java</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Externalizable</span> <span class="token keyword">extends</span> <span class="token class-name">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>Serializable</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">void</span> <span class="token function">writeExternal</span><span class="token punctuation">(</span>ObjectOutput out<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException<span class="token punctuation">;</span>
+
+    <span class="token keyword">void</span> <span class="token function">readExternal</span><span class="token punctuation">(</span>ObjectInput in<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException<span class="token punctuation">,</span> ClassNotFoundException<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>默认情况下 Java 会根据类中一系列信息自动生成一个版本号，在反序列化时如果类的定义发生了变化版本号就会变化，也就与反序列化流中的版本号不匹配导致会抛出异常，所以我们为了更好的控制和性能问题会自定义 <code>serialVersionUID</code> 版本号来避免类定义发生变化后反序列化版本号不匹配异常问题，如果版本号一样时流中有该字段而类定义中没有则该字段会被忽略，如果类定义中有而流中没有则该字段会被设为默认值，如果对于同名的字段类型变了则会抛出 <code>InvalidClassException</code>。</p>
 <p>虚拟机是否允许反序列化不仅取决于类路径和功能代码是否一致，还取决于另一个非常重要的点是两个类的序列化 ID 是否一致（就是 <code>private static final long serialVersionUID = 1L</code>）。</p>
 <p>因为声明实现 <code>Serializable</code> 接口后保存读取对象就可以使用 <code>ObjectOutputStream</code>、<code>ObjectInputStream</code> 流了，<code>ObjectOutputStream</code> 的 <code>writeObject(Object obj)</code>方法将对象转化为字节写到流中，<code>ObjectInputStream</code> 的 <code>readObject()</code> 方法从流中读取字节转为对象，<code>Serializable</code> 虽然是一个空接口，但是在调用 <code>writeObject</code> 方法时却充当了一种健全的校验作用，如果对象没有实现 <code>Serializable</code> 则在调用 <code>writeObject</code> 时就会抛出异常，所以说 <code>Serializable</code> 算是一种接口标识机制。</p>
@@ -135,28 +150,19 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2><span id="最后">最后</span></h2><p>通过以上我们了解 Serializable 和 Parcelable都可以实现复杂数据结构的封装传输，两者的区别是什么？</p>
-<blockquote>
-<ul>
-<li><strong>两者的设计初衷：</strong></li>
-</ul>
-<ol>
+<h3><span id="两者的设计初衷">两者的设计初衷：</span></h3><ol>
 <li><strong>Serializable</strong> 的作用是为了保存对象的属性到本地文件、数据库、网络流等以方便数据传输，当然这种传输可以是程序内的也可以是两个程序间的。</li>
 <li><strong>Parcelable</strong> 的设计初衷是因为Serializable 效率过慢，为了在程序内不同组件间以及不同 Android 程序间(AIDL)高效的传输数据而设计，这些数据仅在内存中存在，而且 Parcelable 是通过 IBinder 通信的消息的载体。</li>
 </ol>
-<ul>
-<li><strong>两者的区别：</strong><ol>
+<h3><span id="两者的区别">两者的区别：</span></h3><ol>
 <li>在使用内存的时候，Parcelable 类比 Serializable 性能高。</li>
 <li>Serializable在序列化的时候会产生大量的临时变量，从而引起频繁的GC。</li>
 <li>Parcelable不能适用在要将数据存储在磁盘上的情况，因为Parcelable 在外界有变化的情况下，不能很好的保证数据的持续性。</li>
 </ol>
-</li>
-<li><strong>适用场景：</strong><ol>
+<h3><span id="适用场景">适用场景：</span></h3><ol>
 <li>只在内存中操作数据时，比如两个 Activity 之间 传输数据。</li>
 <li>需要持久化数据时，比如需要将数据保存的本地文件、数据库，所以尽管 Serializable 效率低点， 也不提倡用，但在这种情况下，还是建议你用 Serializable 。</li>
 </ol>
-</li>
-</ul>
-</blockquote>
 <p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2019/07/10/Android-Bundle/%20吾與爾%20Android Bundle 详解 " class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/07/16/Android-性能优化总结/" title="Android 性能优化总结"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Android 性能优化总结</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/06/30/Android-应用内存分析/" title="Android 应用内存分析">下一篇: Android 应用内存分析&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
     new Valine({
     el: '#vcomments',

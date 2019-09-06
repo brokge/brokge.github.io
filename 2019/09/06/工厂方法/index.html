@@ -16,64 +16,65 @@
 <p>如何实现增加新产品而不影响已有代码？</p>
 <h2><span id="概念">概念</span></h2><p>定义一个用于创建对象的接口，让子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)</p>
 <h2><span id="特点">特点</span></h2><p>不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。</p>
-<h2><span id="示例代码">示例代码：</span></h2><pre><code>
-//日志记录器接口：抽象产品
-interface Logger {
-    public void writeLog();
-}
+<h2><span id="示例代码">示例代码：</span></h2><pre class="line-numbers language-java"><code class="language-java">
+<span class="token comment" spellcheck="true">//日志记录器接口：抽象产品</span>
+<span class="token keyword">interface</span> <span class="token class-name">Logger</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">writeLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-//数据库日志记录器：具体产品
-class DatabaseLogger implements Logger {
-    public void writeLog() {
-        System.out.println(&quot;数据库日志记录。&quot;);
-    }
-}
+<span class="token comment" spellcheck="true">//数据库日志记录器：具体产品</span>
+<span class="token keyword">class</span> <span class="token class-name">DatabaseLogger</span> <span class="token keyword">implements</span> <span class="token class-name">Logger</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">writeLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"数据库日志记录。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-//文件日志记录器：具体产品
-class FileLogger implements Logger {
-    public void writeLog() {
-        System.out.println(&quot;文件日志记录。&quot;);
-    }
-}
+<span class="token comment" spellcheck="true">//文件日志记录器：具体产品</span>
+<span class="token keyword">class</span> <span class="token class-name">FileLogger</span> <span class="token keyword">implements</span> <span class="token class-name">Logger</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">writeLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"文件日志记录。"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-//日志记录器工厂接口：抽象工厂
-interface LoggerFactory {
-    public Logger createLogger();
-}
+<span class="token comment" spellcheck="true">//日志记录器工厂接口：抽象工厂</span>
+<span class="token keyword">interface</span> <span class="token class-name">LoggerFactory</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> Logger <span class="token function">createLogger</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-//数据库日志记录器工厂类：具体工厂
-class DatabaseLoggerFactory implements LoggerFactory {
-    public Logger createLogger() {
-            //连接数据库，代码省略
-            //创建数据库日志记录器对象
-            Logger logger = new DatabaseLogger(); 
-            //初始化数据库日志记录器，代码省略
-            return logger;
-    }    
-}
+<span class="token comment" spellcheck="true">//数据库日志记录器工厂类：具体工厂</span>
+<span class="token keyword">class</span> <span class="token class-name">DatabaseLoggerFactory</span> <span class="token keyword">implements</span> <span class="token class-name">LoggerFactory</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> Logger <span class="token function">createLogger</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//连接数据库，代码省略</span>
+            <span class="token comment" spellcheck="true">//创建数据库日志记录器对象</span>
+            Logger logger <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DatabaseLogger</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+            <span class="token comment" spellcheck="true">//初始化数据库日志记录器，代码省略</span>
+            <span class="token keyword">return</span> logger<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>    
+<span class="token punctuation">}</span>
 
-//文件日志记录器工厂类：具体工厂
-class FileLoggerFactory implements LoggerFactory {
-    public Logger createLogger() {
-            //创建文件日志记录器对象
-            Logger logger = new FileLogger(); 
-            //创建文件，代码省略
-            return logger;
-    }    
-}
+<span class="token comment" spellcheck="true">//文件日志记录器工厂类：具体工厂</span>
+<span class="token keyword">class</span> <span class="token class-name">FileLoggerFactory</span> <span class="token keyword">implements</span> <span class="token class-name">LoggerFactory</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> Logger <span class="token function">createLogger</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//创建文件日志记录器对象</span>
+            Logger logger <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileLogger</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+            <span class="token comment" spellcheck="true">//创建文件，代码省略</span>
+            <span class="token keyword">return</span> logger<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>    
+<span class="token punctuation">}</span>
 
-//调用
-class Client {
-    public static void main(String args[]) {
-        LoggerFactory factory;
-        Logger logger;
-        factory = new FileLoggerFactory(); //可引入配置文件实现
-        logger = factory.createLogger();
-        logger.writeLog();
-    }
-}
+<span class="token comment" spellcheck="true">//调用</span>
+<span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String args<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        LoggerFactory factory<span class="token punctuation">;</span>
+        Logger logger<span class="token punctuation">;</span>
+        factory <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileLoggerFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//可引入配置文件实现</span>
+        logger <span class="token operator">=</span> factory<span class="token punctuation">.</span><span class="token function">createLogger</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        logger<span class="token punctuation">.</span><span class="token function">writeLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-</code></pre><h2><span id="工厂方法模式总结">工厂方法模式总结</span></h2><p>工厂方法模式是简单工厂模式的延伸，它继承了简单工厂模式的优点，同时还弥补了简单工厂模式的不足。工厂方法模式是使用频率最高的设计模式之一，是很多开源框架和API类库的核心模式。</p>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2><span id="工厂方法模式总结">工厂方法模式总结</span></h2><p>工厂方法模式是简单工厂模式的延伸，它继承了简单工厂模式的优点，同时还弥补了简单工厂模式的不足。工厂方法模式是使用频率最高的设计模式之一，是很多开源框架和API类库的核心模式。</p>
 <ol>
 <li>主要优点</li>
 </ol>
