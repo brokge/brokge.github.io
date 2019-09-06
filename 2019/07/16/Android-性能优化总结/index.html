@@ -1,105 +1,119 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Android 性能优化总结 · 吾與爾</title><meta name="description" content="#&amp;#x7528;&amp;#x6237;&amp;#x624B;&amp;#x4E2D;&amp;#x597D;&amp;#x7684;&amp;#x5E94;&amp;#x7528;&amp;#x6307;&amp;#x6807;&amp;#xFF1A;
-&amp;#x6EE1;&amp;#x8DB3;&amp;#x9700;&amp;#x6C42;
-&amp;#x5408;&amp;#x7406;&amp;#x7684;&amp;#x"><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Android 性能优化总结 · 吾與爾</title><meta name="description" content="用户手中好的应用指标：
+满足需求
+合理的交互
+高性能
+
+Android 性能优化总结目标:
+流畅
+稳定
+省电、省流量
+安装包小
+
+简称： 快、稳、省、小
+建议：1. 流畅卡顿场景：UI 绘制、应用启动、页面跳转、事件响应
+卡顿原因：
+
+界面绘制。
+主要原因是绘制的层级深、页面复杂、刷新不合理，由于这"><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">吾與爾</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
- </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Android 性能优化总结</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-07-16</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/categories/Android/性能优化/" title="性能优化" class="a-tag">性能优化</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/tags/性能优化/" title="性能优化" class="a-tag">性能优化</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><h2><a href="#yong-hu-shou-zhong-hao-de-ying-yong-zhi-biao" class="header-anchor">#</a><span id="yong-hu-shou-zhong-hao-de-ying-yong-zhi-biao">&#x7528;&#x6237;&#x624B;&#x4E2D;&#x597D;&#x7684;&#x5E94;&#x7528;&#x6307;&#x6807;&#xFF1A;</span></h2><ol>
-<li>&#x6EE1;&#x8DB3;&#x9700;&#x6C42;</li>
-<li>&#x5408;&#x7406;&#x7684;&#x4EA4;&#x4E92;</li>
-<li>&#x9AD8;&#x6027;&#x80FD;</li>
+ </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Android 性能优化总结</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-07-16</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/categories/Android/性能优化/" title="性能优化" class="a-tag">性能优化</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/tags/性能优化/" title="性能优化" class="a-tag">性能优化</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><h2><span id="用户手中好的应用指标">用户手中好的应用指标：</span></h2><ol>
+<li>满足需求</li>
+<li>合理的交互</li>
+<li>高性能</li>
 </ol>
-<h2><a href="#android-xing-neng-you-hua-zong-jie" class="header-anchor">#</a><span id="android-xing-neng-you-hua-zong-jie">Android &#x6027;&#x80FD;&#x4F18;&#x5316;&#x603B;&#x7ED3;</span></h2><h4><a href="#mu-biao" class="header-anchor">#</a><span id="mu-biao">&#x76EE;&#x6807;:</span></h4><ol>
-<li>&#x6D41;&#x7545;</li>
-<li>&#x7A33;&#x5B9A;</li>
-<li>&#x7701;&#x7535;&#x3001;&#x7701;&#x6D41;&#x91CF;</li>
-<li>&#x5B89;&#x88C5;&#x5305;&#x5C0F;</li>
+<h2><span id="android-性能优化总结">Android 性能优化总结</span></h2><h4><span id="目标">目标:</span></h4><ol>
+<li>流畅</li>
+<li>稳定</li>
+<li>省电、省流量</li>
+<li>安装包小</li>
 </ol>
-<p>&#x7B80;&#x79F0;&#xFF1A; &#x5FEB;&#x3001;&#x7A33;&#x3001;&#x7701;&#x3001;&#x5C0F;</p>
-<h4><a href="#jian-yi" class="header-anchor">#</a><span id="jian-yi">&#x5EFA;&#x8BAE;&#xFF1A;</span></h4><h5><a href="#1-liu-chang" class="header-anchor">#</a><span id="1-liu-chang">1. &#x6D41;&#x7545;</span></h5><p>&#x5361;&#x987F;&#x573A;&#x666F;&#xFF1A;<br>UI &#x7ED8;&#x5236;&#x3001;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x3001;&#x9875;&#x9762;&#x8DF3;&#x8F6C;&#x3001;&#x4E8B;&#x4EF6;&#x54CD;&#x5E94;</p>
-<p>&#x5361;&#x987F;&#x539F;&#x56E0;&#xFF1A;</p>
+<p>简称： 快、稳、省、小</p>
+<h4><span id="建议">建议：</span></h4><h5><span id="1-流畅">1. 流畅</span></h5><p>卡顿场景：<br>UI 绘制、应用启动、页面跳转、事件响应</p>
+<p>卡顿原因：</p>
 <ol>
-<li>&#x754C;&#x9762;&#x7ED8;&#x5236;&#x3002;<blockquote>
-<p>&#x4E3B;&#x8981;&#x539F;&#x56E0;&#x662F;&#x7ED8;&#x5236;&#x7684;&#x5C42;&#x7EA7;&#x6DF1;&#x3001;&#x9875;&#x9762;&#x590D;&#x6742;&#x3001;&#x5237;&#x65B0;&#x4E0D;&#x5408;&#x7406;&#xFF0C;&#x7531;&#x4E8E;&#x8FD9;&#x4E9B;&#x539F;&#x56E0;&#x5BFC;&#x81F4;&#x5361;&#x987F;&#x7684;&#x573A;&#x666F;&#x66F4;&#x591A;&#x51FA;&#x73B0;&#x5728; UI &#x548C;&#x542F;&#x52A8;&#x540E;&#x7684;&#x521D;&#x59CB;&#x754C;&#x9762;&#x4EE5;&#x53CA;&#x8DF3;&#x8F6C;&#x5230;&#x9875;&#x9762;&#x7684;&#x7ED8;&#x5236;&#x4E0A;&#x3002;</p>
+<li>界面绘制。<blockquote>
+<p>主要原因是绘制的层级深、页面复杂、刷新不合理，由于这些原因导致卡顿的场景更多出现在 UI 和启动后的初始界面以及跳转到页面的绘制上。</p>
 </blockquote>
 </li>
-<li>&#x6570;&#x636E;&#x5904;&#x7406;&#x3002;<blockquote>
-<p>&#x5BFC;&#x81F4;&#x8FD9;&#x79CD;&#x5361;&#x987F;&#x573A;&#x666F;&#x7684;&#x539F;&#x56E0;&#x662F;&#x6570;&#x636E;&#x5904;&#x7406;&#x91CF;&#x592A;&#x5927;&#xFF0C;&#x4E00;&#x822C;&#x5206;&#x4E3A;&#x4E09;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x4E00;&#x662F;&#x6570;&#x636E;&#x5728;&#x5904;&#x7406; UI &#x7EBF;&#x7A0B;&#xFF0C;&#x4E8C;&#x662F;&#x6570;&#x636E;&#x5904;&#x7406;&#x5360;&#x7528; CPU &#x9AD8;&#xFF0C;&#x5BFC;&#x81F4;&#x4E3B;&#x7EBF;&#x7A0B;&#x62FF;&#x4E0D;&#x5230;&#x65F6;&#x95F4;&#x7247;&#xFF0C;&#x4E09;&#x662F;&#x5185;&#x5B58;&#x589E;&#x52A0;&#x5BFC;&#x81F4; GC &#x9891;&#x7E41;&#xFF0C;&#x4ECE;&#x800C;&#x5F15;&#x8D77;&#x5361;&#x987F;&#x3002;</p>
+<li>数据处理。<blockquote>
+<p>导致这种卡顿场景的原因是数据处理量太大，一般分为三种情况，一是数据在处理 UI 线程，二是数据处理占用 CPU 高，导致主线程拿不到时间片，三是内存增加导致 GC 频繁，从而引起卡顿。</p>
 </blockquote>
 </li>
 </ol>
-<p>UI &#x7ED8;&#x5236;:</p>
-<p>&#x539F;&#x7406;&#xFF1A; Android &#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x628A;&#x7ECF;&#x8FC7;Measure&#x3001;Layout&#x3001;Draw&#x540E;&#x7684; surface &#x7F13;&#x5B58;&#x6570;&#x636E;&#xFF0C;&#x901A;&#x8FC7; SurfaceFlinger &#x670D;&#x52A1;&#x628A;&#x6570;&#x636E;&#x6E32;&#x67D3;&#x5230;&#x663E;&#x793A;&#x5C4F;&#x5E55;&#x4E0A;&#xFF0C; &#x901A;&#x8FC7; Android &#x7684;&#x5237;&#x65B0;&#x673A;&#x5236;&#x6765;&#x5237;&#x65B0;&#x6570;&#x636E;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5E94;&#x7528;&#x5C42;&#x8D1F;&#x8D23;&#x7ED8;&#x5236;&#xFF0C;&#x7CFB;&#x7EDF;&#x5C42;&#x8D1F;&#x8D23;&#x6E32;&#x67D3;&#xFF0C;&#x901A;&#x8FC7;&#x8FDB;&#x7A0B;&#x95F4;&#x901A;&#x4FE1;&#x628A;&#x5E94;&#x7528;&#x5C42;&#x9700;&#x8981;&#x7ED8;&#x5236;&#x7684;&#x6570;&#x636E;&#x4F20;&#x9012;&#x5230;&#x7CFB;&#x7EDF;&#x5C42;&#x670D;&#x52A1;&#xFF0C;&#x7CFB;&#x7EDF;&#x5C42;&#x670D;&#x52A1;&#x901A;&#x8FC7;&#x5237;&#x65B0;&#x673A;&#x5236;&#x628A;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x5230;&#x5C4F;&#x5E55;&#x4E0A;&#x3002;</p>
-<p>&#x5361;&#x987F;&#x6839;&#x672C;&#x539F;&#x56E0;&#xFF1A;</p>
+<p>UI 绘制:</p>
+<p>原理： Android 应用程序把经过Measure、Layout、Draw后的 surface 缓存数据，通过 SurfaceFlinger 服务把数据渲染到显示屏幕上， 通过 Android 的刷新机制来刷新数据。也就是说应用层负责绘制，系统层负责渲染，通过进程间通信把应用层需要绘制的数据传递到系统层服务，系统层服务通过刷新机制把数据更新到屏幕上。</p>
+<p>卡顿根本原因：</p>
 <ol>
-<li>&#x7ED8;&#x5236;&#x4EFB;&#x52A1;&#x592A;&#x91CD;&#xFF0C;&#x7ED8;&#x5236;&#x4E00;&#x5E27;&#x5185;&#x5BB9;&#x8017;&#x65F6;&#x592A;&#x957F;&#x3002;</li>
-<li>&#x4E3B;&#x7EBF;&#x7A0B;&#x592A;&#x5FD9;&#xFF0C;&#x6839;&#x636E;&#x7CFB;&#x7EDF;&#x4F20;&#x9012;&#x8FC7;&#x6765;&#x7684; VSYNC &#x4FE1;&#x53F7;&#x6765;&#x65F6;&#x8FD8;&#x6CA1;&#x51C6;&#x5907;&#x597D;&#x6570;&#x636E;&#x5BFC;&#x81F4;&#x4E22;&#x5E27;&#x3002;</li>
+<li>绘制任务太重，绘制一帧内容耗时太长。</li>
+<li>主线程太忙，根据系统传递过来的 VSYNC 信号来时还没准备好数据导致丢帧。</li>
 </ol>
-<p>&#x5E38;&#x7528;&#x5DE5;&#x5177;&#xFF1A;<br>&#x901A;&#x8FC7;&#x6027;&#x80FD;&#x5206;&#x6790;&#x5DE5;&#x5177; Profile GPU Rendering&#x3001;TraceView&#x3001;Systrace UI &#x6027;&#x80FD;&#x5206;&#x6790;<br>&#x627E;&#x51FA;&#x51FA;&#x73B0;&#x95EE;&#x9898;&#x7684;&#x70B9;&#xFF0C;&#x7136;&#x540E;&#x89E3;&#x51B3;&#x3002;</p>
-<p>&#x4F18;&#x5316;&#x5EFA;&#x8BAE;&#xFF1A;</p>
+<p>常用工具：<br>通过性能分析工具 Profile GPU Rendering、TraceView、Systrace UI 性能分析<br>找出出现问题的点，然后解决。</p>
+<p>优化建议：</p>
 <ol>
-<li>&#x5E03;&#x5C40;&#x4F18;&#x5316;</li>
-<li>&#x907F;&#x514D;&#x8FC7;&#x5EA6;&#x7ED8;&#x5236;</li>
-<li>&#x542F;&#x52A8;&#x4F18;&#x5316;</li>
-<li>&#x5408;&#x7406;&#x7684;&#x5237;&#x65B0;&#x673A;&#x5236;</li>
-<li>&#x5728;&#x5B9E;&#x73B0;&#x52A8;&#x753B;&#x6548;&#x679C;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x573A;&#x666F;&#x9009;&#x62E9;&#x5408;&#x9002;&#x7684;&#x52A8;&#x753B;&#x6846;&#x67B6;&#x6765;&#x5B9E;&#x73B0;&#x3002;&#x6709;&#x4E9B;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;&#x786C;&#x4EF6;&#x52A0;&#x901F;&#x65B9;&#x5F0F;&#x6765;&#x63D0;&#x4F9B;&#x6D41;&#x7545;&#x5EA6;&#x3002;</li>
+<li>布局优化</li>
+<li>避免过度绘制</li>
+<li>启动优化</li>
+<li>合理的刷新机制</li>
+<li>在实现动画效果时，需要根据不同场景选择合适的动画框架来实现。有些情况下，可以用硬件加速方式来提供流畅度。</li>
 </ol>
-<h5><a href="#2-wen-ding" class="header-anchor">#</a><span id="2-wen-ding">2. &#x7A33;&#x5B9A;</span></h5><blockquote>
-<p>Android &#x5E94;&#x7528;&#x7684;&#x7A33;&#x5B9A;&#x6027;&#x5B9A;&#x4E49;&#x5F88;&#x5BBD;&#x6CDB;&#xFF0C;&#x5F71;&#x54CD;&#x7A33;&#x5B9A;&#x6027;&#x7684;&#x539F;&#x56E0;&#x5F88;&#x591A;&#xFF0C;&#x6BD4;&#x5982;&#x5185;&#x5B58;&#x4F7F;&#x7528;&#x4E0D;&#x5408;&#x7406;&#x3001;&#x4EE3;&#x7801;&#x5F02;&#x5E38;&#x573A;&#x666F;&#x8003;&#x8651;&#x4E0D;&#x5468;&#x5168;&#x3001;&#x4EE3;&#x7801;&#x903B;&#x8F91;&#x4E0D;&#x5408;&#x7406;&#x7B49;&#xFF0C;&#x90FD;&#x4F1A;&#x5BF9;&#x5E94;&#x7528;&#x7684;&#x7A33;&#x5B9A;&#x6027;&#x9020;&#x6210;&#x5F71;&#x54CD;&#x3002;&#x5176;&#x4E2D;&#x6700;&#x5E38;&#x89C1;&#x7684;&#x4E24;&#x4E2A;&#x573A;&#x666F;&#x662F;&#xFF1A;Crash &#x548C; ANR&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x9519;&#x8BEF;&#x5C06;&#x4F1A;&#x4F7F;&#x5F97;&#x7A0B;&#x5E8F;&#x65E0;&#x6CD5;&#x4F7F;&#x7528;&#xFF0C;&#x6BD4;&#x8F83;&#x5E38;&#x7528;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<h5><span id="2-稳定">2. 稳定</span></h5><blockquote>
+<p>Android 应用的稳定性定义很宽泛，影响稳定性的原因很多，比如内存使用不合理、代码异常场景考虑不周全、代码逻辑不合理等，都会对应用的稳定性造成影响。其中最常见的两个场景是：Crash 和 ANR，这两个错误将会使得程序无法使用，比较常用的解决方式如下：</p>
 </blockquote>
-<h5><a href="#2-1-nei-cun-you-hua" class="header-anchor">#</a><span id="2-1-nei-cun-you-hua">2.1.&#x5185;&#x5B58;&#x4F18;&#x5316;</span></h5><p>&#x865A;&#x62DF;&#x673A;&#x6709;&#x4E24;&#x79CD;&#x8FD0;&#x884C;&#x6A21;&#x5F0F;&#xFF1A;Dalvik &#x548C; ART&#x3002;</p>
-<p>Android &#x5185;&#x5B58;&#x63A7;&#x5236;&#x6743; Generational Heap Memory &#x3002;</p>
+<h5><span id="21内存优化">2.1.内存优化</span></h5><p>虚拟机有两种运行模式：Dalvik 和 ART。</p>
+<p>Android 内存控制权 Generational Heap Memory 。</p>
 <ul>
-<li>&#x5BF9;&#x8C61;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF1A;</li>
+<li>对象的生命周期：</li>
 </ul>
-<p>&#x521B;&#x5EFA;&#x9636;&#x6BB5;-&gt;&#x5E94;&#x7528;&#x9636;&#x6BB5;-&gt;&#x4E0D;&#x53EF;&#x89C1;&#x9636;&#x6BB5;-&gt;&#x4E0D;&#x53EF;&#x8FBE;&#x9636;&#x6BB5;-&gt;&#x6536;&#x96C6;&#x9636;&#x6BB5;-&gt;&#x7EC8;&#x7ED3;&#x9636;&#x6BB5;-&gt;&#x5BF9;&#x8C61;&#x7A7A;&#x95F4;&#x91CD;&#x65B0;&#x5206;&#x914D;&#x9636;&#x6BB5;</p>
-<p>Zygote &#x8FDB;&#x7A0B;&#x662F;&#x6240;&#x6709;&#x7684;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x8FDB;&#x7A0B;&#x4E4B;&#x7236;&#x3002;</p>
-<p>&#x6BCF;&#x4E2A;&#x5E94;&#x7528; &#x90FD;&#x6709; Dalvik Heap Size &#x6700;&#x5927;&#x9608;&#x503C;&#x3002;&#x6709; RAM &#x5927;&#x5C0F;&#x4E0D;&#x540C;&#x4F1A;&#x6709;&#x6240;&#x5DEE;&#x5F02;&#x3002;</p>
+<p>创建阶段-&gt;应用阶段-&gt;不可见阶段-&gt;不可达阶段-&gt;收集阶段-&gt;终结阶段-&gt;对象空间重新分配阶段</p>
+<p>Zygote 进程是所有的应用程序进程之父。</p>
+<p>每个应用 都有 Dalvik Heap Size 最大阈值。有 RAM 大小不同会有所差异。</p>
 <ul>
-<li>&#x5185;&#x5B58;&#x56DE;&#x6536;<br>young Generation(&#x5E74;&#x8F7B;&#x4EE3;)&#x3001;Old Generation(&#x5E74;&#x8001;&#x4EE3;)&#x3001;Permanent Generation(&#x6301;&#x4E45;&#x4EE3;)</li>
+<li>内存回收<br>young Generation(年轻代)、Old Generation(年老代)、Permanent Generation(持久代)</li>
 </ul>
-<p>&#x6839;&#x636E;&#x5BF9;&#x8C61;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x3001;&#x6240;&#x5904;&#x7684;&#x4EE3;&#x533A;&#x57DF;&#x3001;&#x4E0D;&#x540C;&#x7684;&#x5185;&#x5B58;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF0C;&#x6267;&#x884C;&#x4E0D;&#x540C;&#x7684;GC &#x64CD;&#x4F5C;&#x3002;</p>
+<p>根据对象的生命周期、所处的代区域、不同的内存数据类型，执行不同的GC 操作。</p>
 <blockquote>
-<p>&#x5206;&#x914D;&#x7684;&#x5BF9;&#x8C61;&#x4F1A;&#x5B58;&#x653E;&#x5728; Young Generation &#x533A;&#x57DF;&#x3002;&#x5BF9;&#x8C61;&#x5728;&#x67D0;&#x4E2A;&#x65F6;&#x673A;&#x89E6;&#x53D1; GC &#x56DE;&#x6536;&#x5783;&#x573E;&#xFF0C;&#x800C;&#x6CA1;&#x6709;&#x56DE;&#x6536;&#x7684;&#x5C31;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x89C4;&#x5219;&#xFF0C;&#x6709;&#x53EF;&#x80FD;&#x88AB;&#x79FB;&#x52A8;&#x5230; Old Generation&#xFF0C;&#x6700;&#x540E;&#x7D2F;&#x79EF;&#x4E00;&#x5B9A;&#x65F6;&#x95F4;&#x5728;&#x79FB;&#x52A8;&#x5230; Permanent Generation &#x533A;&#x57DF;&#x3002;&#x7CFB;&#x7EDF;&#x4F1A;&#x6839;&#x636E;&#x5185;&#x5B58;&#x4E2D;&#x4E0D;&#x540C;&#x7684;&#x5185;&#x5B58;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x5206;&#x522B;&#x6267;&#x884C;&#x4E0D;&#x540C;&#x7684; GC &#x64CD;&#x4F5C;&#x3002;GC &#x901A;&#x8FC7;&#x786E;&#x5B9A;&#x5BF9;&#x8C61;&#x662F;&#x5426;&#x88AB;&#x6D3B;&#x52A8;&#x5BF9;&#x8C61;&#x5F15;&#x7528;&#x6765;&#x786E;&#x5B9A;&#x662F;&#x5426;&#x6536;&#x96C6;&#x5BF9;&#x8C61;&#xFF0C;&#x8FDB;&#x800C;&#x52A8;&#x6001;&#x56DE;&#x6536;&#x65E0;&#x4EFB;&#x4F55;&#x5F15;&#x7528;&#x7684;&#x5BF9;&#x8C61;&#x5360;&#x636E;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x3002;&#x4F46;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x9891;&#x7E41;&#x7684; GC &#x4F1A;&#x589E;&#x52A0;&#x5E94;&#x7528;&#x7684;&#x5361;&#x987F;&#x60C5;&#x51B5;&#xFF0C;&#x5F71;&#x54CD;&#x5E94;&#x7528;&#x7684;&#x6D41;&#x7545;&#x6027;&#xFF0C;&#x56E0;&#x6B64;&#x9700;&#x8981;&#x5C3D;&#x91CF;&#x51CF;&#x5C11;&#x7CFB;&#x7EDF; GC &#x884C;&#x4E3A;&#xFF0C;&#x4EE5;&#x4FBF;&#x63D0;&#x9AD8;&#x5E94;&#x7528;&#x7684;&#x6D41;&#x7545;&#x5EA6;&#xFF0C;&#x51CF;&#x5C0F;&#x5361;&#x987F;&#x53D1;&#x751F;&#x7684;&#x6982;&#x7387;&#x3002;</p>
+<p>分配的对象会存放在 Young Generation 区域。对象在某个时机触发 GC 回收垃圾，而没有回收的就根据不同规则，有可能被移动到 Old Generation，最后累积一定时间在移动到 Permanent Generation 区域。系统会根据内存中不同的内存数据类型分别执行不同的 GC 操作。GC 通过确定对象是否被活动对象引用来确定是否收集对象，进而动态回收无任何引用的对象占据的内存空间。但需要注意的是频繁的 GC 会增加应用的卡顿情况，影响应用的流畅性，因此需要尽量减少系统 GC 行为，以便提高应用的流畅度，减小卡顿发生的概率。</p>
 </blockquote>
-<p>&#x5206;&#x6790;&#x5DE5;&#x5177;&#xFF1A;</p>
+<p>分析工具：</p>
 <ol>
 <li>Memory Monitor</li>
 <li>Heap Viewer</li>
 <li>Allocation Tracker</li>
 <li>Memory Analyzer Tool(MAT)</li>
-<li>LeakCanary &#x7B2C;&#x4E09;&#x65B9;&#x5E93;.</li>
+<li>LeakCanary 第三方库.</li>
 </ol>
-<p>&#x5E38;&#x89C1;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x573A;&#x666F;:</p>
+<p>常见内存泄漏场景:</p>
 <ol>
-<li>&#x8D44;&#x6E90;&#x6027;&#x5BF9;&#x8C61;&#x672A;&#x5173;&#x95ED;&#x3002;&#x6BD4;&#x5982;Cursor&#x3001;File&#x6587;&#x4EF6;&#x7B49;&#xFF0C;&#x5F80;&#x5F80;&#x90FD;&#x7528;&#x4E86;&#x4E00;&#x4E9B;&#x7F13;&#x51B2;&#xFF0C;&#x5728;&#x4E0D;&#x4F7F;&#x7528;&#x65F6;&#xFF0C;&#x5E94;&#x8BE5;&#x53CA;&#x65F6;&#x5173;&#x95ED;&#x5B83;&#x4EEC;&#x3002;</li>
-<li>&#x6CE8;&#x518C;&#x5BF9;&#x8C61;&#x672A;&#x6CE8;&#x9500;&#x3002;&#x6BD4;&#x5982;&#x4E8B;&#x4EF6;&#x6CE8;&#x518C;&#x540E;&#x672A;&#x6CE8;&#x9500;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x89C2;&#x5BDF;&#x8005;&#x5217;&#x8868;&#x4E2D;&#x7EF4;&#x6301;&#x7740;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x3002;</li>
-<li>&#x7C7B;&#x7684;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x6301;&#x6709;&#x5927;&#x6570;&#x636E;&#x5BF9;&#x8C61;&#x3002;</li>
-<li>&#x975E;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#x7684;&#x9759;&#x6001;&#x5B9E;&#x4F8B;.</li>
-<li>Handler&#x4E34;&#x65F6;&#x6027;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x3002;&#x5982;&#x679C;Handler&#x662F;&#x975E;&#x9759;&#x6001;&#x7684;&#xFF0C;&#x5BB9;&#x6613;&#x5BFC;&#x81F4; Activity &#x6216; Service &#x4E0D;&#x4F1A;&#x88AB;&#x56DE;&#x6536;&#x3002;</li>
-<li>&#x5BB9;&#x5668;&#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#x6CA1;&#x6E05;&#x7406;&#x9020;&#x6210;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x3002;</li>
-<li>WebView&#x3002;WebView &#x5B58;&#x5728;&#x7740;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5728;&#x5E94;&#x7528;&#x4E2D;&#x53EA;&#x8981;&#x4F7F;&#x7528;&#x4E00;&#x6B21; WebView&#xFF0C;&#x5185;&#x5B58;&#x5C31;&#x4E0D;&#x4F1A;&#x88AB;&#x91CA;&#x653E;&#x6389;&#x3002;</li>
+<li>资源性对象未关闭。比如Cursor、File文件等，往往都用了一些缓冲，在不使用时，应该及时关闭它们。</li>
+<li>注册对象未注销。比如事件注册后未注销，会导致观察者列表中维持着对象的引用。</li>
+<li>类的静态变量持有大数据对象。</li>
+<li>非静态内部类的静态实例.</li>
+<li>Handler临时性内存泄漏。如果Handler是非静态的，容易导致 Activity 或 Service 不会被回收。</li>
+<li>容器中的对象没清理造成的内存泄漏。</li>
+<li>WebView。WebView 存在着内存泄漏的问题，在应用中只要使用一次 WebView，内存就不会被释放掉。</li>
 </ol>
-<p>&#x4F18;&#x5316;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#xFF1A;</p>
+<p>优化内存空间：</p>
 <ol>
-<li>&#x5BF9;&#x8C61;&#x5F15;&#x7528;&#x3002;&#x5F3A;&#x5F15;&#x7528;&#x3001;&#x8F6F;&#x5F15;&#x7528;&#x3001;&#x5F31;&#x5F15;&#x7528;&#x3001;&#x865A;&#x5F15;&#x7528;&#x56DB;&#x79CD;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#xFF0C;&#x6839;&#x636E;&#x4E1A;&#x52A1;&#x9700;&#x6C42;&#x5408;&#x7406;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#xFF0C;&#x9009;&#x62E9;&#x4E0D;&#x540C;&#x7684;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x3002;</li>
-<li>&#x51CF;&#x5C11;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x5185;&#x5B58;&#x5F00;&#x9500;&#x3002;&#x6CE8;&#x610F;&#x81EA;&#x52A8;&#x88C5;&#x7BB1;&#xFF0C;&#x589E;&#x52A0;&#x5185;&#x5B58;&#x590D;&#x7528;&#xFF0C;&#x6BD4;&#x5982;&#x6709;&#x6548;&#x5229;&#x7528;&#x7CFB;&#x7EDF;&#x81EA;&#x5E26;&#x7684;&#x8D44;&#x6E90;&#x3001;&#x89C6;&#x56FE;&#x590D;&#x7528;&#x3001;&#x5BF9;&#x8C61;&#x6C60;&#x3001;Bitmap&#x5BF9;&#x8C61;&#x7684;&#x590D;&#x7528;&#x3002;</li>
-<li>&#x4F7F;&#x7528;&#x6700;&#x4F18;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x3002;&#x6BD4;&#x5982;&#x9488;&#x5BF9;&#x6570;&#x636E;&#x7C7B;&#x5BB9;&#x5668;&#x7ED3;&#x6784;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;ArrayMap&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x907F;&#x514D;&#x4F7F;&#x7528;&#x679A;&#x4E3E;&#x7C7B;&#x578B;&#xFF0C;&#x4F7F;&#x7528;&#x7F13;&#x5B58;Lrucache&#x7B49;&#x7B49;&#x3002;</li>
-<li>&#x56FE;&#x7247;&#x5185;&#x5B58;&#x4F18;&#x5316;&#x3002;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x4F4D;&#x56FE;&#x89C4;&#x683C;&#xFF0C;&#x6839;&#x636E;&#x91C7;&#x6837;&#x56E0;&#x5B50;&#x505A;&#x538B;&#x7F29;&#xFF0C;&#x7528;&#x4E00;&#x4E9B;&#x56FE;&#x7247;&#x7F13;&#x5B58;&#x65B9;&#x5F0F;&#x5BF9;&#x56FE;&#x7247;&#x8FDB;&#x884C;&#x7BA1;&#x7406;&#x7B49;&#x7B49;&#x3002;</li>
+<li>对象引用。强引用、软引用、弱引用、虚引用四种引用类型，根据业务需求合理使用不同，选择不同的引用类型。</li>
+<li>减少不必要的内存开销。注意自动装箱，增加内存复用，比如有效利用系统自带的资源、视图复用、对象池、Bitmap对象的复用。</li>
+<li>使用最优的数据类型。比如针对数据类容器结构，可以使用ArrayMap数据结构，避免使用枚举类型，使用缓存Lrucache等等。</li>
+<li>图片内存优化。可以设置位图规格，根据采样因子做压缩，用一些图片缓存方式对图片进行管理等等。</li>
 </ol>
-<h5><a href="#2-2-ti-gao-dai-ma-zhi-liang" class="header-anchor">#</a><span id="2-2-ti-gao-dai-ma-zhi-liang">2.2. &#x63D0;&#x9AD8;&#x4EE3;&#x7801;&#x8D28;&#x91CF;</span></h5><blockquote>
-<p>&#x63D0;&#x9AD8;&#x4EE3;&#x7801;&#x8D28;&#x91CF;&#x3002;&#x6BD4;&#x5982;&#x5F00;&#x53D1;&#x671F;&#x95F4;&#x7684;&#x4EE3;&#x7801;&#x5BA1;&#x6838;&#xFF0C;&#x770B;&#x4E9B;&#x4EE3;&#x7801;&#x8BBE;&#x8BA1;&#x903B;&#x8F91;&#xFF0C;&#x4E1A;&#x52A1;&#x5408;&#x7406;&#x6027;&#x7B49;&#x3002;<br>&#x4EE3;&#x7801;&#x9759;&#x6001;&#x626B;&#x63CF;&#x5DE5;&#x5177;&#x3002;&#x5E38;&#x89C1;&#x5DE5;&#x5177;&#x6709;Android Lint&#x3001;Findbugs&#x3001;Checkstyle&#x3001;PMD&#x7B49;&#x7B49;&#x3002;<br>Crash&#x76D1;&#x63A7;&#x3002;&#x628A;&#x4E00;&#x4E9B;&#x5D29;&#x6E83;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x53CA;&#x65F6;&#x5730;&#x8BB0;&#x5F55;&#x4E0B;&#x6765;&#xFF0C;&#x4EE5;&#x4FBF;&#x540E;&#x7EED;&#x5206;&#x6790;&#x89E3;&#x51B3;&#x3002;<br>Crash&#x4E0A;&#x4F20;&#x673A;&#x5236;&#x3002;&#x5728;Crash&#x540E;&#xFF0C;&#x5C3D;&#x91CF;&#x5148;&#x4FDD;&#x5B58;&#x65E5;&#x5FD7;&#x5230;&#x672C;&#x5730;&#xFF0C;&#x7136;&#x540E;&#x7B49;&#x4E0B;&#x4E00;&#x6B21;&#x7F51;&#x7EDC;&#x6B63;&#x5E38;&#x65F6;&#x518D;&#x4E0A;&#x4F20;&#x65E5;&#x5FD7;&#x4FE1;&#x606F;&#x3002;</p>
+<h5><span id="22-提高代码质量">2.2. 提高代码质量</span></h5><blockquote>
+<p>提高代码质量。比如开发期间的代码审核，看些代码设计逻辑，业务合理性等。<br>代码静态扫描工具。常见工具有Android Lint、Findbugs、Checkstyle、PMD等等。<br>Crash监控。把一些崩溃的信息，异常信息及时地记录下来，以便后续分析解决。<br>Crash上传机制。在Crash后，尽量先保存日志到本地，然后等下一次网络正常时再上传日志信息。</p>
 </blockquote>
-<h5><a href="#3-dian-liang-you-hua" class="header-anchor">#</a><span id="3-dian-liang-you-hua">3. &#x7535;&#x91CF;&#x4F18;&#x5316;</span></h5><ol>
-<li>&#x4F18;&#x5316;&#x8017;&#x65F6;&#x7684;&#x8BA1;&#x7B97;&#x3002;</li>
+<h5><span id="3-电量优化">3. 电量优化</span></h5><ol>
+<li>优化耗时的计算。</li>
 </ol>
-<h5><a href="#4-an-zhuang-bao-da-xiao" class="header-anchor">#</a><span id="4-an-zhuang-bao-da-xiao">4. &#x5B89;&#x88C5;&#x5305;&#x5927;&#x5C0F;</span></h5><ol>
-<li>&#x4EE3;&#x7801;&#x6DF7;&#x6DC6;&#x3002;</li>
-<li>&#x8D44;&#x6E90;&#x4F18;&#x5316;&#x3002;&#x6BD4;&#x5982;&#x4F7F;&#x7528; Android Lint &#x5220;&#x9664;&#x5197;&#x4F59;&#x8D44;&#x6E90;&#x3002;</li>
-<li>&#x56FE;&#x7247;&#x4F18;&#x5316;&#x3002;&#x6BD4;&#x5982;&#x5229;&#x7528; AAPT &#x5DE5;&#x5177;&#x5BF9; PNG &#x683C;&#x5F0F;&#x7684;&#x56FE;&#x7247;&#x505A;&#x538B;&#x7F29;&#x5904;&#x7406;&#xFF0C;&#x964D;&#x4F4E;&#x56FE;&#x7247;&#x8272;&#x5F69;&#x4F4D;&#x6570;&#x3001;&#x4F7F;&#x7528; WebP&#x56FE;&#x7247;&#x683C;&#x5F0F;&#x7B49;&#x3002;</li>
-<li>&#x907F;&#x514D;&#x91CD;&#x590D;&#x529F;&#x80FD;&#x7684;&#x5E93;&#x3002;</li>
-<li>&#x63D2;&#x4EF6;&#x5316;&#x3002;</li>
+<h5><span id="4-安装包大小">4. 安装包大小</span></h5><ol>
+<li>代码混淆。</li>
+<li>资源优化。比如使用 Android Lint 删除冗余资源。</li>
+<li>图片优化。比如利用 AAPT 工具对 PNG 格式的图片做压缩处理，降低图片色彩位数、使用 WebP图片格式等。</li>
+<li>避免重复功能的库。</li>
+<li>插件化。</li>
 </ol>
 <p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2019/07/16/Android-性能优化总结/%20吾與爾%20Android 性能优化总结" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/07/24/Android-数据结构之-LinkedHashMap/" title="Android 数据结构之 LinkedHashMap"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Android 数据结构之 LinkedHashMap</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/07/10/Android-Bundle/" title="Android Bundle 详解 ">下一篇: Android Bundle 详解 &nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
     new Valine({

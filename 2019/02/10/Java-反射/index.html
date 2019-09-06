@@ -1,13 +1,18 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Java 反射 · 吾與爾</title><meta name="description" content="&amp;#x53C2;&amp;#x8003;&amp;#x535A;&amp;#x5BA2;&amp;#x7F51;&amp;#x5740;
-#&amp;#x53CD;&amp;#x5C04;&amp;#x5165;&amp;#x53E3;Object.getClass()
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Java 反射 · 吾與爾</title><meta name="description" content="参考博客网址
+反射入口Object.getClass()
 Car car = new Car();
-Class clazz = car.getClass();"><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+Class clazz = car.getClass();
+
+.class
+Class clazz = Car.class;
+Class cls1 = int.class;
+Class cls2 = "><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">吾與爾</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
- </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Java 反射</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-02-10</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><p><a href="https://blog.csdn.net/briblue/article/details/74616922" target="_blank" rel="noopener">&#x53C2;&#x8003;&#x535A;&#x5BA2;&#x7F51;&#x5740;</a></p>
-<h2><a href="#fan-she-ru-kou" class="header-anchor">#</a><span id="fan-she-ru-kou">&#x53CD;&#x5C04;&#x5165;&#x53E3;</span></h2><p><strong>Object.getClass()</strong></p>
+ </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Java 反射</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-02-10</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><p><a href="https://blog.csdn.net/briblue/article/details/74616922" target="_blank" rel="noopener">参考博客网址</a></p>
+<h2><span id="反射入口">反射入口</span></h2><p><strong>Object.getClass()</strong></p>
 <pre class="line-numbers language-java"><code class="language-java">Car car <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Car</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 Class <span class="token class-name">clazz</span> <span class="token operator">=</span> car<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -16,16 +21,16 @@ Class <span class="token class-name">clazz</span> <span class="token operator">=
 Class <span class="token class-name">cls1</span> <span class="token operator">=</span> <span class="token keyword">int</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">;</span>
 Class <span class="token class-name">cls2</span> <span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p> <strong>Class.forName() &#x65B9;&#x6CD5;</strong></p>
+<p> <strong>Class.forName() 方法</strong></p>
 <pre class="line-numbers language-java"><code class="language-java"> <span class="token keyword">try</span> <span class="token punctuation">{</span>
-    Class <span class="token class-name">clz</span> <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">&quot;com.aa.test.Car&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    Class <span class="token class-name">clz</span> <span class="token operator">=</span> Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"com.aa.test.Car"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">ClassNotFoundException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">// TODO Auto-generated catch block</span>
     e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p> <strong>Class &#x7684;&#x540D;&#x5B57;</strong></p>
+<p> <strong>Class 的名字</strong></p>
 <pre class="line-numbers language-java"><code class="language-java"> Class<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 Class<span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -34,12 +39,12 @@ Class<span class="token punctuation">.</span><span class="token function">getCan
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-java"><code class="language-java"> Class <span class="token class-name">clz</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Outter<span class="token punctuation">.</span>Inner</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; Inner Class name:&quot;</span><span class="token operator">+</span>clz<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; Inner Class simple name:&quot;</span><span class="token operator">+</span>clz<span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; Inner Class canonical name:&quot;</span><span class="token operator">+</span>clz<span class="token punctuation">.</span><span class="token function">getCanonicalName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">" Inner Class name:"</span><span class="token operator">+</span>clz<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">" Inner Class simple name:"</span><span class="token operator">+</span>clz<span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">" Inner Class canonical name:"</span><span class="token operator">+</span>clz<span class="token punctuation">.</span><span class="token function">getCanonicalName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-<span class="token comment" spellcheck="true">//run &#x662F;&#x533F;&#x540D;&#x7C7B;</span>
+<span class="token comment" spellcheck="true">//run 是匿名类</span>
 Runnable run <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
     <span class="token annotation punctuation">@Override</span>
@@ -49,64 +54,64 @@ Runnable run <span class="token operator">=</span> <span class="token keyword">n
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; anonymous Class name:&quot;</span><span class="token operator">+</span>run<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; anonymous Class simple name:&quot;</span><span class="token operator">+</span>run<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot; anonymous Class canonical name:&quot;</span><span class="token operator">+</span>run<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getCanonicalName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">" anonymous Class name:"</span><span class="token operator">+</span>run<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">" anonymous Class simple name:"</span><span class="token operator">+</span>run<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">" anonymous Class canonical name:"</span><span class="token operator">+</span>run<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getCanonicalName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token comment" spellcheck="true">// local &#x662F;&#x5C40;&#x90E8;&#x7C7B;</span>
+<span class="token comment" spellcheck="true">// local 是局部类</span>
 <span class="token keyword">class</span> <span class="token class-name">local</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 
 
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;Local a name:&quot;</span><span class="token operator">+</span>local<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;Local a simplename:&quot;</span><span class="token operator">+</span>local<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;Local a canonicalname:&quot;</span><span class="token operator">+</span>local<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getCanonicalName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Local a name:"</span><span class="token operator">+</span>local<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Local a simplename:"</span><span class="token operator">+</span>local<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Local a canonicalname:"</span><span class="token operator">+</span>local<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getCanonicalName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>&#x8F93;&#x51FA;</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//[[[ &#x4EE3;&#x8868;&#x4E09;&#x7EF4;&#x6570;&#x7EC4;</span>
+<p>输出</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//[[[ 代表三维数组</span>
 Inner Class <span class="token class-name">name</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token punctuation">[</span>Lcom<span class="token punctuation">.</span>frank<span class="token punctuation">.</span>test<span class="token punctuation">.</span>Outter$Inner<span class="token punctuation">;</span>
 Inner Class <span class="token class-name">simple</span> name<span class="token operator">:</span>Inner<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
 Inner Class <span class="token class-name">canonical</span> name<span class="token operator">:</span>com<span class="token punctuation">.</span>frank<span class="token punctuation">.</span>test<span class="token punctuation">.</span>Outter<span class="token punctuation">.</span>Inner<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
 
 
-<span class="token comment" spellcheck="true">//&#x533F;&#x540D;&#x7C7B;:</span>
+<span class="token comment" spellcheck="true">//匿名类:</span>
 anonymous Class <span class="token class-name">name</span><span class="token operator">:</span>com<span class="token punctuation">.</span>frank<span class="token punctuation">.</span>test<span class="token punctuation">.</span>Test$<span class="token number">1</span>
 anonymous Class <span class="token class-name">simple</span> name<span class="token operator">:</span>
 anonymous Class <span class="token class-name">canonical</span> name<span class="token operator">:</span>null
-<span class="token comment" spellcheck="true">//&#x5C40;&#x90E8;&#x7C7B;</span>
+<span class="token comment" spellcheck="true">//局部类</span>
 Local a name<span class="token operator">:</span>com<span class="token punctuation">.</span>frank<span class="token punctuation">.</span>test<span class="token punctuation">.</span>Test$1local
 Local a simplename<span class="token operator">:</span>local
 Local a canonicalname<span class="token operator">:</span>null
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Canonical &#x662F;&#x5B98;&#x65B9;&#x3001;&#x6807;&#x51C6;&#x7684;&#x610F;&#x601D;&#xFF0C;&#x90A3;&#x4E48; getCanonicalName() &#x81EA;&#x7136;&#x5C31;&#x662F;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A; Class &#x5BF9;&#x8C61;&#x7684;&#x5B98;&#x65B9;&#x540D;&#x5B57;&#xFF0C;&#x8FD9;&#x4E2A;&#x5B98;&#x65B9;&#x540D;&#x5B57; canonicalName &#x662F; Java &#x8BED;&#x8A00;&#x89C4;&#x8303;&#x5236;&#x5B9A;&#x7684;&#xFF0C;&#x5982;&#x679C; Class &#x5BF9;&#x8C61;&#x6CA1;&#x6709; canonicalName &#x7684;&#x8BDD;&#x5C31;&#x8FD4;&#x56DE; null&#x3002;</p>
-<p>getCanonicalName() &#x662F; getName() &#x548C; getSimpleName() &#x7684;&#x7ED3;&#x5408;&#x3002;</p>
+<p>Canonical 是官方、标准的意思，那么 getCanonicalName() 自然就是返回一个 Class 对象的官方名字，这个官方名字 canonicalName 是 Java 语言规范制定的，如果 Class 对象没有 canonicalName 的话就返回 null。</p>
+<p>getCanonicalName() 是 getName() 和 getSimpleName() 的结合。</p>
 <ul>
-<li>getCanonicalName() &#x8FD4;&#x56DE;&#x7684;&#x4E5F;&#x662F;&#x5168;&#x9650;&#x5B9A;&#x7C7B;&#x540D;&#xFF0C;&#x4F46;&#x662F;&#x5BF9;&#x4E8E;&#x5185;&#x90E8;&#x7C7B;&#xFF0C;&#x4E0D;&#x7528; $ &#x5F00;&#x5934;&#xFF0C;&#x800C;&#x7528; .&#x3002;</li>
-<li>getCanonicalName() &#x5BF9;&#x4E8E;&#x6570;&#x7EC4;&#x7C7B;&#x578B;&#x7684; Class&#xFF0C;&#x540C; simplename &#x4E00;&#x6837;&#x76F4;&#x63A5;&#x5728;&#x540E;&#x9762;&#x6DFB;&#x52A0; [] &#x3002;</li>
-<li>getCanonicalName() &#x4E0D;&#x540C;&#x4E8E; simplename &#x7684;&#x5730;&#x65B9;&#x662F;&#xFF0C;&#x4E0D;&#x5B58;&#x5728; canonicalName &#x7684;&#x65F6;&#x5019;&#x8FD4;&#x56DE; null &#x800C;&#x4E0D;&#x662F;&#x7A7A;&#x5B57;&#x7B26;&#x4E32;&#x3002;</li>
-<li>&#x5C40;&#x90E8;&#x7C7B;&#x548C;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;&#x4E0D;&#x5B58;&#x5728; canonicalName&#x3002;</li>
+<li>getCanonicalName() 返回的也是全限定类名，但是对于内部类，不用 $ 开头，而用 .。</li>
+<li>getCanonicalName() 对于数组类型的 Class，同 simplename 一样直接在后面添加 [] 。</li>
+<li>getCanonicalName() 不同于 simplename 的地方是，不存在 canonicalName 的时候返回 null 而不是空字符串。</li>
+<li>局部类和匿名内部类不存在 canonicalName。</li>
 </ul>
-<p><strong>Class &#x83B7;&#x53D6;&#x4FEE;&#x9970;&#x7B26;</strong></p>
-<pre class="line-numbers language-java"><code class="language-java">System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;modifiers value:&quot;</span><span class="token operator">+</span>TestModifier<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getModifiers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;modifiers :&quot;</span><span class="token operator">+</span>Modifier<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>TestModifier<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getModifiers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<p><strong>Class 获取修饰符</strong></p>
+<pre class="line-numbers language-java"><code class="language-java">System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"modifiers value:"</span><span class="token operator">+</span>TestModifier<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getModifiers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"modifiers :"</span><span class="token operator">+</span>Modifier<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>TestModifier<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getModifiers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>&#x8F93;&#x51FA;</p>
+<p>输出</p>
 <pre class="line-numbers language-bash"><code class="language-bash">modifiers value:1025
 modifiers :public abstract
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>&#x5927;&#x5BB6;&#x80AF;&#x5B9A;&#x4F1A;&#x6709;&#x7591;&#x95EE;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x4F1A;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6574;&#x578B;&#x6570;&#x503C;&#x5462;&#xFF1F;</p>
-<p>&#x8FD9;&#x662F;&#x56E0;&#x4E3A;&#x4E00;&#x4E2A;&#x7C7B;&#x5B9A;&#x4E49;&#x7684;&#x65F6;&#x5019;&#x53EF;&#x80FD;&#x4F1A;&#x88AB;&#x591A;&#x4E2A;&#x4FEE;&#x9970;&#x7B26;&#x4FEE;&#x9970;&#xFF0C;&#x4E3A;&#x4E86;&#x4E00;&#x5E76;&#x83B7;&#x53D6;&#xFF0C;&#x6240;&#x4EE5; Java &#x5DE5;&#x7A0B;&#x5E08;&#x8003;&#x8651;&#x5230;&#x4E86;&#x4F4D;&#x8FD0;&#x7B97;&#xFF0C;&#x7528;&#x4E00;&#x4E2A; int &#x6570;&#x503C;&#x6765;&#x8BB0;&#x5F55;&#x6240;&#x6709;&#x7684;&#x4FEE;&#x9970;&#x7B26;&#xFF0C;&#x7136;&#x540E;&#x4E0D;&#x540C;&#x7684;&#x4F4D;&#x5BF9;&#x5E94;&#x4E0D;&#x540C;&#x7684;&#x4FEE;&#x9970;&#x7B26;&#xFF0C;&#x8FD9;&#x4E9B;&#x4FEE;&#x9970;&#x7B26;&#x5BF9;&#x5E94;&#x7684;&#x4F4D;&#x90FD;&#x5B9A;&#x4E49;&#x5728; Modifier &#x8FD9;&#x4E2A;&#x7C7B;&#x5F53;&#x4E2D;&#x3002;<br>&#x4E3E;&#x4F8B;&#xFF1A;</p>
+<p>大家肯定会有疑问，为什么会返回一个整型数值呢？</p>
+<p>这是因为一个类定义的时候可能会被多个修饰符修饰，为了一并获取，所以 Java 工程师考虑到了位运算，用一个 int 数值来记录所有的修饰符，然后不同的位对应不同的修饰符，这些修饰符对应的位都定义在 Modifier 这个类当中。<br>举例：</p>
 <table>
 <thead>
 <tr>
-<th>&#x5F85;&#x6BD4;&#x8F83;</th>
-<th>2&#x8FDB;&#x5236;</th>
+<th>待比较</th>
+<th>2进制</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>public&#xFF08;0x00000001&#xFF09;</td>
+<td>public（0x00000001）</td>
 <td>00000000001</td>
 </tr>
 <tr>
@@ -114,7 +119,7 @@ modifiers :public abstract
 <td>10000000001</td>
 </tr>
 <tr>
-<td>&#x8FDB;&#x884C;&amp;&#x8FD0;&#x7B97;&#x7ED3;&#x679C;</td>
+<td>进行&amp;运算结果</td>
 <td>00000000001 </td>
 </tr>
 </tbody>
@@ -123,36 +128,36 @@ modifiers :public abstract
         <span class="token keyword">return</span> <span class="token punctuation">(</span>mod <span class="token operator">&amp;</span> PUBLIC<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>&#x5F97;&#x51FA;&#x7ED3;&#x679C;  00000000001 &#x4E0D;&#x7B49;&#x4E8E;0 &#x8FD4;&#x56DE;true &#xFF0C;&#x7C7B;&#x4FEE;&#x9970;&#x7B26;&#x4E3A; public</p>
-<h2><a href="#huo-qu-class-de-cheng-yuan" class="header-anchor">#</a><span id="huo-qu-class-de-cheng-yuan">&#x83B7;&#x53D6;Class &#x7684;&#x6210;&#x5458;</span></h2><p>&#x4E00;&#x4E2A;&#x7C7B;&#x7684;&#x6210;&#x5458;&#x5305;&#x62EC;&#x5C5E;&#x6027;&#xFF08;&#x6709;&#x4EBA;&#x7FFB;&#x8BD1;&#x4E3A;&#x5B57;&#x6BB5;&#x6216;&#x8005;&#x57DF;&#xFF09;&#x3001;&#x65B9;&#x6CD5;&#x3002;&#x5BF9;&#x5E94;&#x5230; Class &#x4E2D;&#x5C31;&#x662F; Field&#x3001;Method&#x3001;Constructor</p>
-<p><strong>&#x83B7;&#x53D6;Field</strong></p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//&#x83B7;&#x53D6;&#x7684;&#x662F; Class &#x4E2D;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x4E0D;&#x80FD;&#x83B7;&#x53D6;&#x5176;&#x7236;&#x7C7B;&#x7684;&#x5C5E;&#x6027;</span>
+<p>得出结果  00000000001 不等于0 返回true ，类修饰符为 public</p>
+<h2><span id="获取class-的成员">获取Class 的成员</span></h2><p>一个类的成员包括属性（有人翻译为字段或者域）、方法。对应到 Class 中就是 Field、Method、Constructor</p>
+<p><strong>获取Field</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//获取的是 Class 中的属性，不能获取其父类的属性</span>
 <span class="token keyword">public</span> Field <span class="token function">getDeclaredField</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span>
                        <span class="token keyword">throws</span> NoSuchFieldException<span class="token punctuation">,</span>
                               SecurityException<span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//&#x83B7;&#x53D6;&#x7684;&#x662F; public &#x5C5E;&#x6027;&#xFF0C;&#x5E76;&#x4E14; getField() &#x5728;&#x5F53;&#x524D; Class &#x83B7;&#x53D6;&#x4E0D;&#x5230;&#x65F6;&#x4F1A;&#x5411;&#x7956;&#x5148;&#x7C7B;&#x83B7;&#x53D6;</span>
+<span class="token comment" spellcheck="true">//获取的是 public 属性，并且 getField() 在当前 Class 获取不到时会向祖先类获取</span>
 <span class="token keyword">public</span> Field <span class="token function">getField</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span>
                <span class="token keyword">throws</span> NoSuchFieldException<span class="token punctuation">,</span>
                       SecurityException
 
-<span class="token comment" spellcheck="true">//&#x83B7;&#x53D6;&#x6240;&#x6709;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x4F46;&#x4E0D;&#x5305;&#x62EC;&#x4ECE;&#x7236;&#x7C7B;&#x7EE7;&#x627F;&#x4E0B;&#x6765;&#x7684;&#x5C5E;&#x6027;</span>
+<span class="token comment" spellcheck="true">//获取所有的属性，但不包括从父类继承下来的属性</span>
 <span class="token keyword">public</span> Field<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getDeclaredFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> SecurityException <span class="token punctuation">{</span><span class="token punctuation">}</span>
 
-<span class="token comment" spellcheck="true">//&#x83B7;&#x53D6;&#x81EA;&#x8EAB;&#x7684;&#x6240;&#x6709;&#x7684; public &#x5C5E;&#x6027;&#xFF0C;&#x5305;&#x62EC;&#x4ECE;&#x7236;&#x7C7B;&#x7EE7;&#x627F;&#x4E0B;&#x6765;&#x7684;&#x3002;</span>
+<span class="token comment" spellcheck="true">//获取自身的所有的 public 属性，包括从父类继承下来的。</span>
 <span class="token keyword">public</span> Field<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> SecurityException <span class="token punctuation">{</span>
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
-<p>1.&#x4E24;&#x8005;&#x7684;&#x533A;&#x522B;&#x5C31;&#x662F; getDeclaredField() &#x83B7;&#x53D6;&#x7684;&#x662F; Class &#x4E2D;&#x7684;&#x5C5E;&#x6027;,&#x4E0D;&#x80FD;&#x83B7;&#x53D6;&#x5176;&#x7236;&#x7C7B;&#x7684;&#x5C5E;&#x6027;&#x3002; getField() &#x65B9;&#x6CD5;&#x83B7;&#x53D6;&#x7684;&#x662F;public&#x5C5E;&#x6027;&#xFF0C;&#x5E76;&#x4E14; getField() &#x5728;&#x5F53;&#x524D; Class &#x83B7;&#x53D6;&#x4E0D;&#x5230;&#x65F6;&#x4F1A;&#x5411;&#x7956;&#x5148;&#x7C7B;&#x83B7;&#x53D6;&#x3002;</p>
+<p>1.两者的区别就是 getDeclaredField() 获取的是 Class 中的属性,不能获取其父类的属性。 getField() 方法获取的是public属性，并且 getField() 在当前 Class 获取不到时会向祖先类获取。</p>
 <ol start="2">
-<li>getDeclaredFileds() &#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x83B7;&#x53D6; private&#x3001;protected&#x3001;public &#x548C; default &#x5C5E;&#x6027;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x83B7;&#x53D6;&#x4E0D;&#x5230;&#x4ECE;&#x7236;&#x7C7B;&#x7EE7;&#x627F;&#x4E0B;&#x6765;&#x7684;&#x5C5E;&#x6027;&#x3002;getFields() &#x81EA;&#x8EAB;&#x7684;&#x6240;&#x6709;&#x7684; public &#x5C5E;&#x6027;&#xFF0C;&#x5305;&#x62EC;&#x4ECE;&#x7236;&#x7C7B;&#x7EE7;&#x627F;&#x4E0B;&#x6765;&#x7684;&#x3002;</li>
+<li>getDeclaredFileds() 方法可以获取 private、protected、public 和 default 属性，但是它获取不到从父类继承下来的属性。getFields() 自身的所有的 public 属性，包括从父类继承下来的。</li>
 </ol>
 </blockquote>
 <table>
 <thead>
 <tr>
-<th>&#x65B9;&#x6CD5;</th>
-<th>&#x672C; Class</th>
+<th>方法</th>
+<th>本 Class</th>
 <th>SupperClass</th>
 </tr>
 </thead>
@@ -164,7 +169,7 @@ modifiers :public abstract
 </tr>
 <tr>
 <td>getDeclaredField</td>
-<td>public&#x3001;protected&#x3001;default&#x3001;private</td>
+<td>public、protected、default、private</td>
 <td>x</td>
 </tr>
 <tr>
@@ -174,17 +179,17 @@ modifiers :public abstract
 </tr>
 <tr>
 <td>getDeclaredFields</td>
-<td>public&#x3001;protected&#x3001;default&#x3001;private</td>
+<td>public、protected、default、private</td>
 <td>x</td>
 </tr>
 </tbody>
 </table>
-<p><strong>&#x83B7;&#x53D6; Method</strong></p>
+<p><strong>获取 Method</strong></p>
 <table>
 <thead>
 <tr>
-<th>&#x65B9;&#x6CD5;</th>
-<th>&#x672C; Class</th>
+<th>方法</th>
+<th>本 Class</th>
 <th>SupperClass</th>
 </tr>
 </thead>
@@ -196,7 +201,7 @@ modifiers :public abstract
 </tr>
 <tr>
 <td>getDeclaredMethod</td>
-<td>public&#x3001;protected&#x3001;default&#x3001;private</td>
+<td>public、protected、default、private</td>
 <td>x</td>
 </tr>
 <tr>
@@ -206,40 +211,40 @@ modifiers :public abstract
 </tr>
 <tr>
 <td>getDeclaredMethods</td>
-<td>public&#x3001;protected&#x3001;default&#x3001;private</td>
+<td>public、protected、default、private</td>
 <td>x</td>
 </tr>
 </tbody>
 </table>
-<p>&#x7C7B;&#x6216;&#x8005;&#x63A5;&#x53E3;&#x4E2D;&#x7684;&#x65B9;&#x6CD5;&#x5BF9;&#x5E94;&#x5230; Class &#x5C31;&#x662F; Method&#x3002;<br>&#x76F8;&#x5E94;&#x7684; API &#x5982;&#x4E0B;&#xFF0C;parameterTypes &#x662F;&#x65B9;&#x6CD5;&#x5BF9;&#x5E94;&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x83B7;&#x53D6;&#x8303;&#x56F4;&#x548C;Field&#x7C7B;&#x4F3C;&#x3002;&#xFF1A;</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Method <span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span>
+<p>类或者接口中的方法对应到 Class 就是 Method。<br>相应的 API 如下，parameterTypes 是方法对应的参数，获取范围和Field类似。：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Method <span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span>
 
-<span class="token keyword">public</span> Method <span class="token function">getMethod</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span>
+<span class="token keyword">public</span> Method <span class="token function">getMethod</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span>
 
 <span class="token keyword">public</span> Method<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getDeclaredMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> SecurityException
 
-<span class="token keyword">public</span> Method <span class="token function">getMethod</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span> 
+<span class="token keyword">public</span> Method <span class="token function">getMethod</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span> 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>&#x83B7;&#x53D6;Contructor</strong><br>Java &#x53CD;&#x5C04;&#x628A;&#x6784;&#x9020;&#x5668;&#x4ECE;&#x65B9;&#x6CD5;&#x4E2D;&#x5355;&#x72EC;&#x62CE;&#x51FA;&#x6765;&#x4E86;&#xFF0C;&#x7528; Constructor &#x8868;&#x793A;&#x3002;</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Constructor<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span> <span class="token function">getDeclaredConstructor</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span>
+<p><strong>获取Contructor</strong><br>Java 反射把构造器从方法中单独拎出来了，用 Constructor 表示。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Constructor<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">getDeclaredConstructor</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span>
 
-<span class="token keyword">public</span> Constructor<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span> <span class="token function">getConstructor</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span>
+<span class="token keyword">public</span> Constructor<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token function">getConstructor</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> parameterTypes<span class="token punctuation">)</span>
 
-<span class="token keyword">public</span> Constructor<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getDeclaredConstructors</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> SecurityException 
+<span class="token keyword">public</span> Constructor<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getDeclaredConstructors</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> SecurityException 
 
-<span class="token keyword">public</span> Constructor<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getConstructors</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> SecurityException 
+<span class="token keyword">public</span> Constructor<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getConstructors</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> SecurityException 
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>&#x56E0;&#x4E3A;&#xFF0C;Constructor &#x4E0D;&#x80FD;&#x4ECE;&#x7236;&#x7C7B;&#x7EE7;&#x627F;&#xFF0C;&#x6240;&#x4EE5;&#x5C31;&#x6CA1;&#x6709;&#x529E;&#x6CD5;&#x901A;&#x8FC7; getConstructor() &#x83B7;&#x53D6;&#x5230;&#x7236;&#x7C7B;&#x7684; Constructor&#x3002;</p>
-<h3><a href="#field-de-cao-zuo" class="header-anchor">#</a><span id="field-de-cao-zuo"><strong>Field &#x7684;&#x64CD;&#x4F5C;</strong></span></h3><p>&#x7C7B;&#x4E2D; &#x5B9A;&#x4E49;&#x7684;&#x5C5E;&#x6027;&#xFF0C; &#x5B83;&#x4EEC;&#x7684;&#x7C7B;&#x578B;&#x8981;&#x4E48;&#x662F; 8 &#x79CD;&#x57FA;&#x7840;&#x7C7B;&#x578B; int&#x3001;long&#x3001;float&#x3001;double&#x3001;boolean&#x3001;char&#x3001;byte &#x548C; short&#x3002;&#x8981;&#x4E48;&#x662F;&#x5F15;&#x7528;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x5F15;&#x7528;&#x90FD;&#x662F; Object &#x7684;&#x540E;&#x4EE3;&#x3002;<br><strong>Field &#x7C7B;&#x578B;&#x7684;&#x83B7;&#x53D6;</strong></p>
+<p>因为，Constructor 不能从父类继承，所以就没有办法通过 getConstructor() 获取到父类的 Constructor。</p>
+<h3><span id="field-的操作"><strong>Field 的操作</strong></span></h3><p>类中 定义的属性， 它们的类型要么是 8 种基础类型 int、long、float、double、boolean、char、byte 和 short。要么是引用，所有的引用都是 Object 的后代。<br><strong>Field 类型的获取</strong></p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Type <span class="token function">getGenericType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 
-<span class="token keyword">public</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span> <span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">public</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> <span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>&#x6CE8;&#x610F;&#xFF0C;&#x4E24;&#x8005;&#x8FD4;&#x56DE;&#x7684;&#x7C7B;&#x578B;&#x4E0D;&#x4E00;&#x6837;&#xFF0C;getGenericType() &#x65B9;&#x6CD5;&#x80FD;&#x591F;&#x83B7;&#x53D6;&#x5230;&#x6CDB;&#x578B;&#x7C7B;&#x578B;&#xFF0C;&#x6BD4;&#x5982; <code>hashMap&lt;String,String&gt;</code>,&#x6BD4;getType &#x66F4;&#x8BE6;&#x7EC6;&#x3002;<br><strong>Field &#x4FEE;&#x9970;&#x7B26;&#x7684;&#x83B7;&#x53D6;</strong></p>
+<p>注意，两者返回的类型不一样，getGenericType() 方法能够获取到泛型类型，比如 <code>hashMap&lt;String,String&gt;</code>,比getType 更详细。<br><strong>Field 修饰符的获取</strong></p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getModifiers</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>&#x8FD9;&#x4E2A;&#x4E0E;&#x524D;&#x9762; Class &#x83B7;&#x53D6;&#x4FEE;&#x9970;&#x7B26;&#x4E00;&#x81F4;&#x3002;<br><strong>Field &#x5185;&#x5BB9;&#x7684;&#x8BFB;&#x53D6;&#x4E0E;&#x8D4B;&#x503C;</strong><br>Field &#x8FD9;&#x4E2A;&#x7C7B;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x7684; get &#x65B9;&#x6CD5;&#x6765;&#x83B7;&#x53D6;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;&#x503C;&#x3002;</p>
+<p>这个与前面 Class 获取修饰符一致。<br><strong>Field 内容的读取与赋值</strong><br>Field 这个类定义了一系列的 get 方法来获取不同类型的值。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Object <span class="token function">get</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getInt</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -266,7 +271,7 @@ modifiers :public abstract
         <span class="token keyword">throws</span> IllegalArgumentException<span class="token punctuation">,</span> IllegalAccessException
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Field &#x53C8;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x7684; set &#x65B9;&#x6CD5;&#x7528;&#x6765;&#x5BF9;&#x5176;&#x81EA;&#x8EAB;&#x8FDB;&#x884C;&#x8D4B;&#x503C;&#x3002;</p>
+<p>Field 又定义了一系列的 set 方法用来对其自身进行赋值。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">set</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span> Object value<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setInt</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span><span class="token keyword">int</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -293,103 +298,103 @@ modifiers :public abstract
         <span class="token keyword">throws</span> IllegalArgumentException<span class="token punctuation">,</span> IllegalAccessException
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>&#x53EF;&#x80FD;&#x6709;&#x540C;&#x5B66;&#x4F1A;&#x5BF9;&#x65B9;&#x6CD5;&#x4E2D;&#x51FA;&#x73B0;&#x7684; Object &#x53C2;&#x6570;&#x6709;&#x7591;&#x95EE;&#xFF0C;&#x5B83;&#x5176;&#x5B9E;&#x662F;&#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#x5F15;&#x7528;&#xFF0C;&#x8FD9;&#x91CC;&#x6D89;&#x53CA;&#x4E00;&#x4E2A;&#x7EC6;&#x8282;&#x3002;</p>
+<p>可能有同学会对方法中出现的 Object 参数有疑问，它其实是类的实例引用，这里涉及一个细节。</p>
 <blockquote>
-<p><strong>Class &#x672C;&#x8EAB;&#x4E0D;&#x5BF9;&#x6210;&#x5458;&#x8FDB;&#x884C;&#x50A8;&#x5B58;&#xFF0C;&#x5B83;&#x53EA;&#x63D0;&#x4F9B;&#x68C0;&#x7D22;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x7528; Field&#x3001;Method&#x3001;Constructor &#x5BF9;&#x8C61;&#x6765;&#x627F;&#x8F7D;&#x8FD9;&#x4E9B;&#x6210;&#x5458;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x9488;&#x5BF9;&#x6210;&#x5458;&#x7684;&#x64CD;&#x4F5C;&#x65F6;&#xFF0C;&#x4E00;&#x822C;&#x9700;&#x8981;&#x4E3A;&#x6210;&#x5458;&#x6307;&#x5B9A;&#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#x5F15;&#x7528;&#x3002;&#x5982;&#x679C;&#x96BE;&#x4E8E;&#x7406;&#x89E3;&#x7684;&#x8BDD;&#xFF0C;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x7406;&#x89E3;&#xFF0C;&#x73ED;&#x7EA7;&#x8FD9;&#x4E2A;&#x6982;&#x5FF5;&#x662F;&#x4E00;&#x4E2A;&#x7C7B;&#xFF0C;&#x4E00;&#x4E2A;&#x73ED;&#x7EA7;&#x6709;&#x51E0;&#x5341;&#x540D;&#x5B66;&#x751F;&#xFF0C;&#x73B0;&#x5728;&#x6709;A&#x3001;B&#x3001;C 3 &#x4E2A;&#x73ED;&#x7EA7;&#xFF0C;&#x5C06;&#x6240;&#x6709;&#x73ED;&#x7EA7;&#x7684;&#x5B66;&#x751F;&#x62BD;&#x51FA;&#x6765;&#x96C6;&#x5408;&#x5230;&#x4E00;&#x4E2A;&#x573A;&#x5730;&#x6765;&#x8003;&#x8BD5;&#xFF0C;&#x4F46;&#x662F;&#x5B66;&#x751F;&#x5728;&#x8BD5;&#x5377;&#x4E0A;&#x5199;&#x4E0A;&#x81EA;&#x5DF1;&#x540D;&#x5B57;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8FD8;&#x8981;&#x6307;&#x5B9A;&#x81EA;&#x5DF1;&#x7684;&#x73ED;&#x7EA7;&#xFF0C;&#x8FD9;&#x91CC;&#x6D89;&#x53CA;&#x5230;&#x7684; Object &#x5176;&#x5B9E;&#x5C31;&#x662F;&#x7C7B;&#x4F3C;&#x7684;&#x4F5C;&#x7528;&#xFF0C;&#x8868;&#x793A;&#x8FD9;&#x4E2A;&#x6210;&#x5458;&#x662F;&#x5177;&#x4F53;&#x5C5E;&#x4E8E;&#x54EA;&#x4E2A; Object&#x3002;&#x8FD9;&#x4E2A;&#x662F;&#x4E3A;&#x4E86;&#x7CBE;&#x786E;&#x5B9A;&#x4F4D;&#x3002;</strong></p>
+<p><strong>Class 本身不对成员进行储存，它只提供检索，所以需要用 Field、Method、Constructor 对象来承载这些成员，所以，针对成员的操作时，一般需要为成员指定类的实例引用。如果难于理解的话，可以这样理解，班级这个概念是一个类，一个班级有几十名学生，现在有A、B、C 3 个班级，将所有班级的学生抽出来集合到一个场地来考试，但是学生在试卷上写上自己名字的时候，还要指定自己的班级，这里涉及到的 Object 其实就是类似的作用，表示这个成员是具体属于哪个 Object。这个是为了精确定位。</strong></p>
 </blockquote>
-<p>&#x5728;&#x6267;&#x884C; set &#x5C5E;&#x6027;&#x7684;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x64CD;&#x4F5C; private &#x4FEE;&#x9970;&#x7684;&#x6210;&#x5458;&#xFF0C;&#x9700;&#x8981;&#x52A0;&#x4E0A; </p>
+<p>在执行 set 属性的时，如果操作 private 修饰的成员，需要加上 </p>
 <pre class="line-numbers language-java"><code class="language-java">field<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3><a href="#method-cao-zuo" class="header-anchor">#</a><span id="method-cao-zuo">Method &#x64CD;&#x4F5C;</span></h3><p>Method &#x5BF9;&#x5E94;&#x666E;&#x901A;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x3002;<br>&#x6211;&#x4EEC;&#x770B;&#x770B;&#x4E00;&#x822C;&#x666E;&#x901A;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x7684;&#x6784;&#x6210;&#x3002;</p>
+<h3><span id="method-操作">Method 操作</span></h3><p>Method 对应普通类的方法。<br>我们看看一般普通类的方法的构成。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>&#x65B9;&#x6CD5;&#x7531;&#x4E0B;&#x9762;&#x51E0;&#x4E2A;&#x8981;&#x7D20;&#x6784;&#x6210;&#xFF1A;</p>
+<p>方法由下面几个要素构成：</p>
 <ul>
-<li>&#x65B9;&#x6CD5;&#x540D;</li>
-<li>&#x65B9;&#x6CD5;&#x53C2;&#x6570;</li>
-<li>&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x503C;</li>
-<li>&#x65B9;&#x6CD5;&#x7684;&#x4FEE;&#x9970;&#x7B26;</li>
-<li>&#x65B9;&#x6CD5;&#x53EF;&#x80FD;&#x4F1A;&#x629B;&#x51FA;&#x7684;&#x5F02;&#x5E38;</li>
+<li>方法名</li>
+<li>方法参数</li>
+<li>方法返回值</li>
+<li>方法的修饰符</li>
+<li>方法可能会抛出的异常</li>
 </ul>
-<p><strong>Method &#x83B7;&#x53D6;&#x65B9;&#x6CD5;&#x540D;</strong></p>
+<p><strong>Method 获取方法名</strong></p>
 <pre class="line-numbers language-java"><code class="language-java">
 <span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getDeleclaredMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><strong>Method &#x83B7;&#x53D6;&#x65B9;&#x6CD5;&#x53C2;&#x6570;</strong></p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A; Parameter &#x6570;&#x7EC4;</span>
+<p><strong>Method 获取方法参数</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//返回的是一个 Parameter 数组</span>
 <span class="token keyword">public</span> Parameter<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getParameters</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 
-<span class="token comment" spellcheck="true">// &#x83B7;&#x53D6;&#x6240;&#x6709;&#x7684;&#x53C2;&#x6570;&#x7C7B;&#x578B;</span>
-<span class="token keyword">public</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getParameterTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">// &#x83B7;&#x53D6;&#x6240;&#x6709;&#x7684;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#xFF0C;&#x5305;&#x62EC;&#x6CDB;&#x578B;</span>
+<span class="token comment" spellcheck="true">// 获取所有的参数类型</span>
+<span class="token keyword">public</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getParameterTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">// 获取所有的参数类型，包括泛型</span>
 <span class="token keyword">public</span> Type<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getGenericParameterTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A; Parameter &#x6570;&#x7EC4;&#xFF0C;&#x5728;&#x53CD;&#x5C04;&#x4E2D; Parameter &#x5BF9;&#x8C61;&#x5C31;&#x662F;&#x7528;&#x6765;&#x6620;&#x5C04;&#x65B9;&#x6CD5;&#x4E2D;&#x7684;&#x53C2;&#x6570;&#x3002;&#x7ECF;&#x5E38;&#x4F7F;&#x7528;&#x7684;<br>Parameter.java &#x7C7B;&#x4E2D;&#x7684;&#x65B9;&#x6CD5;</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// &#x83B7;&#x53D6;&#x53C2;&#x6570;&#x540D;&#x5B57;</span>
+<p>返回的是一个 Parameter 数组，在反射中 Parameter 对象就是用来映射方法中的参数。经常使用的<br>Parameter.java 类中的方法</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 获取参数名字</span>
 <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 
-<span class="token comment" spellcheck="true">// &#x83B7;&#x53D6;&#x53C2;&#x6570;&#x7C7B;&#x578B;</span>
-<span class="token keyword">public</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span> <span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">// 获取参数类型</span>
+<span class="token keyword">public</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> <span class="token function">getType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 
-<span class="token comment" spellcheck="true">// &#x83B7;&#x53D6;&#x53C2;&#x6570;&#x7684;&#x4FEE;&#x9970;&#x7B26;</span>
+<span class="token comment" spellcheck="true">// 获取参数的修饰符</span>
 <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getModifiers</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>Method &#x83B7;&#x53D6;&#x8FD4;&#x56DE;&#x503C;&#x7C7B;&#x578B;</strong></p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// &#x83B7;&#x53D6;&#x8FD4;&#x56DE;&#x503C;&#x7C7B;&#x578B;</span>
-<span class="token keyword">public</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span> <span class="token function">getReturnType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<p><strong>Method 获取返回值类型</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 获取返回值类型</span>
+<span class="token keyword">public</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> <span class="token function">getReturnType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 
-<span class="token comment" spellcheck="true">// &#x83B7;&#x53D6;&#x8FD4;&#x56DE;&#x503C;&#x7C7B;&#x578B;&#x5305;&#x62EC;&#x6CDB;&#x578B;</span>
+<span class="token comment" spellcheck="true">// 获取返回值类型包括泛型</span>
 <span class="token keyword">public</span> Type <span class="token function">getGenericReturnType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>Method &#x83B7;&#x53D6;&#x4FEE;&#x9970;&#x7B26;</strong></p>
+<p><strong>Method 获取修饰符</strong></p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getModifiers</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><strong>Method &#x83B7;&#x53D6;&#x5F02;&#x5E38;&#x7C7B;&#x578B;</strong></p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getExceptionTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<p><strong>Method 获取异常类型</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getExceptionTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 
 <span class="token keyword">public</span> Type<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getGenericExceptionTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p><strong>Method &#x65B9;&#x6CD5;&#x7684;&#x6267;&#x884C;</strong> </p>
-<p>&#x8FD9;&#x4E2A;&#x5E94;&#x8BE5;&#x662F;&#x6574;&#x4E2A;&#x53CD;&#x5C04;&#x673A;&#x5236;&#x7684;&#x6838;&#x5FC3;&#x5185;&#x5BB9;&#x4E86;&#xFF0C;&#x5F88;&#x591A;&#x65F6;&#x5019;&#x8FD0;&#x7528;&#x53CD;&#x5C04;&#x76EE;&#x7684;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x4E3A;&#x4E86;&#x4EE5;&#x5E38;&#x89C4;&#x624B;&#x6BB5;&#x6267;&#x884C; Method&#x3002;</p>
+<p><strong>Method 方法的执行</strong> </p>
+<p>这个应该是整个反射机制的核心内容了，很多时候运用反射目的其实就是为了以常规手段执行 Method。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span> Object<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Method &#x8C03;&#x7528; invoke() &#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5B58;&#x5728;&#x8BB8;&#x591A;&#x7EC6;&#x8282;&#xFF1A;</p>
+<p>Method 调用 invoke() 的时候，存在许多细节：</p>
 <ul>
-<li><p>invoke() &#x65B9;&#x6CD5;&#x4E2D;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570; Object &#x5B9E;&#x8D28;&#x4E0A;&#x662F; Method &#x6240;&#x4F9D;&#x9644;&#x7684; Class &#x5BF9;&#x5E94;&#x7684;&#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x5982;&#x679C;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x662F;&#x4E00;&#x4E2A;<strong>&#x9759;&#x6001;&#x65B9;&#x6CD5;</strong>&#xFF0C;&#x90A3;&#x4E48; ojb &#x4E3A; null&#xFF0C;&#x540E;&#x9762;&#x7684;&#x53EF;&#x53D8;&#x53C2;&#x6570; Object &#x5BF9;&#x5E94;&#x7684;&#x81EA;&#x7136;&#x5C31;&#x662F;&#x53C2;&#x6570;&#x3002;</p>
+<li><p>invoke() 方法中第一个参数 Object 实质上是 Method 所依附的 Class 对应的类的实例，如果这个方法是一个<strong>静态方法</strong>，那么 ojb 为 null，后面的可变参数 Object 对应的自然就是参数。</p>
 </li>
-<li><p>invoke() &#x8FD4;&#x56DE;&#x7684;&#x5BF9;&#x8C61;&#x662F; Object&#xFF0C;&#x6240;&#x4EE5;&#x5B9E;&#x9645;&#x4E0A;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x8981;&#x8FDB;&#x884C;&#x5F3A;&#x5236;&#x8F6C;&#x6362;&#x3002;</p>
+<li><p>invoke() 返回的对象是 Object，所以实际上执行的时候要进行强制转换。</p>
 </li>
-<li><p>&#x5728;&#x5BF9; Method &#x8C03;&#x7528; invoke() &#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;&#x65B9;&#x6CD5;&#x672C;&#x8EAB;&#x4F1A;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x5F02;&#x5E38;&#x5C31;&#x4F1A;&#x7ECF;&#x8FC7;&#x5305;&#x88C5;&#xFF0C;&#x7531; Method &#x7EDF;&#x4E00;&#x629B;&#x51FA; InvocationTargetException&#x3002;&#x800C;&#x901A;&#x8FC7; InvocationTargetException.getCause() &#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x771F;&#x6B63;&#x7684;&#x5F02;&#x5E38;&#x3002;</p>
+<li><p>在对 Method 调用 invoke() 的时候，如果方法本身会抛出异常，那么这个异常就会经过包装，由 Method 统一抛出 InvocationTargetException。而通过 InvocationTargetException.getCause() 可以获取真正的异常。</p>
 </li>
 </ul>
-<h3><a href="#constructor-de-cao-zuo" class="header-anchor">#</a><span id="constructor-de-cao-zuo">Constructor &#x7684;&#x64CD;&#x4F5C;</span></h3><p>Constructor &#x540C; Method &#x5DEE;&#x4E0D;&#x591A;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x7279;&#x522B;&#x7684;&#x5730;&#x65B9;&#x5728;&#x4E8E;&#xFF0C;&#x5B83;&#x80FD;&#x591F;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x3002;</p>
-<p>&#x5728; Java &#x53CD;&#x5C04;&#x673A;&#x5236;&#x4E2D;&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x521B;&#x5EFA;&#x7C7B;&#x7684;&#x5BF9;&#x8C61;&#x5B9E;&#x4F8B;&#xFF1A;Class.newInstance() &#x548C; Constructor.newInstance()&#x3002;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x5EFA;&#x8BAE;&#x5F00;&#x53D1;&#x8005;&#x4F7F;&#x7528;&#x540E;&#x9762;&#x8FD9;&#x79CD;&#x65B9;&#x6CD5;&#xFF0C;&#x4E0B;&#x9762;&#x662F;&#x539F;&#x56E0;&#x3002;</p>
+<h3><span id="constructor-的操作">Constructor 的操作</span></h3><p>Constructor 同 Method 差不多，但是它特别的地方在于，它能够创建一个对象。</p>
+<p>在 Java 反射机制中有两种方法可以用来创建类的对象实例：Class.newInstance() 和 Constructor.newInstance()。官方文档建议开发者使用后面这种方法，下面是原因。</p>
 <ul>
-<li>Class.newInstance() &#x53EA;&#x80FD;&#x8C03;&#x7528;&#x65E0;&#x53C2;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#xFF0C;&#x800C; Constructor.newInstance() &#x5219;&#x53EF;&#x4EE5;&#x8C03;&#x7528;&#x4EFB;&#x610F;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x3002;</li>
-<li>Class.newInstance() &#x901A;&#x8FC7;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x76F4;&#x63A5;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#xFF0C;&#x800C; Constructor.newInstance() &#x4F1A;&#x628A;&#x629B;&#x51FA;&#x6765;&#x7684;&#x5F02;&#x5E38;&#x5305;&#x88C5;&#x5230; InvocationTargetException &#x91CC;&#x9762;&#x53BB;&#xFF0C;&#x8FD9;&#x4E2A;&#x548C; Method &#x884C;&#x4E3A;&#x4E00;&#x81F4;&#x3002;</li>
-<li>Class.newInstance() &#x8981;&#x6C42;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x80FD;&#x591F;&#x88AB;&#x8BBF;&#x95EE;&#xFF0C;&#x800C; Constructor.newInstance() &#x5374;&#x80FD;&#x591F;&#x8BBF;&#x95EE; private &#x4FEE;&#x9970;&#x7684;&#x6784;&#x9020;&#x5668;&#x3002;</li>
+<li>Class.newInstance() 只能调用无参的构造方法，而 Constructor.newInstance() 则可以调用任意的构造方法。</li>
+<li>Class.newInstance() 通过构造方法直接抛出异常，而 Constructor.newInstance() 会把抛出来的异常包装到 InvocationTargetException 里面去，这个和 Method 行为一致。</li>
+<li>Class.newInstance() 要求构造方法能够被访问，而 Constructor.newInstance() 却能够访问 private 修饰的构造器。</li>
 </ul>
-<h3><a href="#fan-she-zhong-de-shu-zu" class="header-anchor">#</a><span id="fan-she-zhong-de-shu-zu">&#x53CD;&#x5C04;&#x4E2D;&#x7684;&#x6570;&#x7EC4;</span></h3><p>&#x6570;&#x7EC4;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x4E00;&#x4E2A; Class&#xFF0C;&#x800C;&#x5728; Class &#x4E2D;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x7528;&#x6765;&#x8BC6;&#x522B;&#x5B83;&#x662F;&#x5426;&#x4E3A;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x3002;<br>&#x5728; Class.java &#x4E2D; &#x65B9;&#x6CD5; <code>isArray()</code> &#x5224;&#x65AD;&#x662F;&#x5426;&#x662F;&#x6570;&#x7EC4;<br>&#x7531;&#x4E8E; &#x6570;&#x7EC4;&#x672C;&#x8D28;&#x4E0A; &#x8FD8;&#x662F; Class &#x6240;&#x4EE5;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; </p>
+<h3><span id="反射中的数组">反射中的数组</span></h3><p>数组本质上是一个 Class，而在 Class 中存在一个方法用来识别它是否为一个数组。<br>在 Class.java 中 方法 <code>isArray()</code> 判断是否是数组<br>由于 数组本质上 还是 Class 所以可以通过 </p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//&#x83B7;&#x53D6;&#x6570;&#x7EC4;&#x7684;&#x91CC;&#x9762;&#x7684;&#x5143;&#x7D20;&#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x6BD4;&#x5982; int[] &#x6570;&#x7EC4;&#x7684; componentType &#x81EA;&#x7136;&#x5C31;&#x662F; int</span>
+<span class="token comment" spellcheck="true">//获取数组的里面的元素的类型，比如 int[] 数组的 componentType 自然就是 int</span>
 <span class="token function">getComponentType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p><strong>&#x52A8;&#x6001;&#x521B;&#x5EFA;&#x6570;&#x7EC4;*</strong><br>&#x53CD;&#x5C04;&#x521B;&#x5EFA;&#x6570;&#x7EC4;&#x901A;&#x8FC7; Array.newInstance() &#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x3002;</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Object <span class="token function">newInstance</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span> componentType<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> dimensions<span class="token punctuation">)</span>
+<p><strong>动态创建数组*</strong><br>反射创建数组通过 Array.newInstance() 这个方法。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Object <span class="token function">newInstance</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> componentType<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> dimensions<span class="token punctuation">)</span>
         <span class="token keyword">throws</span> IllegalArgumentException<span class="token punctuation">,</span> NegativeArraySizeException <span class="token punctuation">{</span><span class="token punctuation">}</span>
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570; &#x4E3A;&#x6570;&#x7EC4;&#x5185;&#x539F;&#x59CB;&#x7C7B;&#x578B;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x662F;&#x53EF;&#x53D8;&#x53C2;&#x6570;&#xFF0C;&#x8868;&#x793A;&#x7684;&#x662F;&#x76F8;&#x5E94;&#x7EF4;&#x5EA6;&#x7684;&#x6570;&#x7EC4;&#x957F;&#x5EA6;&#x9650;&#x5236;&#x3002;<br>&#x6BD4;&#x5982;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; &#x4E8C;&#x7EF4;&#x6570;&#x7EC4; <code>Array.newInstance(int.class,2,3);</code></p>
-<p><strong>Array &#x7684;&#x8BFB;&#x53D6;&#x4E0E;&#x8D4B;&#x503C;</strong></p>
+<p>第一个参数 为数组内原始类型，后面的是可变参数，表示的是相应维度的数组长度限制。<br>比如创建一个 二维数组 <code>Array.newInstance(int.class,2,3);</code></p>
+<p><strong>Array 的读取与赋值</strong></p>
 <ol>
-<li>&#x5BF9;Array &#x6574;&#x4F53;&#x7684;&#x8D4B;&#x503C;&#x548C;&#x8BFB;&#x53D6;<br><code>`</code>java<br>public void set(Object obj,<pre><code>         Object value)
+<li>对Array 整体的赋值和读取<br><code>`</code>java<br>public void set(Object obj,<pre><code>         Object value)
   throws IllegalArgumentException,
          IllegalAccessException;
 </code></pre></li>
 </ol>
 <p>public Object get(Object obj)<br>           throws IllegalArgumentException,<br>                  IllegalAccessException;</p>
-<pre><code>2. &#x5BF9; Array &#x6307;&#x5B9A;&#x4F4D;&#x7F6E;&#x8FDB;&#x884C;&#x8D4B;&#x503C;&#x548C;&#x8BFB;&#x53D6;,&#x7ECF;&#x5178;&#x7684;&#x51E0;&#x79CD;&#x65B9;&#x5F0F;&#x5206;&#x522B;&#x4E3A;&#xFF1A;
+<pre><code>2. 对 Array 指定位置进行赋值和读取,经典的几种方式分别为：
 ```java
 public static void set(Object array,
                        int index,
@@ -416,8 +421,8 @@ public static short getShort(Object array,
                              int index)
                       throws IllegalArgumentException,
                              ArrayIndexOutOfBoundsException;
-</code></pre><h3><a href="#fan-she-zhong-de-mei-ju-enum" class="header-anchor">#</a><span id="fan-she-zhong-de-mei-ju-enum">&#x53CD;&#x5C04;&#x4E2D;&#x7684;&#x679A;&#x4E3E; enum</span></h3><p>&#x540C;&#x6570;&#x7EC4;&#x4E00;&#x6837;&#x672C;&#x8D28;&#x4E0A;&#x8FD8;&#x662F;&#x4E00;&#x4E2A; Class &#x800C;&#x5DF2;&#x3002;</p>
-<p>&#x679A;&#x4E3E;&#x7684;&#x8868;&#x73B0;&#x5F62;&#x5F0F;&#xFF1A;</p>
+</code></pre><h3><span id="反射中的枚举-enum">反射中的枚举 enum</span></h3><p>同数组一样本质上还是一个 Class 而已。</p>
+<p>枚举的表现形式：</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">enum</span> State <span class="token punctuation">{</span>
     IDLE<span class="token punctuation">,</span>
     DRIVING<span class="token punctuation">,</span>
@@ -430,25 +435,25 @@ public static short getShort(Object array,
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>&#x5728; java &#x53CD;&#x5C04; &#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x628A;&#x679A;&#x4E3E;&#x770B;&#x6210;&#x4E00;&#x822C;&#x7684;Class,&#x4F46;&#x662F;&#x53CD;&#x5C04;&#x673A;&#x5236;&#x63D0;&#x4F9B;&#x4E86;3&#x4E2A;&#x7279;&#x522B;&#x7684; API &#x7528;&#x4E8E;&#x64CD;&#x4F5C;&#x679A;&#x4E3E;&#x3002;</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//&#x5224;&#x65AD;&#x662F;&#x5426;&#x662F;&#x679A;&#x4E3E;&#x7C7B;&#x578B;</span>
+<p>在 java 反射 中，可以把枚举看成一般的Class,但是反射机制提供了3个特别的 API 用于操作枚举。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//判断是否是枚举类型</span>
 Class<span class="token punctuation">.</span><span class="token function">isEnum</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment" spellcheck="true">//&#x83B7;&#x53D6;&#x679A;&#x4E3E;&#x6240;&#x6709;&#x7684;&#x5E38;&#x91CF;</span>
+<span class="token comment" spellcheck="true">//获取枚举所有的常量</span>
 Class<span class="token punctuation">.</span><span class="token function">getEnumConstants</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment" spellcheck="true">//&#x5224;&#x65AD;&#x4E00;&#x4E2A; Field &#x662F;&#x4E0D;&#x662F;&#x679A;&#x4E3E;&#x5E38;&#x91CF;</span>
+<span class="token comment" spellcheck="true">//判断一个 Field 是不是枚举常量</span>
 java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span>Field<span class="token punctuation">.</span><span class="token function">isEnumConstant</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>&#x679A;&#x4E3E;&#x7684;&#x83B7;&#x53D6;&#x4E0E;&#x8BBE;&#x7F6E;</strong><br>&#x56E0;&#x4E3A;&#x7B49;&#x540C;&#x4E8E; Class&#xFF0C; &#x6240;&#x4EE5; &#x679A;&#x4E3E;&#x7684;&#x83B7;&#x53D6;&#x4E0E;&#x8BBE;&#x7F6E;&#xFF0C;&#x53EF;&#x4EE5; &#x901A;&#x8FC7; Field &#x4E2D;&#x7684;get() &#x548C; set() &#x65B9;&#x6CD5;&#x3002;</p>
-<p>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x8981;&#x83B7;&#x53D6;&#x679A;&#x4E3E;&#x91CC;&#x9762;&#x7684;Field&#x3001;Method&#x3001;Constructor  &#x53EF;&#x4EE5;&#x8C03;&#x7528; Class &#x7684;&#x901A;&#x7528; API.</p>
-<h3><a href="#zong-jie" class="header-anchor">#</a><span id="zong-jie">&#x603B;&#x7ED3;</span></h3><ol>
-<li>Java &#x4E2D;&#x7684;&#x53CD;&#x5C04;&#x662F;&#x975E;&#x5E38;&#x89C4;&#x7F16;&#x7801;&#x65B9;&#x5F0F;&#x3002;</li>
-<li>Java &#x53CD;&#x5C04;&#x673A;&#x5236;&#x7684;&#x64CD;&#x4F5C;&#x5165;&#x53E3;&#x662F;&#x83B7;&#x53D6; Class &#x6587;&#x4EF6;&#x3002; &#x6709; Class.forName()&#x3001; .class &#x548C; Object.getClass() 3 &#x79CD;&#x3002;</li>
-<li>&#x83B7;&#x53D6; Class &#x5BF9;&#x8C61;&#x540E;&#x8FD8;&#x4E0D;&#x591F;&#xFF0C;&#x9700;&#x8981;&#x83B7;&#x53D6;&#x5B83;&#x7684; Members&#xFF0C;&#x5305;&#x542B; Field&#x3001;Method&#x3001;Constructor&#x3002;</li>
-<li>Field &#x64CD;&#x4F5C;&#x4E3B;&#x8981;&#x6D89;&#x53CA;&#x5230;&#x7C7B;&#x522B;&#x7684;&#x83B7;&#x53D6;&#xFF0C;&#x53CA;&#x6570;&#x503C;&#x7684;&#x8BFB;&#x53D6;&#x4E0E;&#x8D4B;&#x503C;&#x3002;</li>
-<li>Method &#x7B97;&#x662F;&#x53CD;&#x5C04;&#x673A;&#x5236;&#x6700;&#x6838;&#x5FC3;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x901A;&#x5E38;&#x7684;&#x53CD;&#x5C04;&#x90FD;&#x662F;&#x4E3A;&#x4E86;&#x8C03;&#x7528;&#x67D0;&#x4E2A; Method &#x7684; invoke() &#x65B9;&#x6CD5;&#x3002;</li>
-<li>&#x901A;&#x8FC7; Class.newInstance() &#x548C; Constructor.newInstance() &#x90FD;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x7C7B;&#x7684;&#x5BF9;&#x8C61;&#x5B9E;&#x4F8B;&#xFF0C;&#x4F46;&#x63A8;&#x8350;&#x540E;&#x8005;&#x3002;&#x56E0;&#x4E3A;&#x5B83;&#x9002;&#x5E94;&#x4E8E;&#x4EFB;&#x4F55;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x524D;&#x8005;&#x53EA;&#x4F1A;&#x8C03;&#x7528;&#x53EF;&#x89C1;&#x7684;&#x65E0;&#x53C2;&#x6570;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x3002;</li>
-<li>&#x6570;&#x7EC4;&#x548C;&#x679A;&#x4E3E;&#x53EF;&#x4EE5;&#x88AB;&#x770B;&#x6210;&#x666E;&#x901A;&#x7684; Class &#x5BF9;&#x5F85;&#x3002;</li>
+<p><strong>枚举的获取与设置</strong><br>因为等同于 Class， 所以 枚举的获取与设置，可以 通过 Field 中的get() 和 set() 方法。</p>
+<p>需要注意的是，如果要获取枚举里面的Field、Method、Constructor  可以调用 Class 的通用 API.</p>
+<h3><span id="总结">总结</span></h3><ol>
+<li>Java 中的反射是非常规编码方式。</li>
+<li>Java 反射机制的操作入口是获取 Class 文件。 有 Class.forName()、 .class 和 Object.getClass() 3 种。</li>
+<li>获取 Class 对象后还不够，需要获取它的 Members，包含 Field、Method、Constructor。</li>
+<li>Field 操作主要涉及到类别的获取，及数值的读取与赋值。</li>
+<li>Method 算是反射机制最核心的内容，通常的反射都是为了调用某个 Method 的 invoke() 方法。</li>
+<li>通过 Class.newInstance() 和 Constructor.newInstance() 都可以创建类的对象实例，但推荐后者。因为它适应于任何构造方法，而前者只会调用可见的无参数的构造方法。</li>
+<li>数组和枚举可以被看成普通的 Class 对待。</li>
 </ol>
 <p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2019/02/10/Java-反射/%20吾與爾%20Java 反射" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/02/15/Java-反射进阶/" title="Java 反射进阶"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Java 反射进阶</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/01/08/hello-world/" title="Hexo 使用说明">下一篇: Hexo 使用说明&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
     new Valine({
