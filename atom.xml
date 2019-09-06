@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://brokge.github.io/"/>
-  <updated>2019-09-05T15:07:51.486Z</updated>
+  <updated>2019-09-06T08:24:14.216Z</updated>
   <id>https://brokge.github.io/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>简单工厂</title>
+    <link href="https://brokge.github.io/2019/09/06/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/"/>
+    <id>https://brokge.github.io/2019/09/06/简单工厂/</id>
+    <published>2019-09-06T08:23:55.000Z</published>
+    <updated>2019-09-06T08:24:14.216Z</updated>
+    
+    <content type="html"><![CDATA[<p>[toc]</p><h1><span id="简单工厂">简单工厂</span></h1><h2><span id="概念">概念</span></h2><p>定义一个工厂类，它可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于创建实例的方法是静态(static)方法，因此简单工厂模式又被称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。</p><h2><span id="特点">特点</span></h2><p>当你需要什么，只需要传入一个正确的参数，就可以获取你所需要的对象，而无须知道其创建细节。<br>达到 <strong>创建和使用分离</strong>。</p><h2><span id="示例代码">示例代码：</span></h2><pre><code>//抽象图表接口：抽象产品类interface Chart {    public void display();}//柱状图类：具体产品类class HistogramChart implements Chart {    public HistogramChart() {        System.out.println(&quot;创建柱状图！&quot;);    }    public void display() {        System.out.println(&quot;显示柱状图！&quot;);    }}//饼状图类：具体产品类class PieChart implements Chart {    public PieChart() {        System.out.println(&quot;创建饼状图！&quot;);    }    public void display() {        System.out.println(&quot;显示饼状图！&quot;);    }}//折线图类：具体产品类class LineChart implements Chart {    public LineChart() {        System.out.println(&quot;创建折线图！&quot;);    }    public void display() {        System.out.println(&quot;显示折线图！&quot;);    }}//图表工厂类：工厂类class ChartFactory {    //静态工厂方法    public static Chart getChart(String type) {        Chart chart = null;        if (type.equalsIgnoreCase(&quot;histogram&quot;)) {            chart = new HistogramChart();            System.out.println(&quot;初始化设置柱状图！&quot;);        }        else if (type.equalsIgnoreCase(&quot;pie&quot;)) {            chart = new PieChart();            System.out.println(&quot;初始化设置饼状图！&quot;);        }        else if (type.equalsIgnoreCase(&quot;line&quot;)) {            chart = new LineChart();            System.out.println(&quot;初始化设置折线图！&quot;);                    }        return chart;    }}</code></pre><h2><span id="简单工厂模式总结">简单工厂模式总结</span></h2><p>简单工厂模式提供了专门的工厂类用于创建对象，将对象的创建和对象的使用分离开。</p><h3><span id="优点"><strong>优点</strong></span></h3><p> 简单工厂模式的主要优点如下：</p><blockquote><p>(1) 工厂类包含必要的判断逻辑，可以决定在什么时候创建哪一个产品类的实例，客户端可以免除直接创建产品对象的职责，而仅仅“消费”产品，简单工厂模式实现了对象创建和使用的分离。</p><p>(2) 客户端无须知道所创建的具体产品类的类名，只需要知道具体产品类所对应的参数即可，对于一些复杂的类名，通过简单工厂模式可以在一定程度减少使用者的记忆量。</p><p>(3) 通过引入配置文件，可以在不修改任何客户端代码的情况下更换和增加新的具体产品类，在一定程度上提高了系统的灵活性。</p></blockquote><h3><span id="缺点"><strong>缺点</strong></span></h3><p>简单工厂模式的主要缺点如下：</p><blockquote><p>(1) 由于工厂类集中了所有产品的创建逻辑，职责过重，一旦不能正常工作，整个系统都要受到影响。</p><p>(2) 使用简单工厂模式势必会增加系统中类的个数（引入了新的工厂类），增加了系统的复杂度和理解难度。</p><p>(3) 系统扩展困难，一旦添加新产品就不得不修改工厂逻辑，在产品类型较多时，有可能造成工厂逻辑过于复杂，不利于系统的扩展和维护。</p><p>(4) 简单工厂模式由于使用了静态工厂方法，造成工厂角色无法形成基于继承的等级结构。</p></blockquote><h2><span id="适用场景"><strong>适用场景</strong></span></h2><p>在以下情况下可以考虑使用简单工厂模式：</p><blockquote><p>(1) 工厂类负责创建的对象比较少，由于创建的对象较少，不会造成工厂方法中的业务逻辑太过复杂。</p><p>(2) 客户端只知道传入工厂类的参数，对于如何创建对象并不关心。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;[toc]&lt;/p&gt;
+&lt;h1&gt;&lt;span id=&quot;简单工厂&quot;&gt;简单工厂&lt;/span&gt;&lt;/h1&gt;&lt;h2&gt;&lt;span id=&quot;概念&quot;&gt;概念&lt;/span&gt;&lt;/h2&gt;&lt;p&gt;定义一个工厂类，它可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于
+      
+    
+    </summary>
+    
+    
+      <category term="设计模式" scheme="https://brokge.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>工厂方法</title>
+    <link href="https://brokge.github.io/2019/09/06/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/"/>
+    <id>https://brokge.github.io/2019/09/06/工厂方法/</id>
+    <published>2019-09-06T08:22:07.000Z</published>
+    <updated>2019-09-06T08:23:30.858Z</updated>
+    
+    <content type="html"><![CDATA[<p>[toc]</p><h2><span id="背景">背景</span></h2><p>简单工厂模式实现了对象的创建和使用分离，但是仍然存在如下两个问题：</p><blockquote><p>(1) 工厂类过于庞大，包含了大量的if…else…代码，导致维护和测试难度增大；</p><p>(2) 系统扩展不灵活，当系统中需要引入新产品时，由于静态工厂方法通过所传入参数的不同来创建不同的产品，这必定要修改工厂类的源代码，将违背“开闭原则”</p></blockquote><p>如何实现增加新产品而不影响已有代码？</p><h2><span id="概念">概念</span></h2><p>定义一个用于创建对象的接口，让子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)</p><h2><span id="特点">特点</span></h2><p>不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。</p><h2><span id="示例代码">示例代码：</span></h2><pre><code>//日志记录器接口：抽象产品interface Logger {    public void writeLog();}//数据库日志记录器：具体产品class DatabaseLogger implements Logger {    public void writeLog() {        System.out.println(&quot;数据库日志记录。&quot;);    }}//文件日志记录器：具体产品class FileLogger implements Logger {    public void writeLog() {        System.out.println(&quot;文件日志记录。&quot;);    }}//日志记录器工厂接口：抽象工厂interface LoggerFactory {    public Logger createLogger();}//数据库日志记录器工厂类：具体工厂class DatabaseLoggerFactory implements LoggerFactory {    public Logger createLogger() {            //连接数据库，代码省略            //创建数据库日志记录器对象            Logger logger = new DatabaseLogger();             //初始化数据库日志记录器，代码省略            return logger;    }    }//文件日志记录器工厂类：具体工厂class FileLoggerFactory implements LoggerFactory {    public Logger createLogger() {            //创建文件日志记录器对象            Logger logger = new FileLogger();             //创建文件，代码省略            return logger;    }    }//调用class Client {    public static void main(String args[]) {        LoggerFactory factory;        Logger logger;        factory = new FileLoggerFactory(); //可引入配置文件实现        logger = factory.createLogger();        logger.writeLog();    }}</code></pre><h2><span id="工厂方法模式总结">工厂方法模式总结</span></h2><p>工厂方法模式是简单工厂模式的延伸，它继承了简单工厂模式的优点，同时还弥补了简单工厂模式的不足。工厂方法模式是使用频率最高的设计模式之一，是很多开源框架和API类库的核心模式。</p><ol><li>主要优点</li></ol><p>工厂方法模式的主要优点如下：</p><blockquote><p>(1) 在工厂方法模式中，工厂方法用来创建客户所需要的产品，同时还向客户隐藏了哪种具体产品类将被实例化这一细节，用户只需要关心所需产品对应的工厂，无须关心创建细节，甚至无须知道具体产品类的类名。</p><p>(2) 基于工厂角色和产品角色的多态性设计是工厂方法模式的关键。它能够让工厂可以自主确定创建何种产品对象，而如何创建这个对象的细节则完全封装在具体工厂内部。工厂方法模式之所以又被称为多态工厂模式，就正是因为所有的具体工厂类都具有同一抽象父类。</p><p>(3) 使用工厂方法模式的另一个优点是在系统中加入新产品时，无须修改抽象工厂和抽象产品提供的接口，无须修改客户端，也无须修改其他的具体工厂和具体产品，而只要添加一个具体工厂和具体产品就可以了，这样，系统的可扩展性也就变得非常好，完全符合“开闭原则”。</p></blockquote><ol start="2"><li>主要缺点</li></ol><p>工厂方法模式的主要缺点如下：</p><blockquote><p>(1) 在添加新产品时，需要编写新的具体产品类，而且还要提供与之对应的具体工厂类，系统中类的个数将成对增加，在一定程度上增加了系统的复杂度，有更多的类需要编译和运行，会给系统带来一些额外的开销。</p><p>(2) 由于考虑到系统的可扩展性，需要引入抽象层，在客户端代码中均使用抽象层进行定义，增加了系统的抽象性和理解难度，且在实现时可能需要用到DOM、反射等技术，增加了系统的实现难度。</p></blockquote><ol start="3"><li>适用场景</li></ol><p>在以下情况下可以考虑使用工厂方法模式：</p><blockquote><p>(1) 客户端不知道它所需要的对象的类。在工厂方法模式中，客户端不需要知道具体产品类的类名，只需要知道所对应的工厂即可，具体的产品对象由具体工厂类创建，可将具体工厂类的类名存储在配置文件或数据库中。</p><p>(2) 抽象工厂类通过其子类来指定创建哪个对象。在工厂方法模式中，对于抽象工厂类只需要提供一个创建产品的接口，而由其子类来确定具体要创建的对象，利用面向对象的多态性和里氏代换原则，在程序运行时，子类对象将覆盖父类对象，从而使得系统更容易扩展。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;[toc]&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&quot;背景&quot;&gt;背景&lt;/span&gt;&lt;/h2&gt;&lt;p&gt;简单工厂模式实现了对象的创建和使用分离，但是仍然存在如下两个问题：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;(1) 工厂类过于庞大，包含了大量的if…else…代码，导致维护和测试难度
+      
+    
+    </summary>
+    
+    
+      <category term="设计模式" scheme="https://brokge.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>抽象工厂</title>
