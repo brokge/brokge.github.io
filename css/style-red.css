@@ -691,7 +691,7 @@ footer * {
 }
 
 .post-title {
-  font-size: 20px;
+  font-size: 28px;
   font-weight: bold;
   margin: 3px 0;
 }
@@ -797,6 +797,8 @@ figure .code pre {
     border-left: none;
     text-align: center;
     transition: none;
+    background: transparent;
+    color: red;
   }
 
   .site-title * {
@@ -866,7 +868,7 @@ figure .code pre {
   }
 
   .post-title {
-    font-size: 20px;
+    font-size: 28px;
     font-weight: bold;
     margin: 3px 0;
   }
@@ -1054,7 +1056,7 @@ figure .code pre {
   }
 
   .post-title {
-    font-size: 20px;
+    font-size: 28px;
     font-weight: bold;
     margin: 3px 0;
   }
