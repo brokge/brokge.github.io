@@ -1,27 +1,23 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Java 反射进阶 · 吾與爾</title><meta name="description" content="参考博客
-获取不存在的对象？1. 获取不到 class 对象
-
+一、获取不存在的对象？1. 获取不到 class 对象
 通过一个对象的 getClass() 方法。
 通过 .class 关键字。
 通过 Class.forName()。
 
 抛出 ClassNotFoundException 异常。
-2. 获取不到 Field
-获取不到 Field 的情况分"><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+2. 获取不到 Field获取不到 Field 的情况分"><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">吾與爾</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
  </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Java 反射进阶</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-02-15</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span><a href="/tags/反射/" title="反射" class="a-tag">反射</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><p><a href="https://blog.csdn.net/briblue/article/details/76223206" target="_blank" rel="noopener">参考博客</a></p>
-<h2><span id="获取不存在的对象">获取不存在的对象？</span></h2><p><strong>1. 获取不到 class 对象</strong></p>
-<ul>
+<h2><span id="一-获取不存在的对象">一、获取不存在的对象？</span></h2><h3><span id="1-获取不到-class-对象">1. 获取不到 class 对象</span></h3><ol>
 <li>通过一个对象的 getClass() 方法。</li>
 <li>通过 .class 关键字。</li>
 <li>通过 Class.forName()。</li>
-</ul>
+</ol>
 <p>抛出 ClassNotFoundException 异常。</p>
-<p><strong>2. 获取不到 Field</strong></p>
-<p>获取不到 Field 的情况分3种： </p>
+<h3><span id="2-获取不到-field">2. 获取不到 Field</span></h3><p>获取不到 Field 的情况分3种：</p>
 <ul>
 <li><p>确实不存在这个 Field </p>
 <p>抛出 NoSuchFieldException</p>
@@ -33,11 +29,10 @@
 <p>抛出 NoSuchFieldException </p>
 </li>
 </ul>
-<p>针对 Field 存在，但获取不到情况：<br>由于 getField 和 getDeclaredField 在父类获取的限制（参照反射.md）。<br>可以先获取 当前类的 父类，即 superClass ，然后 通过 getField或者getDeclaredField的方式获取</p>
+<p>针对 Field 存在，但获取不到情况：<br>由于 getField 和 getDeclaredField 在父类获取的限制。可以先获取 当前类的 父类，即 superClass ，然后 通过 getField或者getDeclaredField的方式获取</p>
 <pre class="line-numbers language-java"><code class="language-java">Class <span class="token class-name">superClass</span> <span class="token operator">=</span> clzBase<span class="token punctuation">.</span><span class="token function">getSuperclass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><strong>3. 获取不到 Method</strong></p>
-<ul>
+<h3><span id="3-获取不到-method">3. 获取不到 Method</span></h3><ul>
 <li><p>获取本身就不存在的 Method</p>
 <p> 抛出 NoSuchMethodException</p>
 </li>
@@ -49,27 +44,23 @@
 
 Method methodtest <span class="token operator">=</span> class1<span class="token punctuation">.</span><span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">,</span><span class="token keyword">new</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">int</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span><span class="token keyword">float</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p><strong>4. 获取不到 Constructor</strong></p>
-<p>与 method 的类似</p>
-<p><strong>5. getInterfaces() 的作用</strong></p>
-<p>大家可能都会觉得 getInterfaces() 的作用是获取一个类中定义的接口，但是其实不是的，getInterfaces() 获取的是一个类所有实现的接口。</p>
-<h2><span id="反射中的权限问题">反射中的权限问题</span></h2><p><strong>1. 操纵非 public 修饰的 Field</strong><br>抛出 IllegalAccessException 错误</p>
+<h3><span id="4-获取不到-constructor">4. 获取不到 Constructor</span></h3><p>与 method 的类似</p>
+<h3><span id="5-getinterfaces-的作用">5. getInterfaces() 的作用</span></h3><p>大家可能都会觉得 getInterfaces() 的作用是获取一个类中定义的接口，但是其实不是的，getInterfaces() 获取的是一个类所有实现的接口。</p>
+<h2><span id="二-反射中的权限问题">二、反射中的权限问题</span></h2><h3><span id="1-操纵非-public-修饰的-field">1. 操纵非 public 修饰的 Field</span></h3><p>抛出 IllegalAccessException 错误</p>
 <pre class="line-numbers language-java"><code class="language-java">field<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>我这里以 private 为例，其实 protected 和 default 也是一样的，但是它们不同于 private 的地方在于，它们在本 package 范围内是可见的，有兴趣的同学可以测试一下，测试代码在一个 package，而测试的类在另外一个 package。</p>
-<p><strong>2. 操纵一个 final 类型的 Field</strong><br>抛出 IllegalAccessException 错误</p>
+<h3><span id="2-操纵一个-final-类型的-field">2. 操纵一个 final 类型的 Field</span></h3><p>抛出 IllegalAccessException 错误</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>虽然被 public 修饰，但是它同样被 final 修饰，这在正常的开发流程说明这个属性不能够再被改变。</p>
 <p>如果要解决这个问题，同样可以使用 setAccessible(true) 方法</p>
-<p><strong>3. 操纵非 public 修饰的 Method</strong></p>
-<pre class="line-numbers language-java"><code class="language-java">method<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h3><span id="3-操纵非-public-修饰的-method">3. 操纵非 public 修饰的 Method</span></h3><pre class="line-numbers language-java"><code class="language-java">method<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>通过 setAccessible(true) 同样可以解决这个问题。</p>
-<p><strong>4. 操纵非 public 修饰的 Constructor</strong></p>
-<p>同前面两种，同样是通过 setAccessible(true) 来搞定。</p>
+<h3><span id="4-操纵非-public-修饰的-constructor">4. 操纵非 public 修饰的 Constructor</span></h3><p>同前面两种，同样是通过 setAccessible(true) 来搞定。</p>
 <p>所以，在反射中如果要操作被 private 修饰的对象，那么就必须调用它的 setAccessible(true)。</p>
-<h2><span id="setaccessible-的秘密">setAccessible() 的秘密</span></h2><p>我们已经知道 Field、Method 和 Constructor 都有 setAccessible() 这个方法，至于是什么呢？这是因为它们有共同的祖先 AccessObject。</p>
+<h2><span id="三-setaccessible-的秘密">三、setAccessible() 的秘密</span></h2><p>我们已经知道 Field、Method 和 Constructor 都有 setAccessible() 这个方法，至于是什么呢？这是因为它们有共同的祖先 AccessObject。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AccessibleObject</span> <span class="token keyword">implements</span> <span class="token class-name">AnnotatedElement</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> flag<span class="token punctuation">)</span> <span class="token keyword">throws</span> SecurityException <span class="token punctuation">{</span>
         SecurityManager sm <span class="token operator">=</span> System<span class="token punctuation">.</span><span class="token function">getSecurityManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -200,9 +191,9 @@ Object target<span class="token punctuation">,</span><span class="token keyword"
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如果没有访问权限，程序将会在此抛出一个 IllegalAccessException 的异常。</p>
 <p>所以，如果通过反射方式去操作一个 Field、Method 或者是 Constructor，最好先调用它的 setAccessible(true) 以防止程序运行异常。</p>
-<h2><span id="classnewinstance-和-constructornewinstance-的区别">Class.newInstance() 和 Constructor.newInstance() 的区别</span></h2><p>Class.newInstance() 的使用有严格的限制，那就是一个 Class 对象中，必须存在一个无参数的 Constructor，并且这个 Constructor 必须要有访问的权限。</p>
+<h2><span id="四-classnewinstance-和-constructornewinstance-的区别">四、Class.newInstance() 和 Constructor.newInstance() 的区别</span></h2><p>Class.newInstance() 的使用有严格的限制，那就是一个 Class 对象中，必须存在一个无参数的 Constructor，并且这个 Constructor 必须要有访问的权限。</p>
 <p>通过 Constructor.newInstance() 却没有这种限制。Constructor.newInstance() 适应任何类型的 Constructor,无论它们有参数还是无参数，只要通过 setAccessible() 控制好访问权限就可以了。</p>
-<h2><span id="谨慎使用-methodinvoke-方法">谨慎使用 Method.invoke() 方法</span></h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span> Object<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span>
+<h2><span id="五-谨慎使用-methodinvoke-方法">五、谨慎使用 Method.invoke() 方法</span></h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span> Object<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span>
         <span class="token keyword">throws</span> IllegalAccessException<span class="token punctuation">,</span> IllegalArgumentException<span class="token punctuation">,</span>
            InvocationTargetException
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -225,8 +216,8 @@ tMethod<span class="token punctuation">.</span><span class="token function">setA
 
 tMethod<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestT</span><span class="token operator">&lt;</span>Integer<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h3><span id="method-中处理-exception">Method 中处理 Exception</span></h3><p>在 Java 反射中，一个 Method 执行时遭遇的异常会被包装在一个特定的异常中，这个异常就是 InvocationTargetException。</p>
-<h2><span id="总结">总结：</span></h2><table>
+<p>在 Java 反射中，一个 Method 执行时遭遇的异常会被包装在一个特定的异常中，这个异常就是 InvocationTargetException。</p>
+<h2><span id="六-总结">六、总结</span></h2><table>
 <thead>
 <tr>
 <th>异常名称</th>
