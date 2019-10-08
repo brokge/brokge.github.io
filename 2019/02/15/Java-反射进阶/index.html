@@ -42,27 +42,21 @@
 <p> 抛出 NoSuchMethodException</p>
 </li>
 <li><p>参数类型不匹配而找不到</p>
-<p> 抛出NoSuchMethodException，传递参数的方式：<br><code>`</code>java<br>Method methodtest = class1.getDeclaredMethod(“test”,int.class,float.class);</p>
+<p> 抛出NoSuchMethodException，传递参数的方式：</p>
 </li>
 </ul>
-<p>Method methodtest = class1.getDeclaredMethod(“test”,new Class[]{int.class,float.class});</p>
-<pre><code>
-**4. 获取不到 Constructor**
+<pre class="line-numbers language-java"><code class="language-java">Method methodtest <span class="token operator">=</span> class1<span class="token punctuation">.</span><span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">,</span><span class="token keyword">int</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span><span class="token keyword">float</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-与 method 的类似
-
-**5. getInterfaces() 的作用**
-
-大家可能都会觉得 getInterfaces() 的作用是获取一个类中定义的接口，但是其实不是的，getInterfaces() 获取的是一个类所有实现的接口。
-
-## 反射中的权限问题
-
-**1. 操纵非 public 修饰的 Field**
-抛出 IllegalAccessException 错误
-
-```java
-field.setAccessible(true);
-</code></pre><p>我这里以 private 为例，其实 protected 和 default 也是一样的，但是它们不同于 private 的地方在于，它们在本 package 范围内是可见的，有兴趣的同学可以测试一下，测试代码在一个 package，而测试的类在另外一个 package。</p>
+Method methodtest <span class="token operator">=</span> class1<span class="token punctuation">.</span><span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">,</span><span class="token keyword">new</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">int</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span><span class="token keyword">float</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><strong>4. 获取不到 Constructor</strong></p>
+<p>与 method 的类似</p>
+<p><strong>5. getInterfaces() 的作用</strong></p>
+<p>大家可能都会觉得 getInterfaces() 的作用是获取一个类中定义的接口，但是其实不是的，getInterfaces() 获取的是一个类所有实现的接口。</p>
+<h2><span id="反射中的权限问题">反射中的权限问题</span></h2><p><strong>1. 操纵非 public 修饰的 Field</strong><br>抛出 IllegalAccessException 错误</p>
+<pre class="line-numbers language-java"><code class="language-java">field<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>我这里以 private 为例，其实 protected 和 default 也是一样的，但是它们不同于 private 的地方在于，它们在本 package 范围内是可见的，有兴趣的同学可以测试一下，测试代码在一个 package，而测试的类在另外一个 package。</p>
 <p><strong>2. 操纵一个 final 类型的 Field</strong><br>抛出 IllegalAccessException 错误</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -75,7 +69,138 @@ field.setAccessible(true);
 <p><strong>4. 操纵非 public 修饰的 Constructor</strong></p>
 <p>同前面两种，同样是通过 setAccessible(true) 来搞定。</p>
 <p>所以，在反射中如果要操作被 private 修饰的对象，那么就必须调用它的 setAccessible(true)。</p>
-<h3><span id="setaccessible-的秘密">setAccessible() 的秘密</span></h3><h3><span id="classnewinstance-和-constructornewinstance-的区别">Class.newInstance() 和 Constructor.newInstance() 的区别</span></h3><p>Class.newInstance() 的使用有严格的限制，那就是一个 Class 对象中，必须存在一个无参数的 Constructor，并且这个 Constructor 必须要有访问的权限。</p>
+<h2><span id="setaccessible-的秘密">setAccessible() 的秘密</span></h2><p>我们已经知道 Field、Method 和 Constructor 都有 setAccessible() 这个方法，至于是什么呢？这是因为它们有共同的祖先 AccessObject。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AccessibleObject</span> <span class="token keyword">implements</span> <span class="token class-name">AnnotatedElement</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> flag<span class="token punctuation">)</span> <span class="token keyword">throws</span> SecurityException <span class="token punctuation">{</span>
+        SecurityManager sm <span class="token operator">=</span> System<span class="token punctuation">.</span><span class="token function">getSecurityManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>sm <span class="token operator">!=</span> null<span class="token punctuation">)</span> sm<span class="token punctuation">.</span><span class="token function">checkPermission</span><span class="token punctuation">(</span>ACCESS_PERMISSION<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setAccessible0</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> flag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/* Check that you aren't exposing java.lang.Class.&lt;init> or sensitive
+       fields in java.lang.Class. */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">setAccessible0</span><span class="token punctuation">(</span>AccessibleObject obj<span class="token punctuation">,</span> <span class="token keyword">boolean</span> flag<span class="token punctuation">)</span>
+        <span class="token keyword">throws</span> SecurityException
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>obj <span class="token keyword">instanceof</span> <span class="token class-name">Constructor</span> <span class="token operator">&amp;&amp;</span> flag <span class="token operator">==</span> <span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Constructor<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> c <span class="token operator">=</span> <span class="token punctuation">(</span>Constructor<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">)</span>obj<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>c<span class="token punctuation">.</span><span class="token function">getDeclaringClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> Class<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">SecurityException</span><span class="token punctuation">(</span><span class="token string">"Cannot make a java.lang.Class"</span> <span class="token operator">+</span>
+                                            <span class="token string">" constructor accessible"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        obj<span class="token punctuation">.</span>override <span class="token operator">=</span> flag<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Get the value of the {@code accessible} flag for this object.
+     *
+     * @return the value of the object's {@code accessible} flag
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isAccessible</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> override<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到，主要是设置内部一个 override 变量。</p>
+<p>那么，我们以 Method 的 invoke 方法为例。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span> Object<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span>
+        <span class="token keyword">throws</span> IllegalAccessException<span class="token punctuation">,</span> IllegalArgumentException<span class="token punctuation">,</span>
+           InvocationTargetException
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>override<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>Reflection<span class="token punctuation">.</span><span class="token function">quickCheckMemberAccess</span><span class="token punctuation">(</span>clazz<span class="token punctuation">,</span> modifiers<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> caller <span class="token operator">=</span> Reflection<span class="token punctuation">.</span><span class="token function">getCallerClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">checkAccess</span><span class="token punctuation">(</span>caller<span class="token punctuation">,</span> clazz<span class="token punctuation">,</span> obj<span class="token punctuation">,</span> modifiers<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    MethodAccessor ma <span class="token operator">=</span> methodAccessor<span class="token punctuation">;</span>             <span class="token comment" spellcheck="true">// read volatile</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>ma <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ma <span class="token operator">=</span> <span class="token function">acquireMethodAccessor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> ma<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果一个 Method 的 overide 为 false 的话，它就会根据 Modifiers 判断是否具有访问权限。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">boolean</span> <span class="token function">quickCheckMemberAccess</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> memberClass<span class="token punctuation">,</span><span class="token keyword">int</span> modifiers<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">return</span> Modifier<span class="token punctuation">.</span><span class="token function">isPublic</span><span class="token punctuation">(</span><span class="token function">getClassAccessFlags</span><span class="token punctuation">(</span>memberClass<span class="token punctuation">)</span> <span class="token operator">&amp;</span> modifiers<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这个方法主要是简单地判断 modifiers 是不是 public，如果不是的话就返回 false。所以 protected、private、default 修饰符都会返回 false,只有 public 都会返回 true。</p>
+<p>而不是 public 修饰的话会执行下面的代码</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">checkAccess</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> caller<span class="token punctuation">,</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> clazz<span class="token punctuation">,</span> Object obj<span class="token punctuation">,</span> <span class="token keyword">int</span> modifiers<span class="token punctuation">)</span><span class="token keyword">throws</span> IllegalAccessException
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>caller <span class="token operator">==</span> clazz<span class="token punctuation">)</span> <span class="token punctuation">{</span>  <span class="token comment" spellcheck="true">// quick check</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>             <span class="token comment" spellcheck="true">// ACCESS IS OK</span>
+    <span class="token punctuation">}</span>
+    Object cache <span class="token operator">=</span> securityCheckCache<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// read volatile</span>
+    Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> targetClass <span class="token operator">=</span> clazz<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>obj <span class="token operator">!=</span> null
+        <span class="token operator">&amp;&amp;</span> Modifier<span class="token punctuation">.</span><span class="token function">isProtected</span><span class="token punctuation">(</span>modifiers<span class="token punctuation">)</span>
+        <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>targetClass <span class="token operator">=</span> obj<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> clazz<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// Must match a 2-list of { caller, targetClass }.</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>cache <span class="token keyword">instanceof</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">[</span><span class="token punctuation">]</span> cache2 <span class="token operator">=</span> <span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> cache<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>cache2<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> targetClass <span class="token operator">&amp;&amp;</span>
+                cache2<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> caller<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span><span class="token punctuation">;</span>     <span class="token comment" spellcheck="true">// ACCESS IS OK</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">// (Test cache[1] first since range check for [1]</span>
+            <span class="token comment" spellcheck="true">// subsumes range check for [0].)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>cache <span class="token operator">==</span> caller<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// Non-protected case (or obj.class == this.clazz).</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>             <span class="token comment" spellcheck="true">// ACCESS IS OK</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// If no return, fall through to the slow path.</span>
+    <span class="token function">slowCheckMemberAccess</span><span class="token punctuation">(</span>caller<span class="token punctuation">,</span> clazz<span class="token punctuation">,</span> obj<span class="token punctuation">,</span> modifiers<span class="token punctuation">,</span> targetClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// Keep all this slow stuff out of line:</span>
+<span class="token keyword">void</span> <span class="token function">slowCheckMemberAccess</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> caller<span class="token punctuation">,</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> clazz<span class="token punctuation">,</span> Object obj<span class="token punctuation">,</span> <span class="token keyword">int</span> modifiers<span class="token punctuation">,</span>
+                           Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> targetClass<span class="token punctuation">)</span>
+    <span class="token keyword">throws</span> IllegalAccessException
+<span class="token punctuation">{</span>
+    Reflection<span class="token punctuation">.</span><span class="token function">ensureMemberAccess</span><span class="token punctuation">(</span>caller<span class="token punctuation">,</span> clazz<span class="token punctuation">,</span> obj<span class="token punctuation">,</span> modifiers<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// Success: Update the cache.</span>
+    Object cache <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>targetClass <span class="token operator">==</span> clazz<span class="token punctuation">)</span>
+                    <span class="token operator">?</span> caller
+                    <span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Class</span><span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span> caller<span class="token punctuation">,</span> targetClass <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// Note:  The two cache elements are not volatile,</span>
+    <span class="token comment" spellcheck="true">// but they are effectively final.  The Java memory model</span>
+    <span class="token comment" spellcheck="true">// guarantees that the initializing stores for the cache</span>
+    <span class="token comment" spellcheck="true">// elements will occur before the volatile write.</span>
+    securityCheckCache <span class="token operator">=</span> cache<span class="token punctuation">;</span>         <span class="token comment" spellcheck="true">// write volatile</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最终通过 Reflection 这个类的静态方法 ensureMemberAccess() 确认。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">ensureMemberAccess</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> currentClass<span class="token punctuation">,</span> Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> memberClass<span class="token punctuation">,</span>
+Object target<span class="token punctuation">,</span><span class="token keyword">int</span> modifiers<span class="token punctuation">)</span><span class="token keyword">throws</span> IllegalAccessException
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>currentClass <span class="token operator">==</span> null <span class="token operator">||</span> memberClass <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">InternalError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">verifyMemberAccess</span><span class="token punctuation">(</span>currentClass<span class="token punctuation">,</span> memberClass<span class="token punctuation">,</span> target<span class="token punctuation">,</span> modifiers<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalAccessException</span><span class="token punctuation">(</span><span class="token string">"Class "</span> <span class="token operator">+</span> currentClass<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+                                             <span class="token string">" can not access a member of class "</span> <span class="token operator">+</span>
+                                             memberClass<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+                                             <span class="token string">" with modifiers \""</span> <span class="token operator">+</span>
+                                             Modifier<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>modifiers<span class="token punctuation">)</span> <span class="token operator">+</span>
+                                             <span class="token string">"\""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果没有访问权限，程序将会在此抛出一个 IllegalAccessException 的异常。</p>
+<p>所以，如果通过反射方式去操作一个 Field、Method 或者是 Constructor，最好先调用它的 setAccessible(true) 以防止程序运行异常。</p>
+<h2><span id="classnewinstance-和-constructornewinstance-的区别">Class.newInstance() 和 Constructor.newInstance() 的区别</span></h2><p>Class.newInstance() 的使用有严格的限制，那就是一个 Class 对象中，必须存在一个无参数的 Constructor，并且这个 Constructor 必须要有访问的权限。</p>
 <p>通过 Constructor.newInstance() 却没有这种限制。Constructor.newInstance() 适应任何类型的 Constructor,无论它们有参数还是无参数，只要通过 setAccessible() 控制好访问权限就可以了。</p>
 <h2><span id="谨慎使用-methodinvoke-方法">谨慎使用 Method.invoke() 方法</span></h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span> Object<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span>
         <span class="token keyword">throws</span> IllegalAccessException<span class="token punctuation">,</span> IllegalArgumentException<span class="token punctuation">,</span>
