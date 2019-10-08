@@ -55,7 +55,7 @@
 <td>修饰参数声明。</td>
 </tr>
 <tr>
-<td>- ElementType.TYOPE_USR</td>
+<td>- ElementType.TYPE_USR</td>
 <td>使用类型。</td>
 </tr>
 </tbody>
@@ -172,21 +172,33 @@
 <span class="token punctuation">}</span>
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>基于容器的注解适用方式：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Persons</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token annotation punctuation">@Person</span><span class="token punctuation">(</span>role<span class="token operator">=</span><span class="token string">"artist"</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token annotation punctuation">@Person</span><span class="token punctuation">(</span>role<span class="token operator">=</span><span class="token string">"coder"</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SuperMan</span><span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2><span id="三-注解的提取">三、注解的提取</span></h2><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isAnnotationPresent</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>然后通过 getAnnotation() 方法来获取 Annotation 对象。</p>
+<p>然后通过 getAnnotation() / getAnnotationsByType()（since 1.8） 方法来获取 Annotation 对象。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token operator">&lt;</span>A <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> A <span class="token function">getAnnotation</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span>A<span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<span class="token keyword">public</span> <span class="token operator">&lt;</span>A <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> A<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getAnnotationsByType</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span>A<span class="token operator">></span> annotationClass <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>或者是 getAnnotations() 方法。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Annotation<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getAnnotations</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>前一种方法返回指定类型的注解，后一种方法返回注解到这个元素上的所有注解。</p>
 <p>在处理的注解的过程中可能会用到以下方法</p>
-<pre class="line-numbers language-java"><code class="language-java">Field <span class="token function">getDeclaredField</span><span class="token punctuation">(</span>String attrbuteName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Field <span class="token function">getDeclaredField</span><span class="token punctuation">(</span>String attrbuteName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span> Field<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getDeclaredFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-Method <span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span>String methodName<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">public</span> Method <span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span>String methodName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span> Method<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2><span id="四-其他">四、其他</span></h2><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
 <p>运行时注解：<br>例如：ButterKnife ，黑科技、低性能</p>
 <p>编译时注解：<br>Dagger2：生成中间代码，所以性能高</p>
