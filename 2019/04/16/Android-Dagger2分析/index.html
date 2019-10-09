@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Android Dagger2分析 · 吾與爾</title><meta name="description" content="Table of Contents  generated with DocToc
+
+注解
+依赖注入
+反射
+基于 javax.inject 
+
+
+
+官方地址 
+参考博客地址
+注解依赖注入Dagger2 是一个依赖注入框架，依赖注入的目的就是为了给需求方在合适的时候注入依赖。@Inject@Inject"><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">吾與爾</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+ </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Android Dagger2分析</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-04-16</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span></span></p><p class="post-abstract"><!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+</p><p><strong>Table of Contents</strong>  <em>generated with <a href="https://github.com/thlorenz/doctoc" target="_blank" rel="noopener">DocToc</a></em></p>
+<ul>
+<li><a href="#%E6%B3%A8%E8%A7%A3">注解</a></li>
+<li><a href="#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5">依赖注入</a></li>
+<li><a href="#%E5%8F%8D%E5%B0%84">反射</a></li>
+<li><a href="#%E5%9F%BA%E4%BA%8E-javaxinject">基于 javax.inject </a></li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<!--toc-->
+<p><a href="https://google.github.io/dagger/" target="_blank" rel="noopener">官方地址 </a></p>
+<p><a href="https://blog.csdn.net/briblue/article/details/75578459" target="_blank" rel="noopener">参考博客地址</a></p>
+<h3><span id="注解">注解</span></h3><h3><span id="依赖注入">依赖注入</span></h3><p>Dagger2 是一个依赖注入框架，依赖注入的目的就是为了给需求方在合适的时候注入依赖。<br><strong>@Inject</strong><br>@Inject 注解就如同一个标签，或者说它是一个记号，它是给 Dagger2 看的。它运用的地方有两处。</p>
+<ul>
+<li><p>@Inject 给一个类的相应的属性做标记时，说明了它是一个依赖需求方，需要一些依赖。</p>
+</li>
+<li><p>@Inject 给一个类的构造方法进行注解时，表明了它能提供依赖的能力。</p>
+</li>
+</ul>
+<p>就这样，通过 @Inject 注解符号，就很容易标记依赖和它的需求方。但是，单单一个 @Inject 是不能让 Dagger2 正常运行的。还需要另外一个注解配合。这个注解就是 @Component。</p>
+<p><strong>@Component</strong></p>
+<p>而 @Component 相当于联系纽带，将 @inject 标记的需求方和依赖绑定起来，并建立了联系，而 Dagger2 在编译代码时会依靠这种关系来进行对应的依赖注入</p>
+<p><strong>@Provides 和 @Module</strong><br>Dagger2 为了能够对第三方库中的类进行依赖注入，提供了 @Provides 和 @Module 两个注解。</p>
+<p>Provide 本身的字面意思就是提供，显然在 Dagger2 中它的作用就是提供依赖。 </p>
+<p>Module 是模块的意思，Dagger2 中规定，用 @Provides 注解的依赖必须存在一个用 @Module 注解的类中。</p>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB7cb82d844f92dfa47016fa2fda60e58d?method=download&amp;shareKey=32e575c6c38ade13609fae051ed17920" alt="image"></p>
+<p><strong>@Inject 和 @Provides 的优先级</strong></p>
+<p>Baozi 这个类就符合我上面给的情景，一方面它确实拥有被 @Inject 注解过的构造方法，另一方面在 Module 中它又通过 @Provides 提供了依赖。那么，最终，Dagger2 采取了哪一种呢？</p>
+<p>答案是 Module，其实现象我们在之前的测试时已经可以观察到了，最终屏幕显示的是豆沙包选项。</p>
+<p>Dagger2 依赖查找的顺序是先查找 Module 内所有的 @Provides 提供的依赖，如果查找不到再去查找 @Inject 提供的依赖。</p>
+<p><strong>Dagger2 中的单例 @Singleton</strong></p>
+<ul>
+<li>用 @Singleton 标注在目标单例上，然后用 @Singleton 标注在 Component 对象上。</li>
+<li><p>如果要以 @Provides 方式提供单例的话，需要用 @Singleton 注解依赖提供的方法</p>
+<pre class="line-numbers language-java"><code class="language-java"> <span class="token annotation punctuation">@Module</span>
+ <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SecondActivityModule</span> <span class="token punctuation">{</span>
+
+     <span class="token annotation punctuation">@Provides</span>
+     <span class="token annotation punctuation">@Singleton</span>
+     <span class="token keyword">public</span> TestSingleton <span class="token function">provideTestSingleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+         <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">TestSingleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li>@Singleton 是一个注解，但是它被一个元注解 @Scope 注解了</li>
+<li>为什么要用 @Singleton 同时标注 @Provides 和 @Component ?<blockquote>
+<p>Component 是联系需求与依赖的纽带，所以用 @Singleton 确定的单例作用域应该也是在 Component 的范围内。也就是说 @Scope 的作用范围其实就是单例能力范围，这个范围在单个的 Component 中.</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>@Qualifiers 和 @Name</strong></p>
+<p>@Name 只是被 @Qualifier 注解的一个注解。所以，它能够有效完全是因为 @Qualifier</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Qualifier</span>
+<span class="token annotation punctuation">@Documented</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RUNTIME<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Named</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/** The name. */</span>
+    String <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">""</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>完全可以自定义不同的注解，避免通过 Named 的方式容易拼错的问题。 </p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Qualifier</span>
+<span class="token annotation punctuation">@Documented</span>
+<span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span>ElementType<span class="token punctuation">.</span>FIELD<span class="token punctuation">,</span>ElementType<span class="token punctuation">.</span>METHOD<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">B</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用时</p>
+<pre class="line-numbers language-java"><code class="language-java">   <span class="token annotation punctuation">@Provides</span>
+    <span class="token annotation punctuation">@Named</span><span class="token punctuation">(</span><span class="token string">"A"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">provideIntA</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">111</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Provides</span>
+    <span class="token annotation punctuation">@B</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">provideIntB</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">222</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Inject</span>
+    <span class="token annotation punctuation">@Named</span><span class="token punctuation">(</span><span class="token string">"A"</span><span class="token punctuation">)</span>
+    <span class="token keyword">int</span> testValueA<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Inject</span>
+    <span class="token annotation punctuation">@B</span>
+    <span class="token keyword">int</span> testValueB<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>Dagger2 中的延迟加载</strong></p>
+<p>所谓的延迟加载，是当我们使用的时候再去实例化,比如以下方式。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestLazy</span> <span class="token punctuation">{</span>
+
+    String name<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span> name <span class="token operator">==</span> null <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            name <span class="token operator">=</span> <span class="token string">"TestLazy"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Dagger2 提供了延迟加载能力。只需要通过 Lazy 就好了，Lazy 是泛型类，接受任何类型的参数。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestLazy</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Inject</span>
+    <span class="token annotation punctuation">@Named</span><span class="token punctuation">(</span><span class="token string">"TestLazy"</span><span class="token punctuation">)</span>
+    Lazy<span class="token operator">&lt;</span>String<span class="token operator">></span> name<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> name<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>多个component之间的依赖</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Component</span><span class="token punctuation">(</span>modules <span class="token operator">=</span> <span class="token punctuation">{</span>ShangjiaAModule<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> XiaoChiModule<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">,</span>dependencies <span class="token operator">=</span> XiaoChiComponent<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>SubComponent</strong><br>Java 软件开发中，我们经常面临的就是“组合”和“继承”的概念。它们都是为了扩展某个类的功能。<br>前面的 Component 的依赖采用 @Component(dependecies=othercomponent.class) 就相当于组合。<br>那么在 Dagger2 中，运用 @SubComponent 标记一个 Component 的行为相当于继承。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Subcomponent</span><span class="token punctuation">(</span>modules <span class="token operator">=</span> FoodModule<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">SubComponent</span> <span class="token punctuation">{</span>
+    <span class="token keyword">void</span> <span class="token function">inject</span><span class="token punctuation">(</span>ThirdActivity activity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token annotation punctuation">@Component</span><span class="token punctuation">(</span>modules <span class="token operator">=</span> XiaoChiModule<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">ParentComponent</span> <span class="token punctuation">{</span>
+    SubComponent <span class="token function">provideSubComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+DaggerParentComponent<span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">provideSubComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">inject</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用 Subcomponent 时，还是要先构造 ParentComponent 对象，然后通过它提供的 SubComponent 再去进行依赖注入。</p>
+<p>大家可以细细观察下它与 depedency 方法的不同之处。</p>
+<p>但是，SubComponent 同时具备了 ParentComponent 和自身的 @Scope 作用域。所以，这经常会造成混乱的地方。大家需要注意。</p>
+<p>如果你要我比较，SubComponent 和 dependency 形式哪种更好时，我承认各有优点，但我自己倾向于 dependency，因为它更灵活。</p>
+<p>不是说 组合优于继承嘛。</p>
+<h3><span id="反射">反射</span></h3><h3><span id="基于-javaxinject">基于 </span></h3><p>Dagger 2 是一个设计非常巧妙且粗暴的框架。为什么说巧妙呢？</p>
+<ol>
+<li>Dagger 是为Android和Java平台提供的一个完全静态的，在编译时进行依赖注入的框架。</li>
+<li>Dagger 通过生成中间代码，解决了基于反射带来的开发和性能上的问题。</li>
+<li>Dagger 通过编译的时候进行依赖注入的框架。</li>
+<li>Dagger 与其他依赖注入框架不同，它是通过apt插件在编译阶段生成相应的注入代码</li>
+<li>Dagger 的目的为了降低程序耦合。</li>
+</ol>
+<p>总之：他是在编译的时候完成了一切所需要的工作，提供一种使用方便、耦合度低、避免了通过反射带来的性能问题。</p>
+<p>为什么说粗暴呢？使用的时候简单几个注解就可以了，但是 在编译阶段通过 apt 插件生成了全部的注入代码。而且代码量还不小。</p>
+<p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2019/04/16/Android-Dagger2分析/%20吾與爾%20Android Dagger2分析" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/05/20/Android-多线程开发实践/" title="Android 多线程开发实践"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Android 多线程开发实践</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/02/15/Java-反射进阶/" title="Java 反射进阶">下一篇: Java 反射进阶&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
+    new Valine({
+    el: '#vcomments',
+    appId: 'UmwJ3stwyISCG9WnW9Nc3SAN-gzGzoHsz',
+    appKey: 'UKq878kYn6RXJWx34b77lma6'})
+})();
+</script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+ </script></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>
