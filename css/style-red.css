@@ -310,7 +310,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "PingFang SC Light", "Noto Sans CJK SC", Helvetica, sans-serif;
+  font-family: TChinese, SimSun, FangSong, STSong, STZhongsong, LiSu, KaiTi, "Microsoft YaHei";
+  /*font-family: "PingFang SC Light", "Noto Sans CJK SC", Helvetica, sans-serif;*/
   /**font-family: "Source Han Serif CN", "Source Han Serif SC", "Source Han Serif TC",
 "Source Sans Pro", "Source Han Sans SC", "Source Han Sans TC",
 "PingFang SC Light", "PingFang HK", "PingFang TC", sans-serif;
