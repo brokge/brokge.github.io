@@ -1,59 +1,172 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>吾與爾</title><meta name="description" content="A Blog Powered By Hexo"><meta name="keywords" content="吾与尔"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">吾與爾</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/" class="current">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">吾與爾</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/" class="current">首頁</a></li><li><a href="/archives">歸檔</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
- </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-container"><p class="post-title"><a href="/2019/07/24/Android-数据结构之-LinkedHashMap/">Android 数据结构之 LinkedHashMap</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-07-24</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/tags/数据结构/" title="数据结构" class="a-tag">数据结构</a><span>&nbsp;</span></span></p><p class="post-abstract">原理分析： LinkedHashMap 是 HashMap 的子类，其在 HashMap 的基础上只添加了一个双向链表和一个顺序模式属性，其每次 put 元素都会往这个双向链表上添加节点，其构造方法比 HashMap 多了一个 boolean 类型的 accessOrder 参数，当该参数为 true 时则按照元...</p></div><div class="post-container"><p class="post-title"><a href="/2019/07/16/Android-性能优化总结/">Android 性能优化总结</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-07-16</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/tags/性能优化/" title="性能优化" class="a-tag">性能优化</a><span>&nbsp;</span></span></p><p class="post-abstract">用户手中好的应用指标：
-满足需求
-合理的交互
-高性能
+ </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-container"><p class="post-title"><a href="/2019/08/30/Android-数据结构之-LinkedHashMap/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-08-30</span></p><p class="post-abstract">
 
-Android 性能优化总结目标:
-流畅
-稳定
-省电、省流量
-安装包小
+Table of Contents  generated with DocToc
 
-简称： 快、稳、省、小
-建议：1. 流畅卡顿场景：UI 绘制、应用启动、页面跳转、事件响应
-卡顿原因：
+原理分析：
+场景使用
 
-界面绘制。
-主要原因是绘制的层级深、页面复杂、刷新不合理，由于这些原因导致卡顿...</p></div><div class="post-container"><p class="post-title"><a href="/2019/07/10/Android-Bundle/">Android Bundle 详解 </a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-07-10</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span></span></p><p class="post-abstract">
-我们都知道，在 Android 应用开发中，需要数据和状态的传递，其中还包括在 跨进程 之间的传递 （比如 IPC/Binder）。关于数据传递有多种方式，其中最常见的就是通过 Bundle 。Bundle 中文意思：捆; 一批，顾名思义就很直观了。
-Bundle 相当于传输过程的邮包，里面包裹的是具体的数据。...</p></div><div class="post-container"><p class="post-title"><a href="/2019/06/30/Android-应用内存分析/">Android 应用内存分析</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-06-30</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/tags/性能优化/" title="性能优化" class="a-tag">性能优化</a><span>&nbsp;</span></span></p><p class="post-abstract">Android 开发场景中，分析内存泄漏情况
-所需工具1. MTAEclipse Memory Analysis Tools (MAT) 是一个分析 Java堆数据的专业工具，用它可以定位内存泄漏的原因。
-工具地址 : https://www.eclipse.org/mat/
+
+
+title: Android 数据结构之 LinkedHashMapdate: 2019-07-24 21:07:42tags:
+
+Android
+数据结构categories:
+技术
+
+
+原理分析...</p></div><div class="post-container"><p class="post-title"><a href="/2019/08/30/Android-多线程开发实践/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-08-30</span></p><p class="post-abstract">
+
+Table of Contents  generated with DocToc
+
+特点：
+线程优先级
+是否真的需要新线程？
+AsyncTask
+HandlerThread
+ThreadPoolExecutor
+IntentService
+结束语
+
+
+
+title: Android 多线程开发实践date: ...</p></div><div class="post-container"><p class="post-title"><a href="/2019/08/30/Android-Dagger2分析/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-08-30</span></p><p class="post-abstract">
+
+Table of Contents  generated with DocToc
+
+注解
+依赖注入
+反射
+基于 javax.inject 
+
+
+
+title: Android Dagger2分析date: 2019-04-16 21:01:11tags:
+
+Androidcategories:
+技术
+
+
+
+官...</p></div><div class="post-container"><p class="post-title"><a href="/2019/08/30/Android-应用内存分析/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-08-30</span></p><p class="post-abstract">
+
+Table of Contents  generated with DocToc
+
+所需工具
+1. MTA
 2. AndroidStudio
-m...</p></div><div class="post-container"><p class="post-title"><a href="/2019/05/20/Android-多线程开发实践/">Android 多线程开发实践</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-05-20</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/tags/线程/" title="线程" class="a-tag">线程</a><span>&nbsp;</span></span></p><p class="post-abstract">特点：
-并行处理任务。
-存在 线程数据安全、死锁、内存消耗、对象的生命周期管理、ui 的卡顿 等等。
-存在优先级。
 
-线程优先级线程寄宿在进程当中，线程的生命周期直接被进程所影响，而进程的存活又和其优先级直接相关。在处理进程优先级的时候，大部分人靠直觉都能知道前台进程（Foreground Process）优先级...</p></div><div class="post-container"><p class="post-title"><a href="/2019/04/16/Android-Dagger2分析/">Android Dagger2分析</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-04-16</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span></span></p><p class="post-abstract">
-官方地址 
-参考博客地址
-注解依赖注入Dagger2 是一个依赖注入框架，依赖注入的目的就是为了给需求方在合适的时候注入依赖。@Inject@Inject 注解就如同一个标签，或者说它是一个记号，它是给 Dagger2 看的。它运用的地方有两处。
 
-@Inject 给一个类的相应的属性做标记时，说明了它是一个依...</p></div><div class="post-container"><p class="post-title"><a href="/2019/02/15/Java-反射进阶/">Java 反射进阶</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-02-15</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span><a href="/tags/反射/" title="反射" class="a-tag">反射</a><span>&nbsp;</span></span></p><p class="post-abstract">参考博客
-一、获取不存在的对象？1. 获取不到 class 对象
-通过一个对象的 getClass() 方法。
-通过 .class 关键字。
-通过 Class.forName()。
+使用
+分析小技巧
 
-抛出 ClassNotFoundException 异常。
-2. 获取不到 Field获取不到 Field 的情况分3种：
 
-确实...</p></div><div class="post-container"><p class="post-title"><a href="/2019/02/10/Java-反射/">Java 反射</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-02-10</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span><a href="/tags/反射/" title="反射" class="a-tag">反射</a><span>&nbsp;</span></span></p><p class="post-abstract">参考博客网址
-反射入口Object.getClass()
-Car car = new Car();
-Class clazz = car.getClass();
 
-.class
-Class clazz = Car.class;
-Class cls1 = int.class;
-Class cls2 = String....</p></div><div class="post-container"><p class="post-title"><a href="/2019/01/08/hello-world/">Hexo 使用说明</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-01-08</span></p><p class="post-abstract">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in trouble...</p></div><div class="post-container"><p class="post-title"><a href="/2019/01/06/Java枚举六问/">Java-枚举六问</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-01-06</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span></p><p class="post-abstract">一问：Java 枚举是如何保证线程安全的？
-答：因为 Java 类加载与初始化是 JVM 保证线程安全，而 Java enum 枚举在编译器编译后的字节码实质是一个 final 类，每个枚举类型是这个 final 类中的一个静态常量属性，其属性初始化是在该 final 类的 static 块中进行，而 stati...</p></div><div class="pagination no-margin-bottom"><p class="clearfix"></p><p> 第 2 頁 / 共 3 頁 &nbsp;</p><p><span class="pre pagbuttons"><i class="fa fa-angle-double-left"></i>&nbsp;<a role="navigation" href="/">上一頁</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/page/3/">下一頁</a>&nbsp;<i class="fa fa-angle-double-right"></i></span></p><p></p></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
+title: Android 应用内存分析date: 2019-06-30 10:56:51tags:
+
+Android
+性能优化categ...</p></div><div class="post-container"><p class="post-title"><a href="/2019/08/30/JVM-类加载和初始化/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-08-30</span></p><p class="post-abstract">
+
+Table of Contents  generated with DocToc
+
+类什么时候加载？
+类初始化的方式
+类初始化规则：
+名词说明
+参考：
+
+
+
+
+
+title: JVM 类加载和初始化date: 2019-07-30 20:50:24tags: 
+
+JVMcategories:
+Java
+
+
+我...</p></div><div class="post-container"><p class="post-title"><a href="/2019/08/30/Java-反射进阶/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-08-30</span></p><p class="post-abstract">
+
+Table of Contents  generated with DocToc
+
+一、获取不存在的对象？
+1. 获取不到 class 对象
+2. 获取不到 Field
+3. 获取不到 Method
+4. 获取不到 Constructor
+5. getInterfaces() 的作用
+
+
+二、反射中的权限问题...</p></div><div class="post-container"><p class="post-title"><a href="/2019/08/30/Java-反射/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-08-30</span></p><p class="post-abstract">
+
+Table of Contents  generated with DocToc
+
+反射入口
+获取Class 的成员
+Field 的操作
+Method 操作
+Constructor 的操作
+反射中的数组
+反射中的枚举 enum
+总结
+
+
+
+
+
+title: Java 反射date: 2019-02-10 19...</p></div><div class="post-container"><p class="post-title"><a href="/2019/08/30/Java-注解/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-08-30</span></p><p class="post-abstract">
+
+Table of Contents  generated with DocToc
+
+注解
+一 、注解分类
+定义注解
+二、注解的提取
+三、其他
+
+
+
+
+
+title: Java  注解date: 2019-08-30 20:44:41tags: 
+
+Java
+注解categories:
+技术
+
+
+注解注解是代码...</p></div><div class="post-container"><p class="post-title"><a href="/2019/01/08/正则/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-01-08</span></p><p class="post-abstract">
+
+Table of Contents  generated with DocToc
+
+一、元字符
+二、重复限定符
+三、 分组
+四、 转义
+五、 条件或
+六、区间
+七、零宽断言
+1. 正向先行断言（正前瞻）
+2. 正向后行断言（正后顾）
+3. 负向先行断言（负前瞻）
+4. 负向后行断言（负后顾）
+
+
+八、捕获和非...</p></div><div class="post-container"><p class="post-title"><a href="/2019/01/08/Java枚举六问/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-01-08</span></p><p class="post-abstract">
+
+Table of Contents  generated with DocToc
+
+一问：Java 枚举是如何保证线程安全的？
+四问：为什么有人说在一些场景下通过枚举实现的单例是最好的方式，原因是什么？
+六问：Java 迭代器和枚举器的区别是什么？
+
+
+
+title: Java-枚举六问author: bro...</p></div><div class="pagination no-margin-bottom"><p class="clearfix"></p><p> 第 2 頁 / 共 3 頁 &nbsp;</p><p><span class="pre pagbuttons"><i class="fa fa-angle-double-left"></i>&nbsp;<a role="navigation" href="/">上一頁</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/page/3/">下一頁</a>&nbsp;<i class="fa fa-angle-double-right"></i></span></p><p></p></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2019&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
