@@ -474,7 +474,7 @@ blockquote {
   margin: 0 0 0 -2px;
   text-align: left;
   font-size: 0.5em;
-  padding: 0 0 50px 0;
+  padding: 10px 0 50px 0;
   color: #ffffff !important;
   background: red !important;
   border-left: solid red 2px;
