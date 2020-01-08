@@ -46,137 +46,141 @@
  */</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">aa</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="addannotationpy-代码">addAnnotation.py 代码</span></h2><pre class="line-numbers language-py"><code class="language-py">#!usr/bin/python3
-# -*- coding:UTF-8 -*-
-import pickle
-import pprint
-import re
-import time
-import os,sys
-#from dateutil.parser import parse
+<h2><span id="addannotationpy-代码">addAnnotation.py 代码</span></h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true">#!usr/bin/python3</span>
+<span class="token comment" spellcheck="true"># -*- coding:UTF-8 -*-</span>
+<span class="token keyword">import</span> pickle
+<span class="token keyword">import</span> pprint
+<span class="token keyword">import</span> re
+<span class="token keyword">import</span> time
+<span class="token keyword">import</span> os<span class="token punctuation">,</span>sys
+<span class="token comment" spellcheck="true">#from dateutil.parser import parse</span>
 
-'''
+<span class="token triple-quoted-string string">'''
 使用方法：
 
   python3 addAnnotation.py ${authornName}
   ${authornName}  有默认值
-'''
-def eachFile(path, _authorName):
-    #print(path)
-    #authorName = _authorName
-    print("authorName:"+ authorName)
-    files = os.listdir(path)
-    for _file in files:
-        #判断是否为文件夹
-        if (not os.path.isdir(path+'/'+_file) and _file.endswith('.java')):
-            matchAndReplace(path+'/'+_file)
-            print(_file)
-        elif  os.path.isdir(path+'/'+_file):
-            eachFile(path+'/'+_file, authorName)
+'''</span>
+<span class="token keyword">def</span> <span class="token function">eachFile</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> _authorName<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true">#print(path)</span>
+    <span class="token comment" spellcheck="true">#authorName = _authorName</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"authorName:"</span><span class="token operator">+</span> authorName<span class="token punctuation">)</span>
+    files <span class="token operator">=</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>path<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> _file <span class="token keyword">in</span> files<span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true">#判断是否为文件夹</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>isdir<span class="token punctuation">(</span>path<span class="token operator">+</span><span class="token string">'/'</span><span class="token operator">+</span>_file<span class="token punctuation">)</span> <span class="token operator">and</span> _file<span class="token punctuation">.</span>endswith<span class="token punctuation">(</span><span class="token string">'.java'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            matchAndReplace<span class="token punctuation">(</span>path<span class="token operator">+</span><span class="token string">'/'</span><span class="token operator">+</span>_file<span class="token punctuation">)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>_file<span class="token punctuation">)</span>
+        <span class="token keyword">elif</span>  os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>isdir<span class="token punctuation">(</span>path<span class="token operator">+</span><span class="token string">'/'</span><span class="token operator">+</span>_file<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            eachFile<span class="token punctuation">(</span>path<span class="token operator">+</span><span class="token string">'/'</span><span class="token operator">+</span>_file<span class="token punctuation">,</span> authorName<span class="token punctuation">)</span>
 
-def matchAndReplace(file):
-    fo = open(file,"r+")
-    #content = fo.read()
-    print("#正在处理文件名:",fo.name)
-    lines = fo.readlines()
-    if checkIsExist(lines):
-        print(" 已经存在注释",fo.name)
-        return
-    isOnlyAuthor = checkInsertPosition(lines)
-    position = getInsertPosition(lines)
-    if position == 0:
-        return
-    print('插入行:%d'%position)
-    templateStr = getTemplate('',isOnlyAuthor)
-    lines.insert(position-1,templateStr)
-    #content = content[:position+1]+ templateStr + content[position+1:]
-    #content = templateStr
-    content = ''.join(lines)
-    fo.close()
-    writeFile(content,file)
+<span class="token keyword">def</span> <span class="token function">matchAndReplace</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    fo <span class="token operator">=</span> open<span class="token punctuation">(</span>file<span class="token punctuation">,</span><span class="token string">"r+"</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true">#content = fo.read()</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"#正在处理文件名:"</span><span class="token punctuation">,</span>fo<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+    lines <span class="token operator">=</span> fo<span class="token punctuation">.</span>readlines<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> checkIsExist<span class="token punctuation">(</span>lines<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">" 已经存在注释"</span><span class="token punctuation">,</span>fo<span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    isOnlyAuthor <span class="token operator">=</span> checkInsertPosition<span class="token punctuation">(</span>lines<span class="token punctuation">)</span>
+    position <span class="token operator">=</span> getInsertPosition<span class="token punctuation">(</span>lines<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> position <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'插入行:%d'</span><span class="token operator">%</span>position<span class="token punctuation">)</span>
+    templateStr <span class="token operator">=</span> getTemplate<span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span>isOnlyAuthor<span class="token punctuation">)</span>
+    lines<span class="token punctuation">.</span>insert<span class="token punctuation">(</span>position<span class="token number">-1</span><span class="token punctuation">,</span>templateStr<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true">#content = content[:position+1]+ templateStr + content[position+1:]</span>
+    <span class="token comment" spellcheck="true">#content = templateStr</span>
+    content <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>lines<span class="token punctuation">)</span>
+    fo<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    writeFile<span class="token punctuation">(</span>content<span class="token punctuation">,</span>file<span class="token punctuation">)</span>
 
-def writeFile(content,file):
-    fo = open(file,"w")
-    fo.writelines(content)
-    fo.close()
+<span class="token keyword">def</span> <span class="token function">writeFile</span><span class="token punctuation">(</span>content<span class="token punctuation">,</span>file<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    fo <span class="token operator">=</span> open<span class="token punctuation">(</span>file<span class="token punctuation">,</span><span class="token string">"w"</span><span class="token punctuation">)</span>
+    fo<span class="token punctuation">.</span>writelines<span class="token punctuation">(</span>content<span class="token punctuation">)</span>
+    fo<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-def checkInsertPosition(lines):
-    isOnlyAuthor = False
-    #lines = fo.readlines()
-    for line in lines:
-        if line.startswith(' */'):
-            isOnlyAuthor = True
-            break 
-    return isOnlyAuthor
+<span class="token keyword">def</span> <span class="token function">checkInsertPosition</span><span class="token punctuation">(</span>lines<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    isOnlyAuthor <span class="token operator">=</span> <span class="token boolean">False</span>
+    <span class="token comment" spellcheck="true">#lines = fo.readlines()</span>
+    <span class="token keyword">for</span> line <span class="token keyword">in</span> lines<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> line<span class="token punctuation">.</span>startswith<span class="token punctuation">(</span><span class="token string">' */'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            isOnlyAuthor <span class="token operator">=</span> <span class="token boolean">True</span>
+            <span class="token keyword">break</span> 
+    <span class="token keyword">return</span> isOnlyAuthor
 
-def getInsertPosition(lines):
-    positionTemp = 0
-    #lines = fo.readlines()
-    for line in lines:
-        positionTemp = positionTemp+1
-        if line.startswith(' */'):
-            break 
-        elif line.startswith('@'):
-            break 
-        elif line.startswith('public class') or line.startswith('public interface') or line.startswith('public enum'):
-            break
-    return positionTemp
+<span class="token keyword">def</span> <span class="token function">getInsertPosition</span><span class="token punctuation">(</span>lines<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    positionTemp <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token comment" spellcheck="true">#lines = fo.readlines()</span>
+    <span class="token keyword">for</span> line <span class="token keyword">in</span> lines<span class="token punctuation">:</span>
+        positionTemp <span class="token operator">=</span> positionTemp<span class="token operator">+</span><span class="token number">1</span>
+        <span class="token keyword">if</span> line<span class="token punctuation">.</span>startswith<span class="token punctuation">(</span><span class="token string">' */'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">break</span> 
+        <span class="token keyword">elif</span> line<span class="token punctuation">.</span>startswith<span class="token punctuation">(</span><span class="token string">'@'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">break</span> 
+        <span class="token keyword">elif</span> line<span class="token punctuation">.</span>startswith<span class="token punctuation">(</span><span class="token string">'public class'</span><span class="token punctuation">)</span> <span class="token operator">or</span> line<span class="token punctuation">.</span>startswith<span class="token punctuation">(</span><span class="token string">'public interface'</span><span class="token punctuation">)</span> <span class="token operator">or</span> line<span class="token punctuation">.</span>startswith<span class="token punctuation">(</span><span class="token string">'public enum'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">break</span>
+    <span class="token keyword">return</span> positionTemp
 
-def getInsertPosition1(content):
-    class_method = re.search(r'(?<=public class=")\w+(?=)'," content) classposition="class_method.start()" atposition="re.search()" position="0" if> atPosition:
-        position = atPosition
-    return position 
+<span class="token keyword">def</span> <span class="token function">getInsertPosition1</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    class_method <span class="token operator">=</span> re<span class="token punctuation">.</span>search<span class="token punctuation">(</span>r<span class="token string">'(?&lt;=public class=)\w+(?=)'</span><span class="token punctuation">,</span> content<span class="token punctuation">)</span>
+    classPosition <span class="token operator">=</span> class_method<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    atPosition <span class="token operator">=</span> re<span class="token punctuation">.</span>search<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    position <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">if</span> classPosition <span class="token operator">></span> atPosition<span class="token punctuation">:</span>
+        position <span class="token operator">=</span> atPosition
+    <span class="token keyword">return</span> position 
 
-def checkIsExist(lines):
-    isExist = False
-    for line in lines:
-        result = re.search(r'^\s+\* @author \w+|^\s+\* Created by \w+',line)
-        if result is not None:
-            isExist = True
-            break
+<span class="token keyword">def</span> <span class="token function">checkIsExist</span><span class="token punctuation">(</span>lines<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    isExist <span class="token operator">=</span> <span class="token boolean">False</span>
+    <span class="token keyword">for</span> line <span class="token keyword">in</span> lines<span class="token punctuation">:</span>
+        result <span class="token operator">=</span> re<span class="token punctuation">.</span>search<span class="token punctuation">(</span>r<span class="token string">'^\s+\* @author \w+|^\s+\* Created by \w+'</span><span class="token punctuation">,</span>line<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> result <span class="token keyword">is</span> <span class="token operator">not</span> None<span class="token punctuation">:</span>
+            isExist <span class="token operator">=</span> <span class="token boolean">True</span>
+            <span class="token keyword">break</span>
 
-    return isExist
+    <span class="token keyword">return</span> isExist
 
-'''
+<span class="token triple-quoted-string string">'''
  /**
  *
  * @author yusuzi
  * @since 
  */
-'''
-def getTemplate(defValue, isOnlyAuthor):
-    templateStr = ''
-    if not isOnlyAuthor:
-        templateStr = ('/**'+
-        '\n *'+ defValue+
-        '\n * @author '+authorName+
-        '\n * @since '+ getCurrentDateTime()+
-        '\n */\n'
-        ) 
-    else :
-        templateStr = (
-            ' * @author '+authorName+
-            '\n'+
-            ' * @since '+ getCurrentDateTime()+
-            '\n'
-            )
-    return templateStr    
+'''</span>
+<span class="token keyword">def</span> <span class="token function">getTemplate</span><span class="token punctuation">(</span>defValue<span class="token punctuation">,</span> isOnlyAuthor<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    templateStr <span class="token operator">=</span> <span class="token string">''</span>
+    <span class="token keyword">if</span> <span class="token operator">not</span> isOnlyAuthor<span class="token punctuation">:</span>
+        templateStr <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'/**'</span><span class="token operator">+</span>
+        <span class="token string">'\n *'</span><span class="token operator">+</span> defValue<span class="token operator">+</span>
+        <span class="token string">'\n * @author '</span><span class="token operator">+</span>authorName<span class="token operator">+</span>
+        <span class="token string">'\n * @since '</span><span class="token operator">+</span> getCurrentDateTime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span>
+        <span class="token string">'\n */\n'</span>
+        <span class="token punctuation">)</span> 
+    <span class="token keyword">else</span> <span class="token punctuation">:</span>
+        templateStr <span class="token operator">=</span> <span class="token punctuation">(</span>
+            <span class="token string">' * @author '</span><span class="token operator">+</span>authorName<span class="token operator">+</span>
+            <span class="token string">'\n'</span><span class="token operator">+</span>
+            <span class="token string">' * @since '</span><span class="token operator">+</span> getCurrentDateTime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span>
+            <span class="token string">'\n'</span>
+            <span class="token punctuation">)</span>
+    <span class="token keyword">return</span> templateStr    
 
-def getCurrentDateTime():
-    #print(parse('2018-04-29T17:45:25Z'))
-    print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
-    return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+<span class="token keyword">def</span> <span class="token function">getCurrentDateTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true">#print(parse('2018-04-29T17:45:25Z'))</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>strftime<span class="token punctuation">(</span><span class="token string">"%Y-%m-%d %H:%M:%S"</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span>localtime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> time<span class="token punctuation">.</span>strftime<span class="token punctuation">(</span><span class="token string">"%Y-%m-%d %H:%M:%S"</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span>localtime<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-if __name__ == '__main__':
-    path = sys.path[0]
-    authorName = 'yusuzi'
-    if len(sys.argv)>1:
-        authorName = sys.argv[1]
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    path <span class="token operator">=</span> sys<span class="token punctuation">.</span>path<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    authorName <span class="token operator">=</span> <span class="token string">'yusuzi'</span>
+    <span class="token keyword">if</span> len<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">)</span><span class="token operator">></span><span class="token number">1</span><span class="token punctuation">:</span>
+        authorName <span class="token operator">=</span> sys<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
 
-    eachFile(path, authorName)
+    eachFile<span class="token punctuation">(</span>path<span class="token punctuation">,</span> authorName<span class="token punctuation">)</span>
 
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></=public></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2020/01/08/批量添加Java文件头部注释/%20吾與爾%20批量添加Java文件头部注释" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/09/23/责任链模式/" title="责任链模式">下一篇: 责任链模式&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
     new Valine({
     el: '#vcomments',
