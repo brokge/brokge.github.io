@@ -3,7 +3,24 @@
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
- </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-container"><p class="post-title"><a href="/2019/08/30/Java-注解/">Java  注解</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-08-30</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span><a href="/tags/注解/" title="注解" class="a-tag">注解</a><span>&nbsp;</span></span></p><p class="post-abstract">
+ </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-container"><p class="post-title"><a href="/2019/09/03/线程池详解/">线程池详解 </a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-03</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span><a href="/categories/Java/并发编程/" title="并发编程" class="a-tag">并发编程</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span><a href="/tags/并发编程/" title="并发编程" class="a-tag">并发编程</a><span>&nbsp;</span></span></p><p class="post-abstract">
+
+Table of Contents  generated with DocToc
+
+线程池
+线程是不是越多越好？
+线程池组成部分：
+线程池 API-接口定义和实现类
+线程池原理-任务 execute 过程
+示例代码分析
+线程终止
+最后线程数量的选择
+
+
+
+
+线程池线程是不是越多越好？
+线程在 Java 中是一...</p></div><div class="post-container"><p class="post-title"><a href="/2019/08/30/Java-注解/">Java  注解</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-08-30</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span><a href="/tags/注解/" title="注解" class="a-tag">注解</a><span>&nbsp;</span></span></p><p class="post-abstract">
 
 
 注解
@@ -148,25 +165,7 @@ Table of Contents  generated with DocToc
 
 二、反射中的权限问题
 1. 操纵非 public 修饰的 Field
-2. 操纵一个 final 类型...</p></div><div class="post-container"><p class="post-title"><a href="/2019/02/10/Java-反射/">Java 反射</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-02-10</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span><a href="/tags/反射/" title="反射" class="a-tag">反射</a><span>&nbsp;</span></span></p><p class="post-abstract">
-
-
-反射入口
-获取Class 的成员
-Field 的操作
-Method 操作
-Constructor 的操作
-反射中的数组
-反射中的枚举 enum
-总结
-
-
-
-
-参考博客网址
-反射入口Object.getClass()
-Car car = new Car();
-Class clazz = car.getClas...</p></div><div class="pagination no-margin-bottom"><p class="clearfix"></p><p> 第 2 頁 / 共 3 頁 &nbsp;</p><p><span class="pre pagbuttons"><i class="fa fa-angle-double-left"></i>&nbsp;<a role="navigation" href="/">上一頁</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/page/3/">下一頁</a>&nbsp;<i class="fa fa-angle-double-right"></i></span></p><p></p></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
+2. 操纵一个 final 类型...</p></div><div class="pagination no-margin-bottom"><p class="clearfix"></p><p> 第 2 頁 / 共 3 頁 &nbsp;</p><p><span class="pre pagbuttons"><i class="fa fa-angle-double-left"></i>&nbsp;<a role="navigation" href="/">上一頁</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/page/3/">下一頁</a>&nbsp;<i class="fa fa-angle-double-right"></i></span></p><p></p></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
