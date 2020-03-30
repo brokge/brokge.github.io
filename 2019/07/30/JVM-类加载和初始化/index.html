@@ -130,31 +130,38 @@ Java 类加载和初始化我们知道 当要实例化一个类时，JVM会首�
 </ol>
 <h2><span id="名词说明">名词说明</span></h2><p><strong>类的初始化和类的实例化是不同的</strong>:<br>类的初始化发生在类实例化之前。<br>类的初始化是指类加载过程中的初始化阶段对类变量按照程序猿的意图进行赋值的过程；而类的实例化是指在类完全加载到内存中后创建对象的过程。</p>
 <ul>
-<li>静态域=静态变量<br><code>`</code>java<br>private static String staticValue =”静态域”;</li>
+<li>静态域=静态变量</li>
 </ul>
-<pre><code>&gt;静态域：如果将类中的域定义为static，则这个域属于这个类，而不属于这个类的某个对象，每个类中只有 一个这样的域，而每一个类对象对于所有的实例域(即没有定义为static的域)都有自己的一份拷贝。例如：
-&gt; ```java
-&gt; class Employee {
-&gt; 　　private int id;
-&gt; 　　private static String staticValue =&quot;静态域&quot;;
-&gt; }
-&gt;
-</code></pre><blockquote>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> String staticValue <span class="token operator">=</span><span class="token string">"静态域"</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>静态域：如果将类中的域定义为static，则这个域属于这个类，而不属于这个类的某个对象，每个类中只有 一个这样的域，而每一个类对象对于所有的实例域(即没有定义为static的域)都有自己的一份拷贝。例如：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Employee</span> <span class="token punctuation">{</span>
+　　<span class="token keyword">private</span> <span class="token keyword">int</span> id<span class="token punctuation">;</span>
+　　<span class="token keyword">private</span> <span class="token keyword">static</span> String staticValue <span class="token operator">=</span><span class="token string">"静态域"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如果有1000个Employee对象，则有1000个实例域 id，但是只有一个静态域 staticValue；即使没有一个Employee对象，静态域nextId也存在，它属于类，不属于任何对象。</p>
 </blockquote>
 <ul>
-<li>实例域=非静态变量<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span>  String staticValue <span class="token operator">=</span><span class="token string">"实例域"</span><span class="token punctuation">;</span>
+<li>实例域=非静态变量</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span>  String staticValue <span class="token operator">=</span><span class="token string">"实例域"</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-</li>
-<li>静态常量=final<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> String staticValue <span class="token operator">=</span><span class="token string">"静态常量"</span><span class="token punctuation">;</span>
+<ul>
+<li>静态常量=final</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> String staticValue <span class="token operator">=</span><span class="token string">"静态常量"</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-</li>
-<li>静态方法<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">getString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"getString()"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
+<ul>
+<li>静态方法</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">getString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"getString()"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
+<ul>
 <li>静态代码块</li>
 </ul>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">static</span> <span class="token punctuation">{</span>
@@ -162,18 +169,25 @@ Java 类加载和初始化我们知道 当要实例化一个类时，JVM会首�
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>构造代码块<br><code>`</code>java<br>{<br>  System.out.println(“构造代码块”);<br>}</li>
+<li>构造代码块</li>
 </ul>
-<pre><code>- 构造方法
-```java
-class main{
+<pre class="line-numbers language-java"><code class="language-java"><span class="token punctuation">{</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"构造代码块"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-   private main(){
-        System.out.println(&quot;构造方法&quot;);
-    }
-}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>构造方法</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">main</span><span class="token punctuation">{</span>
 
-</code></pre><h3><span id="参考">参考：</span></h3><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/index.html" target="_blank" rel="noopener">类加载器</a></p>
+   <span class="token keyword">private</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"构造方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="参考">参考：</span></h3><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/index.html" target="_blank" rel="noopener">类加载器</a></p>
 <p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2019/07/30/JVM-类加载和初始化/%20玉蘇子%20JVM 类加载和初始化" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/08/30/Java-注解/" title="Java  注解"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Java  注解</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/07/24/Android-数据结构之-LinkedHashMap/" title="Android 数据结构之 LinkedHashMap">下一篇: Android 数据结构之 LinkedHashMap&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
     new Valine({
     el: '#vcomments',
