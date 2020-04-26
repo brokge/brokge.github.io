@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Redis哨兵高可用搭建 · 玉蘇子</title><meta name="description" content="[TOC]
+Redis下载安装下载redis
+https://redis.io/download
+# 下载
+wget http://download.redis.io/releases/redis-5.0.3.tar.gz
+# Installation
+tar xzf redis-5.0.3.tar"><meta name="keywords" content="玉苏子"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/font-chinese.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">玉蘇子</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li>            <a href="https://brokge.github.io/svg2android">svg转xml</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+ </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Redis哨兵高可用搭建</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-12-30</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Redis/" title="Redis" class="a-tag">Redis</a><span>&nbsp;</span><a href="/tags/缓存/" title="缓存" class="a-tag">缓存</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><p>[TOC]</p>
+<h1><span id="redis下载安装">Redis下载安装</span></h1><pre class="line-numbers language-bash"><code class="language-bash">下载redis
+https://redis.io/download
+<span class="token comment" spellcheck="true"># 下载</span>
+<span class="token function">wget</span> http://download.redis.io/releases/redis-5.0.3.tar.gz
+<span class="token comment" spellcheck="true"># Installation</span>
+<span class="token function">tar</span> xzf redis-5.0.3.tar.gz
+<span class="token function">cd</span> redis-5.0.3
+<span class="token function">make</span>
+<span class="token comment" spellcheck="true"># 创建文件夹 </span>
+<span class="token function">mkdir</span> /usr/local/redis/conf
+<span class="token function">mkdir</span> /usr/local/redis/data
+<span class="token function">mkdir</span> /usr/local/redis/logs
+<span class="token comment" spellcheck="true"># run</span>
+src/redis-server
+
+<span class="token comment" spellcheck="true"># warning 1 > 提示修改 linux内核参数</span>
+<span class="token comment" spellcheck="true"># WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.</span>
+<span class="token keyword">echo</span> 1024 <span class="token operator">></span>/proc/sys/net/core/somaxconn
+
+<span class="token comment" spellcheck="true"># warn 2 > 提示如下</span>
+<span class="token comment" spellcheck="true"># WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.</span>
+<span class="token keyword">echo</span> <span class="token string">"vm.overcommit_memory = 1"</span> <span class="token operator">>></span> /etc/sysctl.conf
+sysctl vm.overcommit_memory<span class="token operator">=</span>1
+
+<span class="token comment" spellcheck="true"># warning 3</span>
+<span class="token comment" spellcheck="true"># WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled</span>
+<span class="token keyword">echo</span> never <span class="token operator">></span> /sys/kernel/mm/transparent_hugepage/enabled
+
+
+<span class="token comment" spellcheck="true"># 云服务器要注意ip要写对，端口要开放</span>
+<span class="token comment" spellcheck="true"># 虚拟机要注意防火墙要关闭 systemctl stop firewalld.service</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="准备配置文件">准备配置文件</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 配置文件进行了精简，完整配置可自行和官方提供的完整conf文件进行对照。端口号自行对应修改</span>
+<span class="token comment" spellcheck="true">#后台启动的意思</span>
+daemonize <span class="token function">yes</span> 
+ <span class="token comment" spellcheck="true">#端口号(如果同一台服务器上启动，注意要修改为不同的端口)</span>
+port 6380
+<span class="token comment" spellcheck="true"># IP绑定，redis不建议对公网开放，直接绑定0.0.0.0没毛病</span>
+bind 0.0.0.0
+<span class="token comment" spellcheck="true"># 这个文件会自动生成(如果同一台服务器上启动，注意要修改为不同的端口)</span>
+pidfile /var/run/redis_6380.pid 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="准备三个redis服务">准备三个redis服务</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、启动三个Redis</span>
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/redis-6380.conf
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/redis-6381.conf
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/redis-6382.conf
+
+<span class="token comment" spellcheck="true"># 2、配置为 1主2从</span>
+/usr/local/redis/bin/redis-cli -p 6381 slaveof 192.168.100.241 6380
+/usr/local/redis/bin/redis-cli -p 6382 slaveof 192.168.100.241 6380
+
+<span class="token comment" spellcheck="true"># 3、检查集群</span>
+/usr/local/redis/bin/redis-cli -p 6380 info Replication
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="准备哨兵配置文件">准备哨兵配置文件</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 配置文件：sentinel.conf，在sentinel运行期间是会被动态修改的</span>
+<span class="token comment" spellcheck="true"># sentinel如果重启时，根据这个配置来恢复其之前所监控的redis集群的状态</span>
+<span class="token comment" spellcheck="true"># 绑定IP</span>
+bind 0.0.0.0
+<span class="token comment" spellcheck="true"># 后台运行</span>
+daemonize <span class="token function">yes</span>
+<span class="token comment" spellcheck="true"># 默认yes，没指定密码或者指定IP的情况下，外网无法访问</span>
+protected-mode no
+<span class="token comment" spellcheck="true"># 哨兵的端口，客户端通过这个端口来发现redis</span>
+port 26380
+<span class="token comment" spellcheck="true"># 哨兵自己的IP，手动设定也可自动发现，用于与其他哨兵通信</span>
+<span class="token comment" spellcheck="true"># sentinel announce-ip</span>
+<span class="token comment" spellcheck="true"># 临时文件夹</span>
+<span class="token function">dir</span> /tmp
+<span class="token comment" spellcheck="true"># 日志</span>
+logfile <span class="token string">"/usr/local/redis/logs/sentinel-26380.log"</span>
+<span class="token comment" spellcheck="true"># sentinel监控的master的名字叫做mymaster,初始地址为 192.168.100.241 6380,2代表两个及以上哨兵认定为死亡，才认为是真的死亡</span>
+sentinel monitor mymaster 192.168.100.241 6380 2
+<span class="token comment" spellcheck="true"># 发送心跳PING来确认master是否存活</span>
+<span class="token comment" spellcheck="true"># 如果master在“一定时间范围”内不回应PONG 或者是回复了一个错误消息，那么这个sentinel会主观地(单方面地)认为这个master已经不可用了</span>
+sentinel down-after-milliseconds mymaster 1000
+<span class="token comment" spellcheck="true"># 如果在该时间（ms）内未能完成failover操作，则认为该failover失败</span>
+sentinel failover-timeout mymaster 3000
+<span class="token comment" spellcheck="true"># 指定了在执行故障转移时，最多可以有多少个从Redis实例在同步新的主实例，在从Redis实例较多的情况下这个数字越小，同步的时间越长，完成故障转移所需的时间就越长</span>
+sentinel parallel-syncs mymaster 1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="启动哨兵集群">启动哨兵集群</span></h1><pre class="line-numbers language-bash"><code class="language-bash">/usr/local/redis/bin/redis-server /usr/local/redis/conf/sentinel-26380.conf --sentinel
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/sentinel-26381.conf --sentinel
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/sentinel-26382.conf --sentinel
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h1><span id="测试">测试</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 停掉master，主从切换过程</span>
+启动哨兵<span class="token punctuation">(</span>客户端通过哨兵发现Redis实例信息<span class="token punctuation">)</span>
+哨兵通过连接master发现主从集群内的所有实例信息
+哨兵监控redis实例的健康状况
+哨兵一旦发现master不能正常提供服务，则通知给其他哨兵
+当一定数量的哨兵都认为master挂了
+选举一个哨兵作为故障转移的执行者
+执行者在slave中选取一个作为新的master
+将其他slave重新设定为新master的从属
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="哨兵同步pubsub机制发出来的消息">哨兵同步pubsub机制发出来的消息</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># https://redis.io/topics/sentinel#pubsub-messages</span>
++reset-master <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 当master被重置时.
++slave <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 当检测到一个slave并添加进slave列表时.
++failover-state-reconf-slaves <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- Failover状态变为reconf-slaves状态时
++failover-detected <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 当failover发生时
++slave-reconf-sent <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- sentinel发送SLAVEOF命令把它重新配置时
++slave-reconf-inprog <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- slave被重新配置为另外一个master的slave，但数据复制还未发生时。
++slave-reconf-done <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- slave被重新配置为另外一个master的slave并且数据复制已经与master同步时。
+-dup-sentinel <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 删除指定master上的冗余sentinel时 <span class="token punctuation">(</span>当一个sentinel重新启动时，可能会发生这个事件<span class="token punctuation">)</span>.
++sentinel <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 当master增加了一个sentinel时。
++sdown <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 进入SDOWN状态时<span class="token punctuation">;</span>
+-sdown <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 离开SDOWN状态时。
++odown <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 进入ODOWN状态时。
+-odown <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 离开ODOWN状态时。
++new-epoch <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 当前配置版本被更新时。
++try-failover <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 达到failover条件，正等待其他sentinel的选举。
++elected-leader <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 被选举为去执行failover的时候。
++failover-state-select-slave <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 开始要选择一个slave当选新master时。
++no-good-slave <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 没有合适的slave来担当新master
++selected-slave <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 找到了一个适合的slave来担当新master
++promoted-slave -- 确认成功
++failover-state-reconf-slaves -- 开始对slaves进行reconfig操作
++slave-reconf-sent -- 向指定的slave发送“slaveof”指令，告知此slave跟随新的master
++slave-reconf-inprog -- 此slave正在执行slaveof + SYNC过程，slave收到“+slave-reconf-sent”之后将会执行slaveof操作
++slave-reconf-done -- 此slave同步完成，此后leader可以继续下一个slave的reconfig操作
+failover-state-send-slaveof-noone <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 当把选择为新master的slave的身份进行切换的时候。
+failover-end-for-timeout <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- failover由于超时而失败时。
+failover-end <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- failover成功完成,故障转移结束
+switch-master <span class="token operator">&lt;</span>master name<span class="token operator">></span> <span class="token operator">&lt;</span>oldip<span class="token operator">></span> <span class="token operator">&lt;</span>oldport<span class="token operator">></span> <span class="token operator">&lt;</span>newip<span class="token operator">></span> <span class="token operator">&lt;</span>newport<span class="token operator">></span> -- 当master的地址发生变化时。通常这是客户端最感兴趣的消息了。
++tilt -- 进入Tilt模式。
+-tilt -- 退出Tilt模式。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="哨兵日志分析">哨兵日志分析</span></h1><pre class="line-numbers language-bash"><code class="language-bash">sdow <span class="token punctuation">(</span>sdown subjectively down<span class="token punctuation">)</span>
+odown <span class="token punctuation">(</span>objectively down<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 通过日志逐步分析</span>
+996:X 23 Nov 01:00:30.020 <span class="token comment" spellcheck="true"># +sdown master mymaster 60.205.209.106 6381</span>
+996:X 23 Nov 01:00:30.143 <span class="token comment" spellcheck="true"># +new-epoch 4</span>
+996:X 23 Nov 01:00:30.144 <span class="token comment" spellcheck="true"># +vote-for-leader 699538b978f33f677c8be471eed344b3933eca8c 4</span>
+996:X 23 Nov 01:00:31.111 <span class="token comment" spellcheck="true"># +odown master mymaster 60.205.209.106 6381 #quorum 3/2</span>
+996:X 23 Nov 01:00:31.111 <span class="token comment" spellcheck="true"># Next failover delay: I will not start a failover before Thu Nov 23 01:00:36 2017</span>
+996:X 23 Nov 01:00:31.200 <span class="token comment" spellcheck="true"># +config-update-from sentinel 699538b978f33f677c8be471eed344b3933eca8c 172.17.171.34 26381 @ mymaster 60.205.209.106 6381</span>
+996:X 23 Nov 01:00:31.200 <span class="token comment" spellcheck="true"># +switch-master mymaster 60.205.209.106 6381 60.205.209.106 6380</span>
+996:X 23 Nov 01:00:31.200 * +slave slave 60.205.209.106:6382 60.205.209.106 6382 @ mymaster 60.205.209.106 6380
+996:X 23 Nov 01:00:31.200 * +slave slave 60.205.209.106:6381 60.205.209.106 6381 @ mymaster 60.205.209.106 6380
+996:X 23 Nov 01:00:32.233 <span class="token comment" spellcheck="true"># +sdown slave 60.205.209.106:6381 60.205.209.106 6381 @ mymaster 60.205.209.106 6380</span>
+1073:X 23 Nov 01:00:30.087 <span class="token comment" spellcheck="true"># +sdown master mymaster 60.205.209.106 6381</span>
+1073:X 23 Nov 01:00:30.139 <span class="token comment" spellcheck="true"># +odown master mymaster 60.205.209.106 6381 #quorum 3/2</span>
+1073:X 23 Nov 01:00:30.139 <span class="token comment" spellcheck="true"># +new-epoch 4</span>
+1073:X 23 Nov 01:00:30.139 <span class="token comment" spellcheck="true"># +try-failover master mymaster 60.205.209.106 6381</span>
+1073:X 23 Nov 01:00:30.141 <span class="token comment" spellcheck="true"># +vote-for-leader 699538b978f33f677c8be471eed344b3933eca8c 4</span>
+1073:X 23 Nov 01:00:30.142 <span class="token comment" spellcheck="true"># 8412b6b2ac39a3d36c171590cd23cbe025517c15 voted for 8412b6b2ac39a3d36c171590cd23cbe025517c15 4</span>
+1073:X 23 Nov 01:00:30.144 <span class="token comment" spellcheck="true"># f8c7e052744926747ef1f31c27da4721fde3faf4 voted for 699538b978f33f677c8be471eed344b3933eca8c 4</span>
+1073:X 23 Nov 01:00:30.232 <span class="token comment" spellcheck="true"># +elected-leader master mymaster 60.205.209.106 6381</span>
+1073:X 23 Nov 01:00:30.232 <span class="token comment" spellcheck="true"># +failover-state-select-slave master mymaster 60.205.209.106 6381</span>
+1073:X 23 Nov 01:00:30.294 <span class="token comment" spellcheck="true"># +selected-slave slave 60.205.209.106:6380 60.205.209.106 6380 @ mymaster 60.205.209.106 6381</span>
+1073:X 23 Nov 01:00:30.294 * +failover-state-send-slaveof-noone slave 60.205.209.106:6380 60.205.209.106 6380 @ mymaster 60.205.209.106 6381
+1073:X 23 Nov 01:00:30.356 * +failover-state-wait-promotion slave 60.205.209.106:6380 60.205.209.106 6380 @ mymaster 60.205.209.106 6381
+1073:X 23 Nov 01:00:31.153 <span class="token comment" spellcheck="true"># +promoted-slave slave 60.205.209.106:6380 60.205.209.106 6380 @ mymaster 60.205.209.106 6381</span>
+1073:X 23 Nov 01:00:31.153 <span class="token comment" spellcheck="true"># +failover-state-reconf-slaves master mymaster 60.205.209.106 6381</span>
+1073:X 23 Nov 01:00:31.200 * +slave-reconf-sent slave 60.205.209.106:6382 60.205.209.106 6382 @ mymaster 60.205.209.106 6381
+1073:X 23 Nov 01:00:32.149 * +slave-reconf-inprog slave 60.205.209.106:6382 60.205.209.106 6382 @ mymaster 60.205.209.106 6381
+1073:X 23 Nov 01:00:32.149 * +slave-reconf-done slave 60.205.209.106:6382 60.205.209.106 6382 @ mymaster 60.205.209.106 6381
+1073:X 23 Nov 01:00:32.220 <span class="token comment" spellcheck="true"># -odown master mymaster 60.205.209.106 6381</span>
+1073:X 23 Nov 01:00:32.220 <span class="token comment" spellcheck="true"># +failover-end master mymaster 60.205.209.106 6381</span>
+1073:X 23 Nov 01:00:32.220 <span class="token comment" spellcheck="true"># +switch-master mymaster 60.205.209.106 6381 60.205.209.106 6380</span>
+1073:X 23 Nov 01:00:32.220 * +slave slave 60.205.209.106:6382 60.205.209.106 6382 @ mymaster 60.205.209.106 6380
+1073:X 23 Nov 01:00:32.220 * +slave slave 60.205.209.106:6381 60.205.209.106 6381 @ mymaster 60.205.209.106 6380
+1073:X 23 Nov 01:00:33.227 <span class="token comment" spellcheck="true"># +sdown slave 60.205.209.106:6381 60.205.209.106 6381 @ mymaster 60.205.209.106 6380</span>
+1009:X 23 Nov 01:00:30.039 <span class="token comment" spellcheck="true"># +sdown master mymaster 60.205.209.106 6381</span>
+1009:X 23 Nov 01:00:30.139 <span class="token comment" spellcheck="true"># +odown master mymaster 60.205.209.106 6381 #quorum 2/2</span>
+1009:X 23 Nov 01:00:30.139 <span class="token comment" spellcheck="true"># +new-epoch 4</span>
+1009:X 23 Nov 01:00:30.139 <span class="token comment" spellcheck="true"># +try-failover master mymaster 60.205.209.106 6381</span>
+1009:X 23 Nov 01:00:30.142 <span class="token comment" spellcheck="true"># +vote-for-leader 8412b6b2ac39a3d36c171590cd23cbe025517c15 4</span>
+1009:X 23 Nov 01:00:30.142 <span class="token comment" spellcheck="true"># 699538b978f33f677c8be471eed344b3933eca8c voted for 699538b978f33f677c8be471eed344b3933eca8c 4</span>
+1009:X 23 Nov 01:00:30.144 <span class="token comment" spellcheck="true"># f8c7e052744926747ef1f31c27da4721fde3faf4 voted for 699538b978f33f677c8be471eed344b3933eca8c 4</span>
+1009:X 23 Nov 01:00:31.200 <span class="token comment" spellcheck="true"># +config-update-from sentinel 699538b978f33f677c8be471eed344b3933eca8c 172.17.171.34 26381 @ mymaster 60.205.209.106 6381</span>
+1009:X 23 Nov 01:00:31.200 <span class="token comment" spellcheck="true"># +switch-master mymaster 60.205.209.106 6381 60.205.209.106 6380</span>
+1009:X 23 Nov 01:00:31.200 * +slave slave 60.205.209.106:6382 60.205.209.106 6382 @ mymaster 60.205.209.106 6380
+1009:X 23 Nov 01:00:31.200 * +slave slave 60.205.209.106:6381 60.205.209.106 6381 @ mymaster 60.205.209.106 6380
+1009:X 23 Nov 01:00:32.258 <span class="token comment" spellcheck="true"># +sdown slave 60.205.209.106:6381 60.205.209.106 6381 @ mymaster 60.205.209.106 6380</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>数据一致性的处理办法之一</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 这些配置仅当redis为master时才有效</span>
+<span class="token comment" spellcheck="true"># 当master不符合这些条件时，它将停止对外的服务。这种场景主要是用于master在网络上被孤立了。</span>
+min-slaves-to-write 1
+min-slaves-max-lag 10
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2019/12/30/redis哨兵高可用搭建/%20玉蘇子%20Redis哨兵高可用搭建" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2020/01/08/批量添加Java文件头部注释/" title="批量添加Java文件头部注释"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: 批量添加Java文件头部注释</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/12/08/单例模式/" title="单例模式">下一篇: 单例模式&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
+    new Valine({
+    el: '#vcomments',
+    appId: 'UmwJ3stwyISCG9WnW9Nc3SAN-gzGzoHsz',
+    appKey: 'UKq878kYn6RXJWx34b77lma6'})
+})();
+</script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+ </script></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>

@@ -3,7 +3,14 @@
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
- </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-container"><p class="post-title"><a href="/2020/01/08/原型模式/">原型模式</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-01-08</span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">概念原型模式(Prototype  Pattern)： 使用原型实例指定创建对象的种类，并且通过克隆拷贝的方式利用原型实例创建新的对象。原型模式是一种对象创建型模式。
+ </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-container"><p class="post-title"><a href="/2020/02/10/redis5集群搭建/">Redis5 集群搭建</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-02-10</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Redis/" title="Redis" class="a-tag">Redis</a><span>&nbsp;</span><a href="/tags/缓存/" title="缓存" class="a-tag">缓存</a><span>&nbsp;</span></span></p><p class="post-abstract">[TOC]
+1、 环境信息centos7
+redis5
+
+2、整体集群信息# 以直接在一台机器上实现上述的伪集群，因为端口号特意设置为不同的。
+# 重点：不论机器多少，对于部署过程都是一样的，只不过是在不同机器启动redis-server而已
+192.168.100.242 (6381- 6386共6个端口）
+#...</p></div><div class="post-container"><p class="post-title"><a href="/2020/01/08/原型模式/">原型模式</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-01-08</span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">概念原型模式(Prototype  Pattern)： 使用原型实例指定创建对象的种类，并且通过克隆拷贝的方式利用原型实例创建新的对象。原型模式是一种对象创建型模式。
 通过克隆方法所创建的对象是全新的对象，它们在内存中拥有新的地址，通常对克隆所产生的对象进行修改对原型对象不会造成任何影响，每一个克隆对象都是相互独...</p></div><div class="post-container"><p class="post-title"><a href="/2020/01/08/批量添加Java文件头部注释/">批量添加Java文件头部注释</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-01-08</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span><a href="/categories/技术/工具/" title="工具" class="a-tag">工具</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span></p><p class="post-abstract">背景在一般情况下，作为 Java 开发，如果事先在 Idea 或者 Eclipse中配置模版。在创建一个新类时，会自动生成 头部注释信息，比如下面这种。
 /**
  *
@@ -11,7 +18,14 @@
  * @since xxxx-xx-xx
  */
 
-如果没有在 Idea 或 Eclipse 配置模版，需要手动插...</p></div><div class="post-container"><p class="post-title"><a href="/2019/12/08/单例模式/">单例模式</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-12-08</span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">[toc]
+如果没有在 Idea 或 Eclipse 配置模版，需要手动插...</p></div><div class="post-container"><p class="post-title"><a href="/2019/12/30/redis哨兵高可用搭建/">Redis哨兵高可用搭建</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-12-30</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Redis/" title="Redis" class="a-tag">Redis</a><span>&nbsp;</span><a href="/tags/缓存/" title="缓存" class="a-tag">缓存</a><span>&nbsp;</span></span></p><p class="post-abstract">[TOC]
+Redis下载安装下载redis
+https://redis.io/download
+# 下载
+wget http://download.redis.io/releases/redis-5.0.3.tar.gz
+# Installation
+tar xzf redis-5.0.3.tar.gz
+cd ...</p></div><div class="post-container"><p class="post-title"><a href="/2019/12/08/单例模式/">单例模式</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-12-08</span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">[toc]
 单例概念特点确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例，这个类称为单例类，它提供全局访问的方法。
 
 三要点：
@@ -77,20 +91,7 @@
 
 
 [toc]
-简单工厂概念定义一个工厂类，它可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于创建实例的方法是静态(static)方法，因此简单工厂模式又被称为静态工厂方法(Sta...</p></div><div class="post-container"><p class="post-title"><a href="/2019/09/06/工厂方法/">工厂方法</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-06</span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">
-
-
-背景
-概念
-特点
-示例代码：
-工厂方法模式总结
-
-
-背景简单工厂模式实现了对象的创建和使用分离，但是仍然存在如下两个问题：
-
-(1) 工厂类过于庞大，包含了大量的if…else…代码，导致维护和测试难度增大；
-(2) 系统扩展不灵活，当系统中需要引入新产品时，由于静态工厂方法通过所传入参数的不同来创建不同的...</p></div><div class="post-container"><p class="post-title"><a href="/2019/09/06/注解/">工厂方法</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-06</span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">
+简单工厂概念定义一个工厂类，它可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于创建实例的方法是静态(static)方法，因此简单工厂模式又被称为静态工厂方法(Sta...</p></div><div class="post-container"><p class="post-title"><a href="/2019/09/06/注解/">工厂方法</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-06</span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">
 
 
 一 、注解分类
@@ -104,42 +105,20 @@
 
 
 注解是代码里的特殊标记，这些标记可以在编译、类加载、运行时被读取。并执行相应的处理。
-一 、注解分类1.  Java 内置注解 @Override、 @Deprecated、@Suppres...</p></div><div class="post-container"><p class="post-title"><a href="/2019/09/05/抽象工厂/">抽象工厂</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-05</span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">
+一 、注解分类1.  Java 内置注解 @Override、 @Deprecated、@Suppres...</p></div><div class="post-container"><p class="post-title"><a href="/2019/09/06/工厂方法/">工厂方法</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-06</span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">
 
 
-抽象工厂
+背景
 概念
-和工厂方法的不同
-案例
-抽象工厂 示例代码：
-开闭原则 的倾斜性
-优缺点
-适用场景
+特点
+示例代码：
+工厂方法模式总结
 
 
+背景简单工厂模式实现了对象的创建和使用分离，但是仍然存在如下两个问题：
 
-
-
-抽象工厂概念产品类型：单个产品类型。
-产品族：包含多个产品类型。
-抽象工厂模式为创建一组对象提供了一种解决方案。与工厂方法模式相比，抽象工厂模式中的具体工厂不只是创建一种产品，它负责创建一族产品。
-...</p></div><div class="post-container"><p class="post-title"><a href="/2019/09/05/设计模式/">设计模式</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-05</span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">
-
-
-设计模式概述：
-设计模式划分
-七大原则
-
-
-23 种设计模式划分
-创建型
-结构型
-行为型模式
-
-
-
-
-设计模式概述：设计模式划分设计模式可分为创建型(Creational)，结构型(Structural)和行为型(Behavioral)三种，其中创建型模式主要用于描述如何创建对象，结构型模式主要用于描述如何...</p></div><div class="pagination no-margin-bottom"><p class="clearfix"></p><p> 第 1 頁 / 共 3 頁 &nbsp;</p><p><span class="pre pagbuttons"><i class="fa fa-angle-double-left"></i>&nbsp;<a role="navigation" href="/">上一頁</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/page/2/">下一頁</a>&nbsp;<i class="fa fa-angle-double-right"></i></span></p><p></p></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
+(1) 工厂类过于庞大，包含了大量的if…else…代码，导致维护和测试难度增大；
+(2) 系统扩展不灵活，当系统中需要引入新产品时，由于静态工厂方法通过所传入参数的不同来创建不同的...</p></div><div class="pagination no-margin-bottom"><p class="clearfix"></p><p> 第 1 頁 / 共 3 頁 &nbsp;</p><p><span class="pre pagbuttons"><i class="fa fa-angle-double-left"></i>&nbsp;<a role="navigation" href="/">上一頁</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/page/2/">下一頁</a>&nbsp;<i class="fa fa-angle-double-right"></i></span></p><p></p></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }

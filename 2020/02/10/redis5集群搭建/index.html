@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Redis5 集群搭建 · 玉蘇子</title><meta name="description" content="[TOC]
+1、 环境信息centos7
+redis5
+
+2、整体集群信息# 以直接在一台机器上实现上述的伪集群，因为端口号特意设置为不同的。
+# 重点：不论机器多少，对于部署过程都是一样的，只不过是在不同机器启动redis-server而已
+192.168.100.242 (6381- 6386共"><meta name="keywords" content="玉苏子"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/font-chinese.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">玉蘇子</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li>            <a href="https://brokge.github.io/svg2android">svg转xml</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+ </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Redis5 集群搭建</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-02-10</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Redis/" title="Redis" class="a-tag">Redis</a><span>&nbsp;</span><a href="/tags/缓存/" title="缓存" class="a-tag">缓存</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><p>[TOC]</p>
+<h1><span id="1-环境信息">1、 环境信息</span></h1><pre class="line-numbers language-bash"><code class="language-bash">centos7
+redis5
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1><span id="2-整体集群信息">2、整体集群信息</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 以直接在一台机器上实现上述的伪集群，因为端口号特意设置为不同的。</span>
+<span class="token comment" spellcheck="true"># 重点：不论机器多少，对于部署过程都是一样的，只不过是在不同机器启动redis-server而已</span>
+192.168.100.242 <span class="token punctuation">(</span>6381- 6386共6个端口）
+<span class="token comment" spellcheck="true"># 注意事项：如果你的服务器有多个IP，那你操作下面步骤时，尽量使用你的客户端能够访问的IP</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="3-每台服务器上面都要下载安装">3、每台服务器上面都要下载安装</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">wget</span> http://download.redis.io/releases/redis-5.0.3.tar.gz
+<span class="token function">tar</span> -zxvf redis-5.0.3.tar.gz
+<span class="token function">cd</span> redis-5.0.3 
+<span class="token function">make</span>
+<span class="token comment" spellcheck="true"># 安装到 /usr/local/redis 目录中 安装的文件只有一个bin目录</span>
+<span class="token function">make</span> <span class="token function">install</span> PREFIX<span class="token operator">=</span>/usr/local/redis/ 
+
+<span class="token comment" spellcheck="true"># 创建配置文件和data存放目录</span>
+<span class="token function">mkdir</span> /usr/local/redis/conf /usr/local/redis/data
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="4-准备6个redisconf配置文件为了方便学习redisconf根据不同端口来命名方便一台机器上构建伪集群">4、准备6个redis.conf配置文件（为了方便学习，redis.conf根据不同端口来命名，方便一台机器上构建伪集群）</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 配置文件进行了精简，完整配置可自行和官方提供的完整conf文件进行对照。端口号自行对应修改</span>
+<span class="token comment" spellcheck="true">#后台启动的意思</span>
+daemonize <span class="token function">yes</span> 
+ <span class="token comment" spellcheck="true">#端口号</span>
+port 6381
+<span class="token comment" spellcheck="true"># IP绑定，redis不建议对公网开放，直接绑定0.0.0.0没毛病</span>
+bind 0.0.0.0
+<span class="token comment" spellcheck="true"># redis数据文件存放的目录</span>
+<span class="token function">dir</span> /usr/local/redis/data
+<span class="token comment" spellcheck="true"># 开启AOF</span>
+appendonly <span class="token function">yes</span>
+ <span class="token comment" spellcheck="true"># 开启集群</span>
+cluster-enabled <span class="token function">yes</span>
+<span class="token comment" spellcheck="true"># 会自动生成在上面配置的dir目录下</span>
+cluster-config-file nodes-6381.conf 
+cluster-node-timeout 5000
+<span class="token comment" spellcheck="true"># 这个文件会自动生成</span>
+pidfile /var/run/redis_6381.pid 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="5-启动6个redis实例">5、启动6个Redis实例</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 一定要注意每个配置文件中的端口号哦</span>
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/6381.conf
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/6382.conf
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/6383.conf
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/6384.conf
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/6385.conf
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/6386.conf
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="6-创建cluster">6、 创建cluster</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 5.0版本的方式</span>
+/usr/local/redis/bin/redis-cli --cluster create 192.168.100.242:6381 192.168.100.242:6382 \
+192.168.100.242:6383 192.168.100.242:6384 192.168.100.242:6385 192.168.100.242:6386 \
+--cluster-replicas 1
+
+<span class="token comment" spellcheck="true"># 自动设置主从，而且会提示你，是否运行使用自动的配置</span>
+Can I <span class="token keyword">set</span> the above configuration? <span class="token punctuation">(</span>type <span class="token string">'yes'</span> to accept<span class="token punctuation">)</span>: <span class="token function">yes</span>
+<span class="token comment" spellcheck="true"># 执行后的信息</span>
+<span class="token operator">>></span><span class="token operator">></span> Performing <span class="token function">hash</span> slots allocation on 6 nodes<span class="token punctuation">..</span>.
+Master<span class="token punctuation">[</span>0<span class="token punctuation">]</span> -<span class="token operator">></span> Slots 0 - 5460
+Master<span class="token punctuation">[</span>1<span class="token punctuation">]</span> -<span class="token operator">></span> Slots 5461 - 10922
+Master<span class="token punctuation">[</span>2<span class="token punctuation">]</span> -<span class="token operator">></span> Slots 10923 - 16383
+Adding replica 192.168.100.242:6384 to 192.168.100.242:6381
+Adding replica 192.168.100.242:6385 to 192.168.100.242:6382
+Adding replica 192.168.100.242:6386 to 192.168.100.242:6383
+<span class="token operator">>></span><span class="token operator">></span> Trying to optimize slaves allocation <span class="token keyword">for</span> anti-affinity
+<span class="token punctuation">[</span>WARNING<span class="token punctuation">]</span> Some slaves are <span class="token keyword">in</span> the same host as their master
+M: 68326caa0238cb877afc3e6df23eb92558fcbc3c 192.168.100.242:6381
+   slots:<span class="token punctuation">[</span>0-5460<span class="token punctuation">]</span> <span class="token punctuation">(</span>5461 slots<span class="token punctuation">)</span> master
+M: 764500b86fadebd535ac2b5b778a73486fe7d2b7 192.168.100.242:6382
+   slots:<span class="token punctuation">[</span>5461-10922<span class="token punctuation">]</span> <span class="token punctuation">(</span>5462 slots<span class="token punctuation">)</span> master
+M: 93293699b8966ccc202bb29c659a9f60e26e4c86 192.168.100.242:6383
+   slots:<span class="token punctuation">[</span>10923-16383<span class="token punctuation">]</span> <span class="token punctuation">(</span>5461 slots<span class="token punctuation">)</span> master
+S: a842c5188c441453fd303520424132d45914fe5b 192.168.100.242:6384
+   replicates 764500b86fadebd535ac2b5b778a73486fe7d2b7
+S: 0a7061773b2512c91b6173bc27451b19fe02f269 192.168.100.242:6385
+   replicates 93293699b8966ccc202bb29c659a9f60e26e4c86
+S: 42806ad3f740f639ec321b78ea492c42a4040176 192.168.100.242:6386
+   replicates 68326caa0238cb877afc3e6df23eb92558fcbc3c
+Can I <span class="token keyword">set</span> the above configuration? <span class="token punctuation">(</span>type <span class="token string">'yes'</span> to accept<span class="token punctuation">)</span>: <span class="token function">yes</span>
+<span class="token operator">>></span><span class="token operator">></span> Nodes configuration updated
+<span class="token operator">>></span><span class="token operator">></span> Assign a different config epoch to each node
+<span class="token operator">>></span><span class="token operator">></span> Sending CLUSTER MEET messages to <span class="token function">join</span> the cluster
+Waiting <span class="token keyword">for</span> the cluster to <span class="token function">join</span>
+<span class="token punctuation">..</span>.
+<span class="token operator">>></span><span class="token operator">></span> Performing Cluster Check <span class="token punctuation">(</span>using node 192.168.100.242:6381<span class="token punctuation">)</span>
+M: 68326caa0238cb877afc3e6df23eb92558fcbc3c 192.168.100.242:6381
+   slots:<span class="token punctuation">[</span>0-5460<span class="token punctuation">]</span> <span class="token punctuation">(</span>5461 slots<span class="token punctuation">)</span> master
+   1 additional replica<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+S: 0a7061773b2512c91b6173bc27451b19fe02f269 192.168.100.242:6385
+   slots: <span class="token punctuation">(</span>0 slots<span class="token punctuation">)</span> slave
+   replicates 93293699b8966ccc202bb29c659a9f60e26e4c86
+S: a842c5188c441453fd303520424132d45914fe5b 192.168.100.242:6384
+   slots: <span class="token punctuation">(</span>0 slots<span class="token punctuation">)</span> slave
+   replicates 764500b86fadebd535ac2b5b778a73486fe7d2b7
+M: 93293699b8966ccc202bb29c659a9f60e26e4c86 192.168.100.242:6383
+   slots:<span class="token punctuation">[</span>10923-16383<span class="token punctuation">]</span> <span class="token punctuation">(</span>5461 slots<span class="token punctuation">)</span> master
+   1 additional replica<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+M: 764500b86fadebd535ac2b5b778a73486fe7d2b7 192.168.100.242:6382
+   slots:<span class="token punctuation">[</span>5461-10922<span class="token punctuation">]</span> <span class="token punctuation">(</span>5462 slots<span class="token punctuation">)</span> master
+   1 additional replica<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+S: 42806ad3f740f639ec321b78ea492c42a4040176 192.168.100.242:6386
+   slots: <span class="token punctuation">(</span>0 slots<span class="token punctuation">)</span> slave
+   replicates 68326caa0238cb877afc3e6df23eb92558fcbc3c
+<span class="token punctuation">[</span>OK<span class="token punctuation">]</span> All nodes agree about slots configuration.
+<span class="token operator">>></span><span class="token operator">></span> Check <span class="token keyword">for</span> <span class="token function">open</span> slots<span class="token punctuation">..</span>.
+<span class="token operator">>></span><span class="token operator">></span> Check slots coverage<span class="token punctuation">..</span>.
+<span class="token punctuation">[</span>OK<span class="token punctuation">]</span> All 16384 slots covered.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="7-集群检验和测试">7、 集群检验和测试</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 检查集群，查看所有节点信息</span>
+/usr/local/redis/bin/redis-cli -c -h 192.168.100.242 -p 6381 cluster nodes
+<span class="token comment" spellcheck="true"># 执行后的信息</span>
+<span class="token punctuation">[</span>root@node3 redis<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># /usr/local/redis/bin/redis-cli -c -h 192.168.100.242 -p 6381 cluster nodes</span>
+0a7061773b2512c91b6173bc27451b19fe02f269 192.168.100.242:6385@16385 slave 93293699b8966ccc202bb29c659a9f60e26e4c86 0 1550635081000 5 connected
+a842c5188c441453fd303520424132d45914fe5b 192.168.100.242:6384@16384 slave 764500b86fadebd535ac2b5b778a73486fe7d2b7 0 1550635081565 4 connected
+93293699b8966ccc202bb29c659a9f60e26e4c86 192.168.100.242:6383@16383 master - 0 1550635081665 3 connected 10923-16383
+764500b86fadebd535ac2b5b778a73486fe7d2b7 192.168.100.242:6382@16382 master - 0 1550635081000 2 connected 5461-10922
+68326caa0238cb877afc3e6df23eb92558fcbc3c 192.168.100.242:6381@16381 myself,master - 0 1550635080000 1 connected 0-5460
+42806ad3f740f639ec321b78ea492c42a4040176 192.168.100.242:6386@16386 slave 68326caa0238cb877afc3e6df23eb92558fcbc3c 0 1550635080664 6 connected
+<span class="token comment" spellcheck="true"># 节点id ip+端口 角色 masterid 处理的ping数量 最后一个pong时间 节点配置版本 节点连接状态 slot槽分配情况</span>
+
+<span class="token comment" spellcheck="true"># 测试Redis Cluster的一种简单方法是使用redis-cli命令行实用程序</span>
+<span class="token comment" spellcheck="true"># -c 是支持cluster重定向</span>
+<span class="token punctuation">[</span>root@node3 redis<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># /usr/local/redis/bin/redis-cli -c -h 192.168.100.242 -p 6381</span>
+192.168.100.242:6381<span class="token operator">></span> <span class="token keyword">set</span> a 1
+-<span class="token operator">></span> Redirected to slot <span class="token punctuation">[</span>15495<span class="token punctuation">]</span> located at 192.168.100.242:6383
+OK
+192.168.100.242:6383<span class="token operator">></span> get a
+<span class="token string">"1"</span>
+192.168.100.242:6383<span class="token operator">></span> <span class="token keyword">set</span> hello tony
+-<span class="token operator">></span> Redirected to slot <span class="token punctuation">[</span>866<span class="token punctuation">]</span> located at 192.168.100.242:6381
+OK
+192.168.100.242:6381<span class="token operator">></span> get hello
+<span class="token string">"tony"</span>
+192.168.100.242:6381<span class="token operator">></span> get a
+-<span class="token operator">></span> Redirected to slot <span class="token punctuation">[</span>15495<span class="token punctuation">]</span> located at 192.168.100.242:6383
+<span class="token string">"1"</span>
+
+<span class="token comment" spellcheck="true"># 查看一个key属于哪一个节点</span>
+CLUSTER KEYSLOT key
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="8-集群slot数量整理-reshard">8、集群slot数量整理 reshard</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#  /usr/local/redis/bin/redis-cli --cluster help 可以查看所有这个命令和子命令的帮助信息</span>
+
+<span class="token comment" spellcheck="true"># 默认是master平均分了0-16383的所有虚拟slot</span>
+<span class="token comment" spellcheck="true"># 可以进行调整，部分节点放多一点slot(槽或者位置)。</span>
+/usr/local/redis/bin/redis-cli --cluster reshard  <span class="token operator">&lt;</span>host<span class="token operator">></span>:<span class="token operator">&lt;</span>port<span class="token operator">></span> --cluster-from <span class="token operator">&lt;</span>node-id<span class="token operator">></span> --cluster-to <span class="token operator">&lt;</span>node-id<span class="token operator">></span> --cluster-slots <span class="token operator">&lt;</span>number of slots<span class="token operator">></span> --cluster-yes
+
+<span class="token comment" spellcheck="true"># 重新检查集群</span>
+<span class="token punctuation">[</span>root@node3 redis<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># /usr/local/redis/bin/redis-cli --cluster check 192.168.100.242:6382</span>
+192.168.100.242:6382 <span class="token punctuation">(</span>764500b8<span class="token punctuation">..</span>.<span class="token punctuation">)</span> -<span class="token operator">></span> 0 keys <span class="token operator">|</span> 5462 slots <span class="token operator">|</span> 1 slaves.
+192.168.100.242:6383 <span class="token punctuation">(</span>93293699<span class="token punctuation">..</span>.<span class="token punctuation">)</span> -<span class="token operator">></span> 1 keys <span class="token operator">|</span> 5461 slots <span class="token operator">|</span> 1 slaves.
+192.168.100.242:6381 <span class="token punctuation">(</span>68326caa<span class="token punctuation">..</span>.<span class="token punctuation">)</span> -<span class="token operator">></span> 1 keys <span class="token operator">|</span> 5461 slots <span class="token operator">|</span> 1 slaves.
+<span class="token punctuation">[</span>OK<span class="token punctuation">]</span> 2 keys <span class="token keyword">in</span> 3 masters.
+0.00 keys per slot on average.
+<span class="token operator">>></span><span class="token operator">></span> Performing Cluster Check <span class="token punctuation">(</span>using node 192.168.100.242:6382<span class="token punctuation">)</span>
+M: 764500b86fadebd535ac2b5b778a73486fe7d2b7 192.168.100.242:6382
+   slots:<span class="token punctuation">[</span>5461-10922<span class="token punctuation">]</span> <span class="token punctuation">(</span>5462 slots<span class="token punctuation">)</span> master
+   1 additional replica<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+S: a842c5188c441453fd303520424132d45914fe5b 192.168.100.242:6384
+   slots: <span class="token punctuation">(</span>0 slots<span class="token punctuation">)</span> slave
+   replicates 764500b86fadebd535ac2b5b778a73486fe7d2b7
+M: 93293699b8966ccc202bb29c659a9f60e26e4c86 192.168.100.242:6383
+   slots:<span class="token punctuation">[</span>10923-16383<span class="token punctuation">]</span> <span class="token punctuation">(</span>5461 slots<span class="token punctuation">)</span> master
+   1 additional replica<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+S: 42806ad3f740f639ec321b78ea492c42a4040176 192.168.100.242:6386
+   slots: <span class="token punctuation">(</span>0 slots<span class="token punctuation">)</span> slave
+   replicates 68326caa0238cb877afc3e6df23eb92558fcbc3c
+S: 0a7061773b2512c91b6173bc27451b19fe02f269 192.168.100.242:6385
+   slots: <span class="token punctuation">(</span>0 slots<span class="token punctuation">)</span> slave
+   replicates 93293699b8966ccc202bb29c659a9f60e26e4c86
+M: 68326caa0238cb877afc3e6df23eb92558fcbc3c 192.168.100.242:6381
+   slots:<span class="token punctuation">[</span>0-5460<span class="token punctuation">]</span> <span class="token punctuation">(</span>5461 slots<span class="token punctuation">)</span> master
+   1 additional replica<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+<span class="token punctuation">[</span>OK<span class="token punctuation">]</span> All nodes agree about slots configuration.
+<span class="token operator">>></span><span class="token operator">></span> Check <span class="token keyword">for</span> <span class="token function">open</span> slots<span class="token punctuation">..</span>.
+<span class="token operator">>></span><span class="token operator">></span> Check slots coverage<span class="token punctuation">..</span>.
+<span class="token punctuation">[</span>OK<span class="token punctuation">]</span> All 16384 slots covered.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="9-测试自动故障转移">9、 测试自动故障转移</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># cluster集群不保证数据一致，数据也可能丢失</span>
+<span class="token comment" spellcheck="true"># 首先是运行客户端不断的写入或读取数据，以便能够发现问题</span>
+<span class="token comment" spellcheck="true"># 然后是模拟节点故障：找一个主节点关闭，主从故障切换的过程中，这个时间端的操作，客户端而言，只能是失败</span>
+<span class="token comment" spellcheck="true"># 官方描述 https://redis.io/topics/cluster-spec  </span>
+There is always a window of <span class="token function">time</span> when it is possible to lose writes during partitions.
+分区的时间窗口内总是有可能丢失写操作。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="10-手动故障转移">10、手动故障转移</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 可能某个节点需要维护（机器下线、硬件升级、系统版本调整等等场景），需要手动的实现转移</span>
+<span class="token comment" spellcheck="true"># 在slave节点上执行命令</span>
+CLUSTER FAILOVER 
+<span class="token comment" spellcheck="true"># 注：CLUSTER  help 可以看到帮助文档和简介。 相对安全的做法</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="11-扩容">11、扩容</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、 启动新节点</span>
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/6387.conf
+
+<span class="token comment" spellcheck="true"># 2、 加入到已经存在的集群作为master</span>
+/usr/local/redis/bin/redis-cli --cluster add-node 192.168.100.242:6387 192.168.100.242:6382
+<span class="token comment" spellcheck="true"># 本质就是发送一个新节点通过 CLUSTER MEET命令加入集群</span>
+<span class="token comment" spellcheck="true"># 新节点没有分配hash槽</span>
+
+<span class="token comment" spellcheck="true"># 3、 加入到已经存在的集群作为slave</span>
+/usr/local/redis/bin/redis-cli --cluster add-node 192.168.100.242:7006 192.168.100.242:7000 --cluster-slave
+<span class="token comment" spellcheck="true"># 可以手工指定master，否则就是选择一个slave数量较少的master </span>
+/usr/local/redis/bin/redis-cli --cluster add-node 192.168.100.242:7006 192.168.100.242:7000 --cluster-slave --cluster-master-id <span class="token operator">&lt;</span>node-id<span class="token operator">></span>
+<span class="token comment" spellcheck="true"># 还可以将空master，转换为slave</span>
+cluster replicate <span class="token operator">&lt;</span>master-node-id<span class="token operator">></span>
+
+<span class="token comment" spellcheck="true"># 4、 检查集群</span>
+/usr/local/redis/bin/redis-cli --cluster check 192.168.100.242:6382
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="12-缩容删除节点">12、缩容（删除节点）</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 注意：删除master的时候要把数据清空或者分配给其他主节点</span>
+/usr/local/redis/bin/redis-cli --cluster del-node 192.168.100.242:6381 <span class="token operator">&lt;</span>node-id<span class="token operator">></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1><span id="13-关心的问题">13、关心的问题</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、 增加了slot槽的计算，是不是比单机性能差？</span>
+共16384个槽，slots槽计算方式公开的，java客户端中就使用了：HASH_SLOT <span class="token operator">=</span> CRC16<span class="token punctuation">(</span>key<span class="token punctuation">)</span> mod 16384
+为了避免每次都需要服务器计算重定向，优秀的java客户端都实现了本地计算，和服务器slots分配进行映射，有变动时再更新本地内容。
+
+<span class="token comment" spellcheck="true"># 2、 redis集群大小</span>
+理论是可以做到16384个槽，但是redis官方建议是最大1000个实例
+
+<span class="token comment" spellcheck="true"># 3、 批量操作或者</span>
+
+<span class="token comment" spellcheck="true"># 4、cluster meet命令中的bus-port是什么？</span>
+MEET <span class="token operator">&lt;</span>ip<span class="token operator">></span> <span class="token operator">&lt;</span>port<span class="token operator">></span> <span class="token punctuation">[</span>bus-port<span class="token punctuation">]</span>
+每个Redis群集节点都有一个额外的TCP端口，用于接收来自其他Redis群集节点的传入连接
+
+<span class="token comment" spellcheck="true"># 5、集群节点间的通信方式</span>
+每个节点使用TCP连接与每个其他节点连接。
+
+<span class="token comment" spellcheck="true"># 6、ask和moved重定向的区别</span>
+重定向包括两种情况
+如果是确定slot不属于当前节点，redis会返回moved
+如果当前redis节点正在处理slot迁移，则代表此处请求对应的key暂时不在此节点，返回ask，告诉客户端本次请求重定向
+
+<span class="token comment" spellcheck="true"># 7、数据倾斜和访问倾斜的问题</span>
+解决办法 调整key的策略 + slot迁移
+迁移过程如下，完整的迁移流程：
+在迁移目的节点执行cluster setslot <span class="token operator">&lt;</span>slot<span class="token operator">></span> IMPORTING <span class="token operator">&lt;</span>node ID<span class="token operator">></span>命令，指明需要迁移的slot和迁移源节点。
+在迁移源节点执行cluster setslot <span class="token operator">&lt;</span>slot<span class="token operator">></span> MIGRATING <span class="token operator">&lt;</span>node ID<span class="token operator">></span>命令，指明需要迁移的slot和迁移目的节点。
+在迁移源节点执行cluster getkeysinslot获取该slot的key列表。
+在迁移源节点执行对每个key执行migrate命令，该命令会同步把该key迁移到目的节点。
+在迁移源节点反复执行cluster getkeysinslot命令，直到该slot的列表为空。
+在迁移源节点和目的节点执行cluster setslot <span class="token operator">&lt;</span>slot<span class="token operator">></span> NODE <span class="token operator">&lt;</span>node ID<span class="token operator">></span>，完成迁移操作。
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2020/02/10/redis5集群搭建/%20玉蘇子%20Redis5 集群搭建" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2020/01/08/原型模式/" title="原型模式">下一篇: 原型模式&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
+    new Valine({
+    el: '#vcomments',
+    appId: 'UmwJ3stwyISCG9WnW9Nc3SAN-gzGzoHsz',
+    appKey: 'UKq878kYn6RXJWx34b77lma6'})
+})();
+</script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}
+ </script></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>
