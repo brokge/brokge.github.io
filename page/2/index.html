@@ -3,7 +3,20 @@
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
- </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-container"><p class="post-title"><a href="/2019/09/05/抽象工厂/">抽象工厂</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-05</span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">
+ </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-container"><p class="post-title"><a href="/2019/09/06/工厂方法/">工厂方法</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-06</span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">
+
+
+背景
+概念
+特点
+示例代码：
+工厂方法模式总结
+
+
+背景简单工厂模式实现了对象的创建和使用分离，但是仍然存在如下两个问题：
+
+(1) 工厂类过于庞大，包含了大量的if…else…代码，导致维护和测试难度增大；
+(2) 系统扩展不灵活，当系统中需要引入新产品时，由于静态工厂方法通过所传入参数的不同来创建不同的...</p></div><div class="post-container"><p class="post-title"><a href="/2019/09/05/抽象工厂/">抽象工厂</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-05</span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">
 
 
 抽象工厂
@@ -157,25 +170,7 @@ Serializable
 
 Android 开发场景中，分析内存泄漏情况
 所需工具1. MTAEclipse Memory Analysis Tools (MAT) 是一个分析 Java堆数据的专业工具，用它可以定位内存泄漏的原因。
-工具地址 : ht...</p></div><div class="post-container"><p class="post-title"><a href="/2019/05/20/Android-多线程开发实践/">Android 多线程开发实践</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-05-20</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Android/" title="Android" class="a-tag">Android</a><span>&nbsp;</span><a href="/tags/线程/" title="线程" class="a-tag">线程</a><span>&nbsp;</span></span></p><p class="post-abstract">
-
-
-特点：
-线程优先级
-是否真的需要新线程？
-AsyncTask
-HandlerThread
-ThreadPoolExecutor
-IntentService
-结束语
-
-
-特点：
-并行处理任务。
-存在 线程数据安全、死锁、内存消耗、对象的生命周期管理、ui 的卡顿 等等。
-存在优先级。
-
-线程优先级线程寄宿在进...</p></div><div class="pagination no-margin-bottom"><p class="clearfix"></p><p> 第 2 頁 / 共 3 頁 &nbsp;</p><p><span class="pre pagbuttons"><i class="fa fa-angle-double-left"></i>&nbsp;<a role="navigation" href="/">上一頁</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/page/3/">下一頁</a>&nbsp;<i class="fa fa-angle-double-right"></i></span></p><p></p></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
+工具地址 : ht...</p></div><div class="pagination no-margin-bottom"><p class="clearfix"></p><p> 第 2 頁 / 共 3 頁 &nbsp;</p><p><span class="pre pagbuttons"><i class="fa fa-angle-double-left"></i>&nbsp;<a role="navigation" href="/">上一頁</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/page/3/">下一頁</a>&nbsp;<i class="fa fa-angle-double-right"></i></span></p><p></p></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
