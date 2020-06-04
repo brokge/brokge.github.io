@@ -91,11 +91,11 @@
 <p><img src="http://note.youdao.com/yws/res/9642/7EDE606229F6415BBA9A4C7A9FB975FB" alt="image"></p>
 <p>Redis Cluster 将所有数据划分为 16384 的 slots(槽位)，每个节点负责其中一部分槽 位。槽位的信息存储于每个节点中。 当 Redis Cluster 的客户端来连接集群时，它也会得到一份集群的槽位配置信息并将 其缓存在客户端本地。这样当客户端要查找某个 key 时，可以直接定位到目标节点。 同时因为槽位的信息可能会存在客户端与服务器不一致的情况，还需要纠正机制来实 现槽位信息的校验调整。</p>
 <ul>
-<li>redis集群大小的选择,可以装多少数据?</li>
-</ul>
-<blockquote>
+<li>redis集群大小的选择,可以装多少数据?<blockquote>
 <p>理论是可以做到16384个集群,每个槽对应一个实例,但是redis官方建议是最大1000个实例。存储足够大了。另外：节点之间会有频繁通信，传递的包括槽位信息，集群太大会有带宽消耗。</p>
 </blockquote>
+</li>
+</ul>
 <h3><span id="槽位定位算法">槽位定位算法</span></h3><p>槽位定位算法 也就是常说的 一致性Hash算法<br>Cluster 默认会对 key 值使用 crc16 算法进行 hash 得到一个整数值，然后用这个整 数值对 16384 进行取模来得到具体槽位。 HASH_SLOT = CRC16(key) mod 16384</p>
 <ul>
 <li>那么增加了slot槽的计算,是不是比单机性能差?<blockquote>
@@ -113,7 +113,6 @@
 </blockquote>
 </li>
 </ul>
-<p><img src="http://note.youdao.com/yws/res/9682/47E997EDE438430EA2A612C3122A118A" alt="image"></p>
 <h3><span id="跳转重定位">跳转重定位</span></h3><p>当客户端向一个错误的节点发出了指令，该节点会发现指令的 key 所在的槽位并不归 自己管理，这时它会向客户端发送一个特殊的跳转指令携带目标操作的节点地址，告 诉客户端去连这个节点去获取数据。客户端收到指令后除了跳转到正确的节点上去操 作，还会同步更新纠正本地的槽位映射表缓存，后续所有 key 将使用新的槽位映射 表。</p>
 <p><img src="http://note.youdao.com/yws/res/9620/F13207F13DBB421EAD5B865697A65B79" alt="image"></p>
 <ul>
