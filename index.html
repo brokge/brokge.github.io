@@ -3,7 +3,7 @@
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
- </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-container"><p class="post-title"><a href="/2020/06/05/多线程编程如何确定线程个数/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-06-05</span></p><p class="post-abstract">
+ </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-container"><p class="post-title"><a href="/2020/06/05/多线程编程如何确定线程个数/">多线程编程如何确定线程个数</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-06-05</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span><a href="/tags/优化/" title="优化" class="a-tag">优化</a><span>&nbsp;</span><a href="/tags/多线程/" title="多线程" class="a-tag">多线程</a><span>&nbsp;</span></span></p><p class="post-abstract">
 
 Table of Contents  generated with DocToc
 
@@ -16,49 +16,11 @@ Table of Contents  generated with DocToc
 
 
 
+多线程编程如何确定线程个数？在具体的优化场景中，可以分为以下两种场景着手。
 
-title: 多线程编程如何确定线程个数date: 2020-06-05 21:08:38tag...</p></div><div class="post-container"><p class="post-title"><a href="/2020/06/05/Zookeeper-原理解析/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-06-05</span></p><p class="post-abstract">
+CPU 密集型程序
+...</p></div><div class="post-container"><p class="post-title"><a href="/2020/06/02/Dubbo详解/">Dubbo详解</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-06-02</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/分布式/" title="分布式" class="a-tag">分布式</a><span>&nbsp;</span><a href="/tags/微服务/" title="微服务" class="a-tag">微服务</a><span>&nbsp;</span></span></p><p class="post-abstract">
 
-Table of Contents  generated with DocToc
-
-一、Zookeeper 简介
-ZK 的一特性
-
-
-二、数据模型
-四种节点类型
-
-
-三、 Watcher 机制
-Watcher特性
-
-
-四、一致性 协议
-ZAB 协议
-
-
-五、CAP 原则
-六、选举机制
-三类角色
-四个数据
-四种...</p></div><div class="post-container"><p class="post-title"><a href="/2020/06/04/Redis核心原理详解/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-06-04</span></p><p class="post-abstract">
-
-Table of Contents  generated with DocToc
-
-一、Redis 基础数据结构
-列表（list）
-字典（hash）
-集合（set）
-有序集合（sortedset）
-
-
-一些高级命令
-二、线程模型核心原理
-三、持久化
-RDB快照（snapshot）
-AOF（append-onl...</p></div><div class="post-container"><p class="post-title"><a href="/2020/06/02/Dubbo详解/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-06-02</span></p><p class="post-abstract">
-
-Table of Contents  generated with DocToc
 
 一、前言
 分布式架构的 有 3 种解决方案
@@ -71,7 +33,57 @@ Table of Contents  generated with DocToc
 
 
 二、什么是 Dubbo
-Dubbo SPI 机...</p></div><div class="post-container"><p class="post-title"><a href="/2020/01/08/单例模式/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-01-08</span></p><p class="post-abstract">
+Dubbo SPI 机制
+
+
+三、Dubbo注册中心详解
+注册中心的作用
+Dubbo所支持的注册中心
+R...</p></div><div class="post-container"><p class="post-title"><a href="/2020/02/11/Redis核心原理详解/">Redis核心原理详解</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-02-11</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/分布式/" title="分布式" class="a-tag">分布式</a><span>&nbsp;</span><a href="/tags/Redis/" title="Redis" class="a-tag">Redis</a><span>&nbsp;</span></span></p><p class="post-abstract">
+
+
+一、Redis 基础数据结构
+列表（list）
+字典（hash）
+集合（set）
+有序集合（sortedset）
+
+
+一些高级命令
+二、线程模型核心原理
+三、持久化
+RDB快照（snapshot）
+AOF（append-only file）
+RDB 和 AOF ，我应该用哪一个？
+Redis 4.0 混合持...</p></div><div class="post-container"><p class="post-title"><a href="/2020/02/10/redis5集群搭建/">Redis5 集群搭建</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-02-10</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/分布式/" title="分布式" class="a-tag">分布式</a><span>&nbsp;</span><a href="/tags/Redis/" title="Redis" class="a-tag">Redis</a><span>&nbsp;</span></span></p><p class="post-abstract">
+
+
+1、 环境信息
+2、整体集群信息
+3、每台服务器上面都要下载安装
+4、准备6个redis.conf配置文件（为了方便学习，redis.conf根据不同端口来命名，方便一台机器上构建伪集群）
+5、启动6个Redis实例
+6、 创建cluster
+7、 集群检验和测试
+8、集群slot数量整理 reshard
+...</p></div><div class="post-container"><p class="post-title"><a href="/2020/02/06/redis哨兵高可用搭建/">Redis哨兵高可用搭建</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-02-06</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Redis/" title="Redis" class="a-tag">Redis</a><span>&nbsp;</span><a href="/tags/缓存/" title="缓存" class="a-tag">缓存</a><span>&nbsp;</span></span></p><p class="post-abstract">
+
+
+Redis下载安装
+准备配置文件
+准备三个redis服务
+准备哨兵配置文件
+启动哨兵集群
+测试
+哨兵同步pubsub机制发出来的消息
+哨兵日志分析
+
+
+ [TOC]
+Redis下载安装下载redis
+https://redis.io/download
+# 下载
+wget http://download.re...</p></div><div class="post-container"><p class="post-title"><a href="/2020/01/08/单例模式/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-01-08</span></p><p class="post-abstract">
 
 Table of Contents  generated with DocToc
 
@@ -94,9 +106,8 @@ Table of Contents  generated with DocToc
 
 title: 单例模式date: 2019-12-08 14:39:53tags:
 
-设计模式cate...</p></div><div class="post-container"><p class="post-title"><a href="/2020/01/08/原型模式/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-01-08</span></p><p class="post-abstract">
+设计模式cate...</p></div><div class="post-container"><p class="post-title"><a href="/2020/01/08/原型模式/">原型模式</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-01-08</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/人文/" title="人文" class="a-tag">人文</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">
 
-Table of Contents  generated with DocToc
 
 概念
 实现方式
@@ -112,8 +123,7 @@ Table of Contents  generated with DocToc
 总结：
 
 
-
-title: 原型模式date: 2020-01-08 14:29:19ta...</p></div><div class="post-container"><p class="post-title"><a href="/2020/01/08/批量添加Java文件头部注释/"></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-01-08</span></p><p class="post-abstract">
+概念原型模式(Prototype  Pattern)： 使用原型实例指定创建对象的种类，并且通过克隆拷贝的方式利用原型实例创建新的对象。原型模式是一种对象创建型...</p></div><div class="post-container"><p class="post-title"><a href="/2020/01/08/批量添加Java文件头部注释/">批量添加Java文件头部注释</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-01-08</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span><a href="/categories/技术/工具/" title="工具" class="a-tag">工具</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span></p><p class="post-abstract">
 
 Table of Contents  generated with DocToc
 
@@ -125,10 +135,37 @@ Table of Contents  generated with DocToc
 addAnnotation.py 代码
 
 
+背景在一般情况下，作为 Java 开发，如果事先在 Idea 或者 Eclipse中配置模版。在创建一个新类时，会自动生成 头部注...</p></div><div class="post-container"><p class="post-title"><a href="/2019/12/05/Zookeeper-原理解析/">Zookeeper 核心原理详解</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-12-05</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/分布式/" title="分布式" class="a-tag">分布式</a><span>&nbsp;</span></span></p><p class="post-abstract">
 
-title: 批量添加Java文件头部注释date: 2020-01-08 11:45:00tags: 
 
-Javacatego...</p></div><div class="post-container"><p class="post-title"><a href="/2019/09/23/责任链模式/">责任链模式</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-23</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/人文/" title="人文" class="a-tag">人文</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">
+一、Zookeeper 简介
+ZK 的一特性
+
+
+二、数据模型
+四种节点类型
+
+
+三、 Watcher 机制
+Watcher特性
+
+
+四、一致性 协议
+ZAB 协议
+
+
+五、CAP 原则
+六、选举机制
+三类角色
+四个数据
+四种状态
+
+
+七、应用场景
+八、引用
+
+
+一、Zookeeper 简介Zookeepe...</p></div><div class="post-container"><p class="post-title"><a href="/2019/09/23/责任链模式/">责任链模式</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-23</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/人文/" title="人文" class="a-tag">人文</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">
 
 
 概念
@@ -142,47 +179,7 @@ Javacatego...</p></div><div class="post-container"><p class="post-title"><a href
 
 
 
-概念职责链模式(Chain of Responsibility  Pattern)：避免请求发送者与接收者耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象...</p></div><div class="post-container"><p class="post-title"><a href="/2019/09/17/冰山模型/">冰山模型</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-17</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/人文/" title="人文" class="a-tag">人文</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/思维模型/" title="思维模型" class="a-tag">思维模型</a><span>&nbsp;</span></span></p><p class="post-abstract">
-
-
-一、冰山模型
-
-一、冰山模型
-
-知识和技能
-能力
-价值观、性格、动机
-
-
-二、如何根据冰山模型确定职位
-三、投入因素的不同
-四、天赋的四个表现 SIGN
-五、三个知识内化成能力的方法
-六、三大系统 让系统化学习不依靠意志力
-七、学习不靠意志力三个关键因素
-八、三个建议让你不做「定制化人才」
-
-
-[toc]
-...</p></div><div class="post-container"><p class="post-title"><a href="/2019/09/06/简单工厂/">简单工厂</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-06</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/人文/" title="人文" class="a-tag">人文</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/设计模式/" title="设计模式" class="a-tag">设计模式</a><span>&nbsp;</span></span></p><p class="post-abstract">
-
-
-简单工厂
-概念
-特点
-示例代码：
-简单工厂模式总结
-优点
-缺点
-
-
-适用场景
-
-
-
-
-[toc]
-简单工厂概念定义一个工厂类，它可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于创建实例的方法是静态(static)方法，因此简单工厂模式又被称为静态工厂方法(Sta...</p></div><div class="pagination no-margin-bottom"><p class="clearfix"></p><p> 第 1 頁 / 共 4 頁 &nbsp;</p><p><span class="pre pagbuttons"><i class="fa fa-angle-double-left"></i>&nbsp;<a role="navigation" href="/">上一頁</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/page/2/">下一頁</a>&nbsp;<i class="fa fa-angle-double-right"></i></span></p><p></p></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
+概念职责链模式(Chain of Responsibility  Pattern)：避免请求发送者与接收者耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象...</p></div><div class="pagination no-margin-bottom"><p class="clearfix"></p><p> 第 1 頁 / 共 4 頁 &nbsp;</p><p><span class="pre pagbuttons"><i class="fa fa-angle-double-left"></i>&nbsp;<a role="navigation" href="/">上一頁</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/page/2/">下一頁</a>&nbsp;<i class="fa fa-angle-double-right"></i></span></p><p></p></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }

@@ -1,6 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>线程池详解  · 玉蘇子</title><meta name="description" content="Table of Contents  generated with DocToc
-
-线程池
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>线程池详解  · 玉蘇子</title><meta name="description" content="线程池
 线程是不是越多越好？
 线程池组成部分：
 线程池 API-接口定义和实现类
@@ -13,14 +11,13 @@
 
 
 线程池线程是不是越多越好？
-线程在 Jav"><meta name="keywords" content="玉苏子"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/font-chinese.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+线程在 Java 中是一个对象，更是操作系统的资源，线程创建、销毁需要时间。如果创建时间+销毁时间"><meta name="keywords" content="玉苏子"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/font-chinese.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">玉蘇子</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li>            <a href="https://brokge.github.io/svg2android">svg转xml</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
  </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>线程池详解 </a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2019-09-03</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span><a href="/tags/并发编程/" title="并发编程" class="a-tag">并发编程</a><span>&nbsp;</span></span></p><p class="post-abstract"><!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-</p><p><strong>Table of Contents</strong>  <em>generated with <a href="https://github.com/thlorenz/doctoc" target="_blank" rel="noopener">DocToc</a></em></p>
 <ul>
 <li><a href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0">线程池</a><ul>
 <li><a href="#%E7%BA%BF%E7%A8%8B%E6%98%AF%E4%B8%8D%E6%98%AF%E8%B6%8A%E5%A4%9A%E8%B6%8A%E5%A5%BD">线程是不是越多越好？</a></li>
@@ -34,7 +31,7 @@
 </li>
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-<h1><span id="线程池">线程池</span></h1><h2><span id="线程是不是越多越好">线程是不是越多越好？</span></h2><ol>
+</p><h1><span id="线程池">线程池</span></h1><h2><span id="线程是不是越多越好">线程是不是越多越好？</span></h2><ol>
 <li>线程在 Java 中是一个对象，更是操作系统的资源，线程创建、销毁需要时间。如果创建时间+销毁时间 <code>&gt;</code> 执行任务时间，这样就很不合算。</li>
 <li>Java 对象占用堆内存，操作系统线程占用系统内存，根据 JVM 规范，一个线程默认最大栈大小为 1 M，这个栈空间是需要从系统内存中分配的。线程过多，会消耗很多的内存。</li>
 <li>操作系统需要频繁切换线程上下文（大家都想被运行），影响性能。</li>
