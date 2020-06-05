@@ -1,15 +1,93 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>Dubbo详解 · 玉蘇子</title><meta name="description" content="一、前言
-分布式架构的 有 3 种解决方案
-基于反向代理的中心化架构
-嵌入应用内部的去中心化架构
-基于独立代理进程的Service Mesh架构
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title> · 玉蘇子</title><meta name="description" content="Table of Contents  generated with DocToc
 
-基于反向代理的集中式分布式架构这是最简单和传统做法，在服务消费者和生产者之间，代理作为独立一层集中部署，由独立团队(一般是运维或框架)负责治理和运维。常"><meta name="keywords" content="玉苏子"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/font-chinese.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+一、前言
+分布式架构的 有 3 种解决方案
+基于反向代理的集中式分布式架构
+嵌入应用内部的去中心化架构
+基于独立代理进程的架构(Service Mesh)
+
+
+三种架构的比较
+
+
+二、什么是 Dubbo
+Dubbo "><meta name="keywords" content="玉苏子"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/font-chinese.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">玉蘇子</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li>            <a href="https://brokge.github.io/svg2android">svg转xml</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
   var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
   mermaid.initialize(options);
 }
- </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Dubbo详解</a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-06-02</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/技术/" title="技术" class="a-tag">技术</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/分布式/" title="分布式" class="a-tag">分布式</a><span>&nbsp;</span><a href="/tags/微服务/" title="微服务" class="a-tag">微服务</a><span>&nbsp;</span></span></p><p class="post-abstract"></p><h2><span id="一-前言">一、前言</span></h2><p><img src="http://note.youdao.com/yws/res/9311/64A03BA7F21B4BB29F4ABC5F11140870" alt="image"></p>
+ </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a></a></p><p class="post-meta"><span class="date meta-item">發佈於&nbsp;2020-06-02</span></p><p class="post-abstract"><!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+</p><p><strong>Table of Contents</strong>  <em>generated with <a href="https://github.com/thlorenz/doctoc" target="_blank" rel="noopener">DocToc</a></em></p>
+<ul>
+<li><a href="#%E4%B8%80%E5%89%8D%E8%A8%80">一、前言</a><ul>
+<li><a href="#%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E7%9A%84-%E6%9C%89-3-%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><strong>分布式架构的 有 3 种解决方案</strong></a></li>
+<li><a href="#%E5%9F%BA%E4%BA%8E%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E9%9B%86%E4%B8%AD%E5%BC%8F%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84">基于反向代理的集中式分布式架构</a><ul>
+<li><a href="#%E5%B5%8C%E5%85%A5%E5%BA%94%E7%94%A8%E5%86%85%E9%83%A8%E7%9A%84%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E6%9E%B6%E6%9E%84">嵌入应用内部的去中心化架构</a></li>
+<li><a href="#%E5%9F%BA%E4%BA%8E%E7%8B%AC%E7%AB%8B%E4%BB%A3%E7%90%86%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%9E%B6%E6%9E%84service-mesh">基于独立代理进程的架构(Service Mesh)</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89%E7%A7%8D%E6%9E%B6%E6%9E%84%E7%9A%84%E6%AF%94%E8%BE%83">三种架构的比较</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C%E4%BB%80%E4%B9%88%E6%98%AF-dubbo">二、什么是 Dubbo</a><ul>
+<li><a href="#dubbo-spi-%E6%9C%BA%E5%88%B6">Dubbo SPI 机制</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89dubbo%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E8%AF%A6%E8%A7%A3">三、Dubbo注册中心详解</a><ul>
+<li><a href="#%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E7%9A%84%E4%BD%9C%E7%94%A8">注册中心的作用</a></li>
+<li><a href="#dubbo%E6%89%80%E6%94%AF%E6%8C%81%E7%9A%84%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83">Dubbo所支持的注册中心</a></li>
+<li><a href="#redis-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><strong>Redis 注册中心</strong></a><ul>
+<li><a href="#1-%E5%A6%82%E4%BD%95%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%B3%A8%E5%86%8C%E4%B8%8E%E8%AE%A2%E9%98%85%E5%85%B3%E7%B3%BB">1. 如何存储服务的注册与订阅关系</a></li>
+<li><a href="#2-%E6%98%AF%E5%BD%93%E6%9C%8D%E5%8A%A1%E7%8A%B6%E6%80%81%E6%94%B9%E5%8F%98%E6%97%B6%E5%A6%82%E4%BD%95%E5%8D%B3%E6%97%B6%E6%9B%B4%E6%96%B0">2. 是当服务状态改变时如何即时更新？</a></li>
+</ul>
+</li>
+<li><a href="#zookeeper-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><strong>Zookeeper 注册中心</strong></a><ul>
+<li><a href="#%E6%BA%90%E7%A0%81%E6%9F%A5%E7%9C%8B">源码查看</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89-dubbo-%E8%B0%83%E7%94%A8%E6%A8%A1%E5%9D%97">三、 Dubbo 调用模块</a><ul>
+<li><a href="#%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86">透明代理：</a></li>
+<li><a href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><strong>负载均衡</strong></a></li>
+<li><a href="#%E5%AE%B9%E9%94%99"><strong>容错</strong></a></li>
+<li><a href="#%E5%BC%82%E6%AD%A5%E8%B0%83%E7%94%A8"><strong>异步调用</strong></a></li>
+<li><a href="#%E8%BF%87%E6%BB%A4%E5%99%A8"><strong>过滤器</strong></a></li>
+</ul>
+</li>
+<li><a href="#%E8%B0%83%E7%94%A8%E9%80%9A%E4%BF%A1--%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86">调用通信  内部实现原理</a><ul>
+<li><a href="#dubbo-%E9%95%BF%E8%BF%9E%E6%8E%A5%E5%AE%9E%E7%8E%B0%E4%B8%8E%E9%85%8D%E7%BD%AE"><strong>Dubbo 长连接实现与配置</strong></a></li>
+<li><a href="#dubbo-%E4%BC%A0%E8%BE%93%E5%8D%8F%E4%BD%9C%E7%BA%BF%E7%A8%8B"><strong>Dubbo 传输协作线程</strong></a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9Bdubbo-%E5%8D%8F%E8%AE%AE">四、Dubbo 协议</a><ul>
+<li><a href="#rpc-%E5%8D%8F%E8%AE%AE%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A"><strong>RPC 协议名词解释</strong></a></li>
+<li><a href="#dubbo-%E6%94%AF%E6%8C%81%E7%9A%84rpc%E5%8D%8F%E8%AE%AE">dubbo 支持的RPC协议</a></li>
+<li><a href="#%E5%8D%8F%E8%AE%AE%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E9%85%8D%E7%BD%AE"><strong>协议的使用与配置:</strong></a></li>
+<li><a href="#dubbo-%E6%94%AF%E6%8C%81%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96">dubbo 支持的序列化：</a></li>
+<li><a href="#hessian-%E5%BA%8F%E5%88%97%E5%8C%96">Hessian 序列化</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%94rpc%E5%8D%8F%E8%AE%AE%E6%8A%A5%E6%96%87%E7%BC%96%E7%A0%81%E4%B8%8E%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3">五、RPC协议报文编码与实现详解</a><ul>
+<li><a href="#rpc-%E4%BC%A0%E8%BE%93%E5%AE%9E%E7%8E%B0"><strong>RPC 传输实现：</strong></a></li>
+<li><a href="#%E6%8B%86%E5%8C%85%E4%B8%8E%E7%B2%98%E5%8C%85%E4%BA%A7%E7%94%9F%E7%9A%84%E5%8E%9F%E5%9B%A0"><strong>拆包与粘包产生的原因：</strong></a></li>
+<li><a href="#%E6%8B%86%E5%8C%85%E4%B8%8E%E7%B2%98%E5%8C%85%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><strong>拆包与粘包解决办法：</strong></a></li>
+<li><a href="#dubbo-%E5%8D%8F%E8%AE%AE%E6%8A%A5%E6%96%87%E7%BC%96%E7%A0%81">Dubbo 协议报文编码：</a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%AD%E6%9C%80%E5%90%8E">六、最后</a></li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<hr>
+<p>title: Dubbo详解<br>date: 2020-06-02 16:28:45<br>tags:</p>
+<ul>
+<li>分布式</li>
+<li>微服务<br>categories:</li>
+<li>技术</li>
+</ul>
+<hr>
+<h2><span id="一-前言">一、前言</span></h2><p><img src="http://note.youdao.com/yws/res/9311/64A03BA7F21B4BB29F4ABC5F11140870" alt="image"></p>
 <h4><span id="分布式架构的-有-3-种解决方案"><strong>分布式架构的 有 3 种解决方案</strong></span></h4><ol>
 <li>基于反向代理的中心化架构</li>
 <li>嵌入应用内部的去中心化架构</li>
@@ -754,7 +832,7 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 <ul>
 <li><a href="http://dubbo.apache.org/zh-cn/docs/user/quick-start.html" target="_blank" rel="noopener">Dubbo官方文档</a></li>
 </ul>
-<p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2020/06/02/Dubbo详解/%20玉蘇子%20Dubbo详解" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2020/06/04/Redis核心原理详解/" title="Redis核心原理详解"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Redis核心原理详解</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2020/02/10/redis5集群搭建/" title="Redis5 集群搭建">下一篇: Redis5 集群搭建&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
+<p></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=https://brokge.github.io/2020/06/02/Dubbo详解/%20玉蘇子%20" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2020/06/04/Redis核心原理详解/" title><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: </a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2020/01/08/单例模式/" title>下一篇: &nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><div id="vcomments"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script type="text/javascript">(function(){
     new Valine({
     el: '#vcomments',
     appId: 'UmwJ3stwyISCG9WnW9Nc3SAN-gzGzoHsz',
