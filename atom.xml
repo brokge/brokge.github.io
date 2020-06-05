@@ -520,9 +520,9 @@
       <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="Java" scheme="https://brokge.github.io/tags/Java/"/>
-    
       <category term="JVM" scheme="https://brokge.github.io/tags/JVM/"/>
+    
+      <category term="Java" scheme="https://brokge.github.io/tags/Java/"/>
     
   </entry>
   
