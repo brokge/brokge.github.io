@@ -410,12 +410,25 @@ blockquote {
   padding-bottom: 0.3em;
   color: red;
   border-bottom: 1px solid #ff00004d;
+  font-weight: bold;
 }
 
 .main-container h2 {
   padding-bottom: 0.3em;
   color: red;
   border-bottom: 1px solid #ff00004d;
+  font-weight: bold;
+}
+
+h1 span{
+  color: red;
+}
+
+h2 span{
+  color: red;
+}
+h3 span{
+  color: red;
 }
 
 .main-container :nth-child(1) {
@@ -834,12 +847,25 @@ figure .code pre {
   .main-container h1 {
     padding-bottom: 0.3em;
     color: red;
+    font-weight: bold;
     border-bottom: 1px solid #ff00004d;
   }
 
   .main-container h2 {
     padding-bottom: 0.3em;
+    font-weight: bold;
     border-bottom: 1px solid #ff00004d;
+  }
+  h1 span{
+    color:red;
+  }
+
+  h2 span{
+    color: red;
+  }
+
+  h3 span{
+    color: red;
   }
 
   .side-container {
@@ -1022,12 +1048,23 @@ figure .code pre {
   .main-container h1 {
     padding-bottom: 0.3em;
     color: red;
+    font-weight: bold;
     border-bottom: 1px solid #ff00004d;
   }
 
   .main-container h2 {
     padding-bottom: 0.3em;
     border-bottom: 1px solid #ff00004d;
+    font-weight: bold;
+  }
+  h1 span{
+    color: red;
+  }
+  h2 span{
+    color: red;
+  }
+  h3 span{
+    color: red;
   }
 
   .side-container {
