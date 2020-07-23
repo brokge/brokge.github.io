@@ -35,18 +35,18 @@ WebSocket与HTT"><meta name="keywords" content="玉苏子"><meta content="width=
 <li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-</p><h2><span id="一-osi-网络七层模型">一、OSI 网络七层模型</span></h2><p><img src="http://note.youdao.com/yws/res/10005/0A162883B11F412DBAF35E4FDB31D054" alt="image"></p>
+</p><h2><span id="一-osi-网络七层模型">一、OSI 网络七层模型</span></h2><p><img src="http://note.youdao.com/yws/public/resource/8ba50b1b89450cc1e0b1ea54d05db38c/0A162883B11F412DBAF35E4FDB31D054" alt="image"></p>
 <p><strong>应用层</strong>：<br>决定向用户提供应用服务时通信的活动，此处的活动包括比如待传送数据的处理（应用内部生成特定格式的数据，后对数据进行标准协议的格式的编码）。</p>
 <p><strong>表示层</strong><br>负责数据格式转换、数据加密与解密、压缩解压缩等</p>
 <p><strong>会话层</strong><br>负责建立、管理和终止进程之间的会话和数据交换。</p>
 <p><strong>传输层：</strong><br>对上层应用层，提供处于网络连接种的两台计算机之间的数据传输（TCP、UDP）。</p>
 <p><strong>网络层：</strong><br>用来处理网络上流动的数据包，数据包是网络传输的最小数据单位。该层规定了通过怎样的路径到达对方计算机，并把数据包传送给对方。<br>与对方计算机之间通过多台计算机或网络设备进行传输时，网络层所起的作用就是在众多的选项内选择一条传输路线。</p>
 <p><strong>链路层</strong>（又名数据链路层，网络接口层）：<br>用来管理／操作连接网络的硬件部分。包括控制操作系统、硬件的设备驱动、网卡、光纤等物理可见部分。</p>
-<h2><span id="二-osi-七层模型对应的协议">二、 OSI 七层模型对应的协议</span></h2><p><img src="http://note.youdao.com/yws/res/9979/2B803AB503B144418B043A283CC22B3A" alt="image"></p>
-<h2><span id="tcpudp-网络请求过程">TCP/UDP 网络请求过程</span></h2><p><img src="http://note.youdao.com/yws/res/10019/451F2587D1F4416198ED3CEACAB3052B" alt="image"></p>
+<h2><span id="二-osi-七层模型对应的协议">二、 OSI 七层模型对应的协议</span></h2><p><img src="http://note.youdao.com/yws/public/resource/8ba50b1b89450cc1e0b1ea54d05db38c/2B803AB503B144418B043A283CC22B3A" alt="image"></p>
+<h2><span id="tcpudp-网络请求过程">TCP/UDP 网络请求过程</span></h2><p><img src="http://note.youdao.com/yws/public/resource/8ba50b1b89450cc1e0b1ea54d05db38c/451F2587D1F4416198ED3CEACAB3052B" alt="image"></p>
 <p>发送端：在层与层之间传输数据时，每一层都会被打上当前层所属的头部信息。</p>
 <p>接收端：在层与层之间传输数据时，每一层都会取消当前层所属的头部信息。</p>
-<h3><span id="tcp-头部信息">TCP 头部信息</span></h3><p><img src="http://note.youdao.com/yws/res/10021/8890607AEBBB48C286631BC8087B2941" alt="image"></p>
+<h3><span id="tcp-头部信息">TCP 头部信息</span></h3><p><img src="http://note.youdao.com/yws/public/resource/8ba50b1b89450cc1e0b1ea54d05db38c/8890607AEBBB48C286631BC8087B2941" alt="image"></p>
 <h3><span id="tcp-可靠性保证">TCP 可靠性保证</span></h3><ul>
 <li>三次握手和四次挥手机制<blockquote>
 <p>在建立连接的时候，通过3 次握手机制。在结束连接的时候通过4次挥手。这样保证连接的可靠性。</p>
@@ -80,8 +80,8 @@ WebSocket与HTT"><meta name="keywords" content="玉苏子"><meta content="width=
 </blockquote>
 </li>
 </ul>
-<h3><span id="tcp-握手和挥手机制">TCP 握手和挥手机制</span></h3><p><img src="http://note.youdao.com/yws/res/10027/3467CABB79EC412A955A981B18752DE3" alt="image"></p>
-<h2><span id="三-浏览器中输入一个域名地址-发生了什么">三、 浏览器中输入一个域名地址 发生了什么？</span></h2><p><img src="http://note.youdao.com/yws/res/10053/9FF77B5A7DF74377A11A7049C637C1C6" alt="image"></p>
+<h3><span id="tcp-握手和挥手机制">TCP 握手和挥手机制</span></h3><p><img src="http://note.youdao.com/yws/public/resource/8ba50b1b89450cc1e0b1ea54d05db38c/3467CABB79EC412A955A981B18752DE3" alt="image"></p>
+<h2><span id="三-浏览器中输入一个域名地址-发生了什么">三、 浏览器中输入一个域名地址 发生了什么？</span></h2><p><img src="http://note.youdao.com/yws/public/resource/8ba50b1b89450cc1e0b1ea54d05db38c/9FF77B5A7DF74377A11A7049C637C1C6" alt="image"></p>
 <pre class="line-numbers language-shell"><code class="language-shell">$ nslookup www.baidu.com
 Server:        192.168.1.1
 Address:    192.168.1.1#53
@@ -117,7 +117,7 @@ Address: 36.152.44.96
 <li>WebSocket是需要握手进行建立连接的 ，WebSocket在建立握手时,数据是通过HTTP传输的。但是建立之后,在真正传输时候是不需要HTTP协议的。</li>
 </ol>
 <h3><span id="websocket-与-socket的关系">WebSocket 与 Socket的关系</span></h3><p>Socket 其实并不是一个协议,而是为了方便使用 TCP 或 UDP 而抽象出来的层,是位于应用层和传输控制层之间的—组接口。</p>
-<p><img src="http://note.youdao.com/yws/res/10065/5F3C32A779AF4085B1EFA79585EFA7F0" alt="image"></p>
+<p><img src="http://note.youdao.com/yws/public/resource/8ba50b1b89450cc1e0b1ea54d05db38c/5F3C32A779AF4085B1EFA79585EFA7F0" alt="image"></p>
 <blockquote>
 <p>Socket 是应用层与 TCP/IP 协议族通信的中间软件抽象层,它是一组接口。在设计模式中, Socket其实就是一个门面模式,它把复杂的 TCP/IP 协议族隐藏在 Socket 接口后面,对用户来说,一组简单的接口就是全部,让 Socket去组织数据,以符合指定的协议。</p>
 </blockquote>
