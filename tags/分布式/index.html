@@ -1,10 +1,1378 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="brokge"><title>分布式 · 玉蘇子</title><meta name="description" content="標籤: 分布式 - 玉蘇子"><meta name="keywords" content="玉苏子"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/font-chinese.css"><link rel="stylesheet" href="/css/style-red.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">I and i</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">玉蘇子</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首頁</a></li><li><a href="/archives">歸檔</a></li><li><a href="/categories">分類</a></li><li><a href="/tags" class="current">標籤</a></li><li> <a href="https://brokge.github.io/scrapydoc/">爬虫</a></li><li> <a href="https://brokge.github.io/linux-command-line/html/">Linux命令行</a></li><li>            <a href="https://brokge.github.io/svg2android">svg转xml</a></li><li><a href="/about/index.html">关于</a></li><li class="soc"><a href="https://github.com/brokge" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="https://brokge.github.io/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
-  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
-  mermaid.initialize(options);
-}
- </script></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="archive animated fadeInDown"><ul class="list-with-title"><p class="post-title">標籤 分布式</p><div class="archive"><div class="listing-title"><h4 class="ar-year">2020</h4></div><ul class="listing"><div class="listing-item"><div class="listing-post"><p class="post-title"><a href="/2020/06/02/Dubbo详解/" title="Dubbo详解">Dubbo详解</a></p><div class="post-time"><span class="ar-date">06-02</span></div></div></div><div class="listing-item"><div class="listing-post"><p class="post-title"><a href="/2020/02/11/Redis核心原理详解/" title="Redis核心原理详解">Redis核心原理详解</a></p><div class="post-time"><span class="ar-date">02-11</span></div></div></div><div class="listing-item"><div class="listing-post"><p class="post-title"><a href="/2020/02/10/redis5集群搭建/" title="Redis5 集群搭建">Redis5 集群搭建</a></p><div class="post-time"><span class="ar-date">02-10</span></div></div></div></ul><div class="listing-title"><h4 class="ar-year">2019</h4></div><ul class="listing"><div class="listing-item"><div class="listing-post"><p class="post-title"><a href="/2019/12/05/Zookeeper-原理解析/" title="Zookeeper 核心原理详解">Zookeeper 核心原理详解</a></p><div class="post-time"><span class="ar-date">12-05</span></div></div></div></ul></div><div class="pagination no-margin-bottom"><p class="clearfix"></p><p> 第 1 頁 / 共 1 頁 &nbsp;</p><p><span class="pre pagbuttons"><i class="fa fa-angle-double-left"></i>&nbsp;<a role="navigation" href="/">上一頁</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/">下一頁</a>&nbsp;<i class="fa fa-angle-double-right"></i></span></p><p></p></div></ul></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="https://brokge.github.io" rel="noopener noreferrer">brokge</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js?v=undefined"></script><script>if (window.mermaid) {
-  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
-  mermaid.initialize(options);
-}
- </script></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Tag: 分布式 - 玉蘇子</title><meta property="og:type" content="blog"><meta property="og:title" content="玉蘇子"><meta property="og:url" content="https://brokge.github.io/"><meta property="og:site_name" content="玉蘇子"><meta property="og:locale" content="zh_TW"><meta property="og:image" content="https://brokge.github.io/img/og_image.png"><meta property="article:author" content="brokge"><meta property="article:tag" content="玉苏子"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://brokge.github.io"},"headline":"玉蘇子","image":["https://brokge.github.io/img/og_image.png"],"author":{"@type":"Person","name":"brokge"},"description":null}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="玉蘇子" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Suche" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/tags">Tags</a></li><li class="is-active"><a href="#" aria-current="page">分布式</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-06-02T08:28:45.000Z" title="2020-06-02T08:28:45.000Z">2020-06-02</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span><span class="level-item">1 小時 lesen (Über 8913 Worte)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/06/02/Dubbo%E8%AF%A6%E8%A7%A3/">Dubbo详解</a></h1><div class="content"><!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+<ul>
+<li><a href="#%E4%B8%80%E5%89%8D%E8%A8%80">一、前言</a><ul>
+<li><a href="#%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E7%9A%84-%E6%9C%89-3-%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><strong>分布式架构的 有 3 种解决方案</strong></a></li>
+<li><a href="#%E5%9F%BA%E4%BA%8E%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E9%9B%86%E4%B8%AD%E5%BC%8F%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84">基于反向代理的集中式分布式架构</a><ul>
+<li><a href="#%E5%B5%8C%E5%85%A5%E5%BA%94%E7%94%A8%E5%86%85%E9%83%A8%E7%9A%84%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E6%9E%B6%E6%9E%84">嵌入应用内部的去中心化架构</a></li>
+<li><a href="#%E5%9F%BA%E4%BA%8E%E7%8B%AC%E7%AB%8B%E4%BB%A3%E7%90%86%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%9E%B6%E6%9E%84service-mesh">基于独立代理进程的架构(Service Mesh)</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89%E7%A7%8D%E6%9E%B6%E6%9E%84%E7%9A%84%E6%AF%94%E8%BE%83">三种架构的比较</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C%E4%BB%80%E4%B9%88%E6%98%AF-dubbo">二、什么是 Dubbo</a><ul>
+<li><a href="#dubbo-spi-%E6%9C%BA%E5%88%B6">Dubbo SPI 机制</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89dubbo%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E8%AF%A6%E8%A7%A3">三、Dubbo注册中心详解</a><ul>
+<li><a href="#%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E7%9A%84%E4%BD%9C%E7%94%A8">注册中心的作用</a></li>
+<li><a href="#dubbo%E6%89%80%E6%94%AF%E6%8C%81%E7%9A%84%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83">Dubbo所支持的注册中心</a></li>
+<li><a href="#redis-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><strong>Redis 注册中心</strong></a><ul>
+<li><a href="#1-%E5%A6%82%E4%BD%95%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%B3%A8%E5%86%8C%E4%B8%8E%E8%AE%A2%E9%98%85%E5%85%B3%E7%B3%BB">1. 如何存储服务的注册与订阅关系</a></li>
+<li><a href="#2-%E6%98%AF%E5%BD%93%E6%9C%8D%E5%8A%A1%E7%8A%B6%E6%80%81%E6%94%B9%E5%8F%98%E6%97%B6%E5%A6%82%E4%BD%95%E5%8D%B3%E6%97%B6%E6%9B%B4%E6%96%B0">2. 是当服务状态改变时如何即时更新？</a></li>
+</ul>
+</li>
+<li><a href="#zookeeper-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><strong>Zookeeper 注册中心</strong></a><ul>
+<li><a href="#%E6%BA%90%E7%A0%81%E6%9F%A5%E7%9C%8B">源码查看</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89-dubbo-%E8%B0%83%E7%94%A8%E6%A8%A1%E5%9D%97">三、 Dubbo 调用模块</a><ul>
+<li><a href="#%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86">透明代理：</a></li>
+<li><a href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><strong>负载均衡</strong></a></li>
+<li><a href="#%E5%AE%B9%E9%94%99"><strong>容错</strong></a></li>
+<li><a href="#%E5%BC%82%E6%AD%A5%E8%B0%83%E7%94%A8"><strong>异步调用</strong></a></li>
+<li><a href="#%E8%BF%87%E6%BB%A4%E5%99%A8"><strong>过滤器</strong></a></li>
+</ul>
+</li>
+<li><a href="#%E8%B0%83%E7%94%A8%E9%80%9A%E4%BF%A1--%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86">调用通信  内部实现原理</a><ul>
+<li><a href="#dubbo-%E9%95%BF%E8%BF%9E%E6%8E%A5%E5%AE%9E%E7%8E%B0%E4%B8%8E%E9%85%8D%E7%BD%AE"><strong>Dubbo 长连接实现与配置</strong></a></li>
+<li><a href="#dubbo-%E4%BC%A0%E8%BE%93%E5%8D%8F%E4%BD%9C%E7%BA%BF%E7%A8%8B"><strong>Dubbo 传输协作线程</strong></a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9Bdubbo-%E5%8D%8F%E8%AE%AE">四、Dubbo 协议</a><ul>
+<li><a href="#rpc-%E5%8D%8F%E8%AE%AE%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A"><strong>RPC 协议名词解释</strong></a></li>
+<li><a href="#dubbo-%E6%94%AF%E6%8C%81%E7%9A%84rpc%E5%8D%8F%E8%AE%AE">dubbo 支持的RPC协议</a></li>
+<li><a href="#%E5%8D%8F%E8%AE%AE%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%8E%E9%85%8D%E7%BD%AE"><strong>协议的使用与配置:</strong></a></li>
+<li><a href="#dubbo-%E6%94%AF%E6%8C%81%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96">dubbo 支持的序列化：</a></li>
+<li><a href="#hessian-%E5%BA%8F%E5%88%97%E5%8C%96">Hessian 序列化</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%94rpc%E5%8D%8F%E8%AE%AE%E6%8A%A5%E6%96%87%E7%BC%96%E7%A0%81%E4%B8%8E%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3">五、RPC协议报文编码与实现详解</a><ul>
+<li><a href="#rpc-%E4%BC%A0%E8%BE%93%E5%AE%9E%E7%8E%B0"><strong>RPC 传输实现：</strong></a></li>
+<li><a href="#%E6%8B%86%E5%8C%85%E4%B8%8E%E7%B2%98%E5%8C%85%E4%BA%A7%E7%94%9F%E7%9A%84%E5%8E%9F%E5%9B%A0"><strong>拆包与粘包产生的原因：</strong></a></li>
+<li><a href="#%E6%8B%86%E5%8C%85%E4%B8%8E%E7%B2%98%E5%8C%85%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><strong>拆包与粘包解决办法：</strong></a></li>
+<li><a href="#dubbo-%E5%8D%8F%E8%AE%AE%E6%8A%A5%E6%96%87%E7%BC%96%E7%A0%81">Dubbo 协议报文编码：</a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%AD%E6%9C%80%E5%90%8E">六、最后</a></li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<h2><span id="一-前言">一、前言</span></h2><p><img src="http://note.youdao.com/yws/res/9311/64A03BA7F21B4BB29F4ABC5F11140870" alt="image"></p>
+<h4><span id="分布式架构的-有-3-种解决方案"><strong>分布式架构的 有 3 种解决方案</strong></span></h4><ol>
+<li>基于反向代理的中心化架构</li>
+<li>嵌入应用内部的去中心化架构</li>
+<li>基于独立代理进程的Service Mesh架构</li>
+</ol>
+<h4><span id="基于反向代理的集中式分布式架构">基于反向代理的集中式分布式架构</span></h4><p>这是最简单和传统做法，在服务消费者和生产者之间，代理作为独立一层集中部署，由独立团队(一般是运维或框架)负责治理和运维。常用的集中式代理有硬件负载均衡器(如F5)，或者软件负载均衡器(如Nginx)，这种软硬结合两层代理也是业内常见做法，兼顾配置的灵活性(Nginx比F5易于配置)。</p>
+<p><img src="http://note.youdao.com/yws/res/9352/29E919D8DA684D4E99671F5A16013855" alt="image"></p>
+<p><strong>Http+Nginx 方案总结</strong></p>
+<p><strong>优点：</strong> 简单快速、几乎没有学习成本</p>
+<p><strong>适用场景：</strong> 轻量级分布式系统、局部分布式架构。</p>
+<p><strong>瓶颈：</strong> Nginx中心负载、Http传输、JSON序列化、开发效率、运维效率。</p>
+<h3><span id="嵌入应用内部的去中心化架构">嵌入应用内部的去中心化架构</span></h3><p>这是很多互联网公司比较流行的一种做法，代理(包括服务发现和负载均衡逻辑)以客户库的形式嵌入在应用程序中。这种模式一般需要独立的服务注册中心组件配合，服务启动时自动注册到注册中心并定期报心跳，客户端代理则发现服务并做负载均衡。我们所熟悉的 duboo 和spring cloud Eureka +Ribbon/‘rɪbən/ 都是这种方式实现。</p>
+<p><img src="http://note.youdao.com/yws/res/9359/91E7A4D0836A49B395A817DDC2CF2376" alt="image"><br>相比第一代架构它有以下特点几点：</p>
+<ul>
+<li>去中心化，客户端直连服务端</li>
+<li>动态注册和发现服务</li>
+<li>高效稳定的网络传输</li>
+<li>高效可容错的序列化</li>
+</ul>
+<h3><span id="基于独立代理进程的架构service-mesh">基于独立代理进程的架构(Service Mesh)</span></h3><p>这种做法是上面两种模式的一个折中，代理既不是独立集中部署，也不嵌入在客户应用程序中，而是作为独立进程部署在每一个主机上，一个主机上的多个消费者应用可以共用这个代理，实现服务发现和负载均衡，如下图所示。这个模式一般也需要独立的服务注册中心组件配合，作用同第二代架构。</p>
+<p><img src="http://note.youdao.com/yws/res/9364/E7DE6B068DC74C7D8AE0808F46AB24AF" alt="image"></p>
+<h4><span id="三种架构的比较">三种架构的比较</span></h4><table>
+<thead>
+<tr>
+<th align="left"><strong>模式</strong></th>
+<th align="left"><strong>优点</strong></th>
+<th align="left"><strong>缺点</strong></th>
+<th align="left"><strong>适应场景</strong></th>
+<th align="left"><strong>案例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">集中式负载架构</td>
+<td align="left">简单  集中式治理  与语言无关</td>
+<td align="left">配置维护成本高  多了一层IO  单点问题</td>
+<td align="left">大部分公司都适用，对运维有要求</td>
+<td align="left">亿贝、携程、早期互联网公司</td>
+</tr>
+<tr>
+<td align="left">客户端嵌入式架构</td>
+<td align="left">无单点  性能更好</td>
+<td align="left">客户端复杂  语言栈要求</td>
+<td align="left">中大规模公司、语言栈统一</td>
+<td align="left">Dubbo    、  Twitter finagle、  Spring Cloud Ribbon</td>
+</tr>
+<tr>
+<td align="left">独立进程代理架构</td>
+<td align="left">无单点  性能更好  与语言无关</td>
+<td align="left">运维部署复杂  开发联调复杂</td>
+<td align="left">中大规模公司  对运维有要求</td>
+<td align="left">Smart Stack  Service Mesh</td>
+</tr>
+</tbody></table>
+<h2><span id="二-什么是-dubbo">二、什么是 Dubbo</span></h2><p>dubbo 阿里开源的一个 SOA（面向服务的架构） 服务治理框架，从目前来看把它称作是一个RPC远程调用框架更为贴切。单从RPC框架来说，功能较完善，支持多种传输和序列化方案。所以想必大家已经知道他的核心功能了：就是远程调用。</p>
+<p><img src="http://note.youdao.com/yws/res/9319/81A705F26C0346EA871AB8936296BFE1" alt="image"></p>
+<p><strong>流程说明：</strong></p>
+<ol>
+<li>Provider(提供者)绑定指定端口并启动服务</li>
+<li>指供者连接注册中心，并发本机IP、端口、应用信息和提供服务信息发送至注册中心存储</li>
+<li>Consumer(消费者），连接注册中心 ，并发送应用信息、所求服务信息至注册中心</li>
+<li>注册中心根据 消费 者所求服务信息匹配对应的提供者列表发送至Consumer 应用缓存。</li>
+<li>Consumer 在发起远程调用时基于缓存的消费者列表择其一发起调用。</li>
+<li>Provider 状态变更会实时通知注册中心、在由注册中心实时推送至Consumer</li>
+</ol>
+<p><strong>这么设计的意义：</strong></p>
+<ol>
+<li>Consumer 与Provider 解偶，双方都可以横向增减节点数。</li>
+<li>注册中心对本身可做对等集群，可动态增减节点，并且任意一台宕掉后，将自动切换到另一台</li>
+<li>去中心化，双方不直接依懒注册中心，即使注册中心全部宕机短时间内也不会影响服务的调用</li>
+<li>服务提供者无状态，任意一台宕掉后，不影响使用</li>
+</ol>
+<p><strong>Dubbo 设计层级</strong></p>
+<p><img src="http://note.youdao.com/yws/res/9322/60BD217B1ED345898A01578CF19291CB" alt="image"></p>
+<ul>
+<li>config <strong>配置层</strong>：对外配置接口，以 ServiceConfig, ReferenceConfig 为中心，可以直接初始化配置类，也可以通过 spring 解析配置生成配置类</li>
+<li>proxy <strong>服务代理层</strong>：服务接口透明代理，生成动态代理 扩展接口为 ProxyFactory</li>
+<li>registry <strong>注册中心层</strong>：封装服务地址的注册与发现，以服务 URL 为中心，扩展接口为 RegistryFactory, Registry, RegistryService</li>
+<li>cluster <strong>路由层</strong>：封装多个提供者的路由及负载均衡，并桥接注册中心，以 Invoker 为中心，扩展接口为 Cluster, Directory, Router, LoadBalance</li>
+<li>monitor <strong>监控层</strong>：RPC 调用次数和调用时间监控，以 Statistics 为中心，扩展接口为 MonitorFactory, Monitor, MonitorService</li>
+<li>protocol <strong>远程调用层</strong>：封装 RPC 调用，以 Invocation, Result 为中心，扩展接口为 Protocol, Invoker, Exporter</li>
+<li>exchange <strong>信息交换层</strong>：封装请求响应模式，同步转异步，以 Request, Response 为中心，扩展接口为 Exchanger, ExchangeChannel, ExchangeClient, ExchangeServer</li>
+<li>transport <strong>网络传输层</strong>：抽象 mina 和 netty 为统一接口，以 Message 为中心，扩展接口为 Channel, Transporter, Client, Server, Codec</li>
+<li>serialize <strong>数据序列化层</strong>：可复用的一些工具，扩展接口为 Serialization, ObjectInput, ObjectOutput, ThreadPool</li>
+</ul>
+<p><img src="http://note.youdao.com/yws/res/9335/7DC769031DD64DDABC42BDFBC7384599" alt="image"></p>
+<h3><span id="dubbo-spi-机制">Dubbo SPI 机制</span></h3><p>Java SPI 的具体约定为:当服务的提供者，提供了服务接口的一种实现之后，在jar包的META-INF/services/目录里同时创建一个以服务接口命名的文件。该文件里就是实现该服务接口的具体实现类。而当外部程序装配这个模块的时候，就能通过该jar包META-INF/services/里的配置文件找到具体的实现类名，并装载实例化，完成模块的注入。 基于这样一个约定就能很好的找到服务接口的实现类，而不需要再代码里制定。jdk提供服务实现查找的一个工具类java.util.ServiceLoader</p>
+<p><img src="http://note.youdao.com/yws/res/9338/0723FDE7587148BAB47925D8471D652D" alt="image"></p>
+<p>META-INF/services/xxx.dubbo.server.UserService 中的值：</p>
+<pre><code>xxx.dubbo.server.impl.UserServiceImpl2</code></pre>
+<p>装载获取SPI实现类：</p>
+<pre><code>public static void main(String[] args) {
+    Iterator&lt;UserService&gt; services = ServiceLoader.load(UserService.class).iterator();
+    UserService service = null;
+    while (services.hasNext()) {
+        service = services.next();
+    }
+    System.out.println(service.getUser(111));
+}</code></pre>
+<p>Dubbo SPI 在JAVA自带的SPI基础上加入了扩展点的功能，即每个实现类都会对应至一个扩展点名称，其目的是 应用可基于此名称进行相应的装配。</p>
+<p><img src="http://note.youdao.com/yws/res/9343/B158D3A511A54EE0819951B33A188F0D" alt="image"><br>dubbo spi  文件内容：</p>
+<pre><code>luban=xxx.dubbo.server.LubanFilter</code></pre>
+<p>装配自定义Filter</p>
+<p><img src="http://note.youdao.com/yws/res/9345/17D1822AA2FB4427A92566F2E64917B7" alt="image"></p>
+<p>想了解更详细信息：<br><a href="http://dubbo.apache.org/zh-cn/docs/source_code_guide/dubbo-spi.html">官方文档</a></p>
+<h2><span id="三-dubbo注册中心详解">三、Dubbo注册中心详解</span></h2><h3><span id="注册中心的作用">注册中心的作用</span></h3><p>为了到达服务集群动态扩容的目的，注册中心存储了服务的地址信息与可用状态信息，并实时推送给订阅了相关服务的客户端。<br><img src="http://note.youdao.com/yws/res/9386/8638BBF57BF946769ABFCE0DAF896809" alt="image"></p>
+<p><strong>一个完整的注册中心需要实现以下功能：</strong></p>
+<ol>
+<li>接收服务端的注册与客户端的引用，即将引用与消费建立关联，并支持多对多。</li>
+<li>当服务非正常关闭时能即时清除其状态</li>
+<li>当注册中心重启时，能自动恢复注册数据，以及订阅请求</li>
+<li>注册中心本身的集群 。</li>
+</ol>
+<h3><span id="dubbo所支持的注册中心">Dubbo所支持的注册中心</span></h3><ol>
+<li><strong>Multicast 注册中心</strong><ol>
+<li>基于组网广播技术，只能用在局域网内，一般用于简单的测试服务</li>
+</ol>
+</li>
+<li><strong>Zookeeper 注册中心(**</strong>推荐**<strong>)</strong><ol>
+<li><a href="http://zookeeper.apache.org/">Zookeeper</a> 是 Apacahe Hadoop 的子项目，是一个树型的目录服务，支持变更推送，适合作为 Dubbo 服务的注册中心，工业强度较高，可用于生产环境，并推荐使用</li>
+</ol>
+</li>
+<li><strong>Redis 注册中心</strong><ol>
+<li>基于Redis的注册中心</li>
+</ol>
+</li>
+<li><strong>Simple 注册中心</strong><ol>
+<li>基于本身的Dubbo服务实现（SimpleRegistryService），不支持集群可作为自定义注册中心的参考，但不适合直接用于生产环境。 </li>
+</ol>
+</li>
+</ol>
+<h3><span id="redis-注册中心"><strong>Redis 注册中心</strong></span></h3><p>关于Redis注册中心我们需要了解两点，</p>
+<h4><span id="1-如何存储服务的注册与订阅关系">1. 如何存储服务的注册与订阅关系</span></h4><p>redis 注册中心配置</p>
+<pre><code>&lt;dubbo:registry protocol=&quot;redis&quot; address=&quot;192.168.0.147:6379&quot;/&gt;</code></pre>
+<p>当我们启动两个服务端后发现，Reids中增加了一个Hash 类型的记录，其key为/dubbo/xxx.dubbo.server.UserService/providers。Value中分别存储了两个服务提供者的URL和有效期。</p>
+<p><img src="http://note.youdao.com/yws/res/9377/89233BE1BB03402C9224A6348FAA7007" alt="image"></p>
+<p><strong>同样消费者也是类似其整体结构如下：</strong></p>
+<pre><code>//服务提供者注册信息 
+/dubbbo/com.xxx.teach.service.DemoService/providers
+  dubbo://192.168.246.1:20880/XXX.DemoService=1542619052964 
+  dubbo://192.168.246.2:20880/XXX.DemoService=1542619052964 
+//服务消费订阅信息
+/dubbbo/com.xxx.teach.service.DemoService/consumers
+  dubbo://192.168.246.1:20880/XXX.DemoService=1542619788641</code></pre>
+<ul>
+<li>主 Key 为服务名和类型</li>
+<li>Map 中的 Key 为 URL 地址</li>
+<li>Map 中的 Value 为过期时间，用于判断脏数据，脏数据由监控中心删除</li>
+</ul>
+<h4><span id="2-是当服务状态改变时如何即时更新">2. 是当服务状态改变时如何即时更新？</span></h4><p>第二个问题 <strong>当提供者突然 宕机状态能即里变更吗</strong>？<br>这里Dubbo采用的是<strong>定时心跳的机制</strong> 来维护服务URL的有效期，默认<strong>每30秒更新一次有效期</strong>。即URL对应的毫秒值。具体代码参见：com.alibaba.dubbo.registry.redis.RedisRegistry#expireExecutor</p>
+<p><img src="http://note.youdao.com/yws/res/9390/F32248B7D113492EBC48590051A3CD04" alt="image"></p>
+<p>com.alibaba.dubbo.registry.redis.RedisRegistry#deferExpired<br>com.alibaba.dubbo.registry.integration.RegistryDirectory<br>com.alibaba.dubbo.registry.support.ProviderConsumerRegTable</p>
+<h3><span id="zookeeper-注册中心"><strong>Zookeeper 注册中心</strong></span></h3><p>关于Zookeeper 注册中心同样需要了解其存储结构和更新机制。<br>Zookeper是一个树型的目录服务，本身支持变更推送相比 redis 的实现 Publish/Subscribe 功能更稳定。</p>
+<ol>
+<li>Provider和Consumer向Zookeeper注册临时节点，当连接断开时删除相应的注册节点。</li>
+<li>Consumer订阅 Providers节点的子节点，通过 watch 事件，当 Zookeeper 删除临时节点时，实时感知 Provider 的变化情况，实时同步自身的Invoker对象，保证 RPC的可用性。</li>
+</ol>
+<p>结构：</p>
+<p><img src="http://note.youdao.com/yws/res/9425/D8B581F4BF944E94AF6382ECA1CB770F" alt="image"></p>
+<h4><span id="源码查看">源码查看</span></h4><pre class="line-numbers language-java"><code class="language-java"> <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doRegister</span><span class="token punctuation">(</span>URL url<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            zkClient<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token function">toUrlPath</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">,</span> url<span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span>Constants<span class="token punctuation">.</span>DYNAMIC_KEY<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RpcException</span><span class="token punctuation">(</span><span class="token string">"Failed to register "</span> <span class="token operator">+</span> url <span class="token operator">+</span> <span class="token string">" to zookeeper "</span> <span class="token operator">+</span> <span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">", cause: "</span> <span class="token operator">+</span> e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">create</span><span class="token punctuation">(</span>String path<span class="token punctuation">,</span> <span class="token keyword">boolean</span> ephemeral<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>ephemeral<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">checkExists</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> i <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">lastIndexOf</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 把前面的先创建好   dubbo/com.xx.xx/providers</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 创建持久节点</span>
+            <span class="token function">create</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>ephemeral<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//创建一个临时节点,node 节点（保存具体地址）。</span>
+            <span class="token function">createEphemeral</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 创建持久节点</span>
+            <span class="token function">createPersistent</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>失败重连：</strong><br>com.alibaba.dubbo.registry.support.FailbackRegistry</p>
+<p><strong>提供者突然断开：</strong><br>存储基于Zookeeper 临时节点机制实现，在客户端会话超时后（默认为40秒） Zookeeper 会自动删除所有临时节点。 </p>
+<pre><code>// 创建临时节点
+com.alibaba.dubbo.remoting.zookeeper.curator.CuratorZookeeperClient#createEphemeral</code></pre>
+<p><strong>在 zookeeper 断开的40秒内 如果 有客户端加入 会调用 已失效的提供者连接吗？</strong></p>
+<blockquote>
+<p>答：不会，提供者宕机后 ，其与客户端的链接也随即断开，客户端在调用前会检测长连接是否可用状态的方法。</p>
+<pre><code>// 检测连接是否有效
+ com.alibaba.dubbo.rpc.protocol.dubbo.DubboInvoker#isAvailable</code></pre>
+</blockquote>
+<p>创建 configurators与 routers  会通过 <strong>持久节点</strong>来创建, 比如：“dubbo/com.xx.xx/providers”</p>
+<pre><code>com.alibaba.dubbo.remoting.zookeeper.curator.CuratorZookeeperClient#createPersistent</code></pre>
+<p><strong>服务订阅机制实现：</strong></p>
+<pre><code>// 注册目录
+com.alibaba.dubbo.registry.integration.RegistryDirectory</code></pre>
+<p><img src="http://note.youdao.com/yws/res/9435/7903EF7E728C436EBABA5AB637CB1588" alt="image"></p>
+<h2><span id="三-dubbo-调用模块">三、 Dubbo 调用模块</span></h2><p>dubbo调用模块核心功能是发起一个远程方法的调用并顺利拿到返回结果，其体系组成如下：</p>
+<ol>
+<li><strong>透明代理：</strong> 通过动态代理技术，屏蔽远程调用细节以提高编程友好性。</li>
+<li><strong>负载均衡：</strong> 当有多个提供者是，如何选择哪个进行调用的负载算法。</li>
+<li><strong>容错机制：</strong> 当服务调用失败时采取的策略</li>
+<li><strong>调用方式：</strong> 支持同步调用、异步调用</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/9440/C29CEB5BE9E4479EA5988A07FC429C28" alt="image"></p>
+<h3><span id="透明代理">透明代理：</span></h3><p>针对代理 dubbo 提供 三种方式：</p>
+<p><img src="http://note.youdao.com/yws/res/9448/BCE9E2B8BB9F4E1DBE9E0249FCE1D4C7" alt="image"></p>
+<p>默认方式是：</p>
+<pre><code>    public static final String DEFAULT_PROXY = &quot;javassist&quot;;
+</code></pre>
+<p>调用链如下：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token operator">></span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>config<span class="token punctuation">.</span>ReferenceConfig#createProxy
+
+<span class="token operator">--</span><span class="token operator">></span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>rpc<span class="token punctuation">.</span>proxy<span class="token punctuation">.</span>javassist<span class="token punctuation">.</span>JavassistProxyFactory
+
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">></span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>common<span class="token punctuation">.</span>bytecode<span class="token punctuation">.</span>Proxy#<span class="token function">getProxy</span><span class="token punctuation">(</span>java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>ClassLoader<span class="token punctuation">,</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">></span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>common<span class="token punctuation">.</span>bytecode<span class="token punctuation">.</span>ClassGenerator#<span class="token function">newInstance</span><span class="token punctuation">(</span>java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>ClassLoader<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="http://note.youdao.com/yws/res/9461/2835D117E1FE424F84ED8907FC986A2B" alt="image"></p>
+<p><img src="http://note.youdao.com/yws/res/9451/5B1BA7C374ED444DAFD557DF5055D4D9" alt="image"></p>
+<p><img src="http://note.youdao.com/yws/res/9453/B8DCD49FB51847ED97BBA2C316A5BCDF" alt="image"></p>
+<p><img src="http://note.youdao.com/yws/res/9463/E7EF7C875FBD48A4B2037B3A74D5BC62" alt="image"></p>
+<h3><span id="负载均衡"><strong>负载均衡</strong></span></h3><p>Dubbo 目前官方支持以下负载均衡策略：</p>
+<ol>
+<li><strong>随机</strong>(random)：按权重设置随机概率。此为默认算法.</li>
+<li><strong>轮循</strong>(roundrobin):按公约后的权重设置轮循比率。</li>
+<li><strong>最少活跃调用数</strong>(leastactive):相同活跃数的随机，活跃数指调用前后计数差。</li>
+<li><strong>一致性Hash</strong>(consistenthash ):相同的参数总是发到同一台机器</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/9468/EDE99CF742414CB5921E56E2BD341282" alt="image"><br>设置方式支持如下四种方式设置，优先级由低至高</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- 服务端级别--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>service</span> <span class="token attr-name">interface</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">loadbalance</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>roundrobin<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span class="token comment" spellcheck="true">&lt;!-- 客户端级别--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>reference</span> <span class="token attr-name">interface</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">loadbalance</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>roundrobin<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span class="token comment" spellcheck="true">&lt;!-- 服务端方法级别--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>service</span> <span class="token attr-name">interface</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>method</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">loadbalance</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>roundrobin<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">dubbo:</span>service</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!-- 客户端方法级别--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>reference</span> <span class="token attr-name">interface</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>method</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">loadbalance</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>roundrobin<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">dubbo:</span>reference</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="容错"><strong>容错</strong></span></h3><p>Dubbo 官方目前支持以下容错策略：</p>
+<ol>
+<li><strong>失败自动切换：</strong> 调用失败后基于retries=“2” 属性重试其它服务器</li>
+<li><strong>快速失败：</strong> 快速失败，只发起一次调用，失败立即报错。</li>
+<li><strong>勿略失败：</strong> 失败后勿略，不抛出异常给客户端。</li>
+<li><strong>失败重试：</strong> 失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知操作</li>
+<li><strong>并行调用:</strong> 只要一个成功即返回，并行调用指定数量机器，可通过 forks=”2” 来设置最大并行数。</li>
+<li><strong>广播调用：</strong> 广播调用所有提供者，逐个调用，任意一台报错则报错</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/9473/CD04A0766E944919A0D62EBFE9F964C6" alt="image"><br>设置方式支持如下两种方式设置，优先级由低至高</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>
+Failover 失败自动切换 retries<span class="token operator">=</span><span class="token string">"1"</span> 切换次数
+Failfast 快速失败
+Failsafe 勿略失败
+Failback 失败重试，<span class="token number">5</span>秒后仅重试一次
+Forking 并行调用 forks<span class="token operator">=</span><span class="token string">"2"</span> 最大并行数
+Broadcast 广播调用
+<span class="token operator">--</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>dubbo<span class="token operator">:</span>service <span class="token keyword">interface</span><span class="token operator">=</span><span class="token string">"..."</span> cluster<span class="token operator">=</span><span class="token string">"broadcast"</span> <span class="token operator">/</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>dubbo<span class="token operator">:</span>reference <span class="token keyword">interface</span><span class="token operator">=</span><span class="token string">"..."</span> cluster<span class="token operator">=</span><span class="token string">"broadcast"</span><span class="token operator">/</span> <span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>注：容错机制 在基于 API设置时无效 如  referenceConfig.setCluster(“failback”); 经测试不启作用 </p>
+<h3><span id="异步调用"><strong>异步调用</strong></span></h3><p>异步调用是指发起远程调用之后获取结果的方式。</p>
+<ol>
+<li>同步等待结果返回（默认）</li>
+<li>异步等待结果返回</li>
+<li>不需要返回结果</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/9475/F1C320C5A219405B8EFC66F1FE4CC78B" alt="image"></p>
+<p>异步调用配置:</p>
+<pre><code>&lt;dubbo:reference id=&quot;asyncDemoService&quot;
+    interface=&quot;com.xxx.teach.service.async.AsyncDemoService&quot;&gt;
+   &lt;!-- 异步调async：true 异步调用 false 同步调用--&gt;
+   &lt;dubbo:method name=&quot;sayHello1&quot; async=&quot;false&quot;/&gt;
+   &lt;dubbo:method name=&quot;sayHello2&quot; async=&quot;false&quot;/&gt;
+   &lt;dubbo:method name=&quot;notReturn&quot; return=&quot;false&quot;/&gt;
+&lt;/dubbo:reference&gt;</code></pre>
+<p>注：在进行异步调用时 容错机制不能为  cluster=”forking” 或  cluster=”broadcast”</p>
+<p><em>异步调用结果获取Demo</em></p>
+<pre class="line-numbers language-java"><code class="language-java">demoService<span class="token punctuation">.</span><span class="token function">sayHello1</span><span class="token punctuation">(</span><span class="token string">"han"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Future<span class="token operator">&lt;</span>Object<span class="token operator">></span> future1 <span class="token operator">=</span> RpcContext<span class="token punctuation">.</span><span class="token function">getContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getFuture</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+demoService<span class="token punctuation">.</span><span class="token function">sayHello2</span><span class="token punctuation">(</span><span class="token string">"han2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Future<span class="token operator">&lt;</span>Object<span class="token operator">></span> future2 <span class="token operator">=</span> RpcContext<span class="token punctuation">.</span><span class="token function">getContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getFuture</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Object r1 <span class="token operator">=</span> null<span class="token punctuation">,</span> r2 <span class="token operator">=</span> null<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// wait 直到拿到结果 或超时</span>
+r1 <span class="token operator">=</span> future1<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// wait 直到拿到结果 或超时</span>
+r2 <span class="token operator">=</span> future2<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="过滤器"><strong>过滤器</strong></span></h3><p>** 类似于 WEB 中的Filter ，Dubbo本身提供了Filter 功能用于拦截远程方法的调用。其支持自定义过滤器与官方的过滤器使用：**<br>#TODO 演示添加日志访问过滤:</p>
+<pre><code>&lt;dubbo:provider  filter=&quot;accesslog&quot; accesslog=&quot;logs/dubbo.log&quot;/&gt;</code></pre>
+<p>以上配置 就是 为 服务提供者 添加 日志记录过滤器， 所有访问日志将会集中打印至 accesslog 当中。</p>
+<h2><span id="调用通信-内部实现原理">调用通信  内部实现原理</span></h2><p><img src="http://note.youdao.com/yws/res/9490/17E56F436154424BA5E8AAC97BD84B13" alt="image"></p>
+<p><strong>IO模型：</strong></p>
+<ol>
+<li>BIO 同步阻塞</li>
+<li>NIO 同步非阻塞</li>
+<li>AIO 异步非阻塞</li>
+</ol>
+<p><strong>连接模型：</strong></p>
+<ol>
+<li>长连接</li>
+<li>短连接</li>
+</ol>
+<p><strong>线程分类：</strong></p>
+<ol>
+<li>IO线程</li>
+<li>服务端业务线程</li>
+<li>客户端调度线程</li>
+<li>客户端结果exchange线程。</li>
+<li>保活心跳线程</li>
+<li>重连线程</li>
+</ol>
+<p><strong>线程池模型：</strong></p>
+<ol>
+<li>固定数量线程池</li>
+<li>缓存线程池</li>
+<li>有限线程池</li>
+</ol>
+<h3><span id="dubbo-长连接实现与配置"><strong>Dubbo 长连接实现与配置</strong></span></h3><p><strong>初始连接：</strong></p>
+<p>引用服务增加提供者 —&gt; 获取连接 –&gt; 是否获取共享连接 –&gt;创建连接客户端–&gt;开启心跳检测状态检查定时任务–&gt; 开启连接状态检测.</p>
+<blockquote>
+<p>com.alibaba.dubbo.rpc.protocol.dubbo.DubboProtocol#getClients</p>
+</blockquote>
+<p><strong>心跳发送：</strong><br>在创建一个连接客户端同时也会创建一个心跳客户端，客户端默认基于60秒发送一次心跳来保持连接的存活，可通过 heartbeat 设置。</p>
+<blockquote>
+<p>com.alibaba.dubbo.remoting.exchange.support.header.HeaderExchangeClient#startHeatbeatTimer</p>
+</blockquote>
+<p><strong>断线重连：</strong><br>每创建一个客户端连接都会启动一个定时任务每两秒中检测一次当前连接状态，如果断线则自动重连。</p>
+<blockquote>
+<p>com.alibaba.dubbo.remoting.transport.AbstractClient#initConnectStatusCheckCommand</p>
+</blockquote>
+<p><strong>连接销毁:</strong><br>基于注册中心通知，服务端断开后销毁</p>
+<blockquote>
+<p>com.alibaba.dubbo.remoting.transport.AbstractClient#close()</p>
+</blockquote>
+<h3><span id="dubbo-传输协作线程"><strong>Dubbo 传输协作线程</strong></span></h3><ol>
+<li><strong>客户端调度线程</strong>：用于发起远程方法调用的线程。</li>
+<li><strong>客户端结果Exchange线程：</strong> 当远程方法返回response后由该线程填充至指定ResponseFuture，并叫醒等待的调度线程。</li>
+<li><strong>客户端IO线程</strong> 由传输框架实现，用于request 消息流发送、response 消息流读取与解码等操作。</li>
+<li><strong>服务端IO线程</strong>：由传输框架实现，用于request消息流读取与解码 与Response发送。</li>
+<li><strong>业务执行线程：</strong> 服务端具体执行业务方法的线程</li>
+</ol>
+<p><strong>客户端线程协作：</strong><br><img src="http://note.youdao.com/yws/res/9495/9564293312B2420DB80E156C7FB00CF5" alt="image"></p>
+<ol>
+<li><strong>调度线程</strong><ol>
+<li>调用远程方法</li>
+<li>对request 进行协议编码</li>
+<li>发送request 消息至IO线程</li>
+<li>等待结果的获取</li>
+</ol>
+</li>
+<li><strong>IO线程</strong><ol>
+<li>读取response流</li>
+<li>response 解码</li>
+<li>提交Exchange 任务</li>
+</ol>
+</li>
+<li><strong>Exchange线程</strong><ol>
+<li>填写response值 至 ResponseFuture</li>
+<li>唤醒调度线程，通知其获取结果</li>
+</ol>
+</li>
+</ol>
+<p><strong>服务端线程协作：</strong><br><img src="http://note.youdao.com/yws/res/9500/6E0C6D20EF8C4276B16C4BCF37D183CF" alt="image"></p>
+<ol>
+<li><strong>IO线程：</strong><ol>
+<li>request 流读取</li>
+<li>request 解码</li>
+<li>提交业务处理任务</li>
+</ol>
+</li>
+<li><strong>业务线程：</strong><ol>
+<li>业务方法执行</li>
+<li>response 编码</li>
+<li>回写结果至channel</li>
+</ol>
+</li>
+</ol>
+<p><strong>线程池</strong></p>
+<ol>
+<li><strong>fixed：</strong> 固定线程池,此线程池启动时即创建固定大小的线程数，不做任何伸缩，</li>
+<li><strong>cached：</strong> 缓存线程池,此线程池可伸缩，线程空闲一分钟后回收，新请求重新创建线程</li>
+<li><strong>Limited：</strong> 有限线程池,此线程池一直增长，直到上限，增长后不收缩。</li>
+</ol>
+<h2><span id="四-dubbo-协议">四、Dubbo 协议</span></h2><h3><span id="rpc-协议名词解释"><strong>RPC 协议名词解释</strong></span></h3><p>在一个典型RPC的使用场景中，包含了服务发现、负载、容错、网络传输、序列化等组件，其中RPC协议就指明了程序如何进行网络传输和序列化 。也就是说一个RPC协议的实现就等于一个非透明的远程调用实现，如何做到的的呢？</p>
+<p><img src="http://note.youdao.com/yws/res/9510/AFE8EDF1A5B0427FA856137A2B9C6B12" alt="image"></p>
+<p><img src="http://note.youdao.com/yws/res/9512/35AAA35E698A442687702615820C1AD7" alt="image"></p>
+<ol>
+<li>地址：服务提供者地址</li>
+<li>端口：协议指定开放的端口</li>
+<li>报文编码：协议报文编码 ，分为请求头和请求体两部分。</li>
+<li>序列化方式：将请求体序列化成对象<br><img src="http://note.youdao.com/yws/res/9516/A8AA0D50758B4D9BA51737391F3AE4CE" alt="image"></li>
+<li>运行服务: 网络传输实现<br><img src="http://note.youdao.com/yws/res/9514/3DC6FD7E7BFB4F4786B0CCD6A9BF87DA" alt="image"></li>
+</ol>
+<h3><span id="dubbo-支持的rpc协议">dubbo 支持的RPC协议</span></h3><p><img src="http://note.youdao.com/yws/res/9523/DC0DB69BE0F449DF870E40A1093A57CC" alt="image"></p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>名称</strong></th>
+<th align="left"><strong>实现描述</strong></th>
+<th align="left"><strong>连接描述</strong></th>
+<th align="left"><strong>适用场景</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>dubbo</strong></td>
+<td align="left">传输服务: mina, netty(默认), grizzy序列化: hessian2(默认), java, fastjson自定义报文</td>
+<td align="left">单个长连接NIO异步传输</td>
+<td align="left">1、常规RPC调用2、传输数据量小3、提供者少于消费者</td>
+</tr>
+<tr>
+<td align="left"><strong>rmi</strong></td>
+<td align="left">传输：java rmi 服务序列化：java原生二进制序列化</td>
+<td align="left">多个短连接BIO同步传输</td>
+<td align="left">1、常规RPC调用2、与原RMI客户端集成3、可传少量文件4、不支持防火墙穿透</td>
+</tr>
+<tr>
+<td align="left"><strong>hessian</strong></td>
+<td align="left">传输服务：servlet容器序列化：hessian二进制序列化</td>
+<td align="left">基于Http 协议传输，依懒servlet容器配置</td>
+<td align="left">1、提供者多于消费者2、可传大字段和文件3、跨语言调用</td>
+</tr>
+<tr>
+<td align="left"><strong>http</strong></td>
+<td align="left">传输服务：servlet容器序列化：java原生二进制序列化</td>
+<td align="left">依懒servlet容器配置</td>
+<td align="left">1、数据包大小混合</td>
+</tr>
+<tr>
+<td align="left"><strong>thrift</strong></td>
+<td align="left">与thrift RPC 实现集成，并在其基础上修改了报文头</td>
+<td align="left">长连接、NIO异步传输</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p><strong><em>关于RMI不支持防火墙穿透的补充说明：</em></strong><br>    原因在于RMI 底层实现中会有两个端口，一个是固定的用于服务发现的注册端口，另外会生成一个**<em>随机**</em>端口用于网络传输。因为这个随机端口就不能在防火墙中提前设置开放开。所以存在<em>防火墙穿透问题</em></p>
+<h3><span id="协议的使用与配置"><strong>协议的使用与配置:</strong></span></h3><p>Dubbo框架配置协议非常方便，用户只需要在 provider 应用中 配置*&lt;**dubbo:protocol&gt;*元素即可。</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--
+ name: 协议名称 dubbo|rmi|hessian|http|
+host:本机IP可不填，则系统自动获取
+port：端口、填-1表示系统自动选择
+server：运行服务 mina|netty|grizzy|servlet|jetty
+ serialization：序列化方式 hessian2|java|compactedjava|fastjson
+ 详细配置参见dubbo 官网 dubbo.io
+--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>protocol</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>dubbo<span class="token punctuation">"</span></span> <span class="token attr-name">host</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>192.168.0.11<span class="token punctuation">"</span></span> <span class="token attr-name">port</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>20880<span class="token punctuation">"</span></span> <span class="token attr-name">server</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>netty<span class="token punctuation">"</span></span>
+ <span class="token attr-name">serialization</span><span class="token attr-value"><span class="token punctuation">=</span>“hessian2”</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span>“UTF-8”</span> <span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3><span id="dubbo-支持的序列化">dubbo 支持的序列化：</span></h3><table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">fastjson</td>
+<td align="left">文本型：体积较大，性能慢、跨语言、可读性高</td>
+</tr>
+<tr>
+<td align="left">fst</td>
+<td align="left">二进制型：体积小、兼容 JDK 原生的序列化。要求 JDK 1.7 支持。</td>
+</tr>
+<tr>
+<td align="left">hessian2</td>
+<td align="left">二进制型：跨语言、容错性高、体积小</td>
+</tr>
+<tr>
+<td align="left">java</td>
+<td align="left">二进制型：在JAVA原生的基础上 可以写入Null</td>
+</tr>
+<tr>
+<td align="left">compactedjava</td>
+<td align="left">二进制型：与java 类似，内容做了压缩</td>
+</tr>
+<tr>
+<td align="left">nativejava</td>
+<td align="left">二进制型：原生的JAVA 序列化</td>
+</tr>
+<tr>
+<td align="left">kryo</td>
+<td align="left">二进制型：体积比hessian2 还要小，但容错性 没有hessian2 好</td>
+</tr>
+</tbody></table>
+<h3><span id="hessian-序列化">Hessian 序列化</span></h3><ul>
+<li>参数及返回值需实现 Serializable 接口</li>
+<li>参数及返回值不能自定义实现 List,Map,Number,Date,Calendar等接口，只能用 JDK 自带的实现，因为 hessian 会做特殊处理，自定义实现类中的属性值都会丢失。</li>
+<li>Hessian 序列化，只传成员属性值和值的类型，不传方法或静态变量，兼容情况 <a href="http://dubbo.apache.org/zh-cn/docs/user/references/protocol/dubbo.html#fn1">[1]</a><a href="http://dubbo.apache.org/zh-cn/docs/user/references/protocol/dubbo.html#fn2">[2]</a>：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>数据通讯</strong></th>
+<th align="left"><strong>情况</strong></th>
+<th align="left"><strong>结果</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">A-&gt;B</td>
+<td align="left">类A多一种 属性（或者说类B少一种 属性）</td>
+<td align="left">不抛异常，A多的那 个属性的值，B没有， 其他正常</td>
+</tr>
+<tr>
+<td align="left">A-&gt;B</td>
+<td align="left">枚举A多一种 枚举（或者说B少一种 枚举），A使用多 出来的枚举进行传输</td>
+<td align="left">抛异常</td>
+</tr>
+<tr>
+<td align="left">A-&gt;B</td>
+<td align="left">枚举A多一种 枚举（或者说B少一种 枚举），A不使用 多出来的枚举进行传输</td>
+<td align="left">不抛异常，B正常接 收数据</td>
+</tr>
+<tr>
+<td align="left">A-&gt;B</td>
+<td align="left">A和B的属性 名相同，但类型不相同</td>
+<td align="left">抛异常</td>
+</tr>
+<tr>
+<td align="left">A-&gt;B</td>
+<td align="left">serialId 不相同</td>
+<td align="left">正常传输</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>接口增加方法，对客户端无影响，如果该方法不是客户端需要的，客户端不需要重新部署。输入参数和结果集中增加属性，对客户端无影响，如果客户端并不需要新属性，不用重新部署。<br>输入参数和结果集属性名变化，对客户端序列化无影响，但是如果客户端不重新部署，不管输入还是输出，属性名变化的属性值是获取不到的。</p>
+</blockquote>
+<p>总结：服务器端和客户端对领域对象并不需要完全一致，而是按照最大匹配原则。</p>
+<h2><span id="五-rpc协议报文编码与实现详解">五、RPC协议报文编码与实现详解</span></h2><h3><span id="rpc-传输实现"><strong>RPC 传输实现：</strong></span></h3><p>RPC的协议的传输是基于 TCP/IP 做为基础使用Socket 或Netty、mina等网络编程组件实现。但有个问题是TCP是面向字节流的无边边界协议，其只管负责数据传输并不会区分每次请求所对应的消息，这样就会出现TCP协义传输当中的拆包与粘包问题</p>
+<h3><span id="拆包与粘包产生的原因"><strong>拆包与粘包产生的原因：</strong></span></h3><p>我们知道tcp是以流动的方式传输数据，传输的最小单位为一个报文段（segment）。tcp Header中有个Options标识位，常见的标识为mss(Maximum Segment Size)指的是，连接层每次传输的数据有个最大限制MTU(Maximum Transmission Unit)，一般是1500比特，超过这个量要分成多个报文段，mss则是这个最大限制减去TCP的header，光是要传输的数据的大小，一般为1460比特。换算成字节，也就是180多字节。</p>
+<p>tcp为提高性能，发送端会将需要发送的数据发送到缓冲区，等待缓冲区满了之后，再将缓冲中的数据发送到接收方。同理，接收方也有缓冲区这样的机制，来接收数据。这时就会出现以下情况：</p>
+<ol>
+<li>应用程序写入的数据大于MSS大小，这将会发生拆包。</li>
+<li>应用程序写入数据小于MSS大小，这将会发生粘包。</li>
+<li>接收方法不及时读取套接字缓冲区数据，这将发生粘包。</li>
+</ol>
+<h3><span id="拆包与粘包解决办法"><strong>拆包与粘包解决办法：</strong></span></h3><ol>
+<li>设置定长消息，服务端每次读取既定长度的内容作为一条完整消息。</li>
+<li>{“type”:”message”,”content”:”hello”}\n</li>
+<li>使用带消息头的协议、消息头存储消息开始标识及消息长度信息，服务端获取消息头的时候解析出消息长度，然后向后读取该长度的内容。</li>
+</ol>
+<p><strong>比如：</strong> Http协议 heade 中的 Content-Length 就表示消息体的大小。</p>
+<p><img src="http://note.youdao.com/yws/res/9536/1627E3D71B36459393AAD1066002AFE6" alt="image"></p>
+<h3><span id="dubbo-协议报文编码">Dubbo 协议报文编码：</span></h3><p><strong>dubbo 协议报文编码：</strong></p>
+<p><img src="http://note.youdao.com/yws/res/9538/25B9C2C5C20C46168D641144B2B6A07E" alt="image"></p>
+<ul>
+<li><strong>magic</strong>：类似java字节码文件里的魔数，用来判断是不是dubbo协议的数据包。魔数是常量0xdabb,用于判断报文的开始。</li>
+<li><strong>flag</strong>：标志位, 一共8个地址位。低四位用来表示消息体数据用的序列化工具的类型（默认hessian），高四位中，第一位为1表示是request请求，第二位为1表示双向传输（即有返回response），第三位为1表示是心跳ping事件。</li>
+<li><strong>status</strong>：状态位, 设置请求响应状态，dubbo定义了一些响应的类型。具体类型见 com.alibaba.dubbo.remoting.exchange.Response</li>
+<li><strong>invoke id：</strong> 消息id, long 类型。每一个请求的唯一识别id（由于采用异步通讯的方式，用来把请求request和返回的response对应上）</li>
+<li><strong>body length：</strong> 消息体 body 长度, int 类型，即记录Body Content有多少个字节。</li>
+</ul>
+<p><img src="http://note.youdao.com/yws/res/9542/B37D5C57C013452AA75C1DCB90F2766A" alt="image"></p>
+<ul>
+<li>com.alibaba.dubbo.rpc.protocol.dubbo.DubboCodec#encodeRequestData()</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">encodeRequestData</span><span class="token punctuation">(</span>Channel channel<span class="token punctuation">,</span> ObjectOutput out<span class="token punctuation">,</span> Object data<span class="token punctuation">,</span> String version<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        RpcInvocation inv <span class="token operator">=</span> <span class="token punctuation">(</span>RpcInvocation<span class="token punctuation">)</span> data<span class="token punctuation">;</span>
+
+         <span class="token comment" spellcheck="true">//版本号</span>
+        out<span class="token punctuation">.</span><span class="token function">writeUTF</span><span class="token punctuation">(</span>version<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//接口路径</span>
+        out<span class="token punctuation">.</span><span class="token function">writeUTF</span><span class="token punctuation">(</span>inv<span class="token punctuation">.</span><span class="token function">getAttachment</span><span class="token punctuation">(</span>Constants<span class="token punctuation">.</span>PATH_KEY<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//接口版本</span>
+        out<span class="token punctuation">.</span><span class="token function">writeUTF</span><span class="token punctuation">(</span>inv<span class="token punctuation">.</span><span class="token function">getAttachment</span><span class="token punctuation">(</span>Constants<span class="token punctuation">.</span>VERSION_KEY<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">//方法名称</span>
+        out<span class="token punctuation">.</span><span class="token function">writeUTF</span><span class="token punctuation">(</span>inv<span class="token punctuation">.</span><span class="token function">getMethodName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//参数类型</span>
+        out<span class="token punctuation">.</span><span class="token function">writeUTF</span><span class="token punctuation">(</span>ReflectUtils<span class="token punctuation">.</span><span class="token function">getDesc</span><span class="token punctuation">(</span>inv<span class="token punctuation">.</span><span class="token function">getParameterTypes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//参数值</span>
+        Object<span class="token punctuation">[</span><span class="token punctuation">]</span> args <span class="token operator">=</span> inv<span class="token punctuation">.</span><span class="token function">getArguments</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>args <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> args<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                out<span class="token punctuation">.</span><span class="token function">writeObject</span><span class="token punctuation">(</span><span class="token function">encodeInvocationArgument</span><span class="token punctuation">(</span>channel<span class="token punctuation">,</span> inv<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        out<span class="token punctuation">.</span><span class="token function">writeObject</span><span class="token punctuation">(</span>inv<span class="token punctuation">.</span><span class="token function">getAttachments</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>com.alibaba.dubbo.rpc.protocol.dubbo.DubboCodec#encodeResponseData()</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">encodeResponseData</span><span class="token punctuation">(</span>Channel channel<span class="token punctuation">,</span> ObjectOutput out<span class="token punctuation">,</span> Object data<span class="token punctuation">,</span> String version<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+      Result result <span class="token operator">=</span> <span class="token punctuation">(</span>Result<span class="token punctuation">)</span> data<span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// currently, the version value in Response records the version of Request</span>
+      <span class="token keyword">boolean</span> attach <span class="token operator">=</span> Version<span class="token punctuation">.</span><span class="token function">isSupportResponseAttatchment</span><span class="token punctuation">(</span>version<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      Throwable th <span class="token operator">=</span> result<span class="token punctuation">.</span><span class="token function">getException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>th <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          Object ret <span class="token operator">=</span> result<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>ret <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              out<span class="token punctuation">.</span><span class="token function">writeByte</span><span class="token punctuation">(</span>attach <span class="token operator">?</span> RESPONSE_NULL_VALUE_WITH_ATTACHMENTS <span class="token operator">:</span> RESPONSE_NULL_VALUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+              out<span class="token punctuation">.</span><span class="token function">writeByte</span><span class="token punctuation">(</span>attach <span class="token operator">?</span> RESPONSE_VALUE_WITH_ATTACHMENTS <span class="token operator">:</span> RESPONSE_VALUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+              out<span class="token punctuation">.</span><span class="token function">writeObject</span><span class="token punctuation">(</span>ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          out<span class="token punctuation">.</span><span class="token function">writeByte</span><span class="token punctuation">(</span>attach <span class="token operator">?</span> RESPONSE_WITH_EXCEPTION_WITH_ATTACHMENTS <span class="token operator">:</span> RESPONSE_WITH_EXCEPTION<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          out<span class="token punctuation">.</span><span class="token function">writeObject</span><span class="token punctuation">(</span>th<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>attach<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment" spellcheck="true">// returns current version of Response to consumer side.</span>
+          result<span class="token punctuation">.</span><span class="token function">getAttachments</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>Constants<span class="token punctuation">.</span>DUBBO_VERSION_KEY<span class="token punctuation">,</span> Version<span class="token punctuation">.</span><span class="token function">getProtocolVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          out<span class="token punctuation">.</span><span class="token function">writeObject</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span><span class="token function">getAttachments</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>解码</p>
+</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> Object <span class="token function">decodeBody</span><span class="token punctuation">(</span>Channel channel<span class="token punctuation">,</span> InputStream is<span class="token punctuation">,</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> header<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token keyword">byte</span> flag <span class="token operator">=</span> header<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> proto <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>flag <span class="token operator">&amp;</span> SERIALIZATION_MASK<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 获取 request id</span>
+        <span class="token keyword">long</span> id <span class="token operator">=</span> Bytes<span class="token punctuation">.</span><span class="token function">bytes2long</span><span class="token punctuation">(</span>header<span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//判断是request 解码还是 response 解码</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>flag <span class="token operator">&amp;</span> FLAG_REQUEST<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//客户端： 解码 response.</span>
+            Response res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Response</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>flag <span class="token operator">&amp;</span> FLAG_EVENT<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                res<span class="token punctuation">.</span><span class="token function">setEvent</span><span class="token punctuation">(</span>Response<span class="token punctuation">.</span>HEARTBEAT_EVENT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">// get status.</span>
+            <span class="token keyword">byte</span> status <span class="token operator">=</span> header<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            res<span class="token punctuation">.</span><span class="token function">setStatus</span><span class="token punctuation">(</span>status<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>status <span class="token operator">==</span> Response<span class="token punctuation">.</span>OK<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    Object data<span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">.</span><span class="token function">isHeartbeat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        data <span class="token operator">=</span> <span class="token function">decodeHeartbeatData</span><span class="token punctuation">(</span>channel<span class="token punctuation">,</span>  CodecSupport<span class="token punctuation">.</span><span class="token function">deserialize</span><span class="token punctuation">(</span>channel<span class="token punctuation">.</span><span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> is<span class="token punctuation">,</span> proto<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">.</span><span class="token function">isEvent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        data <span class="token operator">=</span> <span class="token function">decodeEventData</span><span class="token punctuation">(</span>channel<span class="token punctuation">,</span>  CodecSupport<span class="token punctuation">.</span><span class="token function">deserialize</span><span class="token punctuation">(</span>channel<span class="token punctuation">.</span><span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> is<span class="token punctuation">,</span> proto<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                        DecodeableRpcResult result<span class="token punctuation">;</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span>channel<span class="token punctuation">.</span><span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span>
+                                Constants<span class="token punctuation">.</span>DECODE_IN_IO_THREAD_KEY<span class="token punctuation">,</span>
+                                Constants<span class="token punctuation">.</span>DEFAULT_DECODE_IN_IO_THREAD<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            result <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DecodeableRpcResult</span><span class="token punctuation">(</span>channel<span class="token punctuation">,</span> res<span class="token punctuation">,</span> is<span class="token punctuation">,</span>
+                                    <span class="token punctuation">(</span>Invocation<span class="token punctuation">)</span> <span class="token function">getRequestData</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">,</span> proto<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            result<span class="token punctuation">.</span><span class="token function">decode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                            result <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DecodeableRpcResult</span><span class="token punctuation">(</span>channel<span class="token punctuation">,</span> res<span class="token punctuation">,</span>
+                                    <span class="token keyword">new</span> <span class="token class-name">UnsafeByteArrayInputStream</span><span class="token punctuation">(</span><span class="token function">readMessageData</span><span class="token punctuation">(</span>is<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                                    <span class="token punctuation">(</span>Invocation<span class="token punctuation">)</span> <span class="token function">getRequestData</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">,</span> proto<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                        data <span class="token operator">=</span> result<span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                    res<span class="token punctuation">.</span><span class="token function">setResult</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    res<span class="token punctuation">.</span><span class="token function">setErrorMessage</span><span class="token punctuation">(</span>CodecSupport<span class="token punctuation">.</span><span class="token function">deserialize</span><span class="token punctuation">(</span>channel<span class="token punctuation">.</span><span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> is<span class="token punctuation">,</span> proto<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">readUTF</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>log<span class="token punctuation">.</span><span class="token function">isWarnEnabled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    log<span class="token punctuation">.</span><span class="token function">warn</span><span class="token punctuation">(</span><span class="token string">"Decode response failed: "</span> <span class="token operator">+</span> t<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                res<span class="token punctuation">.</span><span class="token function">setStatus</span><span class="token punctuation">(</span>Response<span class="token punctuation">.</span>CLIENT_ERROR<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                res<span class="token punctuation">.</span><span class="token function">setErrorMessage</span><span class="token punctuation">(</span>StringUtils<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 服务端 ：解码 request.</span>
+            Request req <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Request</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            req<span class="token punctuation">.</span><span class="token function">setVersion</span><span class="token punctuation">(</span>Version<span class="token punctuation">.</span><span class="token function">getProtocolVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            req<span class="token punctuation">.</span><span class="token function">setTwoWay</span><span class="token punctuation">(</span><span class="token punctuation">(</span>flag <span class="token operator">&amp;</span> FLAG_TWOWAY<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>flag <span class="token operator">&amp;</span> FLAG_EVENT<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                req<span class="token punctuation">.</span><span class="token function">setEvent</span><span class="token punctuation">(</span>Request<span class="token punctuation">.</span>HEARTBEAT_EVENT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                Object data<span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>req<span class="token punctuation">.</span><span class="token function">isHeartbeat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    data <span class="token operator">=</span> <span class="token function">decodeHeartbeatData</span><span class="token punctuation">(</span>channel<span class="token punctuation">,</span> CodecSupport<span class="token punctuation">.</span><span class="token function">deserialize</span><span class="token punctuation">(</span>channel<span class="token punctuation">.</span><span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> is<span class="token punctuation">,</span> proto<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>req<span class="token punctuation">.</span><span class="token function">isEvent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    data <span class="token operator">=</span> <span class="token function">decodeEventData</span><span class="token punctuation">(</span>channel<span class="token punctuation">,</span> CodecSupport<span class="token punctuation">.</span><span class="token function">deserialize</span><span class="token punctuation">(</span>channel<span class="token punctuation">.</span><span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> is<span class="token punctuation">,</span> proto<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    DecodeableRpcInvocation inv<span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>channel<span class="token punctuation">.</span><span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span>
+                            Constants<span class="token punctuation">.</span>DECODE_IN_IO_THREAD_KEY<span class="token punctuation">,</span>
+                            Constants<span class="token punctuation">.</span>DEFAULT_DECODE_IN_IO_THREAD<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        inv <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DecodeableRpcInvocation</span><span class="token punctuation">(</span>channel<span class="token punctuation">,</span> req<span class="token punctuation">,</span> is<span class="token punctuation">,</span> proto<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        inv<span class="token punctuation">.</span><span class="token function">decode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                        inv <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DecodeableRpcInvocation</span><span class="token punctuation">(</span>channel<span class="token punctuation">,</span> req<span class="token punctuation">,</span>
+                                <span class="token keyword">new</span> <span class="token class-name">UnsafeByteArrayInputStream</span><span class="token punctuation">(</span><span class="token function">readMessageData</span><span class="token punctuation">(</span>is<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> proto<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                    data <span class="token operator">=</span> inv<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                req<span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Throwable</span> t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>log<span class="token punctuation">.</span><span class="token function">isWarnEnabled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    log<span class="token punctuation">.</span><span class="token function">warn</span><span class="token punctuation">(</span><span class="token string">"Decode request failed: "</span> <span class="token operator">+</span> t<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token comment" spellcheck="true">// bad request</span>
+                req<span class="token punctuation">.</span><span class="token function">setBroken</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                req<span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> req<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="http://note.youdao.com/yws/res/9545/298139E160AA428486709FD4E1641C6A" alt="image"></p>
+<h2><span id="六-最后">六、最后</span></h2><ol>
+<li>负载均衡：多个机器调用哪一台?<blockquote>
+<p>答：多种负载均衡策略。</p>
+</blockquote>
+</li>
+<li>服务发现：怎样发现新的服务地址呢？<blockquote>
+<p>答：服务注册与发现。</p>
+</blockquote>
+</li>
+<li>健康检测：服务关宕机或恢复后怎么办？<blockquote>
+<p>答：两种情况，消费者还是用老的请求，则</p>
+</blockquote>
+</li>
+<li>容错：如果调用其中一台调用出错了怎么办？<blockquote>
+<p>答：容错策略。</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li><a href="http://dubbo.apache.org/zh-cn/docs/user/quick-start.html">Dubbo官方文档</a></li>
+</ul>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-02-11T12:04:17.000Z" title="2020-02-11T12:04:17.000Z">2020-02-11</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span><span class="level-item">34 分鐘 lesen (Über 5145 Worte)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/02/11/Redis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/">Redis核心原理详解</a></h1><div class="content"><!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+<ul>
+<li><a href="#%E4%B8%80redis-%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">一、Redis 基础数据结构</a><ul>
+<li><a href="#%E5%88%97%E8%A1%A8list">列表（list）</a></li>
+<li><a href="#%E5%AD%97%E5%85%B8hash">字典（hash）</a></li>
+<li><a href="#%E9%9B%86%E5%90%88set">集合（set）</a></li>
+<li><a href="#%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88sortedset">有序集合（sortedset）</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%80%E4%BA%9B%E9%AB%98%E7%BA%A7%E5%91%BD%E4%BB%A4">一些高级命令</a></li>
+<li><a href="#%E4%BA%8C%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86">二、线程模型核心原理</a></li>
+<li><a href="#%E4%B8%89%E6%8C%81%E4%B9%85%E5%8C%96">三、持久化</a><ul>
+<li><a href="#rdb%E5%BF%AB%E7%85%A7snapshot">RDB快照（snapshot）</a></li>
+<li><a href="#aofappend-only-file">AOF（append-only file）</a></li>
+<li><a href="#rdb-%E5%92%8C-aof-%E6%88%91%E5%BA%94%E8%AF%A5%E7%94%A8%E5%93%AA%E4%B8%80%E4%B8%AA">RDB 和 AOF ，我应该用哪一个？</a></li>
+<li><a href="#redis-40-%E6%B7%B7%E5%90%88%E6%8C%81%E4%B9%85%E5%8C%96">Redis 4.0 混合持久化</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9B%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5">四、缓存淘汰策略</a></li>
+<li><a href="#%E4%BA%94redis%E9%9B%86%E7%BE%A4%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90">五、Redis集群原理分析</a><ul>
+<li><a href="#%E6%A7%BD%E4%BD%8D%E5%AE%9A%E4%BD%8D%E7%AE%97%E6%B3%95">槽位定位算法</a></li>
+<li><a href="#%E8%B7%B3%E8%BD%AC%E9%87%8D%E5%AE%9A%E4%BD%8D">跳转重定位</a></li>
+<li><a href="#%E7%BD%91%E7%BB%9C%E6%8A%96%E5%8A%A8">网络抖动</a></li>
+<li><a href="#%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2-%E9%80%89%E4%B8%BE%E5%8E%9F%E7%90%86">主从切换 选举原理</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%9C%BA%E5%88%B6">发布订阅机制</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<h2><span id="一-redis-基础数据结构">一、Redis 基础数据结构</span></h2><p>Redis 有 5 种基础数据结构，分别为：string (字符串)、list (列表)、set (集合)、hash (哈希) 和 zset (有序集合)，下面就详细说说这几种数据结构。<br><img src="http://note.youdao.com/yws/res/9583/0A3FCFF09EFA4D6A8B1F6D5CCCF848A8" alt="image"></p>
+<h3><span id="列表list">列表（list）</span></h3><p>我们先来看列表。列表这种数据类型支持存储一组数据。这种数据类型对应两种实现方法，一种是压缩列表（ziplist），另一种是双向循环链表。当列表中存储的数据量比较小的时候，列表就可以采用压缩列表的方式实现。具体需要同时满足下面两个条件：</p>
+<ol>
+<li>列表中保存的单个数据（有可能是字符串类型的）小于 64 字节；</li>
+<li>列表中数据个数少于 512 个。</li>
+</ol>
+<p>所谓压缩列表，它并不是基础数据结构，而是 Redis为了<strong>压缩内存和支持存储不同类型的数据</strong>， 自己设计的一种数据存储结构。它有点儿类似数组，通过一片连续的内存空间，来存储数据。不过，它跟数组不同的一点是，它允许存储的数据大小不同,由于分配的空间不同，所以不能通过地址索引随机访问。<br><img src="http://note.youdao.com/yws/res/9733/5909E6B696754BF0BD809353853E6B34" alt="image"><br>如果不能同时满足刚刚讲的两个条件的时候，列表就要通过双向循环链表来实现了。</p>
+<h3><span id="字典hash">字典（hash）</span></h3><p>典类型用来存储一组数据对。每个数据对又包含键值两部分。字典类型也有两种实现方式。一种是我们刚刚讲到的压缩列表，另一种是散列表。同样，只有当存储的数据量比较小的情况下，Redis 才使用压缩列表来实现字典类型。<br>具体需要满足两个条件：</p>
+<ol>
+<li>字典中保存的键和值的大小都要小于 64 字节；</li>
+<li>字典中键值对的个数要小于 512 个。</li>
+</ol>
+<p>当不能同时满足上面两个条件的时候 Redis 就使用散列表来实现字典类型。Redis 使用<strong>MurmurHash2</strong>这种运行速度快、随机性好的哈希算法作为哈希函数。对于哈希冲突问题，Redis 使用链表法来解决。除此之外，Redis 还支持散列表的动态扩容、缩容。</p>
+<h3><span id="集合set">集合（set）</span></h3><p>集合这种数据类型用来存储一组不重复的数据。这种数据类型也有两种实现方法，一种是基于有序数组，另一种是基于散列表。当要存储的数据，同时满足下面这样两个条件的时候，Redis 就采用有序数组，来实现集合这种数据类型。</p>
+<ol>
+<li>存储的数据都是整数；</li>
+<li>存储的数据元素个数不超过 512个。</li>
+</ol>
+<p>当不能同时满足这两个条件的时候，Redis 就使用散列表来存储集合中的数据。</p>
+<h3><span id="有序集合sortedset">有序集合（sortedset）</span></h3><p>有序集合这种数据类型，它用来存储一组数据，并且每个数据会附带一个得分。通过得分的大小，进行数据结构组织。当数据量比较小的时候，Redis 会用压缩列表来实现有序集合。</p>
+<ol>
+<li>所有数据的大小都要小于 64 字节；</li>
+<li>元素个数要小于 128 个。</li>
+</ol>
+<p>当两者都不满足时，会采用跳表这样的数据结构来存储。通过得分的大小，我们将数据组织成跳表这样的数据结构，以支持快速地按照得分值、得分区间获取数据。</p>
+<h2><span id="一些高级命令">一些高级命令</span></h2><ul>
+<li>keys：全量遍历键，用来列出所有满足特定正则字符串规则的key，当redis数据量比较大时，性能比较差，要避免使用</li>
+</ul>
+<ul>
+<li><p>scan：渐进式遍历键，scan 参数提供了三个参数，第一个是 cursor 整数值，第二个是 key 的正则模式，第三个是遍历的 limit hint。第一次遍历时，cursor 值为 0，然后将返回结果中第一个整数值作为下一次遍历的 cursor。一直遍历到返回的 cursor 值为 0 时结束。</p>
+</li>
+<li><p>Info：查看redis服务运行信息，分为 9 大块，每个块都有非常多的参数，这 9 个块分别是: </p>
+<blockquote>
+<p>Server 服务器运行的环境参数<br>  Clients 客户端相关信息<br>  Memory 服务器运行内存统计数据<br>  Persistence 持久化信息<br>  Stats 通用统计数据<br>  Replication 主从复制相关信息<br>  CPU CPU 使用情况<br>  Cluster 集群信息 </p>
+</blockquote>
+</li>
+</ul>
+<h2><span id="二-线程模型核心原理">二、线程模型核心原理</span></h2><p>Redis的单线程和高性能</p>
+<p>Redis 单线程为什么还能这么快？</p>
+<blockquote>
+<p>因为它所有的数据都在内存中，所有的运算都是内存级别的运算，而且单线程避免了多线程的切换性能损耗问题。正因为 Redis 是单线程，所以要小心使用 Redis 指令，对于那些耗时的指令(比如keys)，一定要谨慎使用，一不小心就可能会导致 Redis 卡顿。 </p>
+</blockquote>
+<p>Redis 单线程如何处理那么多的并发客户端连接？</p>
+<blockquote>
+<p>Redis的IO多路复用：redis利用epoll来实现IO多路复用，将连接信息和事件放到队列中，依次放到文件事件分派器，事件分派器将事件分发给事件处理器。</p>
+</blockquote>
+<p>Nginx也是采用IO多路复用原理解决C10K问题</p>
+<p><img src="http://note.youdao.com/yws/res/9595/F5F6FED5FA534F7CA467AD6D634E8E49" alt="image"></p>
+<h2><span id="三-持久化">三、持久化</span></h2><h3><span id="rdb快照snapshot">RDB快照（snapshot）</span></h3><p>在默认情况下， Redis 将内存数据库快照保存在名字为 dump.rdb 的二进制文件中。<br>你可以对 Redis 进行设置， 让它在“N秒内数据集至少有 M 个改动”这一条件被满足时， 自动保存一次数据集。<br>比如说， 以下设置会让 Redis 在满足“ 60 秒内有至少有 1000 个键被改动”这一条件时， 自动保存一次数据集：</p>
+<blockquote>
+<p> save 60 1000</p>
+</blockquote>
+<h3><span id="aofappend-only-file">AOF（append-only file）</span></h3><p>快照功能并不是非常耐久（durable）： 如果 Redis 因为某些原因而造成故障停机， 那么服务器将丢失最近写入、且仍未保存到快照中的那些数据。从 1.1 版本开始， Redis 增加了一种完全耐久的持久化方式： AOF 持久化，将修改的每一条指令记录进文件<br>你可以通过修改配置文件来打开 AOF 功能：</p>
+<blockquote>
+<p>appendonly yes</p>
+</blockquote>
+<p>从现在开始， 每当 Redis 执行一个改变数据集的命令时（比如 SET）， 这个命令就会被追加到 AOF 文件的末尾。<br>这样的话， 当 Redis 重新启时， 程序就可以通过重新执行 AOF 文件中的命令来达到重建数据集的目的。<br>你可以配置 Redis 多久才将数据 fsync 到磁盘一次。</p>
+<p>有三个选项：</p>
+<ol>
+<li>每次有新命令追加到 AOF 文件时就执行一次 fsync：非常慢，也非常安全。</li>
+<li>每秒 fsync 一次：足够快（和使用 RDB 持久化差不多），并且在故障时只会丢失 1 秒钟的数据。</li>
+<li>从不 fsync ：将数据交给操作系统来处理。更快，也更不安全的选择。<br>推荐（并且也是默认）的措施为每秒 fsync一次， 这种 fsync 策略可以兼顾速度和安全性。 </li>
+</ol>
+<h3><span id="rdb-和-aof-我应该用哪一个">RDB 和 AOF ，我应该用哪一个？</span></h3><p>如果你非常关心你的数据， 但仍然可以承受数分钟以内的数据丢失， 那么你可以只使用 RDB 持久化。<br>有很多用户都只使用 AOF 持久化， 但我们并不推荐这种方式： 因为定时生成 RDB 快照（snapshot）非常便于进行数据库备份， 并且 RDB 恢复数据集的速度也要比 AOF 恢复的速度要快。</p>
+<h3><span id="redis-40-混合持久化">Redis 4.0 混合持久化</span></h3><p>重启 Redis 时，我们很少使用 rdb 来恢复内存状态，因为会丢失大量数据。我们通常使用 AOF 日志重放，但是重放 AOF 日志性能相对 rdb 来说要慢很多，这样在 Redis 实例很大的情况下，启动需要花费很长的时间。 Redis 4.0 为了解决这个问题，带来了一个新的持久化选项——混合持久化。AOF在重写(aof文件里可能有太多没用指令，所以aof会定期根据内存的最新数据生成aof文件)时将重写这一刻之前的内存rdb快照文件的内容和增量的 AOF修改内存数据的命令日志文件存在一起，都写入新的aof文件，新的文件一开始不叫appendonly.aof，等到重写完新的AOF文件才会进行改名，原子的覆盖原有的AOF文件，完成新旧两个AOF文件的替换；<br>AOF根据配置规则在后台自动重写，也可以人为执行命令bgrewriteaof重写AOF。 于是在 Redis 重启的时候，可以先加载 rdb 的内容，然后再重放增量 AOF 日志就可以完全替代之前的 AOF 全量文件重放，重启效率因此大幅得到提升。</p>
+<p>开启混合持久化：</p>
+<blockquote>
+<p>aof-use-rdb-preamble yes   </p>
+</blockquote>
+<p>混合持久化aof文件结构</p>
+<p><img src="http://note.youdao.com/yws/res/9610/00BB6062917B4FC4A6F72ADD90007BB4" alt="image"></p>
+<h2><span id="四-缓存淘汰策略">四、缓存淘汰策略</span></h2><p>当 Redis 内存超出物理内存限制时，内存的数据会开始和磁盘产生频繁的交换 (swap)。交换会让 Redis 的性能急剧下降，对于访问量比较频繁的 Redis 来说，这样龟速的存取效率基本上等于不可用。<br>在生产环境中我们是不允许 Redis 出现交换行为的，为了限制最大使用内存，Redis 提供了配置参数 maxmemory 来限制内存超出期望大小。<br>当实际内存超出 maxmemory 时，Redis 提供了几种可选策略 (maxmemory-policy) 来让用户自己决定该如何腾出新的空间以继续提供读写服务。</p>
+<ul>
+<li>noeviction 不会继续服务写请求 (DEL 请求可以继续服务)，读请求可以继续进行。这样可以保证不会丢失数据，但是会让线上的业务不能持续进行。这是默认的淘汰策略。</li>
+<li>volatile-lru 尝试淘汰设置了过期时间的 key，最少使用的 key 优先被淘汰。没有设置过期时间的 key 不会被淘汰，这样可以保证需要持久化的数据不会突然丢失。</li>
+<li>volatile-ttl 跟上面一样，除了淘汰的策略不是 LRU，而是 key 的剩余寿命 ttl 的值，ttl 越小越优先被淘汰。</li>
+<li>volatile-random 跟上面一样，不过淘汰的 key 是过期 key 集合中随机的 key。</li>
+<li>allkeys-lru 区别于 volatile-lru，这个策略要淘汰的 key 对象是全体的 key 集合，而不只是过期的 key 集合。这意味着没有设置过期时间的 key 也会被淘汰。</li>
+<li>allkeys-random 跟上面一样，不过淘汰的策略是随机的 key。</li>
+</ul>
+<blockquote>
+<p>volatile-xxx 策略只会针对带过期时间的 key 进行淘汰，allkeys-xxx 策略会对所有的 key 进行淘汰。如果你只是拿 Redis 做缓存，那应该使用 allkeys-xxx，客户端写缓存时不必携带过期时间。如果你还想同时使用 Redis 的持久化功能，那就使用 volatile-xxx 策略，这样可以保留没有设置过期时间的 key，它们是永久的 key 不会被 LRU 算法淘汰。</p>
+</blockquote>
+<h2><span id="五-redis集群原理分析">五、Redis集群原理分析</span></h2><p>redis cluster 是 redis 分布式集群解决方案，从 3.0 之后推出解决 redis 分布式方面需求，实现数据分片、故障转移、扩容所容机制等。</p>
+<p><img src="http://note.youdao.com/yws/res/9642/7EDE606229F6415BBA9A4C7A9FB975FB" alt="image"></p>
+<p>Redis Cluster 将所有数据划分为 16384 的 slots(槽位)，每个节点负责其中一部分槽 位。槽位的信息存储于每个节点中。 当 Redis Cluster 的客户端来连接集群时，它也会得到一份集群的槽位配置信息并将 其缓存在客户端本地。这样当客户端要查找某个 key 时，可以直接定位到目标节点。 同时因为槽位的信息可能会存在客户端与服务器不一致的情况，还需要纠正机制来实 现槽位信息的校验调整。</p>
+<ul>
+<li>redis集群大小的选择,可以装多少数据?<blockquote>
+<p>理论是可以做到16384个集群,每个槽对应一个实例,但是redis官方建议是最大1000个实例。存储足够大了。另外：节点之间会有频繁通信，传递的包括槽位信息，集群太大会有带宽消耗。</p>
+</blockquote>
+</li>
+</ul>
+<h3><span id="槽位定位算法">槽位定位算法</span></h3><p>槽位定位算法 也就是常说的 一致性Hash算法<br>Cluster 默认会对 key 值使用 crc16 算法进行 hash 得到一个整数值，然后用这个整 数值对 16384 进行取模来得到具体槽位。 HASH_SLOT = CRC16(key) mod 16384</p>
+<ul>
+<li>那么增加了slot槽的计算,是不是比单机性能差?<blockquote>
+<p>共16384个槽, slots槽计算方式公开的,<br>为了避免每次都需要服务器计算重定向,优秀的java客户端都实现了本地计算,并且缓存服务器slots分配,有变动时再更新本地内容,从而避免了多次重定向带来的性能损耗</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>访问倾斜和数据存储倾斜问题怎么处理？<blockquote>
+<p>倾斜导致某些节点量大，压力大 可以从两方面着手</p>
+<ol>
+<li>事前预测数据哪些会是热点数据，设计的时候规避。</li>
+<li>事后 通过 slot 调整，压力分摊（slot 调整：rebalance 和 reshared）</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h3><span id="跳转重定位">跳转重定位</span></h3><p>当客户端向一个错误的节点发出了指令，该节点会发现指令的 key 所在的槽位并不归 自己管理，这时它会向客户端发送一个特殊的跳转指令携带目标操作的节点地址，告 诉客户端去连这个节点去获取数据。客户端收到指令后除了跳转到正确的节点上去操 作，还会同步更新纠正本地的槽位映射表缓存，后续所有 key 将使用新的槽位映射 表。</p>
+<p><img src="http://note.youdao.com/yws/res/9620/F13207F13DBB421EAD5B865697A65B79" alt="image"></p>
+<ul>
+<li>ask和moved重定向的区别<blockquote>
+<p>重定向包括两种情况,若确定slot不属于当前节点, redis会返回moved<br>,若当煎redis节点正在处理slot迁移,则代表此处请求对应的key暂时不在此节定向。</p>
+</blockquote>
+</li>
+</ul>
+<h3><span id="网络抖动">网络抖动</span></h3><p>真实世界的机房网络往往并不是风平浪静的，它们经常会发生各种各样的小问题。比 如网络抖动就是非常常见的一种现象，突然之间部分连接变得不可访问，然后很快又 恢复正常。 为解决这种问题，Redis Cluster 提供了一种选项cluster node timeout，表示当某 个节点持续 timeout 的时间失联时，才可以认定该节点出现故障，需要进行主从切 换。如果没有这个选项，网络抖动会导致主从频繁切换 (数据的重新复制)。</p>
+<h3><span id="主从切换-选举原理">主从切换 选举原理</span></h3><p>Redis 集群使用一个类似于木筏算法（Raft algorithm）概念。如果没有了解过可以看看这个  <a href="http://thesecretlivesofdata.com/raft/">Raft</a>, 在 Redis 集群中这个术语叫做 阶段（epoch）。</p>
+<p>Redis 集群中的每个节点，包括主节点和从节点，都在创建的时候设置了 currentEpoch 为0。每次主从选举之后 Epoch 会相应的加 1。如果出现脑裂的情况，其他主节点只认 epoch 最大的那个。</p>
+<p>Redis集群选举原理分析当 slave 发现自己的 master 变为FAIL状态时，便尝试进行 Failover，以期成为新的 master。由于挂掉的master 可能会有多个 slave，从而存在多个 slave 竞争成为 master节点的过程， 其过程如下：</p>
+<ol>
+<li>slave 发现自己的 master变为FAIL</li>
+<li>将自己记录的集群currentEpoch（年代，纪元）加 1，并广播FAILOVER_AUTH_REQUEST 信息</li>
+<li>其他节点收到该信息，只有master响应，判断请求者的合法性，并发送FAILOVER_AUTH_ACK，对每一个epoch只发送一次ack</li>
+<li>尝试failover的slave收集FAILOVER_AUTH_ACK</li>
+<li>超过半数后变成新Master</li>
+<li>广播 Pong 通知其他集群节点。</li>
+</ol>
+<p>从节点并不是在主节点一进入 FAIL 状态就马上尝试发起选举，而是有一定延迟，一定的延迟确保我们等待FAIL状态在集群中传播，slave如果立即尝试选举，其它masters或许尚未意识到FAIL状态，可能会拒绝投票</p>
+<ul>
+<li>延迟计算公式：<blockquote>
+<p>DELAY = 500ms + random(0 ~ 500ms) + SLAVE_RANK * 1000ms</p>
+</blockquote>
+</li>
+<li>SLAVE_RANK 表示此slave已经从master复制数据的总量的rank。Rank越小代表已复制的数据越新。这种方式下，持有最新数据的slave将会首先发起选举（理论上）。</li>
+</ul>
+<h2><span id="发布订阅机制">发布订阅机制</span></h2><p>发布/订阅（Publish/Subscribe）<br>在一个 Redis 集群中，客户端能订阅任何一个节点，也能发布消息给任何一个节点。集群会确保发布的消息都会按需进行转发。 目前的实现方式是单纯地向所有节点广播所有的发布消息，在将来的实现中会用 bloom filters 或其他算法来优化。</p>
+<h2><span id="参考">参考</span></h2><ul>
+<li><a href="http://redis.cn/topics/cluster-tutorial.html">Redis 集群教程</a></li>
+<li>数据结构与算法</li>
+</ul>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-02-10T04:50:24.000Z" title="2020-02-10T04:50:24.000Z">2020-02-10</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span><span class="level-item">18 分鐘 lesen (Über 2771 Worte)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/02/10/redis5%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">Redis5 集群搭建</a></h1><div class="content"><!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+<ul>
+<li><a href="#1-%E7%8E%AF%E5%A2%83%E4%BF%A1%E6%81%AF">1、 环境信息</a></li>
+<li><a href="#2%E6%95%B4%E4%BD%93%E9%9B%86%E7%BE%A4%E4%BF%A1%E6%81%AF">2、整体集群信息</a></li>
+<li><a href="#3%E6%AF%8F%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%9D%A2%E9%83%BD%E8%A6%81%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85">3、每台服务器上面都要下载安装</a></li>
+<li><a href="#4%E5%87%86%E5%A4%876%E4%B8%AAredisconf%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%BA%E4%BA%86%E6%96%B9%E4%BE%BF%E5%AD%A6%E4%B9%A0redisconf%E6%A0%B9%E6%8D%AE%E4%B8%8D%E5%90%8C%E7%AB%AF%E5%8F%A3%E6%9D%A5%E5%91%BD%E5%90%8D%E6%96%B9%E4%BE%BF%E4%B8%80%E5%8F%B0%E6%9C%BA%E5%99%A8%E4%B8%8A%E6%9E%84%E5%BB%BA%E4%BC%AA%E9%9B%86%E7%BE%A4">4、准备6个redis.conf配置文件（为了方便学习，redis.conf根据不同端口来命名，方便一台机器上构建伪集群）</a></li>
+<li><a href="#5%E5%90%AF%E5%8A%A86%E4%B8%AAredis%E5%AE%9E%E4%BE%8B">5、启动6个Redis实例</a></li>
+<li><a href="#6-%E5%88%9B%E5%BB%BAcluster">6、 创建cluster</a></li>
+<li><a href="#7-%E9%9B%86%E7%BE%A4%E6%A3%80%E9%AA%8C%E5%92%8C%E6%B5%8B%E8%AF%95">7、 集群检验和测试</a></li>
+<li><a href="#8%E9%9B%86%E7%BE%A4slot%E6%95%B0%E9%87%8F%E6%95%B4%E7%90%86-reshard">8、集群slot数量整理 reshard</a></li>
+<li><a href="#9-%E6%B5%8B%E8%AF%95%E8%87%AA%E5%8A%A8%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB">9、 测试自动故障转移</a></li>
+<li><a href="#10%E6%89%8B%E5%8A%A8%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB">10、手动故障转移</a></li>
+<li><a href="#11%E6%89%A9%E5%AE%B9">11、扩容</a></li>
+<li><a href="#12%E7%BC%A9%E5%AE%B9%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9">12、缩容（删除节点）</a></li>
+<li><a href="#13%E5%85%B3%E5%BF%83%E7%9A%84%E9%97%AE%E9%A2%98">13、关心的问题</a></li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
+
+<p>[TOC]</p>
+<h1><span id="1-环境信息">1、 环境信息</span></h1><pre class="line-numbers language-bash"><code class="language-bash">centos7
+redis5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1><span id="2-整体集群信息">2、整体集群信息</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 以直接在一台机器上实现上述的伪集群，因为端口号特意设置为不同的。</span>
+<span class="token comment" spellcheck="true"># 重点：不论机器多少，对于部署过程都是一样的，只不过是在不同机器启动redis-server而已</span>
+192.168.100.242 <span class="token punctuation">(</span>6381- 6386共6个端口）
+<span class="token comment" spellcheck="true"># 注意事项：如果你的服务器有多个IP，那你操作下面步骤时，尽量使用你的客户端能够访问的IP</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="3-每台服务器上面都要下载安装">3、每台服务器上面都要下载安装</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">wget</span> http://download.redis.io/releases/redis-5.0.3.tar.gz
+<span class="token function">tar</span> -zxvf redis-5.0.3.tar.gz
+<span class="token function">cd</span> redis-5.0.3 
+<span class="token function">make</span>
+<span class="token comment" spellcheck="true"># 安装到 /usr/local/redis 目录中 安装的文件只有一个bin目录</span>
+<span class="token function">make</span> <span class="token function">install</span> PREFIX<span class="token operator">=</span>/usr/local/redis/ 
+
+<span class="token comment" spellcheck="true"># 创建配置文件和data存放目录</span>
+<span class="token function">mkdir</span> /usr/local/redis/conf /usr/local/redis/data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="4-准备6个redisconf配置文件为了方便学习redisconf根据不同端口来命名方便一台机器上构建伪集群">4、准备6个redis.conf配置文件（为了方便学习，redis.conf根据不同端口来命名，方便一台机器上构建伪集群）</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 配置文件进行了精简，完整配置可自行和官方提供的完整conf文件进行对照。端口号自行对应修改</span>
+<span class="token comment" spellcheck="true">#后台启动的意思</span>
+daemonize <span class="token function">yes</span> 
+ <span class="token comment" spellcheck="true">#端口号</span>
+port 6381
+<span class="token comment" spellcheck="true"># IP绑定，redis不建议对公网开放，直接绑定0.0.0.0没毛病</span>
+bind 0.0.0.0
+<span class="token comment" spellcheck="true"># redis数据文件存放的目录</span>
+<span class="token function">dir</span> /usr/local/redis/data
+<span class="token comment" spellcheck="true"># 开启AOF</span>
+appendonly <span class="token function">yes</span>
+ <span class="token comment" spellcheck="true"># 开启集群</span>
+cluster-enabled <span class="token function">yes</span>
+<span class="token comment" spellcheck="true"># 会自动生成在上面配置的dir目录下</span>
+cluster-config-file nodes-6381.conf 
+cluster-node-timeout 5000
+<span class="token comment" spellcheck="true"># 这个文件会自动生成</span>
+pidfile /var/run/redis_6381.pid <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="5-启动6个redis实例">5、启动6个Redis实例</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 一定要注意每个配置文件中的端口号哦</span>
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/6381.conf
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/6382.conf
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/6383.conf
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/6384.conf
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/6385.conf
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/6386.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="6-创建cluster">6、 创建cluster</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 5.0版本的方式</span>
+/usr/local/redis/bin/redis-cli --cluster create 192.168.100.242:6381 192.168.100.242:6382 \
+192.168.100.242:6383 192.168.100.242:6384 192.168.100.242:6385 192.168.100.242:6386 \
+--cluster-replicas 1
+
+<span class="token comment" spellcheck="true"># 自动设置主从，而且会提示你，是否运行使用自动的配置</span>
+Can I <span class="token keyword">set</span> the above configuration? <span class="token punctuation">(</span>type <span class="token string">'yes'</span> to accept<span class="token punctuation">)</span>: <span class="token function">yes</span>
+<span class="token comment" spellcheck="true"># 执行后的信息</span>
+<span class="token operator">>></span><span class="token operator">></span> Performing <span class="token function">hash</span> slots allocation on 6 nodes<span class="token punctuation">..</span>.
+Master<span class="token punctuation">[</span>0<span class="token punctuation">]</span> -<span class="token operator">></span> Slots 0 - 5460
+Master<span class="token punctuation">[</span>1<span class="token punctuation">]</span> -<span class="token operator">></span> Slots 5461 - 10922
+Master<span class="token punctuation">[</span>2<span class="token punctuation">]</span> -<span class="token operator">></span> Slots 10923 - 16383
+Adding replica 192.168.100.242:6384 to 192.168.100.242:6381
+Adding replica 192.168.100.242:6385 to 192.168.100.242:6382
+Adding replica 192.168.100.242:6386 to 192.168.100.242:6383
+<span class="token operator">>></span><span class="token operator">></span> Trying to optimize slaves allocation <span class="token keyword">for</span> anti-affinity
+<span class="token punctuation">[</span>WARNING<span class="token punctuation">]</span> Some slaves are <span class="token keyword">in</span> the same host as their master
+M: 68326caa0238cb877afc3e6df23eb92558fcbc3c 192.168.100.242:6381
+   slots:<span class="token punctuation">[</span>0-5460<span class="token punctuation">]</span> <span class="token punctuation">(</span>5461 slots<span class="token punctuation">)</span> master
+M: 764500b86fadebd535ac2b5b778a73486fe7d2b7 192.168.100.242:6382
+   slots:<span class="token punctuation">[</span>5461-10922<span class="token punctuation">]</span> <span class="token punctuation">(</span>5462 slots<span class="token punctuation">)</span> master
+M: 93293699b8966ccc202bb29c659a9f60e26e4c86 192.168.100.242:6383
+   slots:<span class="token punctuation">[</span>10923-16383<span class="token punctuation">]</span> <span class="token punctuation">(</span>5461 slots<span class="token punctuation">)</span> master
+S: a842c5188c441453fd303520424132d45914fe5b 192.168.100.242:6384
+   replicates 764500b86fadebd535ac2b5b778a73486fe7d2b7
+S: 0a7061773b2512c91b6173bc27451b19fe02f269 192.168.100.242:6385
+   replicates 93293699b8966ccc202bb29c659a9f60e26e4c86
+S: 42806ad3f740f639ec321b78ea492c42a4040176 192.168.100.242:6386
+   replicates 68326caa0238cb877afc3e6df23eb92558fcbc3c
+Can I <span class="token keyword">set</span> the above configuration? <span class="token punctuation">(</span>type <span class="token string">'yes'</span> to accept<span class="token punctuation">)</span>: <span class="token function">yes</span>
+<span class="token operator">>></span><span class="token operator">></span> Nodes configuration updated
+<span class="token operator">>></span><span class="token operator">></span> Assign a different config epoch to each node
+<span class="token operator">>></span><span class="token operator">></span> Sending CLUSTER MEET messages to <span class="token function">join</span> the cluster
+Waiting <span class="token keyword">for</span> the cluster to <span class="token function">join</span>
+<span class="token punctuation">..</span>.
+<span class="token operator">>></span><span class="token operator">></span> Performing Cluster Check <span class="token punctuation">(</span>using node 192.168.100.242:6381<span class="token punctuation">)</span>
+M: 68326caa0238cb877afc3e6df23eb92558fcbc3c 192.168.100.242:6381
+   slots:<span class="token punctuation">[</span>0-5460<span class="token punctuation">]</span> <span class="token punctuation">(</span>5461 slots<span class="token punctuation">)</span> master
+   1 additional replica<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+S: 0a7061773b2512c91b6173bc27451b19fe02f269 192.168.100.242:6385
+   slots: <span class="token punctuation">(</span>0 slots<span class="token punctuation">)</span> slave
+   replicates 93293699b8966ccc202bb29c659a9f60e26e4c86
+S: a842c5188c441453fd303520424132d45914fe5b 192.168.100.242:6384
+   slots: <span class="token punctuation">(</span>0 slots<span class="token punctuation">)</span> slave
+   replicates 764500b86fadebd535ac2b5b778a73486fe7d2b7
+M: 93293699b8966ccc202bb29c659a9f60e26e4c86 192.168.100.242:6383
+   slots:<span class="token punctuation">[</span>10923-16383<span class="token punctuation">]</span> <span class="token punctuation">(</span>5461 slots<span class="token punctuation">)</span> master
+   1 additional replica<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+M: 764500b86fadebd535ac2b5b778a73486fe7d2b7 192.168.100.242:6382
+   slots:<span class="token punctuation">[</span>5461-10922<span class="token punctuation">]</span> <span class="token punctuation">(</span>5462 slots<span class="token punctuation">)</span> master
+   1 additional replica<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+S: 42806ad3f740f639ec321b78ea492c42a4040176 192.168.100.242:6386
+   slots: <span class="token punctuation">(</span>0 slots<span class="token punctuation">)</span> slave
+   replicates 68326caa0238cb877afc3e6df23eb92558fcbc3c
+<span class="token punctuation">[</span>OK<span class="token punctuation">]</span> All nodes agree about slots configuration.
+<span class="token operator">>></span><span class="token operator">></span> Check <span class="token keyword">for</span> <span class="token function">open</span> slots<span class="token punctuation">..</span>.
+<span class="token operator">>></span><span class="token operator">></span> Check slots coverage<span class="token punctuation">..</span>.
+<span class="token punctuation">[</span>OK<span class="token punctuation">]</span> All 16384 slots covered.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="7-集群检验和测试">7、 集群检验和测试</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 检查集群，查看所有节点信息</span>
+/usr/local/redis/bin/redis-cli -c -h 192.168.100.242 -p 6381 cluster nodes
+<span class="token comment" spellcheck="true"># 执行后的信息</span>
+<span class="token punctuation">[</span>root@node3 redis<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># /usr/local/redis/bin/redis-cli -c -h 192.168.100.242 -p 6381 cluster nodes</span>
+0a7061773b2512c91b6173bc27451b19fe02f269 192.168.100.242:6385@16385 slave 93293699b8966ccc202bb29c659a9f60e26e4c86 0 1550635081000 5 connected
+a842c5188c441453fd303520424132d45914fe5b 192.168.100.242:6384@16384 slave 764500b86fadebd535ac2b5b778a73486fe7d2b7 0 1550635081565 4 connected
+93293699b8966ccc202bb29c659a9f60e26e4c86 192.168.100.242:6383@16383 master - 0 1550635081665 3 connected 10923-16383
+764500b86fadebd535ac2b5b778a73486fe7d2b7 192.168.100.242:6382@16382 master - 0 1550635081000 2 connected 5461-10922
+68326caa0238cb877afc3e6df23eb92558fcbc3c 192.168.100.242:6381@16381 myself,master - 0 1550635080000 1 connected 0-5460
+42806ad3f740f639ec321b78ea492c42a4040176 192.168.100.242:6386@16386 slave 68326caa0238cb877afc3e6df23eb92558fcbc3c 0 1550635080664 6 connected
+<span class="token comment" spellcheck="true"># 节点id ip+端口 角色 masterid 处理的ping数量 最后一个pong时间 节点配置版本 节点连接状态 slot槽分配情况</span>
+
+<span class="token comment" spellcheck="true"># 测试Redis Cluster的一种简单方法是使用redis-cli命令行实用程序</span>
+<span class="token comment" spellcheck="true"># -c 是支持cluster重定向</span>
+<span class="token punctuation">[</span>root@node3 redis<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># /usr/local/redis/bin/redis-cli -c -h 192.168.100.242 -p 6381</span>
+192.168.100.242:6381<span class="token operator">></span> <span class="token keyword">set</span> a 1
+-<span class="token operator">></span> Redirected to slot <span class="token punctuation">[</span>15495<span class="token punctuation">]</span> located at 192.168.100.242:6383
+OK
+192.168.100.242:6383<span class="token operator">></span> get a
+<span class="token string">"1"</span>
+192.168.100.242:6383<span class="token operator">></span> <span class="token keyword">set</span> hello tony
+-<span class="token operator">></span> Redirected to slot <span class="token punctuation">[</span>866<span class="token punctuation">]</span> located at 192.168.100.242:6381
+OK
+192.168.100.242:6381<span class="token operator">></span> get hello
+<span class="token string">"tony"</span>
+192.168.100.242:6381<span class="token operator">></span> get a
+-<span class="token operator">></span> Redirected to slot <span class="token punctuation">[</span>15495<span class="token punctuation">]</span> located at 192.168.100.242:6383
+<span class="token string">"1"</span>
+
+<span class="token comment" spellcheck="true"># 查看一个key属于哪一个节点</span>
+CLUSTER KEYSLOT key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="8-集群slot数量整理-reshard">8、集群slot数量整理 reshard</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#  /usr/local/redis/bin/redis-cli --cluster help 可以查看所有这个命令和子命令的帮助信息</span>
+
+<span class="token comment" spellcheck="true"># 默认是master平均分了0-16383的所有虚拟slot</span>
+<span class="token comment" spellcheck="true"># 可以进行调整，部分节点放多一点slot(槽或者位置)。</span>
+/usr/local/redis/bin/redis-cli --cluster reshard  <span class="token operator">&lt;</span>host<span class="token operator">></span>:<span class="token operator">&lt;</span>port<span class="token operator">></span> --cluster-from <span class="token operator">&lt;</span>node-id<span class="token operator">></span> --cluster-to <span class="token operator">&lt;</span>node-id<span class="token operator">></span> --cluster-slots <span class="token operator">&lt;</span>number of slots<span class="token operator">></span> --cluster-yes
+
+<span class="token comment" spellcheck="true"># 重新检查集群</span>
+<span class="token punctuation">[</span>root@node3 redis<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># /usr/local/redis/bin/redis-cli --cluster check 192.168.100.242:6382</span>
+192.168.100.242:6382 <span class="token punctuation">(</span>764500b8<span class="token punctuation">..</span>.<span class="token punctuation">)</span> -<span class="token operator">></span> 0 keys <span class="token operator">|</span> 5462 slots <span class="token operator">|</span> 1 slaves.
+192.168.100.242:6383 <span class="token punctuation">(</span>93293699<span class="token punctuation">..</span>.<span class="token punctuation">)</span> -<span class="token operator">></span> 1 keys <span class="token operator">|</span> 5461 slots <span class="token operator">|</span> 1 slaves.
+192.168.100.242:6381 <span class="token punctuation">(</span>68326caa<span class="token punctuation">..</span>.<span class="token punctuation">)</span> -<span class="token operator">></span> 1 keys <span class="token operator">|</span> 5461 slots <span class="token operator">|</span> 1 slaves.
+<span class="token punctuation">[</span>OK<span class="token punctuation">]</span> 2 keys <span class="token keyword">in</span> 3 masters.
+0.00 keys per slot on average.
+<span class="token operator">>></span><span class="token operator">></span> Performing Cluster Check <span class="token punctuation">(</span>using node 192.168.100.242:6382<span class="token punctuation">)</span>
+M: 764500b86fadebd535ac2b5b778a73486fe7d2b7 192.168.100.242:6382
+   slots:<span class="token punctuation">[</span>5461-10922<span class="token punctuation">]</span> <span class="token punctuation">(</span>5462 slots<span class="token punctuation">)</span> master
+   1 additional replica<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+S: a842c5188c441453fd303520424132d45914fe5b 192.168.100.242:6384
+   slots: <span class="token punctuation">(</span>0 slots<span class="token punctuation">)</span> slave
+   replicates 764500b86fadebd535ac2b5b778a73486fe7d2b7
+M: 93293699b8966ccc202bb29c659a9f60e26e4c86 192.168.100.242:6383
+   slots:<span class="token punctuation">[</span>10923-16383<span class="token punctuation">]</span> <span class="token punctuation">(</span>5461 slots<span class="token punctuation">)</span> master
+   1 additional replica<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+S: 42806ad3f740f639ec321b78ea492c42a4040176 192.168.100.242:6386
+   slots: <span class="token punctuation">(</span>0 slots<span class="token punctuation">)</span> slave
+   replicates 68326caa0238cb877afc3e6df23eb92558fcbc3c
+S: 0a7061773b2512c91b6173bc27451b19fe02f269 192.168.100.242:6385
+   slots: <span class="token punctuation">(</span>0 slots<span class="token punctuation">)</span> slave
+   replicates 93293699b8966ccc202bb29c659a9f60e26e4c86
+M: 68326caa0238cb877afc3e6df23eb92558fcbc3c 192.168.100.242:6381
+   slots:<span class="token punctuation">[</span>0-5460<span class="token punctuation">]</span> <span class="token punctuation">(</span>5461 slots<span class="token punctuation">)</span> master
+   1 additional replica<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+<span class="token punctuation">[</span>OK<span class="token punctuation">]</span> All nodes agree about slots configuration.
+<span class="token operator">>></span><span class="token operator">></span> Check <span class="token keyword">for</span> <span class="token function">open</span> slots<span class="token punctuation">..</span>.
+<span class="token operator">>></span><span class="token operator">></span> Check slots coverage<span class="token punctuation">..</span>.
+<span class="token punctuation">[</span>OK<span class="token punctuation">]</span> All 16384 slots covered.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="9-测试自动故障转移">9、 测试自动故障转移</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># cluster集群不保证数据一致，数据也可能丢失</span>
+<span class="token comment" spellcheck="true"># 首先是运行客户端不断的写入或读取数据，以便能够发现问题</span>
+<span class="token comment" spellcheck="true"># 然后是模拟节点故障：找一个主节点关闭，主从故障切换的过程中，这个时间端的操作，客户端而言，只能是失败</span>
+<span class="token comment" spellcheck="true"># 官方描述 https://redis.io/topics/cluster-spec  </span>
+There is always a window of <span class="token function">time</span> when it is possible to lose writes during partitions.
+分区的时间窗口内总是有可能丢失写操作。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="10-手动故障转移">10、手动故障转移</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 可能某个节点需要维护（机器下线、硬件升级、系统版本调整等等场景），需要手动的实现转移</span>
+<span class="token comment" spellcheck="true"># 在slave节点上执行命令</span>
+CLUSTER FAILOVER 
+<span class="token comment" spellcheck="true"># 注：CLUSTER  help 可以看到帮助文档和简介。 相对安全的做法</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="11-扩容">11、扩容</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、 启动新节点</span>
+/usr/local/redis/bin/redis-server /usr/local/redis/conf/6387.conf
+
+<span class="token comment" spellcheck="true"># 2、 加入到已经存在的集群作为master</span>
+/usr/local/redis/bin/redis-cli --cluster add-node 192.168.100.242:6387 192.168.100.242:6382
+<span class="token comment" spellcheck="true"># 本质就是发送一个新节点通过 CLUSTER MEET命令加入集群</span>
+<span class="token comment" spellcheck="true"># 新节点没有分配hash槽</span>
+
+<span class="token comment" spellcheck="true"># 3、 加入到已经存在的集群作为slave</span>
+/usr/local/redis/bin/redis-cli --cluster add-node 192.168.100.242:7006 192.168.100.242:7000 --cluster-slave
+<span class="token comment" spellcheck="true"># 可以手工指定master，否则就是选择一个slave数量较少的master </span>
+/usr/local/redis/bin/redis-cli --cluster add-node 192.168.100.242:7006 192.168.100.242:7000 --cluster-slave --cluster-master-id <span class="token operator">&lt;</span>node-id<span class="token operator">></span>
+<span class="token comment" spellcheck="true"># 还可以将空master，转换为slave</span>
+cluster replicate <span class="token operator">&lt;</span>master-node-id<span class="token operator">></span>
+
+<span class="token comment" spellcheck="true"># 4、 检查集群</span>
+/usr/local/redis/bin/redis-cli --cluster check 192.168.100.242:6382<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1><span id="12-缩容删除节点">12、缩容（删除节点）</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 注意：删除master的时候要把数据清空或者分配给其他主节点</span>
+/usr/local/redis/bin/redis-cli --cluster del-node 192.168.100.242:6381 <span class="token operator">&lt;</span>node-id<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1><span id="13-关心的问题">13、关心的问题</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、 增加了slot槽的计算，是不是比单机性能差？</span>
+共16384个槽，slots槽计算方式公开的，java客户端中就使用了：HASH_SLOT <span class="token operator">=</span> CRC16<span class="token punctuation">(</span>key<span class="token punctuation">)</span> mod 16384
+为了避免每次都需要服务器计算重定向，优秀的java客户端都实现了本地计算，和服务器slots分配进行映射，有变动时再更新本地内容。
+
+<span class="token comment" spellcheck="true"># 2、 redis集群大小</span>
+理论是可以做到16384个槽，但是redis官方建议是最大1000个实例
+
+<span class="token comment" spellcheck="true"># 3、 批量操作或者</span>
+
+<span class="token comment" spellcheck="true"># 4、cluster meet命令中的bus-port是什么？</span>
+MEET <span class="token operator">&lt;</span>ip<span class="token operator">></span> <span class="token operator">&lt;</span>port<span class="token operator">></span> <span class="token punctuation">[</span>bus-port<span class="token punctuation">]</span>
+每个Redis群集节点都有一个额外的TCP端口，用于接收来自其他Redis群集节点的传入连接
+
+<span class="token comment" spellcheck="true"># 5、集群节点间的通信方式</span>
+每个节点使用TCP连接与每个其他节点连接。
+
+<span class="token comment" spellcheck="true"># 6、ask和moved重定向的区别</span>
+重定向包括两种情况
+如果是确定slot不属于当前节点，redis会返回moved
+如果当前redis节点正在处理slot迁移，则代表此处请求对应的key暂时不在此节点，返回ask，告诉客户端本次请求重定向
+
+<span class="token comment" spellcheck="true"># 7、数据倾斜和访问倾斜的问题</span>
+解决办法 调整key的策略 + slot迁移
+迁移过程如下，完整的迁移流程：
+在迁移目的节点执行cluster setslot <span class="token operator">&lt;</span>slot<span class="token operator">></span> IMPORTING <span class="token operator">&lt;</span>node ID<span class="token operator">></span>命令，指明需要迁移的slot和迁移源节点。
+在迁移源节点执行cluster setslot <span class="token operator">&lt;</span>slot<span class="token operator">></span> MIGRATING <span class="token operator">&lt;</span>node ID<span class="token operator">></span>命令，指明需要迁移的slot和迁移目的节点。
+在迁移源节点执行cluster getkeysinslot获取该slot的key列表。
+在迁移源节点执行对每个key执行migrate命令，该命令会同步把该key迁移到目的节点。
+在迁移源节点反复执行cluster getkeysinslot命令，直到该slot的列表为空。
+在迁移源节点和目的节点执行cluster setslot <span class="token operator">&lt;</span>slot<span class="token operator">></span> NODE <span class="token operator">&lt;</span>node ID<span class="token operator">></span>，完成迁移操作。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2019-12-05T12:52:10.000Z" title="2019-12-05T12:52:10.000Z">2019-12-05</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span><span class="level-item">20 分鐘 lesen (Über 2990 Worte)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2019/12/05/Zookeeper-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">Zookeeper 核心原理详解</a></h1><div class="content"><!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+<ul>
+<li><a href="#%E4%B8%80zookeeper-%E7%AE%80%E4%BB%8B">一、Zookeeper 简介</a><ul>
+<li><a href="#zk-%E7%9A%84%E4%B8%80%E7%89%B9%E6%80%A7">ZK 的一特性</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B">二、数据模型</a><ul>
+<li><a href="#%E5%9B%9B%E7%A7%8D%E8%8A%82%E7%82%B9%E7%B1%BB%E5%9E%8B">四种节点类型</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89-watcher-%E6%9C%BA%E5%88%B6">三、 Watcher 机制</a><ul>
+<li><a href="#watcher%E7%89%B9%E6%80%A7">Watcher特性</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9B%E4%B8%80%E8%87%B4%E6%80%A7-%E5%8D%8F%E8%AE%AE">四、一致性 协议</a><ul>
+<li><a href="#zab-%E5%8D%8F%E8%AE%AE">ZAB 协议</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%94cap-%E5%8E%9F%E5%88%99">五、CAP 原则</a></li>
+<li><a href="#%E5%85%AD%E9%80%89%E4%B8%BE%E6%9C%BA%E5%88%B6">六、选举机制</a><ul>
+<li><a href="#%E4%B8%89%E7%B1%BB%E8%A7%92%E8%89%B2">三类角色</a></li>
+<li><a href="#%E5%9B%9B%E4%B8%AA%E6%95%B0%E6%8D%AE">四个数据</a></li>
+<li><a href="#%E5%9B%9B%E7%A7%8D%E7%8A%B6%E6%80%81">四种状态</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%83%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">七、应用场景</a></li>
+<li><a href="#%E5%85%AB%E5%BC%95%E7%94%A8">八、引用</a></li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
+
+<h2><span id="一-zookeeper-简介">一、Zookeeper 简介</span></h2><p>Zookeeper 是一个开源的分布式应用程序协调服务器，是 Hadoop 的重要组件。<br>ZooKeeper 是一个分布式的，开放源码的分布式应用程序协调服务器，是 Google 的<br>Chubby 一个开源的实现，是 Hadoop 和 Hbase 的重要组件。它是一个为分布式应用提供<strong>一致<br>性</strong>服务的软件，提供的功能包括：<strong>配置维护、域名服务、分布式同步、集群管理等</strong>。ZooKeeper<br>的目标就是封装复杂易出错的关键服务，将简单易用的接口和性能高效、功能稳定的系统提供给用户。</p>
+<h3><span id="zk-的一特性">ZK 的一特性</span></h3><ul>
+<li><strong>顺序一致性</strong><br>从同一客户端发起的多个事务请求（写操作请求），最终会严格按照发起顺序存储到 zk中。</li>
+<li><strong>原子性</strong><br>所有的事务请求结果，在集群中所有 Server 上的应用情况是一致的，要么全部成功要么都不成功，不会出现部分成功，部分失败的情况。</li>
+<li><strong>单一视图</strong><br>无论客户端连接集群中的任意服务器，其读取到的数据模型都是一致的。</li>
+<li><strong>可靠性</strong><br>一旦某事务成功应用到zk ，则会一直保留下来，除非另一个事务将其修改。</li>
+<li><strong>最终一致性</strong><br>zk 可以保证在一段较短的时间内，客户端最终一定能够从服务端读取到最新的数据。但不保证实时性。</li>
+</ul>
+<p>以上特性 则由 zab 协议保证，后面会说。</p>
+<h2><span id="二-数据模型">二、数据模型</span></h2><p>Zookeeper 数据模型，是一个树状目录结构（类似于我们的文件系统），最小单位为 znode.</p>
+<p><img src="http://note.youdao.com/yws/res/9807/72B20BCC72D64D039C85C9EBF221B2F4" alt="image"></p>
+<p>Znode 对象包含多个属性字段，其对象结构如下。</p>
+<p><img src="http://note.youdao.com/yws/res/9810/3E46C0319A5C4E169200641D4EF68D66" alt="image"><br><img src="http://note.youdao.com/yws/res/9817/1B62DE5CC5E24BC980B64BAAB939FD27" alt="image"></p>
+<h3><span id="四种节点类型">四种节点类型</span></h3><p>2 大类、四种类型： 持久、临时、持久有序、临时有序</p>
+<ol>
+<li>PERSISTENT 持久类型，如果不手动删除 是一直存在的</li>
+<li>PERSISTENT_SEQUENTIAL 持久有序</li>
+<li>EPHEMERAL 临时 客户端 session 失效就会随着删除节点 没有子节点</li>
+<li>EPHEMERAL_SEQUENTIAL 临时有序 自增</li>
+</ol>
+<p>注意：有序节点 在创建 znode 时设置顺序标识，znode 名称后会附加一个值<br>顺序号是一个单调递增的计数器，由父节点维护<br>在分布式系统中，顺序号可以被用于为所有的事件进行全局排序，这样客户端可以通过顺<br>序号推断事件的顺序</p>
+<h2><span id="三-watcher-机制">三、 Watcher 机制</span></h2><p>Watcher实现由三个部分组成：</p>
+<ol>
+<li>Zookeeper服务端；</li>
+<li>Zookeeper客户端（常用 Zkclient、Curator）；</li>
+<li>客户端的ZKWatchManager对象；</li>
+</ol>
+<p><img src="http://note.youdao.com/yws/res/9913/07DC35A8DE9E439F96B82D9C6BE95C36" alt="image"><br>客户端首先将Watcher注册到服务端，同时将Watcher 对象保存到客户端的 Watch管理器中。当 ZooKeeper 服务端监听的数据状态发生变化时，服务端会主动通知客户端，接着客户端的Watch管理器会触发相关Watcher来回调相应处理逻辑，从而完成整体的数据发布/订阅流程。</p>
+<h3><span id="watcher特性">Watcher特性</span></h3><ul>
+<li>一次性：Watcher是一次性的，一旦被触发就会移除，再次使用时需要重新注册。</li>
+<li>客户端顺序回调： Watcher回调是顺序串行化执行的，只有回调后客户端才能看到最新的数据状态。一个Watcher回调逻辑不应该太多，以免影响别的watcher执行</li>
+<li>轻量级： WatchEvent是最小的通信单元，结构上只包含通知状态、事件类型和节点路径，并不会告诉数据节点变化前后的具体内容；</li>
+<li>时效性：Watcher只有在当前session彻底失效时才会无效，若在 session 有效期内快速重连成功，则 watcher 依然存在，仍可接收到通知；</li>
+</ul>
+<h2><span id="四-一致性-协议">四、一致性 协议</span></h2><p>说起 一致性协议，则不得不说，Paxos 算法 。<br>常用一致性协议包含 Paxos / Raft / zab 等协议，而 Raft，zab 其实就是 Paxos 的变种。</p>
+<p>Paxos 算法由图灵奖获得者 Leslie Lamport 于 1990 年提出的一种基于消息传递且具有高度容错的特性的一致性算法。Paxos的出现就是为了解决 一致性问题。 </p>
+<p>Paxos 有三种角色 </p>
+<ol>
+<li>倡议者（Proposer）：倡议者可以提出提案（数值或者操作命令）以供投票表决</li>
+<li>接受者（Acceptor）：接受者可以对倡议者提出的提议进行投票表决，提议有超半数的接受者投票即被选中。</li>
+<li>学习者（Learner）：学习者无投票权，只是从接受者那里获知哪个提议被选中 。</li>
+</ol>
+<p>Paxos 算法明确提出： 一个或多个倡议者发出提案。 必须针对所有提案中的某个提案达成一致也就是（接受者）半数以上；最多只能对一个确定的提案达成一致。</p>
+<p>只要超半数的节点存活且可互相通信，整个系统一定能达成一致状态。</p>
+<p>详细可查看： <a href="https://blog.xiaohansong.com/Paxos.html">一致性算法 Paxos</a></p>
+<h3><span id="zab-协议">ZAB 协议</span></h3><p>Zookeeper 的核心是广播，这个机制保证了各个 zkServer 间数据的同步，即数据的一致<br>性。实现这个机制的协议叫做 ZAB 协议，即 Zookeeper Atomic Broadcast，Zookeeper 原子广播协议。</p>
+<p>ZAB 协议有三种模式：恢复模式、同步模式 和 广播模式。</p>
+<ul>
+<li>恢复模式：在服务重启过程中，或在 Leader 崩溃后，就进入了恢复模式，要恢复到 zk<br>集群正常的工作状态。</li>
+<li>同步模式：在所有的 zkServer 启动完毕，或 Leader 崩溃后又被选举出来时，就进入了同步模式，各个 Follower 需要马上将 Leader 中的数据同步到自己的主机中。当大多数<br>zkServer 完成了与 Leader 的状态同步以后，恢复模式就结束了。所以，同步模式包含在恢复模式过程中。</li>
+<li>广播模式：当 Leader 的提议被大多数 zkServer 同意后，Leader 会修改自身数据，然后会将修改后的数据广播给其它 Follower。</li>
+</ul>
+<p><img src="http://note.youdao.com/yws/res/9857/668AE0E49ED84CAE89DC441022551BA0" alt="image"></p>
+<h2><span id="五-cap-原则">五、CAP 原则</span></h2><p><img src="http://note.youdao.com/yws/res/9840/3AA3192A598B4B11AEDD922A59D764D7" alt="image"></p>
+<p>分布式领域 CAP 理论</p>
+<ol>
+<li>Consistency(一致性), 数据一致更新，所有数据变动都是同步的</li>
+<li>Availability(可用性), 好的响应性能</li>
+<li>Partition tolerance(分区容忍性) 可靠性</li>
+</ol>
+<p>定理：任何分布式系统只可同时满足二点，没法三者兼顾。</p>
+<p>zookeeper是需要提供强一致性的服务，但是在zk集群中如果leader宕机，会进入leader选举过程，而在这个过程中zk不对外提供服务的，这会造成注册服务短时不可用。所以在分区容错性和数据一致性上得到保证的前提下，对 Availability(可用性) 做了折中。 <strong>所以 ZooKeeper 是个 CP 的，即任何时刻对 ZooKeeper 的访问请求能得到一致的数据结果，同时系统对网络分割具备容错性</strong>。也就是在极端环境下，ZooKeeper 可能会丢弃一些请求，消费者程序需要重新请求才能获得结果</p>
+<h2><span id="六-选举机制">六、选举机制</span></h2><h3><span id="三类角色">三类角色</span></h3><p>为了避免 Zookeeper 的单点问题，zk 也是以集群的形式出现的。zk 集群中的角色主要有<br>以下三类：</p>
+<ul>
+<li>Leader：zk 集群写请求的唯一处理者，并负责进行投票的发起和决议，更新系统状态。<br>Leader 是很民主的，并不是说其在接收到写请求后马上就修改其中保存的数据，而是首<br>先根据写请求提出一个提议，在大多数 zkServer 均同意时才会做出修改。</li>
+<li>Follower：接收客户端请求，处理读请求，并向客户端返回结果；将写请求转给 Leader；<br>在选主(选 Leader)过程中参与投票。 </li>
+<li>Observer：可以理解为无选主投票权的 Flollower，其主要是为了协助 Follower 处理更多<br>的读请求。如果 Zookeeper 集群的读请求负载很高，或者客户端非常非常多，多到跨机房，则可以设置一些 Observer 服务器，以提高读取的吞吐量。</li>
+</ul>
+<h3><span id="四个数据">四个数据</span></h3><ol>
+<li>myid <blockquote>
+<p>这是 zk 集群中服务器的唯一标识，称为 myid。例如，有三个 zk 服务器，那么编号分别<br>是 1,2,3。</p>
+</blockquote>
+</li>
+<li>zxid<blockquote>
+<p>zxid 为 Long 类型，其中高 32 位表示 epoch，低 32 位表示 xid。即 zxid 由两部分构成：<br>epoch 与 xid。<br>每个 Leader 都会具有一个不同的 epoch 值，表示一个时期、时代。新的 Leader 产生，<br>则会更新所有 zkServer 的 zxid 中的 epoch。 </p>
+</blockquote>
+</li>
+<li>xid <blockquote>
+<p>则为 zk 的事务id，只会增加，每一个写操作都是一个事务，都会有一个 xid。每一个写操作<br>都需要由 Leader 发起一个提议，由所有 Follower 表决是否同意本次写操作。</p>
+</blockquote>
+</li>
+<li>逻辑时钟<blockquote>
+<p>逻辑时钟，Logicalclock，是一个整型数，该概念在选举时称为 logicalclock，而在 zxid 中<br>则为 epoch 的值。即 epoch 与 logicalclock 是同一个值，在不同情况下的不同名称。</p>
+</blockquote>
+</li>
+</ol>
+<h3><span id="四种状态">四种状态</span></h3><p>根据不同角色和进行中的流程，每个服务器存在不同的状态，包括以下 4 中。</p>
+<ol>
+<li>LOOKING，选举状态(查找 Leader 的状态)。 </li>
+<li>FOLLOWING，随从状态，同步 leader 状态。处于该状态的服务器称为 Follower。 </li>
+<li>OBSERVING，观察状态，同步 leader 状态。处于该状态的服务器称为 Observer。 </li>
+<li>LEADING，领导者状态。处于该状态的服务器称为 Leader。</li>
+</ol>
+<h2><span id="七-应用场景">七、应用场景</span></h2><ul>
+<li>分布式配置中心</li>
+<li>分布式锁</li>
+<li>服务注册中心</li>
+<li>分布式通知</li>
+</ul>
+<h2><span id="八-引用">八、引用</span></h2><p><a href="https://blog.xiaohansong.com/Paxos.html">图解 Paxos 一致性协议</a></p>
+<p><a href="https://www.jianshu.com/p/703f4eb40e92">zooKeeper中的CAP模型以及它作为服务发现的缺点</a></p>
+</div></article></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="Your name"></figure><p class="title is-size-4 is-block line-height-inherit">Your name</p><p class="is-size-6 is-block">Your title</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Your location</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">33</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Kategorien</p><a href="/categories"><p class="title">5</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">19</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">Folgen</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Kategorien</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/categories/%E4%BA%BA%E6%96%87/"><span class="level-start"><span class="level-item">人文</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">技术</span></span><span class="level-end"><span class="level-item tag">21</span></span></a><ul class="mr-0"><li><a class="level is-mobile is-marginless" href="/categories/%E6%8A%80%E6%9C%AF/%E5%B7%A5%E5%85%B7/"><span class="level-start"><span class="level-item">工具</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></li><li><a class="level is-mobile is-marginless" href="/categories/%E7%9F%A5%E8%AF%86%E5%BA%93/"><span class="level-start"><span class="level-item">知识库</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/%E7%BD%91%E7%BB%9C/"><span class="level-start"><span class="level-item">网络</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">Letzte Einträge</h3><article class="media"><div class="media-content size-small"><p><time dateTime="2020-06-06T09:35:01.000Z">2020-06-06</time></p><p class="title is-6"><a class="link-muted" href="/2020/06/06/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86/">网络协议梳理</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-06-05T13:08:38.000Z">2020-06-05</time></p><p class="title is-6"><a class="link-muted" href="/2020/06/05/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B%E5%A6%82%E4%BD%95%E7%A1%AE%E5%AE%9A%E7%BA%BF%E7%A8%8B%E4%B8%AA%E6%95%B0/">多线程编程如何确定线程个数</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-06-02T08:28:45.000Z">2020-06-02</time></p><p class="title is-6"><a class="link-muted" href="/2020/06/02/Dubbo%E8%AF%A6%E8%A7%A3/">Dubbo详解</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-02-11T12:04:17.000Z">2020-02-11</time></p><p class="title is-6"><a class="link-muted" href="/2020/02/11/Redis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/">Redis核心原理详解</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-02-10T04:50:24.000Z">2020-02-10</time></p><p class="title is-6"><a class="link-muted" href="/2020/02/10/redis5%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">Redis5 集群搭建</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Archive</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2020/06/"><span class="level-start"><span class="level-item">六月 2020</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/02/"><span class="level-start"><span class="level-item">二月 2020</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/01/"><span class="level-start"><span class="level-item">一月 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/12/"><span class="level-start"><span class="level-item">十二月 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/09/"><span class="level-start"><span class="level-item">九月 2019</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/08/"><span class="level-start"><span class="level-item">八月 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/07/"><span class="level-start"><span class="level-item">七月 2019</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/06/"><span class="level-start"><span class="level-item">六月 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/05/"><span class="level-start"><span class="level-item">五月 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/04/"><span class="level-start"><span class="level-item">四月 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/02/"><span class="level-start"><span class="level-item">二月 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/01/"><span class="level-start"><span class="level-item">一月 2019</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2018/11/"><span class="level-start"><span class="level-item">十一月 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Android/"><span class="tag">Android</span><span class="tag is-grey-lightest">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JVM/"><span class="tag">JVM</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Java/"><span class="tag">Java</span><span class="tag is-grey-lightest">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Redis/"><span class="tag">Redis</span><span class="tag is-grey-lightest">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BC%98%E5%8C%96/"><span class="tag">优化</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"><span class="tag">分布式</span><span class="tag is-grey-lightest">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8F%8D%E5%B0%84/"><span class="tag">反射</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"><span class="tag">多线程</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"><span class="tag">并发编程</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><span class="tag">微服务</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%9D%E7%BB%B4%E6%A8%A1%E5%9E%8B/"><span class="tag">思维模型</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><span class="tag">性能优化</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="tag">数据结构</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%AD%A3%E5%88%99/"><span class="tag">正则</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B3%A8%E8%A7%A3/"><span class="tag">注解</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BA%BF%E7%A8%8B/"><span class="tag">线程</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BC%93%E5%AD%98/"><span class="tag">缓存</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="tag">网络编程</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="tag">设计模式</span><span class="tag is-grey-lightest">7</span></a></div></div></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe to Updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button is-primary" type="submit" value="Subscribe"></div></div></form></div></div></div><div class="card widget"><div class="card-content"><div class="notification is-danger">You need to set <code>client_id</code> and <code>slot_id</code> to show this AD unit. Please set it in <code>_config.yml</code>.</div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="玉蘇子" height="28"></a><p class="size-small"><span>&copy; 2020 brokge</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script>moment.locale("zh-tw");</script><script>var IcarusThemeSettings = {
+            site: {
+                url: 'https://brokge.github.io',
+                external_link: {"enable":true,"exclude":[]}
+            },
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="Zurück nach oben" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Tippen Sie etwas..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Tippen Sie etwas...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Kategorien","tags":"Tags"});
+        });</script></body></html>
