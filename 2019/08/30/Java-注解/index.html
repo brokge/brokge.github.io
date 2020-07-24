@@ -16,8 +16,8 @@
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<h2><span id="注解">注解</span></h2><p>注解是代码里的特殊标记，这些标记可以在编译、类加载、运行时被读取。并执行相应的处理。</p>
-<h3><span id="一-注解分类">一 、注解分类</span></h3><ol>
+<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>注解是代码里的特殊标记，这些标记可以在编译、类加载、运行时被读取。并执行相应的处理。</p>
+<h3 id="一-、注解分类"><a href="#一-、注解分类" class="headerlink" title="一 、注解分类"></a>一 、注解分类</h3><ol>
 <li><p><strong>java 内置注解</strong> </p>
 <p>@Override、 @Deprecated、@SuppressWarnings、@SafeVarargs(jdk 7 新增)</p>
 </li>
@@ -68,7 +68,7 @@
 </blockquote>
 </li>
 </ul>
-<h3><span id="定义注解">定义注解</span></h3><p><strong>1. 基本定义</strong></p>
+<h3 id="定义注解"><a href="#定义注解" class="headerlink" title="定义注解"></a>定义注解</h3><p><strong>1. 基本定义</strong></p>
 <p>定义新的注解类型使用 @interface 关键字。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Cup</span><span class="token punctuation">{</span>
 
@@ -146,7 +146,7 @@
     Person<span class="token punctuation">[</span><span class="token punctuation">]</span>  <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3><span id="二-注解的提取">二、注解的提取</span></h3><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
+<h3 id="二、注解的提取"><a href="#二、注解的提取" class="headerlink" title="二、注解的提取"></a>二、注解的提取</h3><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isAnnotationPresent</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后通过 getAnnotation() 方法来获取 Annotation 对象。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token operator">&lt;</span>A <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> A <span class="token function">getAnnotation</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span>A<span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -157,7 +157,7 @@
 <pre class="line-numbers language-java"><code class="language-java">Field <span class="token function">getDeclaredField</span><span class="token punctuation">(</span>String attrbuteName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 Method <span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span>String methodName<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3><span id="三-其他">三、其他</span></h3><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
+<h3 id="三、其他"><a href="#三、其他" class="headerlink" title="三、其他"></a>三、其他</h3><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
 <p>运行时注解：<br>例如：ButterKnife ，黑科技、低性能</p>
 <p>编译时注解：<br>Dagger2：生成中间代码，所以性能高</p>
 <p>注解处理器：<br>编译时处理器、<br>运行时处理器。</p>

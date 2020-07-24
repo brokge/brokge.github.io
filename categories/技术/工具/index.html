@@ -14,7 +14,7 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
-<h2><span id="背景">背景</span></h2><p>在一般情况下，作为 Java 开发，如果事先在 Idea 或者 Eclipse中配置模版。在创建一个新类时，会自动生成 头部注释信息，比如下面这种。</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在一般情况下，作为 Java 开发，如果事先在 Idea 或者 Eclipse中配置模版。在创建一个新类时，会自动生成 头部注释信息，比如下面这种。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  *
  * @author name
@@ -22,10 +22,10 @@
  */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如果没有在 Idea 或 Eclipse 配置模版，需要手动插入。文件少还好，文件多的话那就mmp了。特别是历史遗留问题，有很多类文件没有加头部注释且编译时又做了代码检查，领导又让你加的时候。<br>事实上本人就碰到了这个问题，大概两三百个文件。</p>
 <p>如果你属于上面的情况，那恭喜你。</p>
-<h2><span id="环境要求">环境要求</span></h2><blockquote>
+<h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><blockquote>
 <p>python3</p>
 </blockquote>
-<h2><span id="使用方法">使用方法</span></h2><ol>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><ol>
 <li><p>拷贝py脚本到对应文件</p>
 </li>
 <li><p>执行以下命令</p>
@@ -35,17 +35,17 @@
 <blockquote>
 <p>如：<code>python3 addAnnotation.py brokge </code><br>${authornName}  默认值为 <code>yusuzi</code> </p>
 </blockquote>
-<h2><span id="说明">说明</span></h2><blockquote>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><blockquote>
 <p>只处理脚本所在目录以下目录和文件 且后缀为 <code>.java</code> 文件 文件<br>如果存在 <code>@author</code> 或 <code>Created by xxx</code> 不处理</p>
 </blockquote>
-<h2><span id="支持的注释残缺类型">支持的注释残缺类型</span></h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">aa</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="支持的注释残缺类型"><a href="#支持的注释残缺类型" class="headerlink" title="支持的注释残缺类型"></a>支持的注释残缺类型</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">aa</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@xxxx</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">aa</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * 这是个测试类
  */</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">aa</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="addannotationpy-代码">addAnnotation.py 代码</span></h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true">#!usr/bin/python3</span>
+<h2 id="addAnnotation-py-代码"><a href="#addAnnotation-py-代码" class="headerlink" title="addAnnotation.py 代码"></a>addAnnotation.py 代码</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true">#!usr/bin/python3</span>
 <span class="token comment" spellcheck="true"># -*- coding:UTF-8 -*-</span>
 <span class="token keyword">import</span> pickle
 <span class="token keyword">import</span> pprint

@@ -28,13 +28,13 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 <p><a href="https://blog.csdn.net/briblue/article/details/76223206">参考博客</a></p>
-<h2><span id="一-获取不存在的对象">一、获取不存在的对象？</span></h2><h3><span id="1-获取不到-class-对象">1. 获取不到 class 对象</span></h3><ol>
+<h2 id="一、获取不存在的对象？"><a href="#一、获取不存在的对象？" class="headerlink" title="一、获取不存在的对象？"></a>一、获取不存在的对象？</h2><h3 id="1-获取不到-class-对象"><a href="#1-获取不到-class-对象" class="headerlink" title="1. 获取不到 class 对象"></a>1. 获取不到 class 对象</h3><ol>
 <li>通过一个对象的 getClass() 方法。</li>
 <li>通过 .class 关键字。</li>
 <li>通过 Class.forName()。</li>
 </ol>
 <p>抛出 ClassNotFoundException 异常。</p>
-<h3><span id="2-获取不到-field">2. 获取不到 Field</span></h3><p>获取不到 Field 的情况分3种：</p>
+<h3 id="2-获取不到-Field"><a href="#2-获取不到-Field" class="headerlink" title="2. 获取不到 Field"></a>2. 获取不到 Field</h3><p>获取不到 Field 的情况分3种：</p>
 <ul>
 <li><p>确实不存在这个 Field </p>
 <p>抛出 NoSuchFieldException</p>
@@ -48,7 +48,7 @@
 </ul>
 <p>针对 Field 存在，但获取不到情况：<br>由于 getField 和 getDeclaredField 在父类获取的限制。可以先获取 当前类的 父类，即 superClass ，然后 通过 getField或者getDeclaredField的方式获取</p>
 <pre class="line-numbers language-java"><code class="language-java">Class <span class="token class-name">superClass</span> <span class="token operator">=</span> clzBase<span class="token punctuation">.</span><span class="token function">getSuperclass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3><span id="3-获取不到-method">3. 获取不到 Method</span></h3><ul>
+<h3 id="3-获取不到-Method"><a href="#3-获取不到-Method" class="headerlink" title="3. 获取不到 Method"></a>3. 获取不到 Method</h3><ul>
 <li><p>获取本身就不存在的 Method</p>
 <p> 抛出 NoSuchMethodException</p>
 </li>
@@ -59,20 +59,20 @@
 <pre class="line-numbers language-java"><code class="language-java">Method methodtest <span class="token operator">=</span> class1<span class="token punctuation">.</span><span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">,</span><span class="token keyword">int</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span><span class="token keyword">float</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 Method methodtest <span class="token operator">=</span> class1<span class="token punctuation">.</span><span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">,</span><span class="token keyword">new</span> <span class="token class-name">Class</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">int</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span><span class="token keyword">float</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3><span id="4-获取不到-constructor">4. 获取不到 Constructor</span></h3><p>与 method 的类似</p>
-<h3><span id="5-getinterfaces-的作用">5. getInterfaces() 的作用</span></h3><p>大家可能都会觉得 getInterfaces() 的作用是获取一个类中定义的接口，但是其实不是的，getInterfaces() 获取的是一个类所有实现的接口。</p>
-<h2><span id="二-反射中的权限问题">二、反射中的权限问题</span></h2><h3><span id="1-操纵非-public-修饰的-field">1. 操纵非 public 修饰的 Field</span></h3><p>抛出 IllegalAccessException 错误</p>
+<h3 id="4-获取不到-Constructor"><a href="#4-获取不到-Constructor" class="headerlink" title="4. 获取不到 Constructor"></a>4. 获取不到 Constructor</h3><p>与 method 的类似</p>
+<h3 id="5-getInterfaces-的作用"><a href="#5-getInterfaces-的作用" class="headerlink" title="5. getInterfaces() 的作用"></a>5. getInterfaces() 的作用</h3><p>大家可能都会觉得 getInterfaces() 的作用是获取一个类中定义的接口，但是其实不是的，getInterfaces() 获取的是一个类所有实现的接口。</p>
+<h2 id="二、反射中的权限问题"><a href="#二、反射中的权限问题" class="headerlink" title="二、反射中的权限问题"></a>二、反射中的权限问题</h2><h3 id="1-操纵非-public-修饰的-Field"><a href="#1-操纵非-public-修饰的-Field" class="headerlink" title="1. 操纵非 public 修饰的 Field"></a>1. 操纵非 public 修饰的 Field</h3><p>抛出 IllegalAccessException 错误</p>
 <pre class="line-numbers language-java"><code class="language-java">field<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>我这里以 private 为例，其实 protected 和 default 也是一样的，但是它们不同于 private 的地方在于，它们在本 package 范围内是可见的，有兴趣的同学可以测试一下，测试代码在一个 package，而测试的类在另外一个 package。</p>
-<h3><span id="2-操纵一个-final-类型的-field">2. 操纵一个 final 类型的 Field</span></h3><p>抛出 IllegalAccessException 错误</p>
+<h3 id="2-操纵一个-final-类型的-Field"><a href="#2-操纵一个-final-类型的-Field" class="headerlink" title="2. 操纵一个 final 类型的 Field"></a>2. 操纵一个 final 类型的 Field</h3><p>抛出 IllegalAccessException 错误</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>虽然被 public 修饰，但是它同样被 final 修饰，这在正常的开发流程说明这个属性不能够再被改变。</p>
 <p>如果要解决这个问题，同样可以使用 setAccessible(true) 方法</p>
-<h3><span id="3-操纵非-public-修饰的-method">3. 操纵非 public 修饰的 Method</span></h3><pre class="line-numbers language-java"><code class="language-java">method<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="3-操纵非-public-修饰的-Method"><a href="#3-操纵非-public-修饰的-Method" class="headerlink" title="3. 操纵非 public 修饰的 Method"></a>3. 操纵非 public 修饰的 Method</h3><pre class="line-numbers language-java"><code class="language-java">method<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>通过 setAccessible(true) 同样可以解决这个问题。</p>
-<h3><span id="4-操纵非-public-修饰的-constructor">4. 操纵非 public 修饰的 Constructor</span></h3><p>同前面两种，同样是通过 setAccessible(true) 来搞定。</p>
+<h3 id="4-操纵非-public-修饰的-Constructor"><a href="#4-操纵非-public-修饰的-Constructor" class="headerlink" title="4. 操纵非 public 修饰的 Constructor"></a>4. 操纵非 public 修饰的 Constructor</h3><p>同前面两种，同样是通过 setAccessible(true) 来搞定。</p>
 <p>所以，在反射中如果要操作被 private 修饰的对象，那么就必须调用它的 setAccessible(true)。</p>
-<h2><span id="三-setaccessible-的秘密">三、setAccessible() 的秘密</span></h2><p>我们已经知道 Field、Method 和 Constructor 都有 setAccessible() 这个方法，至于是什么呢？这是因为它们有共同的祖先 AccessObject。</p>
+<h2 id="三、setAccessible-的秘密"><a href="#三、setAccessible-的秘密" class="headerlink" title="三、setAccessible() 的秘密"></a>三、setAccessible() 的秘密</h2><p>我们已经知道 Field、Method 和 Constructor 都有 setAccessible() 这个方法，至于是什么呢？这是因为它们有共同的祖先 AccessObject。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AccessibleObject</span> <span class="token keyword">implements</span> <span class="token class-name">AnnotatedElement</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> flag<span class="token punctuation">)</span> <span class="token keyword">throws</span> SecurityException <span class="token punctuation">{</span>
         SecurityManager sm <span class="token operator">=</span> System<span class="token punctuation">.</span><span class="token function">getSecurityManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -198,9 +198,9 @@ Object target<span class="token punctuation">,</span><span class="token keyword"
     <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如果没有访问权限，程序将会在此抛出一个 IllegalAccessException 的异常。</p>
 <p>所以，如果通过反射方式去操作一个 Field、Method 或者是 Constructor，最好先调用它的 setAccessible(true) 以防止程序运行异常。</p>
-<h2><span id="四-classnewinstance-和-constructornewinstance-的区别">四、Class.newInstance() 和 Constructor.newInstance() 的区别</span></h2><p>Class.newInstance() 的使用有严格的限制，那就是一个 Class 对象中，必须存在一个无参数的 Constructor，并且这个 Constructor 必须要有访问的权限。</p>
+<h2 id="四、Class-newInstance-和-Constructor-newInstance-的区别"><a href="#四、Class-newInstance-和-Constructor-newInstance-的区别" class="headerlink" title="四、Class.newInstance() 和 Constructor.newInstance() 的区别"></a>四、Class.newInstance() 和 Constructor.newInstance() 的区别</h2><p>Class.newInstance() 的使用有严格的限制，那就是一个 Class 对象中，必须存在一个无参数的 Constructor，并且这个 Constructor 必须要有访问的权限。</p>
 <p>通过 Constructor.newInstance() 却没有这种限制。Constructor.newInstance() 适应任何类型的 Constructor,无论它们有参数还是无参数，只要通过 setAccessible() 控制好访问权限就可以了。</p>
-<h2><span id="五-谨慎使用-methodinvoke-方法">五、谨慎使用 Method.invoke() 方法</span></h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span> Object<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span>
+<h2 id="五、谨慎使用-Method-invoke-方法"><a href="#五、谨慎使用-Method-invoke-方法" class="headerlink" title="五、谨慎使用 Method.invoke() 方法"></a>五、谨慎使用 Method.invoke() 方法</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> Object <span class="token function">invoke</span><span class="token punctuation">(</span>Object obj<span class="token punctuation">,</span> Object<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span>
         <span class="token keyword">throws</span> IllegalAccessException<span class="token punctuation">,</span> IllegalArgumentException<span class="token punctuation">,</span>
            InvocationTargetException<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>第一个 Object 参数代表的是对应的 Class 对象实例，这在上面一节已经见识到了。而后面的参数就是可变形参了，它接受多个参数。我们考虑一种特殊情况。</p>
@@ -220,7 +220,7 @@ tMethod<span class="token punctuation">.</span><span class="token function">setA
 
 tMethod<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestT</span><span class="token operator">&lt;</span>Integer<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在 Java 反射中，一个 Method 执行时遭遇的异常会被包装在一个特定的异常中，这个异常就是 InvocationTargetException。</p>
-<h2><span id="六-总结">六、总结</span></h2><table>
+<h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><table>
 <thead>
 <tr>
 <th>异常名称</th>

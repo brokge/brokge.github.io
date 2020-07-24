@@ -16,7 +16,7 @@
 
 <p><a href="https://google.github.io/dagger/">官方地址 </a></p>
 <p><a href="https://blog.csdn.net/briblue/article/details/75578459">参考博客地址</a></p>
-<h3><span id="注解">注解</span></h3><h3><span id="依赖注入">依赖注入</span></h3><p>Dagger2 是一个依赖注入框架，依赖注入的目的就是为了给需求方在合适的时候注入依赖。<br>**@Inject**<br>@Inject 注解就如同一个标签，或者说它是一个记号，它是给 Dagger2 看的。它运用的地方有两处。</p>
+<h3 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h3><h3 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h3><p>Dagger2 是一个依赖注入框架，依赖注入的目的就是为了给需求方在合适的时候注入依赖。<br>**@Inject**<br>@Inject 注解就如同一个标签，或者说它是一个记号，它是给 Dagger2 看的。它运用的地方有两处。</p>
 <ul>
 <li><p>@Inject 给一个类的相应的属性做标记时，说明了它是一个依赖需求方，需要一些依赖。</p>
 </li>
@@ -144,7 +144,7 @@ DaggerParentComponent<span class="token punctuation">.</span><span class="token 
 <p>但是，SubComponent 同时具备了 ParentComponent 和自身的 @Scope 作用域。所以，这经常会造成混乱的地方。大家需要注意。</p>
 <p>如果你要我比较，SubComponent 和 dependency 形式哪种更好时，我承认各有优点，但我自己倾向于 dependency，因为它更灵活。</p>
 <p>不是说 组合优于继承嘛。</p>
-<h3><span id="反射">反射</span></h3><h3><span id="基于-javaxinject">基于 </span></h3><p>Dagger 2 是一个设计非常巧妙且粗暴的框架。为什么说巧妙呢？</p>
+<h3 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h3><h3 id="基于-javax-inject"><a href="#基于-javax-inject" class="headerlink" title="基于 javax.inject "></a>基于 <a href="https://jcp.org/en/jsr/detail?id=330">javax.inject </a></h3><p>Dagger 2 是一个设计非常巧妙且粗暴的框架。为什么说巧妙呢？</p>
 <ol>
 <li>Dagger 是为Android和Java平台提供的一个完全静态的，在编译时进行依赖注入的框架。</li>
 <li>Dagger 通过生成中间代码，解决了基于反射带来的开发和性能上的问题。</li>

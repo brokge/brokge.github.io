@@ -17,9 +17,9 @@
 
 
 <p>Android 开发场景中，分析内存泄漏情况</p>
-<h2><span id="所需工具">所需工具</span></h2><h3><span id="1-mta">1. MTA</span></h3><p>Eclipse Memory Analysis Tools (MAT) 是一个分析 Java堆数据的专业工具，用它可以定位内存泄漏的原因。</p>
+<h2 id="所需工具"><a href="#所需工具" class="headerlink" title="所需工具"></a>所需工具</h2><h3 id="1-MTA"><a href="#1-MTA" class="headerlink" title="1. MTA"></a>1. MTA</h3><p>Eclipse Memory Analysis Tools (MAT) 是一个分析 Java堆数据的专业工具，用它可以定位内存泄漏的原因。</p>
 <p>工具地址 : <a href="https://www.eclipse.org/mat/">https://www.eclipse.org/mat/</a></p>
-<h3><span id="2-androidstudio">2. AndroidStudio</span></h3><ul>
+<h3 id="2-AndroidStudio"><a href="#2-AndroidStudio" class="headerlink" title="2. AndroidStudio"></a>2. AndroidStudio</h3><ul>
 <li>monitor</li>
 </ul>
 <p>存在 sdk/toools/ 下的 monitor</p>
@@ -35,7 +35,7 @@
 <li>profiler </li>
 </ul>
 <p>AndroidStudio 内置的 内存检测工具，可以回收内存和下载dump。</p>
-<h2><span id="使用">使用</span></h2><ol>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
 <li>通过 AndroidStudio 内置工具 profiler 进行分析并获取到.hprof 文件。</li>
 </ol>
 <blockquote>
@@ -59,7 +59,7 @@
 <blockquote>
 <p>进入Histogram<br>可以点击表头进行排序,在表的第一行可以输入正则表达式来匹配结果,找到我们想要找的类，然后右键选择<code>merge shortest paths to Gc roots</code> 然后在选择<code>exclude all phantom/weak/soft etc.references</code>选项.</p>
 </blockquote>
-<h2><span id="分析小技巧">分析小技巧</span></h2><ol>
+<h2 id="分析小技巧"><a href="#分析小技巧" class="headerlink" title="分析小技巧"></a>分析小技巧</h2><ol>
 <li><code>Histogram</code> 对比</li>
 </ol>
 <p>为查找内存泄漏，通常需要两个 Dump结果作对比，打开 <code>Navigator History</code>面板，将两个表的 <code>Histogram</code>结果都添加到 <code>Compare Basket</code>中去 :<br>添加好后，打开 Compare Basket面板，得到结果。</p>

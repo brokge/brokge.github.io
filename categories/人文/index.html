@@ -22,9 +22,9 @@
 
 
 
-<h2><span id="概念">概念</span></h2><p><strong>原型模式(Prototype  Pattern)：</strong> 使用原型实例指定创建对象的种类，并且通过克隆拷贝的方式利用原型实例创建新的对象。原型模式是一种对象创建型模式。</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p><strong>原型模式(Prototype  Pattern)：</strong> 使用原型实例指定创建对象的种类，并且通过克隆拷贝的方式利用原型实例创建新的对象。原型模式是一种对象创建型模式。</p>
 <p>通过克隆方法所创建的对象是全新的对象，它们在内存中拥有新的地址，通常对克隆所产生的对象进行修改对原型对象不会造成任何影响，每一个克隆对象都是相互独立的。通过不同的方式修改可以得到一系列相似但不完全相同的对象。</p>
-<h2><span id="实现方式">实现方式</span></h2><h3><span id="1-通用实现方法">1. 通用实现方法：</span></h3><p>定义 Prototype 接口 和 clone() 方法。<br>原型对象继承其接口，实现clone 方法。</p>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><h3 id="1-通用实现方法："><a href="#1-通用实现方法：" class="headerlink" title="1. 通用实现方法："></a>1. 通用实现方法：</h3><p>定义 Prototype 接口 和 clone() 方法。<br>原型对象继承其接口，实现clone 方法。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">interface</span> <span class="token class-name">Prototype</span><span class="token punctuation">{</span>
    Prototype  <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -55,7 +55,7 @@
 obj1<span class="token punctuation">.</span><span class="token function">setAttr</span><span class="token punctuation">(</span><span class="token string">"Sunny"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 Prototype obj2  <span class="token operator">=</span> obj1<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3><span id="2-java-语言提供的-clone-方法">2. Java 语言提供的 clone 方法</span></h3><p>Java类都继承自java.lang.Object。事实上，Object类提供一个clone()方法，可以将一个Java对象复制一份。因此在Java中可以直接使用Object提供的clone()方法来实现对象的克隆，Java语言中的原型模式实现很简单。我们可以直接利用Object类的clone()方法，具体步骤如下：</p>
+<h3 id="2-Java-语言提供的-clone-方法"><a href="#2-Java-语言提供的-clone-方法" class="headerlink" title="2. Java 语言提供的 clone 方法"></a>2. Java 语言提供的 clone 方法</h3><p>Java类都继承自java.lang.Object。事实上，Object类提供一个clone()方法，可以将一个Java对象复制一份。因此在Java中可以直接使用Object提供的clone()方法来实现对象的克隆，Java语言中的原型模式实现很简单。我们可以直接利用Object类的clone()方法，具体步骤如下：</p>
 <ol>
 <li>在派生类中覆盖基类的clone()方法，并声明为public；</li>
 <li>在派生类的clone()方法中，调用super.clone()；</li>
@@ -85,11 +85,11 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 <p>(1) 对任何对象x，都有x.clone() != x，即克隆对象与原型对象不是同一个对象；</p>
 <p>(2) 对任何对象x，都有x.clone().getClass() == x.getClass()，即克隆对象与原型对象的类型一样；</p>
 <p>(3) 如果对象x的equals()方法定义恰当，那么x.clone().equals(x)应该成立。</p>
-<h2><span id="浅克隆-深克隆">浅克隆、深克隆</span></h2><p>通过 Java 的clone 方式可以实现原型模式，但是通过深克隆实现还是浅克隆实现，所达到的结果是不一样的。因为在Java语言中，<strong>数据类型</strong>分为<strong>值类型</strong>（基本数据类型）和<strong>引用类型</strong>，值类型包括int、double、byte、boolean、char等简单数据类型，引用类型包括类、接口、数组等复杂类型。浅克隆和深克隆的主要区别在于是否支持引用类型的成员变量的复制。</p>
-<h3><span id="1-浅克隆">1. 浅克隆</span></h3><p>在浅克隆中，如果原型对象的成员变量是值类型，将复制一份给克隆对象；如果原型对象的成员变量是引用类型，则将引用对象的地址复制一份给克隆对象，也就是说原型对象和克隆对象的成员变量指向相同的内存地址。</p>
+<h2 id="浅克隆、深克隆"><a href="#浅克隆、深克隆" class="headerlink" title="浅克隆、深克隆"></a>浅克隆、深克隆</h2><p>通过 Java 的clone 方式可以实现原型模式，但是通过深克隆实现还是浅克隆实现，所达到的结果是不一样的。因为在Java语言中，<strong>数据类型</strong>分为<strong>值类型</strong>（基本数据类型）和<strong>引用类型</strong>，值类型包括int、double、byte、boolean、char等简单数据类型，引用类型包括类、接口、数组等复杂类型。浅克隆和深克隆的主要区别在于是否支持引用类型的成员变量的复制。</p>
+<h3 id="1-浅克隆"><a href="#1-浅克隆" class="headerlink" title="1. 浅克隆"></a>1. 浅克隆</h3><p>在浅克隆中，如果原型对象的成员变量是值类型，将复制一份给克隆对象；如果原型对象的成员变量是引用类型，则将引用对象的地址复制一份给克隆对象，也就是说原型对象和克隆对象的成员变量指向相同的内存地址。</p>
 <p>简单来说，在浅克隆中，当对象被复制时只复制它本身和其中包含的值类型的成员变量，而引用类型的成员对象并没有复制。</p>
 <p><img src="https://github.com/brokge/drawio/raw/master/net-scapture/java%20%E5%AF%B9%E8%B1%A1%E5%85%8B%E9%9A%86-%E6%B5%85.png" alt="浅克隆"></p>
-<h3><span id="2-深克隆">2. 深克隆</span></h3><p>深克隆中，无论原型对象的成员变量是值类型还是引用类型，都将复制一份给克隆对象，深克隆将原型对象的所有引用对象也复制一份给克隆对象。</p>
+<h3 id="2-深克隆"><a href="#2-深克隆" class="headerlink" title="2. 深克隆"></a>2. 深克隆</h3><p>深克隆中，无论原型对象的成员变量是值类型还是引用类型，都将复制一份给克隆对象，深克隆将原型对象的所有引用对象也复制一份给克隆对象。</p>
 <p>简单来说，在深克隆中，除了对象本身被复制外，对象所包含的所有成员变量也将复制</p>
 <p><img src="https://github.com/brokge/drawio/raw/master/net-scapture/java%20%E5%AF%B9%E8%B1%A1%E5%85%8B%E9%9A%86.png" alt="深克隆"></p>
 <ol>
@@ -157,7 +157,7 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="总结">总结：</span></h2><ul>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><ul>
 <li>原型模式的主要优点如下：</li>
 </ul>
 <p>(1) 当创建新的对象实例较为复杂时，使用原型模式可以简化对象的创建过程，通过复制一个已有实例可以提高新实例的创建效率。</p>
@@ -198,7 +198,7 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 
 
 <p>[toc]</p>
-<h1><span id="单例">单例</span></h1><h2><span id="概念特点">概念特点</span></h2><p>确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例，这个类称为单例类，它提供全局访问的方法。</p>
+<h1 id="单例"><a href="#单例" class="headerlink" title="单例"></a>单例</h1><h2 id="概念特点"><a href="#概念特点" class="headerlink" title="概念特点"></a>概念特点</h2><p>确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例，这个类称为单例类，它提供全局访问的方法。</p>
 <ul>
 <li>三要点：</li>
 </ul>
@@ -222,7 +222,7 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 </ol>
 <p>上面说了，构造函数私有化后第一种情况就不能用，只能使用第二种方法。 而使用类名直接调用类中方法，类中方法必须是静态的，而静态方法不能访问非静态成员变量，因此类自定义的实例变量也必须是静态的。 这就是单例模式唯一实例必须设置为静态的原因</p>
 </blockquote>
-<h2><span id="实现方式">实现方式</span></h2><h3><span id="饿汉式">饿汉式</span></h3><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//饿汉式</span>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><h3 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//饿汉式</span>
 <span class="token keyword">class</span> <span class="token class-name">EagerSingleton</span> <span class="token punctuation">{</span> 
     <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> EagerSingleton instance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EagerSingleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
     <span class="token keyword">private</span> <span class="token function">EagerSingleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span> 
@@ -232,7 +232,7 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
     <span class="token punctuation">}</span>   
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>当类被加载时，静态变量instance会被初始化，此时类的私有构造函数会被调用，单例类的唯一实例将被创建。如果使用饿汉式单例来实现负载均衡器LoadBalancer类的设计，则不会出现创建多个单例对象的情况，可确保单例对象的唯一性。</p>
-<h3><span id="懒汉式与线程锁定">懒汉式与线程锁定</span></h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">LazySingleton</span> <span class="token punctuation">{</span> 
+<h3 id="懒汉式与线程锁定"><a href="#懒汉式与线程锁定" class="headerlink" title="懒汉式与线程锁定"></a>懒汉式与线程锁定</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">LazySingleton</span> <span class="token punctuation">{</span> 
     <span class="token keyword">private</span> <span class="token keyword">static</span> LazySingleton instance <span class="token operator">=</span> null<span class="token punctuation">;</span> 
 
     <span class="token keyword">private</span> <span class="token function">LazySingleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span> 
@@ -287,7 +287,7 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 <blockquote>
 <p>如果使用双重检查锁定来实现懒汉式单例类，需要在静态成员变量instance之前增加修饰符<strong>volatile</strong>，被<strong>volatile</strong>修饰的成员变量可以确保多个线程都能够正确处理，且该代码只能在JDK 1.5及以上版本中才能正确执行。由于 volatile 关键字会屏蔽 Java 虚拟机所做的一些代码优化，可能会导致系统运行效率降低。因此即使使用双重检查锁定来实现单例模式也不是一种完美的实现方式。</p>
 </blockquote>
-<h3><span id="饿汉式单例类与懒汉式单例类比较">饿汉式单例类与懒汉式单例类比较</span></h3><p><strong>饿汉式单例类在类被加载时就将自己实例化，</strong></p>
+<h3 id="饿汉式单例类与懒汉式单例类比较"><a href="#饿汉式单例类与懒汉式单例类比较" class="headerlink" title="饿汉式单例类与懒汉式单例类比较"></a>饿汉式单例类与懒汉式单例类比较</h3><p><strong>饿汉式单例类在类被加载时就将自己实例化，</strong></p>
 <p>优点：</p>
 <ol>
 <li><p>无须考虑多线程访问问题，可以确保实例的唯一性；</p>
@@ -308,10 +308,10 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 <ol>
 <li>但是必须处理好多个线程同时访问的问题，特别是当单例类作为资源控制器，在实例化时必然涉及资源初始化，而资源初始化很有可能耗费大量时间，这意味着出现多线程同时首次引用此类的机率变得较大，需要通过双重检查锁定等机制进行控制，这将导致系统性能受到一定影响。</li>
 </ol>
-<h2><span id="以上总结">以上总结</span></h2><p>饿汉式单例类不能实现延迟加载，不管将来用不用始终占据内存；</p>
+<h2 id="以上总结"><a href="#以上总结" class="headerlink" title="以上总结"></a>以上总结</h2><p>饿汉式单例类不能实现延迟加载，不管将来用不用始终占据内存；</p>
 <p>懒汉式单例类线程安全控制烦琐，而且性能受影响。</p>
 <p>可见，无论是饿汉式单例还是懒汉式单例都存在这样那样的问题,有没有更好的方式？</p>
-<h3><span id="静态内部类">静态内部类</span></h3><blockquote>
+<h3 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h3><blockquote>
 <p>Initialization Demand Holder (IoDH)</p>
 </blockquote>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Singleton</span> <span class="token punctuation">{</span>
@@ -355,12 +355,12 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 
 
 
-<h2><span id="概念">概念</span></h2><p>职责链模式(Chain of Responsibility  Pattern)：避免请求发送者与接收者耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。职责链模式是一种对象行为型模式。</p>
-<h2><span id="结构图">结构图</span></h2><p>责任链模式实现方式，有两种：集合形式、链表形式</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>职责链模式(Chain of Responsibility  Pattern)：避免请求发送者与接收者耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。职责链模式是一种对象行为型模式。</p>
+<h2 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h2><p>责任链模式实现方式，有两种：集合形式、链表形式</p>
 <p><img src="https://raw.githubusercontent.com/brokge/drawio/master/img/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F.png" alt="责任链模式-2019-9-23-14-53-40.png"></p>
 <p><strong>Handler（抽象处理者）：</strong>  它定义了一个处理请求的接口，一般设计为抽象类，由于不同的具体处理者处理请求的方式不同，因此在其中定义了抽象请求处理方法。因为每一个处理者的下家还是一个处理者，因此在抽象处理者中定义了一个抽象处理者类型的对象（如结构图中的 nextHandler），作为其对下家的引用。通过该引用，处理者可以连成一条链。</p>
 <p><strong>ConcreteHandler（具体处理者）：</strong><br>它是抽象处理者的子类，可以处理用户请求，在具体处理者类中实现了抽象处理者中定义的抽象请求处理方法，在处理请求之前需要进行判断，看是否有相应的处理权限，如果可以处理请求就处理它，否则将请求转发给后继者；在具体处理者中可以访问链中下一个对象，以便请求的转发。</p>
-<h2><span id="示例代码">示例代码</span></h2><pre class="line-numbers language-java"><code class="language-java">
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><pre class="line-numbers language-java"><code class="language-java">
 <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Handler</span> <span class="token punctuation">{</span>
    <span class="token comment" spellcheck="true">//维持对下家的引用</span>
    <span class="token keyword">protected</span> Handler nextHandler<span class="token punctuation">;</span>
@@ -424,14 +424,14 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 
     handleProcessor<span class="token punctuation">.</span><span class="token function">processHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="小结">小结</span></h2><h3><span id="职责链模式的主要优点如下">职责链模式的主要优点如下：</span></h3><p>(1) 职责链模式使得一个对象无须知道是其他哪一个对象处理其请求，对象仅需知道该请求会被处理即可，接收者和发送者都没有对方的明确信息，且链中的对象不需要知道链的结构，由客户端负责链的创建，降低了系统的耦合度。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><h3 id="职责链模式的主要优点如下："><a href="#职责链模式的主要优点如下：" class="headerlink" title="职责链模式的主要优点如下："></a>职责链模式的主要优点如下：</h3><p>(1) 职责链模式使得一个对象无须知道是其他哪一个对象处理其请求，对象仅需知道该请求会被处理即可，接收者和发送者都没有对方的明确信息，且链中的对象不需要知道链的结构，由客户端负责链的创建，降低了系统的耦合度。</p>
 <p>(2) 请求处理对象仅需维持一个指向其后继者的引用，而不需要维持它对所有的候选处理者的引用，可简化对象的相互连接。</p>
 <p>(3) 在给对象分派职责时，职责链可以给我们更多的灵活性，可以通过在运行时对该链进行动态的增加或修改来增加或改变处理一个请求的职责。</p>
 <p>(4) 在系统中增加一个新的具体请求处理者时无须修改原有系统的代码，只需要在客户端重新建链即可，从这一点来看是符合“开闭原则”的。</p>
-<h3><span id="职责链模式的主要缺点如下">职责链模式的主要缺点如下：</span></h3><p>(1) 由于一个请求没有明确的接收者，那么就不能保证它一定会被处理，该请求可能一直到链的末端都得不到处理；一个请求也可能因职责链没有被正确配置而得不到处理。</p>
+<h3 id="职责链模式的主要缺点如下："><a href="#职责链模式的主要缺点如下：" class="headerlink" title="职责链模式的主要缺点如下："></a>职责链模式的主要缺点如下：</h3><p>(1) 由于一个请求没有明确的接收者，那么就不能保证它一定会被处理，该请求可能一直到链的末端都得不到处理；一个请求也可能因职责链没有被正确配置而得不到处理。</p>
 <p>(2) 对于比较长的职责链，请求的处理可能涉及到多个处理对象，系统性能将受到一定影响，而且在进行代码调试时不太方便。</p>
 <p>(3) 如果建链不当，可能会造成循环调用，将导致系统陷入死循环。</p>
-<h3><span id="适用场景">适用场景</span></h3><p>在以下情况下可以考虑使用职责链模式：</p>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用职责链模式：</p>
 <p>(1) 有多个对象可以处理同一个请求，具体哪个对象处理该请求待运行时刻再确定，客户端只需将请求提交到链上，而无须关心请求的处理对象是谁以及它是如何处理的。</p>
 <p>(2) 在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。</p>
 <p>(3) 可动态指定一组对象处理请求，客户端可以动态创建职责链来处理请求，还可以改变链中处理者之间的先后次序。</p>
@@ -492,9 +492,9 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 
 
 <p>[toc]</p>
-<h1><span id="简单工厂">简单工厂</span></h1><h2><span id="概念">概念</span></h2><p>定义一个工厂类，它可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于创建实例的方法是静态(static)方法，因此简单工厂模式又被称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。</p>
-<h2><span id="特点">特点</span></h2><p>当你需要什么，只需要传入一个正确的参数，就可以获取你所需要的对象，而无须知道其创建细节。<br>达到 <strong>创建和使用分离</strong>。</p>
-<h2><span id="示例代码">示例代码：</span></h2><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//抽象图表接口：抽象产品类</span>
+<h1 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>定义一个工厂类，它可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于创建实例的方法是静态(static)方法，因此简单工厂模式又被称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>当你需要什么，只需要传入一个正确的参数，就可以获取你所需要的对象，而无须知道其创建细节。<br>达到 <strong>创建和使用分离</strong>。</p>
+<h2 id="示例代码："><a href="#示例代码：" class="headerlink" title="示例代码："></a>示例代码：</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//抽象图表接口：抽象产品类</span>
 <span class="token keyword">interface</span> <span class="token class-name">Chart</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">display</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -553,21 +553,21 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="简单工厂模式总结">简单工厂模式总结</span></h2><p>简单工厂模式提供了专门的工厂类用于创建对象，将对象的创建和对象的使用分离开。</p>
-<h3><span id="优点"><strong>优点</strong></span></h3><p> 简单工厂模式的主要优点如下：</p>
+<h2 id="简单工厂模式总结"><a href="#简单工厂模式总结" class="headerlink" title="简单工厂模式总结"></a>简单工厂模式总结</h2><p>简单工厂模式提供了专门的工厂类用于创建对象，将对象的创建和对象的使用分离开。</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a><strong>优点</strong></h3><p> 简单工厂模式的主要优点如下：</p>
 <blockquote>
 <p>(1) 工厂类包含必要的判断逻辑，可以决定在什么时候创建哪一个产品类的实例，客户端可以免除直接创建产品对象的职责，而仅仅“消费”产品，简单工厂模式实现了对象创建和使用的分离。</p>
 <p>(2) 客户端无须知道所创建的具体产品类的类名，只需要知道具体产品类所对应的参数即可，对于一些复杂的类名，通过简单工厂模式可以在一定程度减少使用者的记忆量。</p>
 <p>(3) 通过引入配置文件，可以在不修改任何客户端代码的情况下更换和增加新的具体产品类，在一定程度上提高了系统的灵活性。</p>
 </blockquote>
-<h3><span id="缺点"><strong>缺点</strong></span></h3><p>简单工厂模式的主要缺点如下：</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a><strong>缺点</strong></h3><p>简单工厂模式的主要缺点如下：</p>
 <blockquote>
 <p>(1) 由于工厂类集中了所有产品的创建逻辑，职责过重，一旦不能正常工作，整个系统都要受到影响。</p>
 <p>(2) 使用简单工厂模式势必会增加系统中类的个数（引入了新的工厂类），增加了系统的复杂度和理解难度。</p>
 <p>(3) 系统扩展困难，一旦添加新产品就不得不修改工厂逻辑，在产品类型较多时，有可能造成工厂逻辑过于复杂，不利于系统的扩展和维护。</p>
 <p>(4) 简单工厂模式由于使用了静态工厂方法，造成工厂角色无法形成基于继承的等级结构。</p>
 </blockquote>
-<h2><span id="适用场景"><strong>适用场景</strong></span></h2><p>在以下情况下可以考虑使用简单工厂模式：</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a><strong>适用场景</strong></h2><p>在以下情况下可以考虑使用简单工厂模式：</p>
 <blockquote>
 <p>(1) 工厂类负责创建的对象比较少，由于创建的对象较少，不会造成工厂方法中的业务逻辑太过复杂。</p>
 <p>(2) 客户端只知道传入工厂类的参数，对于如何创建对象并不关心。</p>
@@ -585,15 +585,15 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<h2><span id="背景">背景</span></h2><p>简单工厂模式实现了对象的创建和使用分离，但是仍然存在如下两个问题：</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>简单工厂模式实现了对象的创建和使用分离，但是仍然存在如下两个问题：</p>
 <blockquote>
 <p>(1) 工厂类过于庞大，包含了大量的if…else…代码，导致维护和测试难度增大；</p>
 <p>(2) 系统扩展不灵活，当系统中需要引入新产品时，由于静态工厂方法通过所传入参数的不同来创建不同的产品，这必定要修改工厂类的源代码，将违背“开闭原则”</p>
 </blockquote>
 <p>如何实现增加新产品而不影响已有代码？</p>
-<h2><span id="概念">概念</span></h2><p>定义一个用于创建对象的接口，让子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)</p>
-<h2><span id="特点">特点</span></h2><p>不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。</p>
-<h2><span id="示例代码">示例代码：</span></h2><pre class="line-numbers language-java"><code class="language-java">
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>定义一个用于创建对象的接口，让子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。</p>
+<h2 id="示例代码："><a href="#示例代码：" class="headerlink" title="示例代码："></a>示例代码：</h2><pre class="line-numbers language-java"><code class="language-java">
 <span class="token comment" spellcheck="true">//日志记录器接口：抽象产品</span>
 <span class="token keyword">interface</span> <span class="token class-name">Logger</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">writeLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -650,7 +650,7 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="工厂方法模式总结">工厂方法模式总结</span></h2><p>工厂方法模式是简单工厂模式的延伸，它继承了简单工厂模式的优点，同时还弥补了简单工厂模式的不足。工厂方法模式是使用频率最高的设计模式之一，是很多开源框架和API类库的核心模式。</p>
+<h2 id="工厂方法模式总结"><a href="#工厂方法模式总结" class="headerlink" title="工厂方法模式总结"></a>工厂方法模式总结</h2><p>工厂方法模式是简单工厂模式的延伸，它继承了简单工厂模式的优点，同时还弥补了简单工厂模式的不足。工厂方法模式是使用频率最高的设计模式之一，是很多开源框架和API类库的核心模式。</p>
 <ol>
 <li>主要优点</li>
 </ol>
@@ -720,8 +720,8 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 
 
 
-<h2><span id="设计模式概述">设计模式概述：</span></h2><h3><span id="设计模式划分">设计模式划分</span></h3><p>设计模式可分为<strong>创建型</strong>(Creational)，<strong>结构型</strong>(Structural)和<strong>行为型</strong>(Behavioral)三种，其中创建型模式主要用于描述如何创建对象，结构型模式主要用于描述如何实现类或对象的组合，行为型模式主要用于描述类或对象怎样交互以及怎样分配职责</p>
-<h3><span id="七大原则">七大原则</span></h3><ol>
+<h2 id="设计模式概述："><a href="#设计模式概述：" class="headerlink" title="设计模式概述："></a>设计模式概述：</h2><h3 id="设计模式划分"><a href="#设计模式划分" class="headerlink" title="设计模式划分"></a>设计模式划分</h3><p>设计模式可分为<strong>创建型</strong>(Creational)，<strong>结构型</strong>(Structural)和<strong>行为型</strong>(Behavioral)三种，其中创建型模式主要用于描述如何创建对象，结构型模式主要用于描述如何实现类或对象的组合，行为型模式主要用于描述类或对象怎样交互以及怎样分配职责</p>
+<h3 id="七大原则"><a href="#七大原则" class="headerlink" title="七大原则"></a>七大原则</h3><ol>
 <li>单一职责<blockquote>
 <p>职责单一，相对独立，不细说。</p>
 </blockquote>
@@ -753,7 +753,7 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 </blockquote>
 <p>在代码的重构中，很多时候以上原则是相铺相成互相结合。</p>
 <p>开闭原则是目标，里氏代换原则是基础，依赖倒转原则是手段。相互补充，目标一致，只是分析问题时所站角度不同而已。</p>
-<h2><span id="23-种设计模式划分">23 种设计模式划分</span></h2><h3><span id="创建型">创建型</span></h3><ol>
+<h2 id="23-种设计模式划分"><a href="#23-种设计模式划分" class="headerlink" title="23 种设计模式划分"></a>23 种设计模式划分</h2><h3 id="创建型"><a href="#创建型" class="headerlink" title="创建型"></a>创建型</h3><ol>
 <li><a href="https://blog.dxdoctor.com/2019/09/06/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/">简单工厂</a></li>
 <li><a href="https://blog.dxdoctor.com/2019/09/06/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/">工厂方法</a></li>
 <li><a href="https://blog.dxdoctor.com/2019/09/05/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/">抽象工厂</a></li>
@@ -761,7 +761,7 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 <li>原型模式</li>
 <li>建造者模式</li>
 </ol>
-<h3><span id="结构型">结构型</span></h3><ol>
+<h3 id="结构型"><a href="#结构型" class="headerlink" title="结构型"></a>结构型</h3><ol>
 <li>适配器模式</li>
 <li>桥接模式</li>
 <li>组合模式</li>
@@ -770,7 +770,7 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 <li>享元模式</li>
 <li>代理模式</li>
 </ol>
-<h3><span id="行为型模式">行为型模式</span></h3><ol>
+<h3 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h3><ol>
 <li><a href="https://blog.dxdoctor.com/2019/09/23/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/">职责链模式</a></li>
 <li>命令模式</li>
 <li>解释器模式</li>

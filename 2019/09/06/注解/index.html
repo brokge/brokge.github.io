@@ -19,8 +19,8 @@
 
 
 <p>注解是代码里的特殊标记，这些标记可以在编译、类加载、运行时被读取。并执行相应的处理。</p>
-<h2><span id="一-注解分类">一 、注解分类</span></h2><h4><span id="1-java-内置注解">1.  <strong>Java 内置注解</strong></span></h4><p> @Override、 @Deprecated、@SuppressWarnings、@SafeVarargs(jdk 7 新增)</p>
-<h4><span id="2-标注注解的元注解">2. <strong>标注注解的元注解</strong></span></h4><p>元注解是用来修饰注解的注解，从而创建新的注解。</p>
+<h2 id="一-、注解分类"><a href="#一-、注解分类" class="headerlink" title="一 、注解分类"></a>一 、注解分类</h2><h4 id="1-Java-内置注解"><a href="#1-Java-内置注解" class="headerlink" title="1.  Java 内置注解"></a>1.  <strong>Java 内置注解</strong></h4><p> @Override、 @Deprecated、@SuppressWarnings、@SafeVarargs(jdk 7 新增)</p>
+<h4 id="2-标注注解的元注解"><a href="#2-标注注解的元注解" class="headerlink" title="2. 标注注解的元注解"></a>2. <strong>标注注解的元注解</strong></h4><p>元注解是用来修饰注解的注解，从而创建新的注解。</p>
 <p><strong>@Targe</strong> </p>
 <p>注解取值是一个 ElementType 类型的数组。<br>说明了Annotation所修饰的对象范围：Annotation可被用于 packages、types（类、接口、枚举、Annotation类型）、类型成员（方法、构造方法、成员变量、枚举值）、方法参数和本地变量（如循环变量、catch参数）。在Annotation类型的声明中使用了target可更加明晰其修饰的目的。</p>
 <table>
@@ -65,7 +65,7 @@
 <p>当前注解是否可以继承。</p>
 <p><strong>@Repeatable</strong></p>
 <p>JDK 8 新增，允许一个注解在同一声明类型（类、属性或方法）上多次使用。</p>
-<h2><span id="二-注解定义">二、 注解定义</span></h2><ol>
+<h2 id="二、-注解定义"><a href="#二、-注解定义" class="headerlink" title="二、 注解定义"></a>二、 注解定义</h2><ol>
 <li>基本定义</li>
 </ol>
 <p>定义新的注解类型使用 @interface 关键字。</p>
@@ -152,7 +152,7 @@
 
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="三-注解的提取">三、注解的提取</span></h2><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
+<h2 id="三、注解的提取"><a href="#三、注解的提取" class="headerlink" title="三、注解的提取"></a>三、注解的提取</h2><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isAnnotationPresent</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后通过 getAnnotation() / getAnnotationsByType()（since 1.8） 方法来获取 Annotation 对象。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token operator">&lt;</span>A <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> A <span class="token function">getAnnotation</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span>A<span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
@@ -168,7 +168,7 @@
 
 <span class="token keyword">public</span> Method <span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span>String methodName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">public</span> Method<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="四-其他">四、其他</span></h2><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
+<h2 id="四、其他"><a href="#四、其他" class="headerlink" title="四、其他"></a>四、其他</h2><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
 <p>运行时注解：<br>例如：ButterKnife ，黑科技、低性能</p>
 <p>编译时注解：<br>Dagger2：生成中间代码，所以性能高</p>
 <p>注解处理器：<br>编译时处理器、<br>运行时处理器。</p>

@@ -65,19 +65,19 @@
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<h2><span id="一-前言">一、前言</span></h2><p><img src="http://note.youdao.com/yws/res/9311/64A03BA7F21B4BB29F4ABC5F11140870" alt="image"></p>
-<h4><span id="分布式架构的-有-3-种解决方案"><strong>分布式架构的 有 3 种解决方案</strong></span></h4><ol>
+<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p><img src="http://note.youdao.com/yws/res/9311/64A03BA7F21B4BB29F4ABC5F11140870" alt="image"></p>
+<h4 id="分布式架构的-有-3-种解决方案"><a href="#分布式架构的-有-3-种解决方案" class="headerlink" title="分布式架构的 有 3 种解决方案"></a><strong>分布式架构的 有 3 种解决方案</strong></h4><ol>
 <li>基于反向代理的中心化架构</li>
 <li>嵌入应用内部的去中心化架构</li>
 <li>基于独立代理进程的Service Mesh架构</li>
 </ol>
-<h4><span id="基于反向代理的集中式分布式架构">基于反向代理的集中式分布式架构</span></h4><p>这是最简单和传统做法，在服务消费者和生产者之间，代理作为独立一层集中部署，由独立团队(一般是运维或框架)负责治理和运维。常用的集中式代理有硬件负载均衡器(如F5)，或者软件负载均衡器(如Nginx)，这种软硬结合两层代理也是业内常见做法，兼顾配置的灵活性(Nginx比F5易于配置)。</p>
+<h4 id="基于反向代理的集中式分布式架构"><a href="#基于反向代理的集中式分布式架构" class="headerlink" title="基于反向代理的集中式分布式架构"></a>基于反向代理的集中式分布式架构</h4><p>这是最简单和传统做法，在服务消费者和生产者之间，代理作为独立一层集中部署，由独立团队(一般是运维或框架)负责治理和运维。常用的集中式代理有硬件负载均衡器(如F5)，或者软件负载均衡器(如Nginx)，这种软硬结合两层代理也是业内常见做法，兼顾配置的灵活性(Nginx比F5易于配置)。</p>
 <p><img src="http://note.youdao.com/yws/res/9352/29E919D8DA684D4E99671F5A16013855" alt="image"></p>
 <p><strong>Http+Nginx 方案总结</strong></p>
 <p><strong>优点：</strong> 简单快速、几乎没有学习成本</p>
 <p><strong>适用场景：</strong> 轻量级分布式系统、局部分布式架构。</p>
 <p><strong>瓶颈：</strong> Nginx中心负载、Http传输、JSON序列化、开发效率、运维效率。</p>
-<h3><span id="嵌入应用内部的去中心化架构">嵌入应用内部的去中心化架构</span></h3><p>这是很多互联网公司比较流行的一种做法，代理(包括服务发现和负载均衡逻辑)以客户库的形式嵌入在应用程序中。这种模式一般需要独立的服务注册中心组件配合，服务启动时自动注册到注册中心并定期报心跳，客户端代理则发现服务并做负载均衡。我们所熟悉的 duboo 和spring cloud Eureka +Ribbon/‘rɪbən/ 都是这种方式实现。</p>
+<h3 id="嵌入应用内部的去中心化架构"><a href="#嵌入应用内部的去中心化架构" class="headerlink" title="嵌入应用内部的去中心化架构"></a>嵌入应用内部的去中心化架构</h3><p>这是很多互联网公司比较流行的一种做法，代理(包括服务发现和负载均衡逻辑)以客户库的形式嵌入在应用程序中。这种模式一般需要独立的服务注册中心组件配合，服务启动时自动注册到注册中心并定期报心跳，客户端代理则发现服务并做负载均衡。我们所熟悉的 duboo 和spring cloud Eureka +Ribbon/‘rɪbən/ 都是这种方式实现。</p>
 <p><img src="http://note.youdao.com/yws/res/9359/91E7A4D0836A49B395A817DDC2CF2376" alt="image"><br>相比第一代架构它有以下特点几点：</p>
 <ul>
 <li>去中心化，客户端直连服务端</li>
@@ -85,9 +85,9 @@
 <li>高效稳定的网络传输</li>
 <li>高效可容错的序列化</li>
 </ul>
-<h3><span id="基于独立代理进程的架构service-mesh">基于独立代理进程的架构(Service Mesh)</span></h3><p>这种做法是上面两种模式的一个折中，代理既不是独立集中部署，也不嵌入在客户应用程序中，而是作为独立进程部署在每一个主机上，一个主机上的多个消费者应用可以共用这个代理，实现服务发现和负载均衡，如下图所示。这个模式一般也需要独立的服务注册中心组件配合，作用同第二代架构。</p>
+<h3 id="基于独立代理进程的架构-Service-Mesh"><a href="#基于独立代理进程的架构-Service-Mesh" class="headerlink" title="基于独立代理进程的架构(Service Mesh)"></a>基于独立代理进程的架构(Service Mesh)</h3><p>这种做法是上面两种模式的一个折中，代理既不是独立集中部署，也不嵌入在客户应用程序中，而是作为独立进程部署在每一个主机上，一个主机上的多个消费者应用可以共用这个代理，实现服务发现和负载均衡，如下图所示。这个模式一般也需要独立的服务注册中心组件配合，作用同第二代架构。</p>
 <p><img src="http://note.youdao.com/yws/res/9364/E7DE6B068DC74C7D8AE0808F46AB24AF" alt="image"></p>
-<h4><span id="三种架构的比较">三种架构的比较</span></h4><table>
+<h4 id="三种架构的比较"><a href="#三种架构的比较" class="headerlink" title="三种架构的比较"></a>三种架构的比较</h4><table>
 <thead>
 <tr>
 <th align="left"><strong>模式</strong></th>
@@ -119,7 +119,7 @@
 <td align="left">Smart Stack  Service Mesh</td>
 </tr>
 </tbody></table>
-<h2><span id="二-什么是-dubbo">二、什么是 Dubbo</span></h2><p>dubbo 阿里开源的一个 SOA（面向服务的架构） 服务治理框架，从目前来看把它称作是一个RPC远程调用框架更为贴切。单从RPC框架来说，功能较完善，支持多种传输和序列化方案。所以想必大家已经知道他的核心功能了：就是远程调用。</p>
+<h2 id="二、什么是-Dubbo"><a href="#二、什么是-Dubbo" class="headerlink" title="二、什么是 Dubbo"></a>二、什么是 Dubbo</h2><p>dubbo 阿里开源的一个 SOA（面向服务的架构） 服务治理框架，从目前来看把它称作是一个RPC远程调用框架更为贴切。单从RPC框架来说，功能较完善，支持多种传输和序列化方案。所以想必大家已经知道他的核心功能了：就是远程调用。</p>
 <p><img src="http://note.youdao.com/yws/res/9319/81A705F26C0346EA871AB8936296BFE1" alt="image"></p>
 <p><strong>流程说明：</strong></p>
 <ol>
@@ -151,7 +151,7 @@
 <li>serialize <strong>数据序列化层</strong>：可复用的一些工具，扩展接口为 Serialization, ObjectInput, ObjectOutput, ThreadPool</li>
 </ul>
 <p><img src="http://note.youdao.com/yws/res/9335/7DC769031DD64DDABC42BDFBC7384599" alt="image"></p>
-<h3><span id="dubbo-spi-机制">Dubbo SPI 机制</span></h3><p>Java SPI 的具体约定为:当服务的提供者，提供了服务接口的一种实现之后，在jar包的META-INF/services/目录里同时创建一个以服务接口命名的文件。该文件里就是实现该服务接口的具体实现类。而当外部程序装配这个模块的时候，就能通过该jar包META-INF/services/里的配置文件找到具体的实现类名，并装载实例化，完成模块的注入。 基于这样一个约定就能很好的找到服务接口的实现类，而不需要再代码里制定。jdk提供服务实现查找的一个工具类java.util.ServiceLoader</p>
+<h3 id="Dubbo-SPI-机制"><a href="#Dubbo-SPI-机制" class="headerlink" title="Dubbo SPI 机制"></a>Dubbo SPI 机制</h3><p>Java SPI 的具体约定为:当服务的提供者，提供了服务接口的一种实现之后，在jar包的META-INF/services/目录里同时创建一个以服务接口命名的文件。该文件里就是实现该服务接口的具体实现类。而当外部程序装配这个模块的时候，就能通过该jar包META-INF/services/里的配置文件找到具体的实现类名，并装载实例化，完成模块的注入。 基于这样一个约定就能很好的找到服务接口的实现类，而不需要再代码里制定。jdk提供服务实现查找的一个工具类java.util.ServiceLoader</p>
 <p><img src="http://note.youdao.com/yws/res/9338/0723FDE7587148BAB47925D8471D652D" alt="image"></p>
 <p>META-INF/services/xxx.dubbo.server.UserService 中的值：</p>
 <pre><code>xxx.dubbo.server.impl.UserServiceImpl2</code></pre>
@@ -170,7 +170,7 @@
 <p>装配自定义Filter</p>
 <p><img src="http://note.youdao.com/yws/res/9345/17D1822AA2FB4427A92566F2E64917B7" alt="image"></p>
 <p>想了解更详细信息：<br><a href="http://dubbo.apache.org/zh-cn/docs/source_code_guide/dubbo-spi.html">官方文档</a></p>
-<h2><span id="三-dubbo注册中心详解">三、Dubbo注册中心详解</span></h2><h3><span id="注册中心的作用">注册中心的作用</span></h3><p>为了到达服务集群动态扩容的目的，注册中心存储了服务的地址信息与可用状态信息，并实时推送给订阅了相关服务的客户端。<br><img src="http://note.youdao.com/yws/res/9386/8638BBF57BF946769ABFCE0DAF896809" alt="image"></p>
+<h2 id="三、Dubbo注册中心详解"><a href="#三、Dubbo注册中心详解" class="headerlink" title="三、Dubbo注册中心详解"></a>三、Dubbo注册中心详解</h2><h3 id="注册中心的作用"><a href="#注册中心的作用" class="headerlink" title="注册中心的作用"></a>注册中心的作用</h3><p>为了到达服务集群动态扩容的目的，注册中心存储了服务的地址信息与可用状态信息，并实时推送给订阅了相关服务的客户端。<br><img src="http://note.youdao.com/yws/res/9386/8638BBF57BF946769ABFCE0DAF896809" alt="image"></p>
 <p><strong>一个完整的注册中心需要实现以下功能：</strong></p>
 <ol>
 <li>接收服务端的注册与客户端的引用，即将引用与消费建立关联，并支持多对多。</li>
@@ -178,7 +178,7 @@
 <li>当注册中心重启时，能自动恢复注册数据，以及订阅请求</li>
 <li>注册中心本身的集群 。</li>
 </ol>
-<h3><span id="dubbo所支持的注册中心">Dubbo所支持的注册中心</span></h3><ol>
+<h3 id="Dubbo所支持的注册中心"><a href="#Dubbo所支持的注册中心" class="headerlink" title="Dubbo所支持的注册中心"></a>Dubbo所支持的注册中心</h3><ol>
 <li><strong>Multicast 注册中心</strong><ol>
 <li>基于组网广播技术，只能用在局域网内，一般用于简单的测试服务</li>
 </ol>
@@ -196,8 +196,8 @@
 </ol>
 </li>
 </ol>
-<h3><span id="redis-注册中心"><strong>Redis 注册中心</strong></span></h3><p>关于Redis注册中心我们需要了解两点，</p>
-<h4><span id="1-如何存储服务的注册与订阅关系">1. 如何存储服务的注册与订阅关系</span></h4><p>redis 注册中心配置</p>
+<h3 id="Redis-注册中心"><a href="#Redis-注册中心" class="headerlink" title="Redis 注册中心"></a><strong>Redis 注册中心</strong></h3><p>关于Redis注册中心我们需要了解两点，</p>
+<h4 id="1-如何存储服务的注册与订阅关系"><a href="#1-如何存储服务的注册与订阅关系" class="headerlink" title="1. 如何存储服务的注册与订阅关系"></a>1. 如何存储服务的注册与订阅关系</h4><p>redis 注册中心配置</p>
 <pre><code>&lt;dubbo:registry protocol=&quot;redis&quot; address=&quot;192.168.0.147:6379&quot;/&gt;</code></pre>
 <p>当我们启动两个服务端后发现，Reids中增加了一个Hash 类型的记录，其key为/dubbo/xxx.dubbo.server.UserService/providers。Value中分别存储了两个服务提供者的URL和有效期。</p>
 <p><img src="http://note.youdao.com/yws/res/9377/89233BE1BB03402C9224A6348FAA7007" alt="image"></p>
@@ -214,17 +214,17 @@
 <li>Map 中的 Key 为 URL 地址</li>
 <li>Map 中的 Value 为过期时间，用于判断脏数据，脏数据由监控中心删除</li>
 </ul>
-<h4><span id="2-是当服务状态改变时如何即时更新">2. 是当服务状态改变时如何即时更新？</span></h4><p>第二个问题 <strong>当提供者突然 宕机状态能即里变更吗</strong>？<br>这里Dubbo采用的是<strong>定时心跳的机制</strong> 来维护服务URL的有效期，默认<strong>每30秒更新一次有效期</strong>。即URL对应的毫秒值。具体代码参见：com.alibaba.dubbo.registry.redis.RedisRegistry#expireExecutor</p>
+<h4 id="2-是当服务状态改变时如何即时更新？"><a href="#2-是当服务状态改变时如何即时更新？" class="headerlink" title="2. 是当服务状态改变时如何即时更新？"></a>2. 是当服务状态改变时如何即时更新？</h4><p>第二个问题 <strong>当提供者突然 宕机状态能即里变更吗</strong>？<br>这里Dubbo采用的是<strong>定时心跳的机制</strong> 来维护服务URL的有效期，默认<strong>每30秒更新一次有效期</strong>。即URL对应的毫秒值。具体代码参见：com.alibaba.dubbo.registry.redis.RedisRegistry#expireExecutor</p>
 <p><img src="http://note.youdao.com/yws/res/9390/F32248B7D113492EBC48590051A3CD04" alt="image"></p>
 <p>com.alibaba.dubbo.registry.redis.RedisRegistry#deferExpired<br>com.alibaba.dubbo.registry.integration.RegistryDirectory<br>com.alibaba.dubbo.registry.support.ProviderConsumerRegTable</p>
-<h3><span id="zookeeper-注册中心"><strong>Zookeeper 注册中心</strong></span></h3><p>关于Zookeeper 注册中心同样需要了解其存储结构和更新机制。<br>Zookeper是一个树型的目录服务，本身支持变更推送相比 redis 的实现 Publish/Subscribe 功能更稳定。</p>
+<h3 id="Zookeeper-注册中心"><a href="#Zookeeper-注册中心" class="headerlink" title="Zookeeper 注册中心"></a><strong>Zookeeper 注册中心</strong></h3><p>关于Zookeeper 注册中心同样需要了解其存储结构和更新机制。<br>Zookeper是一个树型的目录服务，本身支持变更推送相比 redis 的实现 Publish/Subscribe 功能更稳定。</p>
 <ol>
 <li>Provider和Consumer向Zookeeper注册临时节点，当连接断开时删除相应的注册节点。</li>
 <li>Consumer订阅 Providers节点的子节点，通过 watch 事件，当 Zookeeper 删除临时节点时，实时感知 Provider 的变化情况，实时同步自身的Invoker对象，保证 RPC的可用性。</li>
 </ol>
 <p>结构：</p>
 <p><img src="http://note.youdao.com/yws/res/9425/D8B581F4BF944E94AF6382ECA1CB770F" alt="image"></p>
-<h4><span id="源码查看">源码查看</span></h4><pre class="line-numbers language-java"><code class="language-java"> <span class="token annotation punctuation">@Override</span>
+<h4 id="源码查看"><a href="#源码查看" class="headerlink" title="源码查看"></a>源码查看</h4><pre class="line-numbers language-java"><code class="language-java"> <span class="token annotation punctuation">@Override</span>
     <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doRegister</span><span class="token punctuation">(</span>URL url<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">try</span> <span class="token punctuation">{</span>
             zkClient<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token function">toUrlPath</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">,</span> url<span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span>Constants<span class="token punctuation">.</span>DYNAMIC_KEY<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -269,7 +269,7 @@ com.alibaba.dubbo.remoting.zookeeper.curator.CuratorZookeeperClient#createEpheme
 <pre><code>// 注册目录
 com.alibaba.dubbo.registry.integration.RegistryDirectory</code></pre>
 <p><img src="http://note.youdao.com/yws/res/9435/7903EF7E728C436EBABA5AB637CB1588" alt="image"></p>
-<h2><span id="三-dubbo-调用模块">三、 Dubbo 调用模块</span></h2><p>dubbo调用模块核心功能是发起一个远程方法的调用并顺利拿到返回结果，其体系组成如下：</p>
+<h2 id="三、-Dubbo-调用模块"><a href="#三、-Dubbo-调用模块" class="headerlink" title="三、 Dubbo 调用模块"></a>三、 Dubbo 调用模块</h2><p>dubbo调用模块核心功能是发起一个远程方法的调用并顺利拿到返回结果，其体系组成如下：</p>
 <ol>
 <li><strong>透明代理：</strong> 通过动态代理技术，屏蔽远程调用细节以提高编程友好性。</li>
 <li><strong>负载均衡：</strong> 当有多个提供者是，如何选择哪个进行调用的负载算法。</li>
@@ -277,7 +277,7 @@ com.alibaba.dubbo.registry.integration.RegistryDirectory</code></pre>
 <li><strong>调用方式：</strong> 支持同步调用、异步调用</li>
 </ol>
 <p><img src="http://note.youdao.com/yws/res/9440/C29CEB5BE9E4479EA5988A07FC429C28" alt="image"></p>
-<h3><span id="透明代理">透明代理：</span></h3><p>针对代理 dubbo 提供 三种方式：</p>
+<h3 id="透明代理："><a href="#透明代理：" class="headerlink" title="透明代理："></a>透明代理：</h3><p>针对代理 dubbo 提供 三种方式：</p>
 <p><img src="http://note.youdao.com/yws/res/9448/BCE9E2B8BB9F4E1DBE9E0249FCE1D4C7" alt="image"></p>
 <p>默认方式是：</p>
 <pre><code>    public static final String DEFAULT_PROXY = &quot;javassist&quot;;
@@ -295,7 +295,7 @@ com.alibaba.dubbo.registry.integration.RegistryDirectory</code></pre>
 <p><img src="http://note.youdao.com/yws/res/9451/5B1BA7C374ED444DAFD557DF5055D4D9" alt="image"></p>
 <p><img src="http://note.youdao.com/yws/res/9453/B8DCD49FB51847ED97BBA2C316A5BCDF" alt="image"></p>
 <p><img src="http://note.youdao.com/yws/res/9463/E7EF7C875FBD48A4B2037B3A74D5BC62" alt="image"></p>
-<h3><span id="负载均衡"><strong>负载均衡</strong></span></h3><p>Dubbo 目前官方支持以下负载均衡策略：</p>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a><strong>负载均衡</strong></h3><p>Dubbo 目前官方支持以下负载均衡策略：</p>
 <ol>
 <li><strong>随机</strong>(random)：按权重设置随机概率。此为默认算法.</li>
 <li><strong>轮循</strong>(roundrobin):按公约后的权重设置轮循比率。</li>
@@ -314,7 +314,7 @@ com.alibaba.dubbo.registry.integration.RegistryDirectory</code></pre>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>reference</span> <span class="token attr-name">interface</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>method</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">loadbalance</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>roundrobin<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">dubbo:</span>reference</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3><span id="容错"><strong>容错</strong></span></h3><p>Dubbo 官方目前支持以下容错策略：</p>
+<h3 id="容错"><a href="#容错" class="headerlink" title="容错"></a><strong>容错</strong></h3><p>Dubbo 官方目前支持以下容错策略：</p>
 <ol>
 <li><strong>失败自动切换：</strong> 调用失败后基于retries=“2” 属性重试其它服务器</li>
 <li><strong>快速失败：</strong> 快速失败，只发起一次调用，失败立即报错。</li>
@@ -335,7 +335,7 @@ Broadcast 广播调用
 <span class="token operator">&lt;</span>dubbo<span class="token operator">:</span>service <span class="token keyword">interface</span><span class="token operator">=</span><span class="token string">"..."</span> cluster<span class="token operator">=</span><span class="token string">"broadcast"</span> <span class="token operator">/</span><span class="token operator">></span>
 <span class="token operator">&lt;</span>dubbo<span class="token operator">:</span>reference <span class="token keyword">interface</span><span class="token operator">=</span><span class="token string">"..."</span> cluster<span class="token operator">=</span><span class="token string">"broadcast"</span><span class="token operator">/</span> <span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>注：容错机制 在基于 API设置时无效 如  referenceConfig.setCluster(“failback”); 经测试不启作用 </p>
-<h3><span id="异步调用"><strong>异步调用</strong></span></h3><p>异步调用是指发起远程调用之后获取结果的方式。</p>
+<h3 id="异步调用"><a href="#异步调用" class="headerlink" title="异步调用"></a><strong>异步调用</strong></h3><p>异步调用是指发起远程调用之后获取结果的方式。</p>
 <ol>
 <li>同步等待结果返回（默认）</li>
 <li>异步等待结果返回</li>
@@ -361,10 +361,10 @@ Object r1 <span class="token operator">=</span> null<span class="token punctuati
 r1 <span class="token operator">=</span> future1<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">// wait 直到拿到结果 或超时</span>
 r2 <span class="token operator">=</span> future2<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3><span id="过滤器"><strong>过滤器</strong></span></h3><p>** 类似于 WEB 中的Filter ，Dubbo本身提供了Filter 功能用于拦截远程方法的调用。其支持自定义过滤器与官方的过滤器使用：**<br>#TODO 演示添加日志访问过滤:</p>
+<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a><strong>过滤器</strong></h3><p>** 类似于 WEB 中的Filter ，Dubbo本身提供了Filter 功能用于拦截远程方法的调用。其支持自定义过滤器与官方的过滤器使用：**<br>#TODO 演示添加日志访问过滤:</p>
 <pre><code>&lt;dubbo:provider  filter=&quot;accesslog&quot; accesslog=&quot;logs/dubbo.log&quot;/&gt;</code></pre>
 <p>以上配置 就是 为 服务提供者 添加 日志记录过滤器， 所有访问日志将会集中打印至 accesslog 当中。</p>
-<h2><span id="调用通信-内部实现原理">调用通信  内部实现原理</span></h2><p><img src="http://note.youdao.com/yws/res/9490/17E56F436154424BA5E8AAC97BD84B13" alt="image"></p>
+<h2 id="调用通信-内部实现原理"><a href="#调用通信-内部实现原理" class="headerlink" title="调用通信  内部实现原理"></a>调用通信  内部实现原理</h2><p><img src="http://note.youdao.com/yws/res/9490/17E56F436154424BA5E8AAC97BD84B13" alt="image"></p>
 <p><strong>IO模型：</strong></p>
 <ol>
 <li>BIO 同步阻塞</li>
@@ -391,7 +391,7 @@ r2 <span class="token operator">=</span> future2<span class="token punctuation">
 <li>缓存线程池</li>
 <li>有限线程池</li>
 </ol>
-<h3><span id="dubbo-长连接实现与配置"><strong>Dubbo 长连接实现与配置</strong></span></h3><p><strong>初始连接：</strong></p>
+<h3 id="Dubbo-长连接实现与配置"><a href="#Dubbo-长连接实现与配置" class="headerlink" title="Dubbo 长连接实现与配置"></a><strong>Dubbo 长连接实现与配置</strong></h3><p><strong>初始连接：</strong></p>
 <p>引用服务增加提供者 —&gt; 获取连接 –&gt; 是否获取共享连接 –&gt;创建连接客户端–&gt;开启心跳检测状态检查定时任务–&gt; 开启连接状态检测.</p>
 <blockquote>
 <p>com.alibaba.dubbo.rpc.protocol.dubbo.DubboProtocol#getClients</p>
@@ -408,7 +408,7 @@ r2 <span class="token operator">=</span> future2<span class="token punctuation">
 <blockquote>
 <p>com.alibaba.dubbo.remoting.transport.AbstractClient#close()</p>
 </blockquote>
-<h3><span id="dubbo-传输协作线程"><strong>Dubbo 传输协作线程</strong></span></h3><ol>
+<h3 id="Dubbo-传输协作线程"><a href="#Dubbo-传输协作线程" class="headerlink" title="Dubbo 传输协作线程"></a><strong>Dubbo 传输协作线程</strong></h3><ol>
 <li><strong>客户端调度线程</strong>：用于发起远程方法调用的线程。</li>
 <li><strong>客户端结果Exchange线程：</strong> 当远程方法返回response后由该线程填充至指定ResponseFuture，并叫醒等待的调度线程。</li>
 <li><strong>客户端IO线程</strong> 由传输框架实现，用于request 消息流发送、response 消息流读取与解码等操作。</li>
@@ -457,7 +457,7 @@ r2 <span class="token operator">=</span> future2<span class="token punctuation">
 <li><strong>cached：</strong> 缓存线程池,此线程池可伸缩，线程空闲一分钟后回收，新请求重新创建线程</li>
 <li><strong>Limited：</strong> 有限线程池,此线程池一直增长，直到上限，增长后不收缩。</li>
 </ol>
-<h2><span id="四-dubbo-协议">四、Dubbo 协议</span></h2><h3><span id="rpc-协议名词解释"><strong>RPC 协议名词解释</strong></span></h3><p>在一个典型RPC的使用场景中，包含了服务发现、负载、容错、网络传输、序列化等组件，其中RPC协议就指明了程序如何进行网络传输和序列化 。也就是说一个RPC协议的实现就等于一个非透明的远程调用实现，如何做到的的呢？</p>
+<h2 id="四、Dubbo-协议"><a href="#四、Dubbo-协议" class="headerlink" title="四、Dubbo 协议"></a>四、Dubbo 协议</h2><h3 id="RPC-协议名词解释"><a href="#RPC-协议名词解释" class="headerlink" title="RPC 协议名词解释"></a><strong>RPC 协议名词解释</strong></h3><p>在一个典型RPC的使用场景中，包含了服务发现、负载、容错、网络传输、序列化等组件，其中RPC协议就指明了程序如何进行网络传输和序列化 。也就是说一个RPC协议的实现就等于一个非透明的远程调用实现，如何做到的的呢？</p>
 <p><img src="http://note.youdao.com/yws/res/9510/AFE8EDF1A5B0427FA856137A2B9C6B12" alt="image"></p>
 <p><img src="http://note.youdao.com/yws/res/9512/35AAA35E698A442687702615820C1AD7" alt="image"></p>
 <ol>
@@ -467,7 +467,7 @@ r2 <span class="token operator">=</span> future2<span class="token punctuation">
 <li>序列化方式：将请求体序列化成对象<br><img src="http://note.youdao.com/yws/res/9516/A8AA0D50758B4D9BA51737391F3AE4CE" alt="image"></li>
 <li>运行服务: 网络传输实现<br><img src="http://note.youdao.com/yws/res/9514/3DC6FD7E7BFB4F4786B0CCD6A9BF87DA" alt="image"></li>
 </ol>
-<h3><span id="dubbo-支持的rpc协议">dubbo 支持的RPC协议</span></h3><p><img src="http://note.youdao.com/yws/res/9523/DC0DB69BE0F449DF870E40A1093A57CC" alt="image"></p>
+<h3 id="dubbo-支持的RPC协议"><a href="#dubbo-支持的RPC协议" class="headerlink" title="dubbo 支持的RPC协议"></a>dubbo 支持的RPC协议</h3><p><img src="http://note.youdao.com/yws/res/9523/DC0DB69BE0F449DF870E40A1093A57CC" alt="image"></p>
 <table>
 <thead>
 <tr>
@@ -509,7 +509,7 @@ r2 <span class="token operator">=</span> future2<span class="token punctuation">
 </tr>
 </tbody></table>
 <p><strong><em>关于RMI不支持防火墙穿透的补充说明：</em></strong><br>    原因在于RMI 底层实现中会有两个端口，一个是固定的用于服务发现的注册端口，另外会生成一个**<em>随机**</em>端口用于网络传输。因为这个随机端口就不能在防火墙中提前设置开放开。所以存在<em>防火墙穿透问题</em></p>
-<h3><span id="协议的使用与配置"><strong>协议的使用与配置:</strong></span></h3><p>Dubbo框架配置协议非常方便，用户只需要在 provider 应用中 配置*&lt;**dubbo:protocol&gt;*元素即可。</p>
+<h3 id="协议的使用与配置"><a href="#协议的使用与配置" class="headerlink" title="协议的使用与配置:"></a><strong>协议的使用与配置:</strong></h3><p>Dubbo框架配置协议非常方便，用户只需要在 provider 应用中 配置*&lt;**dubbo:protocol&gt;*元素即可。</p>
 <pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--
  name: 协议名称 dubbo|rmi|hessian|http|
 host:本机IP可不填，则系统自动获取
@@ -521,7 +521,7 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>protocol</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>dubbo<span class="token punctuation">"</span></span> <span class="token attr-name">host</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>192.168.0.11<span class="token punctuation">"</span></span> <span class="token attr-name">port</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>20880<span class="token punctuation">"</span></span> <span class="token attr-name">server</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>netty<span class="token punctuation">"</span></span>
  <span class="token attr-name">serialization</span><span class="token attr-value"><span class="token punctuation">=</span>“hessian2”</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span>“UTF-8”</span> <span class="token punctuation">/></span></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3><span id="dubbo-支持的序列化">dubbo 支持的序列化：</span></h3><table>
+<h3 id="dubbo-支持的序列化："><a href="#dubbo-支持的序列化：" class="headerlink" title="dubbo 支持的序列化："></a>dubbo 支持的序列化：</h3><table>
 <thead>
 <tr>
 <th align="left"></th>
@@ -557,7 +557,7 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 <td align="left">二进制型：体积比hessian2 还要小，但容错性 没有hessian2 好</td>
 </tr>
 </tbody></table>
-<h3><span id="hessian-序列化">Hessian 序列化</span></h3><ul>
+<h3 id="Hessian-序列化"><a href="#Hessian-序列化" class="headerlink" title="Hessian 序列化"></a>Hessian 序列化</h3><ul>
 <li>参数及返回值需实现 Serializable 接口</li>
 <li>参数及返回值不能自定义实现 List,Map,Number,Date,Calendar等接口，只能用 JDK 自带的实现，因为 hessian 会做特殊处理，自定义实现类中的属性值都会丢失。</li>
 <li>Hessian 序列化，只传成员属性值和值的类型，不传方法或静态变量，兼容情况 <a href="http://dubbo.apache.org/zh-cn/docs/user/references/protocol/dubbo.html#fn1">[1]</a><a href="http://dubbo.apache.org/zh-cn/docs/user/references/protocol/dubbo.html#fn2">[2]</a>：</li>
@@ -600,22 +600,22 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 <p>接口增加方法，对客户端无影响，如果该方法不是客户端需要的，客户端不需要重新部署。输入参数和结果集中增加属性，对客户端无影响，如果客户端并不需要新属性，不用重新部署。<br>输入参数和结果集属性名变化，对客户端序列化无影响，但是如果客户端不重新部署，不管输入还是输出，属性名变化的属性值是获取不到的。</p>
 </blockquote>
 <p>总结：服务器端和客户端对领域对象并不需要完全一致，而是按照最大匹配原则。</p>
-<h2><span id="五-rpc协议报文编码与实现详解">五、RPC协议报文编码与实现详解</span></h2><h3><span id="rpc-传输实现"><strong>RPC 传输实现：</strong></span></h3><p>RPC的协议的传输是基于 TCP/IP 做为基础使用Socket 或Netty、mina等网络编程组件实现。但有个问题是TCP是面向字节流的无边边界协议，其只管负责数据传输并不会区分每次请求所对应的消息，这样就会出现TCP协义传输当中的拆包与粘包问题</p>
-<h3><span id="拆包与粘包产生的原因"><strong>拆包与粘包产生的原因：</strong></span></h3><p>我们知道tcp是以流动的方式传输数据，传输的最小单位为一个报文段（segment）。tcp Header中有个Options标识位，常见的标识为mss(Maximum Segment Size)指的是，连接层每次传输的数据有个最大限制MTU(Maximum Transmission Unit)，一般是1500比特，超过这个量要分成多个报文段，mss则是这个最大限制减去TCP的header，光是要传输的数据的大小，一般为1460比特。换算成字节，也就是180多字节。</p>
+<h2 id="五、RPC协议报文编码与实现详解"><a href="#五、RPC协议报文编码与实现详解" class="headerlink" title="五、RPC协议报文编码与实现详解"></a>五、RPC协议报文编码与实现详解</h2><h3 id="RPC-传输实现："><a href="#RPC-传输实现：" class="headerlink" title="RPC 传输实现："></a><strong>RPC 传输实现：</strong></h3><p>RPC的协议的传输是基于 TCP/IP 做为基础使用Socket 或Netty、mina等网络编程组件实现。但有个问题是TCP是面向字节流的无边边界协议，其只管负责数据传输并不会区分每次请求所对应的消息，这样就会出现TCP协义传输当中的拆包与粘包问题</p>
+<h3 id="拆包与粘包产生的原因："><a href="#拆包与粘包产生的原因：" class="headerlink" title="拆包与粘包产生的原因："></a><strong>拆包与粘包产生的原因：</strong></h3><p>我们知道tcp是以流动的方式传输数据，传输的最小单位为一个报文段（segment）。tcp Header中有个Options标识位，常见的标识为mss(Maximum Segment Size)指的是，连接层每次传输的数据有个最大限制MTU(Maximum Transmission Unit)，一般是1500比特，超过这个量要分成多个报文段，mss则是这个最大限制减去TCP的header，光是要传输的数据的大小，一般为1460比特。换算成字节，也就是180多字节。</p>
 <p>tcp为提高性能，发送端会将需要发送的数据发送到缓冲区，等待缓冲区满了之后，再将缓冲中的数据发送到接收方。同理，接收方也有缓冲区这样的机制，来接收数据。这时就会出现以下情况：</p>
 <ol>
 <li>应用程序写入的数据大于MSS大小，这将会发生拆包。</li>
 <li>应用程序写入数据小于MSS大小，这将会发生粘包。</li>
 <li>接收方法不及时读取套接字缓冲区数据，这将发生粘包。</li>
 </ol>
-<h3><span id="拆包与粘包解决办法"><strong>拆包与粘包解决办法：</strong></span></h3><ol>
+<h3 id="拆包与粘包解决办法："><a href="#拆包与粘包解决办法：" class="headerlink" title="拆包与粘包解决办法："></a><strong>拆包与粘包解决办法：</strong></h3><ol>
 <li>设置定长消息，服务端每次读取既定长度的内容作为一条完整消息。</li>
 <li>{“type”:”message”,”content”:”hello”}\n</li>
 <li>使用带消息头的协议、消息头存储消息开始标识及消息长度信息，服务端获取消息头的时候解析出消息长度，然后向后读取该长度的内容。</li>
 </ol>
 <p><strong>比如：</strong> Http协议 heade 中的 Content-Length 就表示消息体的大小。</p>
 <p><img src="http://note.youdao.com/yws/res/9536/1627E3D71B36459393AAD1066002AFE6" alt="image"></p>
-<h3><span id="dubbo-协议报文编码">Dubbo 协议报文编码：</span></h3><p><strong>dubbo 协议报文编码：</strong></p>
+<h3 id="Dubbo-协议报文编码："><a href="#Dubbo-协议报文编码：" class="headerlink" title="Dubbo 协议报文编码："></a>Dubbo 协议报文编码：</h3><p><strong>dubbo 协议报文编码：</strong></p>
 <p><img src="http://note.youdao.com/yws/res/9538/25B9C2C5C20C46168D641144B2B6A07E" alt="image"></p>
 <ul>
 <li><strong>magic</strong>：类似java字节码文件里的魔数，用来判断是不是dubbo协议的数据包。魔数是常量0xdabb,用于判断报文的开始。</li>
@@ -771,7 +771,7 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="http://note.youdao.com/yws/res/9545/298139E160AA428486709FD4E1641C6A" alt="image"></p>
-<h2><span id="六-最后">六、最后</span></h2><ol>
+<h2 id="六、最后"><a href="#六、最后" class="headerlink" title="六、最后"></a>六、最后</h2><ol>
 <li>负载均衡：多个机器调用哪一台?<blockquote>
 <p>答：多种负载均衡策略。</p>
 </blockquote>

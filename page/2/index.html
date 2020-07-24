@@ -19,12 +19,12 @@
 
 
 
-<h2><span id="概念">概念</span></h2><p>职责链模式(Chain of Responsibility  Pattern)：避免请求发送者与接收者耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。职责链模式是一种对象行为型模式。</p>
-<h2><span id="结构图">结构图</span></h2><p>责任链模式实现方式，有两种：集合形式、链表形式</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>职责链模式(Chain of Responsibility  Pattern)：避免请求发送者与接收者耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。职责链模式是一种对象行为型模式。</p>
+<h2 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h2><p>责任链模式实现方式，有两种：集合形式、链表形式</p>
 <p><img src="https://raw.githubusercontent.com/brokge/drawio/master/img/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F.png" alt="责任链模式-2019-9-23-14-53-40.png"></p>
 <p><strong>Handler（抽象处理者）：</strong>  它定义了一个处理请求的接口，一般设计为抽象类，由于不同的具体处理者处理请求的方式不同，因此在其中定义了抽象请求处理方法。因为每一个处理者的下家还是一个处理者，因此在抽象处理者中定义了一个抽象处理者类型的对象（如结构图中的 nextHandler），作为其对下家的引用。通过该引用，处理者可以连成一条链。</p>
 <p><strong>ConcreteHandler（具体处理者）：</strong><br>它是抽象处理者的子类，可以处理用户请求，在具体处理者类中实现了抽象处理者中定义的抽象请求处理方法，在处理请求之前需要进行判断，看是否有相应的处理权限，如果可以处理请求就处理它，否则将请求转发给后继者；在具体处理者中可以访问链中下一个对象，以便请求的转发。</p>
-<h2><span id="示例代码">示例代码</span></h2><pre class="line-numbers language-java"><code class="language-java">
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><pre class="line-numbers language-java"><code class="language-java">
 <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Handler</span> <span class="token punctuation">{</span>
    <span class="token comment" spellcheck="true">//维持对下家的引用</span>
    <span class="token keyword">protected</span> Handler nextHandler<span class="token punctuation">;</span>
@@ -88,14 +88,14 @@
 
     handleProcessor<span class="token punctuation">.</span><span class="token function">processHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="小结">小结</span></h2><h3><span id="职责链模式的主要优点如下">职责链模式的主要优点如下：</span></h3><p>(1) 职责链模式使得一个对象无须知道是其他哪一个对象处理其请求，对象仅需知道该请求会被处理即可，接收者和发送者都没有对方的明确信息，且链中的对象不需要知道链的结构，由客户端负责链的创建，降低了系统的耦合度。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><h3 id="职责链模式的主要优点如下："><a href="#职责链模式的主要优点如下：" class="headerlink" title="职责链模式的主要优点如下："></a>职责链模式的主要优点如下：</h3><p>(1) 职责链模式使得一个对象无须知道是其他哪一个对象处理其请求，对象仅需知道该请求会被处理即可，接收者和发送者都没有对方的明确信息，且链中的对象不需要知道链的结构，由客户端负责链的创建，降低了系统的耦合度。</p>
 <p>(2) 请求处理对象仅需维持一个指向其后继者的引用，而不需要维持它对所有的候选处理者的引用，可简化对象的相互连接。</p>
 <p>(3) 在给对象分派职责时，职责链可以给我们更多的灵活性，可以通过在运行时对该链进行动态的增加或修改来增加或改变处理一个请求的职责。</p>
 <p>(4) 在系统中增加一个新的具体请求处理者时无须修改原有系统的代码，只需要在客户端重新建链即可，从这一点来看是符合“开闭原则”的。</p>
-<h3><span id="职责链模式的主要缺点如下">职责链模式的主要缺点如下：</span></h3><p>(1) 由于一个请求没有明确的接收者，那么就不能保证它一定会被处理，该请求可能一直到链的末端都得不到处理；一个请求也可能因职责链没有被正确配置而得不到处理。</p>
+<h3 id="职责链模式的主要缺点如下："><a href="#职责链模式的主要缺点如下：" class="headerlink" title="职责链模式的主要缺点如下："></a>职责链模式的主要缺点如下：</h3><p>(1) 由于一个请求没有明确的接收者，那么就不能保证它一定会被处理，该请求可能一直到链的末端都得不到处理；一个请求也可能因职责链没有被正确配置而得不到处理。</p>
 <p>(2) 对于比较长的职责链，请求的处理可能涉及到多个处理对象，系统性能将受到一定影响，而且在进行代码调试时不太方便。</p>
 <p>(3) 如果建链不当，可能会造成循环调用，将导致系统陷入死循环。</p>
-<h3><span id="适用场景">适用场景</span></h3><p>在以下情况下可以考虑使用职责链模式：</p>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用职责链模式：</p>
 <p>(1) 有多个对象可以处理同一个请求，具体哪个对象处理该请求待运行时刻再确定，客户端只需将请求提交到链上，而无须关心请求的处理对象是谁以及它是如何处理的。</p>
 <p>(2) 在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。</p>
 <p>(3) 可动态指定一组对象处理请求，客户端可以动态创建职责链来处理请求，还可以改变链中处理者之间的先后次序。</p>
@@ -156,9 +156,9 @@
 
 
 <p>[toc]</p>
-<h1><span id="简单工厂">简单工厂</span></h1><h2><span id="概念">概念</span></h2><p>定义一个工厂类，它可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于创建实例的方法是静态(static)方法，因此简单工厂模式又被称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。</p>
-<h2><span id="特点">特点</span></h2><p>当你需要什么，只需要传入一个正确的参数，就可以获取你所需要的对象，而无须知道其创建细节。<br>达到 <strong>创建和使用分离</strong>。</p>
-<h2><span id="示例代码">示例代码：</span></h2><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//抽象图表接口：抽象产品类</span>
+<h1 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>定义一个工厂类，它可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于创建实例的方法是静态(static)方法，因此简单工厂模式又被称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>当你需要什么，只需要传入一个正确的参数，就可以获取你所需要的对象，而无须知道其创建细节。<br>达到 <strong>创建和使用分离</strong>。</p>
+<h2 id="示例代码："><a href="#示例代码：" class="headerlink" title="示例代码："></a>示例代码：</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//抽象图表接口：抽象产品类</span>
 <span class="token keyword">interface</span> <span class="token class-name">Chart</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">display</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -217,21 +217,21 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="简单工厂模式总结">简单工厂模式总结</span></h2><p>简单工厂模式提供了专门的工厂类用于创建对象，将对象的创建和对象的使用分离开。</p>
-<h3><span id="优点"><strong>优点</strong></span></h3><p> 简单工厂模式的主要优点如下：</p>
+<h2 id="简单工厂模式总结"><a href="#简单工厂模式总结" class="headerlink" title="简单工厂模式总结"></a>简单工厂模式总结</h2><p>简单工厂模式提供了专门的工厂类用于创建对象，将对象的创建和对象的使用分离开。</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a><strong>优点</strong></h3><p> 简单工厂模式的主要优点如下：</p>
 <blockquote>
 <p>(1) 工厂类包含必要的判断逻辑，可以决定在什么时候创建哪一个产品类的实例，客户端可以免除直接创建产品对象的职责，而仅仅“消费”产品，简单工厂模式实现了对象创建和使用的分离。</p>
 <p>(2) 客户端无须知道所创建的具体产品类的类名，只需要知道具体产品类所对应的参数即可，对于一些复杂的类名，通过简单工厂模式可以在一定程度减少使用者的记忆量。</p>
 <p>(3) 通过引入配置文件，可以在不修改任何客户端代码的情况下更换和增加新的具体产品类，在一定程度上提高了系统的灵活性。</p>
 </blockquote>
-<h3><span id="缺点"><strong>缺点</strong></span></h3><p>简单工厂模式的主要缺点如下：</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a><strong>缺点</strong></h3><p>简单工厂模式的主要缺点如下：</p>
 <blockquote>
 <p>(1) 由于工厂类集中了所有产品的创建逻辑，职责过重，一旦不能正常工作，整个系统都要受到影响。</p>
 <p>(2) 使用简单工厂模式势必会增加系统中类的个数（引入了新的工厂类），增加了系统的复杂度和理解难度。</p>
 <p>(3) 系统扩展困难，一旦添加新产品就不得不修改工厂逻辑，在产品类型较多时，有可能造成工厂逻辑过于复杂，不利于系统的扩展和维护。</p>
 <p>(4) 简单工厂模式由于使用了静态工厂方法，造成工厂角色无法形成基于继承的等级结构。</p>
 </blockquote>
-<h2><span id="适用场景"><strong>适用场景</strong></span></h2><p>在以下情况下可以考虑使用简单工厂模式：</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a><strong>适用场景</strong></h2><p>在以下情况下可以考虑使用简单工厂模式：</p>
 <blockquote>
 <p>(1) 工厂类负责创建的对象比较少，由于创建的对象较少，不会造成工厂方法中的业务逻辑太过复杂。</p>
 <p>(2) 客户端只知道传入工厂类的参数，对于如何创建对象并不关心。</p>
@@ -249,15 +249,15 @@
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<h2><span id="背景">背景</span></h2><p>简单工厂模式实现了对象的创建和使用分离，但是仍然存在如下两个问题：</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>简单工厂模式实现了对象的创建和使用分离，但是仍然存在如下两个问题：</p>
 <blockquote>
 <p>(1) 工厂类过于庞大，包含了大量的if…else…代码，导致维护和测试难度增大；</p>
 <p>(2) 系统扩展不灵活，当系统中需要引入新产品时，由于静态工厂方法通过所传入参数的不同来创建不同的产品，这必定要修改工厂类的源代码，将违背“开闭原则”</p>
 </blockquote>
 <p>如何实现增加新产品而不影响已有代码？</p>
-<h2><span id="概念">概念</span></h2><p>定义一个用于创建对象的接口，让子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)</p>
-<h2><span id="特点">特点</span></h2><p>不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。</p>
-<h2><span id="示例代码">示例代码：</span></h2><pre class="line-numbers language-java"><code class="language-java">
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>定义一个用于创建对象的接口，让子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。</p>
+<h2 id="示例代码："><a href="#示例代码：" class="headerlink" title="示例代码："></a>示例代码：</h2><pre class="line-numbers language-java"><code class="language-java">
 <span class="token comment" spellcheck="true">//日志记录器接口：抽象产品</span>
 <span class="token keyword">interface</span> <span class="token class-name">Logger</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">writeLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -314,7 +314,7 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="工厂方法模式总结">工厂方法模式总结</span></h2><p>工厂方法模式是简单工厂模式的延伸，它继承了简单工厂模式的优点，同时还弥补了简单工厂模式的不足。工厂方法模式是使用频率最高的设计模式之一，是很多开源框架和API类库的核心模式。</p>
+<h2 id="工厂方法模式总结"><a href="#工厂方法模式总结" class="headerlink" title="工厂方法模式总结"></a>工厂方法模式总结</h2><p>工厂方法模式是简单工厂模式的延伸，它继承了简单工厂模式的优点，同时还弥补了简单工厂模式的不足。工厂方法模式是使用频率最高的设计模式之一，是很多开源框架和API类库的核心模式。</p>
 <ol>
 <li>主要优点</li>
 </ol>
@@ -359,8 +359,8 @@
 
 
 <p>注解是代码里的特殊标记，这些标记可以在编译、类加载、运行时被读取。并执行相应的处理。</p>
-<h2><span id="一-注解分类">一 、注解分类</span></h2><h4><span id="1-java-内置注解">1.  <strong>Java 内置注解</strong></span></h4><p> @Override、 @Deprecated、@SuppressWarnings、@SafeVarargs(jdk 7 新增)</p>
-<h4><span id="2-标注注解的元注解">2. <strong>标注注解的元注解</strong></span></h4><p>元注解是用来修饰注解的注解，从而创建新的注解。</p>
+<h2 id="一-、注解分类"><a href="#一-、注解分类" class="headerlink" title="一 、注解分类"></a>一 、注解分类</h2><h4 id="1-Java-内置注解"><a href="#1-Java-内置注解" class="headerlink" title="1.  Java 内置注解"></a>1.  <strong>Java 内置注解</strong></h4><p> @Override、 @Deprecated、@SuppressWarnings、@SafeVarargs(jdk 7 新增)</p>
+<h4 id="2-标注注解的元注解"><a href="#2-标注注解的元注解" class="headerlink" title="2. 标注注解的元注解"></a>2. <strong>标注注解的元注解</strong></h4><p>元注解是用来修饰注解的注解，从而创建新的注解。</p>
 <p><strong>@Targe</strong> </p>
 <p>注解取值是一个 ElementType 类型的数组。<br>说明了Annotation所修饰的对象范围：Annotation可被用于 packages、types（类、接口、枚举、Annotation类型）、类型成员（方法、构造方法、成员变量、枚举值）、方法参数和本地变量（如循环变量、catch参数）。在Annotation类型的声明中使用了target可更加明晰其修饰的目的。</p>
 <table>
@@ -405,7 +405,7 @@
 <p>当前注解是否可以继承。</p>
 <p><strong>@Repeatable</strong></p>
 <p>JDK 8 新增，允许一个注解在同一声明类型（类、属性或方法）上多次使用。</p>
-<h2><span id="二-注解定义">二、 注解定义</span></h2><ol>
+<h2 id="二、-注解定义"><a href="#二、-注解定义" class="headerlink" title="二、 注解定义"></a>二、 注解定义</h2><ol>
 <li>基本定义</li>
 </ol>
 <p>定义新的注解类型使用 @interface 关键字。</p>
@@ -492,7 +492,7 @@
 
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="三-注解的提取">三、注解的提取</span></h2><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
+<h2 id="三、注解的提取"><a href="#三、注解的提取" class="headerlink" title="三、注解的提取"></a>三、注解的提取</h2><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isAnnotationPresent</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后通过 getAnnotation() / getAnnotationsByType()（since 1.8） 方法来获取 Annotation 对象。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token operator">&lt;</span>A <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> A <span class="token function">getAnnotation</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span>A<span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
@@ -508,7 +508,7 @@
 
 <span class="token keyword">public</span> Method <span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span>String methodName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">public</span> Method<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="四-其他">四、其他</span></h2><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
+<h2 id="四、其他"><a href="#四、其他" class="headerlink" title="四、其他"></a>四、其他</h2><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
 <p>运行时注解：<br>例如：ButterKnife ，黑科技、低性能</p>
 <p>编译时注解：<br>Dagger2：生成中间代码，所以性能高</p>
 <p>注解处理器：<br>编译时处理器、<br>运行时处理器。</p>
@@ -556,8 +556,8 @@
 
 
 
-<h2><span id="设计模式概述">设计模式概述：</span></h2><h3><span id="设计模式划分">设计模式划分</span></h3><p>设计模式可分为<strong>创建型</strong>(Creational)，<strong>结构型</strong>(Structural)和<strong>行为型</strong>(Behavioral)三种，其中创建型模式主要用于描述如何创建对象，结构型模式主要用于描述如何实现类或对象的组合，行为型模式主要用于描述类或对象怎样交互以及怎样分配职责</p>
-<h3><span id="七大原则">七大原则</span></h3><ol>
+<h2 id="设计模式概述："><a href="#设计模式概述：" class="headerlink" title="设计模式概述："></a>设计模式概述：</h2><h3 id="设计模式划分"><a href="#设计模式划分" class="headerlink" title="设计模式划分"></a>设计模式划分</h3><p>设计模式可分为<strong>创建型</strong>(Creational)，<strong>结构型</strong>(Structural)和<strong>行为型</strong>(Behavioral)三种，其中创建型模式主要用于描述如何创建对象，结构型模式主要用于描述如何实现类或对象的组合，行为型模式主要用于描述类或对象怎样交互以及怎样分配职责</p>
+<h3 id="七大原则"><a href="#七大原则" class="headerlink" title="七大原则"></a>七大原则</h3><ol>
 <li>单一职责<blockquote>
 <p>职责单一，相对独立，不细说。</p>
 </blockquote>
@@ -589,7 +589,7 @@
 </blockquote>
 <p>在代码的重构中，很多时候以上原则是相铺相成互相结合。</p>
 <p>开闭原则是目标，里氏代换原则是基础，依赖倒转原则是手段。相互补充，目标一致，只是分析问题时所站角度不同而已。</p>
-<h2><span id="23-种设计模式划分">23 种设计模式划分</span></h2><h3><span id="创建型">创建型</span></h3><ol>
+<h2 id="23-种设计模式划分"><a href="#23-种设计模式划分" class="headerlink" title="23 种设计模式划分"></a>23 种设计模式划分</h2><h3 id="创建型"><a href="#创建型" class="headerlink" title="创建型"></a>创建型</h3><ol>
 <li><a href="https://blog.dxdoctor.com/2019/09/06/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/">简单工厂</a></li>
 <li><a href="https://blog.dxdoctor.com/2019/09/06/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/">工厂方法</a></li>
 <li><a href="https://blog.dxdoctor.com/2019/09/05/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82/">抽象工厂</a></li>
@@ -597,7 +597,7 @@
 <li>原型模式</li>
 <li>建造者模式</li>
 </ol>
-<h3><span id="结构型">结构型</span></h3><ol>
+<h3 id="结构型"><a href="#结构型" class="headerlink" title="结构型"></a>结构型</h3><ol>
 <li>适配器模式</li>
 <li>桥接模式</li>
 <li>组合模式</li>
@@ -606,7 +606,7 @@
 <li>享元模式</li>
 <li>代理模式</li>
 </ol>
-<h3><span id="行为型模式">行为型模式</span></h3><ol>
+<h3 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h3><ol>
 <li><a href="https://blog.dxdoctor.com/2019/09/23/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/">职责链模式</a></li>
 <li>命令模式</li>
 <li>解释器模式</li>
@@ -638,20 +638,20 @@
 
 
 
-<h1><span id="线程池">线程池</span></h1><h2><span id="线程是不是越多越好">线程是不是越多越好？</span></h2><ol>
+<h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><h2 id="线程是不是越多越好？"><a href="#线程是不是越多越好？" class="headerlink" title="线程是不是越多越好？"></a>线程是不是越多越好？</h2><ol>
 <li>线程在 Java 中是一个对象，更是操作系统的资源，线程创建、销毁需要时间。如果创建时间+销毁时间 <code>&gt;</code> 执行任务时间，这样就很不合算。</li>
 <li>Java 对象占用堆内存，操作系统线程占用系统内存，根据 JVM 规范，一个线程默认最大栈大小为 1 M，这个栈空间是需要从系统内存中分配的。线程过多，会消耗很多的内存。</li>
 <li>操作系统需要频繁切换线程上下文（大家都想被运行），影响性能。</li>
 </ol>
 <p>线程池的推出，就是为了方便控制线程数量。</p>
-<h2><span id="线程池组成部分">线程池组成部分：</span></h2><ol>
+<h2 id="线程池组成部分："><a href="#线程池组成部分：" class="headerlink" title="线程池组成部分："></a>线程池组成部分：</h2><ol>
 <li>线程池管理器：用于创建并管理线程池，包括创建线程池，销毁线程池，添加新任务。</li>
 <li>工作线程：线程池中线程，在没有任务时处于等待状态，可以循环的执行任务。</li>
 <li>任务接口（Runnable）: 每个任务必须实现接口，以供工作线程调度任务执行，它主要规定了任务的入口、任务执行完后的收尾工作、任务的执行状态等。</li>
 <li>任务队列：用于存放没有处理的任务。提供一种缓冲机制</li>
 </ol>
 <p><img src="https://github.com/brokge/drawio/raw/master/net-scapture/%E7%BA%BF%E7%A8%8B%E6%B1%A0.png"></p>
-<h2><span id="线程池-api-接口定义和实现类">线程池 API-接口定义和实现类</span></h2><table>
+<h2 id="线程池-API-接口定义和实现类"><a href="#线程池-API-接口定义和实现类" class="headerlink" title="线程池 API-接口定义和实现类"></a>线程池 API-接口定义和实现类</h2><table>
 <thead>
 <tr>
 <th>类型</th>
@@ -688,14 +688,14 @@
 <p><code>ScheduledThreadPoolExecutor</code>是功能最为丰富的类。</p>
 <p><img src="media/15674328999538/15674332671245.jpg"></p>
 <p><img src="media/15674328999538/15674335746028.jpg"></p>
-<h2><span id="线程池原理-任务-execute-过程">线程池原理-任务 execute 过程</span></h2><ol>
+<h2 id="线程池原理-任务-execute-过程"><a href="#线程池原理-任务-execute-过程" class="headerlink" title="线程池原理-任务 execute 过程"></a>线程池原理-任务 execute 过程</h2><ol>
 <li>是否达到核心线程数量？没达到，创建一个工作线程来执行任务。</li>
 <li>工作队列是否已满？没满，则将新提交的任务存储在工作队列里。</li>
 <li>是否达到线程池最大数量？没达到，则创建一个新的工作线程来执行任务。</li>
 <li>最后，执行拒绝策略来处理这个任务。</li>
 </ol>
 <p><img src="https://github.com/brokge/drawio/raw/master/net-scapture/%E7%BA%BF%E7%A8%8B%E6%B1%A0Execute%E5%8E%9F%E7%90%86.png"></p>
-<h2><span id="示例代码分析">示例代码分析</span></h2><p>测试： 提交15个执行时间需要3秒的任务，看超过大小的2个，对应的处理情况</p>
+<h2 id="示例代码分析"><a href="#示例代码分析" class="headerlink" title="示例代码分析"></a>示例代码分析</h2><p>测试： 提交15个执行时间需要3秒的任务，看超过大小的2个，对应的处理情况</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testCommon</span><span class="token punctuation">(</span>ThreadPoolExecutor threadPoolExecutor<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">// 测试： 提交15个执行时间需要3秒的任务，看超过大小的2个，对应的处理情况</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">15</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -873,7 +873,7 @@
 <p>测试场景：提交的任务需要3秒才能执行完毕。看两种不同调度方式的区别<br>效果1： 提交后，2秒后开始第一次执行，之后每间隔1秒，固定执行一次(如果发现上次执行还未完毕，则等待完毕，完毕后立刻执行)。<br> 也就是说这个代码中是，3秒钟执行一次（计算方式：每次执行三秒，间隔时间1秒，执行结束后马上开始下一次执行，无需等待）</p>
 <p>效果2： 提交后，2秒后开始第一次执行，之后每间隔1秒，固定执行一次(如果发现上次执行还未完毕，则等待完毕，等上一次执行完毕后再开始计时，等待1秒)。也就是说这个代码钟的效果看到的是：4秒执行一次。 （计算方式：每次执行3秒，间隔时间1秒，执行完以后再等待1秒，所以是 3+1）</p>
 </blockquote>
-<h2><span id="线程终止">线程终止</span></h2><p>线程池信息： 核心线程数量5，最大数量10，队列大小3，超出核心线程数量的线程存活时间：5秒， 指定拒绝策略.</p>
+<h2 id="线程终止"><a href="#线程终止" class="headerlink" title="线程终止"></a>线程终止</h2><p>线程池信息： 核心线程数量5，最大数量10，队列大小3，超出核心线程数量的线程存活时间：5秒， 指定拒绝策略.</p>
 <ul>
 <li>shutdown()</li>
 </ul>
@@ -975,7 +975,7 @@
 <li>追加的任务在线程池关闭后，无法再提交，会被拒绝执行</li>
 </ol>
 </blockquote>
-<h2><span id="最后线程数量的选择">最后线程数量的选择</span></h2><ul>
+<h2 id="最后线程数量的选择"><a href="#最后线程数量的选择" class="headerlink" title="最后线程数量的选择"></a>最后线程数量的选择</h2><ul>
 <li><strong>计算型任务</strong>： cpu 数量的 1-2 倍。</li>
 <li><strong>IO型任务</strong>：相对比计算型任务，需多一些线程，要根据具体的 IO阻塞时长进行考量决定。<br>如 tomcat 中默认的最大线程数为：200</li>
 </ul>
@@ -1289,8 +1289,8 @@
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<h2><span id="注解">注解</span></h2><p>注解是代码里的特殊标记，这些标记可以在编译、类加载、运行时被读取。并执行相应的处理。</p>
-<h3><span id="一-注解分类">一 、注解分类</span></h3><ol>
+<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>注解是代码里的特殊标记，这些标记可以在编译、类加载、运行时被读取。并执行相应的处理。</p>
+<h3 id="一-、注解分类"><a href="#一-、注解分类" class="headerlink" title="一 、注解分类"></a>一 、注解分类</h3><ol>
 <li><p><strong>java 内置注解</strong> </p>
 <p>@Override、 @Deprecated、@SuppressWarnings、@SafeVarargs(jdk 7 新增)</p>
 </li>
@@ -1341,7 +1341,7 @@
 </blockquote>
 </li>
 </ul>
-<h3><span id="定义注解">定义注解</span></h3><p><strong>1. 基本定义</strong></p>
+<h3 id="定义注解"><a href="#定义注解" class="headerlink" title="定义注解"></a>定义注解</h3><p><strong>1. 基本定义</strong></p>
 <p>定义新的注解类型使用 @interface 关键字。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Cup</span><span class="token punctuation">{</span>
 
@@ -1419,7 +1419,7 @@
     Person<span class="token punctuation">[</span><span class="token punctuation">]</span>  <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3><span id="二-注解的提取">二、注解的提取</span></h3><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
+<h3 id="二、注解的提取"><a href="#二、注解的提取" class="headerlink" title="二、注解的提取"></a>二、注解的提取</h3><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isAnnotationPresent</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后通过 getAnnotation() 方法来获取 Annotation 对象。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token operator">&lt;</span>A <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> A <span class="token function">getAnnotation</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span>A<span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -1430,7 +1430,7 @@
 <pre class="line-numbers language-java"><code class="language-java">Field <span class="token function">getDeclaredField</span><span class="token punctuation">(</span>String attrbuteName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 Method <span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span>String methodName<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3><span id="三-其他">三、其他</span></h3><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
+<h3 id="三、其他"><a href="#三、其他" class="headerlink" title="三、其他"></a>三、其他</h3><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
 <p>运行时注解：<br>例如：ButterKnife ，黑科技、低性能</p>
 <p>编译时注解：<br>Dagger2：生成中间代码，所以性能高</p>
 <p>注解处理器：<br>编译时处理器、<br>运行时处理器。</p>
@@ -1451,7 +1451,7 @@ Method <span class="token function">getDeclaredMethod</span><span class="token p
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <p>[toc]</p>
-<h1><span id="java-类加载和初始化">Java 类加载和初始化</span></h1><p>我们知道 当要实例化一个类时，JVM会首先加载该类，并且在加载过程中检查这个类是否有静态属性以及静态代码块，如果有，就按顺序分配内存并初始化他们，并且只在类加载的过程中初始化一次。</p>
+<h1 id="Java-类加载和初始化"><a href="#Java-类加载和初始化" class="headerlink" title="Java 类加载和初始化"></a>Java 类加载和初始化</h1><p>我们知道 当要实例化一个类时，JVM会首先加载该类，并且在加载过程中检查这个类是否有静态属性以及静态代码块，如果有，就按顺序分配内存并初始化他们，并且只在类加载的过程中初始化一次。</p>
 <p>对于构造代码块，以及普通属性，是在类实例化时进行的，并且每次实例化都会调用，并且普通属性先于构造代码块，构造代码块先于构造方法执行。</p>
 <p><img src="http://note.youdao.com/yws/res/8429/WEBRESOURCEfc10df5b4324dcf9adba0dd3c37d47ea" alt="java-load-class.png"></p>
 <p><img src="http://note.youdao.com/yws/res/8434/19F1DA8485CF45BF9DEA8BA3DB0E5FFA" alt="image"></p>
@@ -1518,7 +1518,7 @@ Method <span class="token function">getDeclaredMethod</span><span class="token p
 第五步 main 构造方法
 </code></pre>
 <p>可以发现第三步和第四步顺序是掉换的，但是根据时间戳知道，第三步是发生在第四部之前，也就是说第三步的普通属性的初始化在构造代码块之前执行。</p>
-<h3><span id="类什么时候加载">类什么时候加载？</span></h3><p>加载时机：</p>
+<h3 id="类什么时候加载？"><a href="#类什么时候加载？" class="headerlink" title="类什么时候加载？"></a>类什么时候加载？</h3><p>加载时机：</p>
 <blockquote>
 <ol>
 <li>其他类引用时候（被使用的时候）。</li>
@@ -1534,14 +1534,14 @@ Method <span class="token function">getDeclaredMethod</span><span class="token p
 <li>加载该类的类加载器被 GC</li>
 </ol>
 </blockquote>
-<h3><span id="类初始化的方式">类初始化的方式</span></h3><ol>
+<h3 id="类初始化的方式"><a href="#类初始化的方式" class="headerlink" title="类初始化的方式"></a>类初始化的方式</h3><ol>
 <li>实例通过使用new()关键字创建或者使用class.forName()反射，但它有可能导致ClassNotFoundException。</li>
 <li>类的静态方法被调用。</li>
 <li>类的静态域（静态变量）被赋值。</li>
 <li>静态域被访问，而且不是常量（final）。</li>
 <li>顶层类中执行 assert 语句。</li>
 </ol>
-<h3><span id="类初始化规则">类初始化规则：</span></h3><ol>
+<h3 id="类初始化规则："><a href="#类初始化规则：" class="headerlink" title="类初始化规则："></a>类初始化规则：</h3><ol>
 <li>类从顶至底部顺序初始化，所以声明在顶部的字段的早于底部的字段初始化</li>
 <li>超类早于子类和衍生类的初始化</li>
 <li>如果类的初始化是由于访问静态域而触发，那么只有声明静态域的类才被初始化，而不会触发超类的初始化或者子类的初始化即使静态域被子类或子接口或者它的实现类所引用。</li>
@@ -1549,7 +1549,7 @@ Method <span class="token function">getDeclaredMethod</span><span class="token p
 <li>静态域的初始化是在类的静态初始化期间，非静态域的初始化时在类的实例创建期间。这意味这静态域初始化在非静态域之前。</li>
 <li>非静态域通过构造器初始化，子类在做任何初始化之前构造器会隐含地调用父类的构造器，他保证了非静态或实例变量（父类）初始化早于子类。</li>
 </ol>
-<h2><span id="名词说明">名词说明</span></h2><p><strong>类的初始化和类的实例化是不同的</strong>:<br>类的初始化发生在类实例化之前。<br>类的初始化是指类加载过程中的初始化阶段对类变量按照程序猿的意图进行赋值的过程；而类的实例化是指在类完全加载到内存中后创建对象的过程。</p>
+<h2 id="名词说明"><a href="#名词说明" class="headerlink" title="名词说明"></a>名词说明</h2><p><strong>类的初始化和类的实例化是不同的</strong>:<br>类的初始化发生在类实例化之前。<br>类的初始化是指类加载过程中的初始化阶段对类变量按照程序猿的意图进行赋值的过程；而类的实例化是指在类完全加载到内存中后创建对象的过程。</p>
 <ul>
 <li>静态域=静态变量</li>
 </ul>
@@ -1600,7 +1600,7 @@ Method <span class="token function">getDeclaredMethod</span><span class="token p
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3><span id="参考">参考：</span></h3><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/index.html">类加载器</a></p>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/index.html">类加载器</a></p>
 </div></article></div><nav class="pagination is-centered mt-4" role="navigation" aria-label="pagination"><div class="pagination-previous"><a href="/">上一页</a></div><div class="pagination-next"><a href="/page/3/">下一页</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link" href="/">1</a></li><li><a class="pagination-link is-current" href="/page/2/">2</a></li><li><a class="pagination-link" href="/page/3/">3</a></li><li><a class="pagination-link" href="/page/4/">4</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="Brokge"></figure><p class="title is-size-4 is-block line-height-inherit">Brokge</p><p class="is-size-6 is-block">玉苏子</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>日常搬砖</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">33</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">5</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">19</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/brokge" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/brokge"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/categories/%E4%BA%BA%E6%96%87/"><span class="level-start"><span class="level-item">人文</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">技术</span></span><span class="level-end"><span class="level-item tag">21</span></span></a><ul class="mr-0"><li><a class="level is-mobile is-marginless" href="/categories/%E6%8A%80%E6%9C%AF/%E5%B7%A5%E5%85%B7/"><span class="level-start"><span class="level-item">工具</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></li><li><a class="level is-mobile is-marginless" href="/categories/%E7%9F%A5%E8%AF%86%E5%BA%93/"><span class="level-start"><span class="level-item">知识库</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/%E7%BD%91%E7%BB%9C/"><span class="level-start"><span class="level-item">网络</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2020/06/"><span class="level-start"><span class="level-item">六月 2020</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/02/"><span class="level-start"><span class="level-item">二月 2020</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/01/"><span class="level-start"><span class="level-item">一月 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/12/"><span class="level-start"><span class="level-item">十二月 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/09/"><span class="level-start"><span class="level-item">九月 2019</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/08/"><span class="level-start"><span class="level-item">八月 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/07/"><span class="level-start"><span class="level-item">七月 2019</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/06/"><span class="level-start"><span class="level-item">六月 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/05/"><span class="level-start"><span class="level-item">五月 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/04/"><span class="level-start"><span class="level-item">四月 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/02/"><span class="level-start"><span class="level-item">二月 2019</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2019/01/"><span class="level-start"><span class="level-item">一月 2019</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2018/11/"><span class="level-start"><span class="level-item">十一月 2018</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button is-primary" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget"><div class="card-content"><div class="notification is-danger">You need to set <code>client_id</code> and <code>slot_id</code> to show this AD unit. Please set it in <code>_config.yml</code>.</div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content size-small"><p><time dateTime="2020-06-06T09:35:01.000Z">2020-06-06</time></p><p class="title is-6"><a class="link-muted" href="/2020/06/06/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86/">网络协议梳理</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-06-05T13:08:38.000Z">2020-06-05</time></p><p class="title is-6"><a class="link-muted" href="/2020/06/05/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B%E5%A6%82%E4%BD%95%E7%A1%AE%E5%AE%9A%E7%BA%BF%E7%A8%8B%E4%B8%AA%E6%95%B0/">多线程编程如何确定线程个数</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-06-02T08:28:45.000Z">2020-06-02</time></p><p class="title is-6"><a class="link-muted" href="/2020/06/02/Dubbo%E8%AF%A6%E8%A7%A3/">Dubbo详解</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-02-11T12:04:17.000Z">2020-02-11</time></p><p class="title is-6"><a class="link-muted" href="/2020/02/11/Redis%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/">Redis核心原理详解</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-02-10T04:50:24.000Z">2020-02-10</time></p><p class="title is-6"><a class="link-muted" href="/2020/02/10/redis5%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">Redis5 集群搭建</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Android/"><span class="tag">Android</span><span class="tag is-grey-lightest">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JVM/"><span class="tag">JVM</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Java/"><span class="tag">Java</span><span class="tag is-grey-lightest">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Redis/"><span class="tag">Redis</span><span class="tag is-grey-lightest">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BC%98%E5%8C%96/"><span class="tag">优化</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"><span class="tag">分布式</span><span class="tag is-grey-lightest">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8F%8D%E5%B0%84/"><span class="tag">反射</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"><span class="tag">多线程</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"><span class="tag">并发编程</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><span class="tag">微服务</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%9D%E7%BB%B4%E6%A8%A1%E5%9E%8B/"><span class="tag">思维模型</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><span class="tag">性能优化</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="tag">数据结构</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%AD%A3%E5%88%99/"><span class="tag">正则</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B3%A8%E8%A7%A3/"><span class="tag">注解</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BA%BF%E7%A8%8B/"><span class="tag">线程</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BC%93%E5%AD%98/"><span class="tag">缓存</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="tag">网络编程</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="tag">设计模式</span><span class="tag is-grey-lightest">7</span></a></div></div></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="玉蘇子" height="28"></a><p class="size-small"><span>&copy; 2020 brokge</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
             site: {
                 url: 'https://brokge.github.io',

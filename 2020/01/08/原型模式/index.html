@@ -22,9 +22,9 @@
 
 
 
-<h2><span id="概念">概念</span></h2><p><strong>原型模式(Prototype  Pattern)：</strong> 使用原型实例指定创建对象的种类，并且通过克隆拷贝的方式利用原型实例创建新的对象。原型模式是一种对象创建型模式。</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p><strong>原型模式(Prototype  Pattern)：</strong> 使用原型实例指定创建对象的种类，并且通过克隆拷贝的方式利用原型实例创建新的对象。原型模式是一种对象创建型模式。</p>
 <p>通过克隆方法所创建的对象是全新的对象，它们在内存中拥有新的地址，通常对克隆所产生的对象进行修改对原型对象不会造成任何影响，每一个克隆对象都是相互独立的。通过不同的方式修改可以得到一系列相似但不完全相同的对象。</p>
-<h2><span id="实现方式">实现方式</span></h2><h3><span id="1-通用实现方法">1. 通用实现方法：</span></h3><p>定义 Prototype 接口 和 clone() 方法。<br>原型对象继承其接口，实现clone 方法。</p>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><h3 id="1-通用实现方法："><a href="#1-通用实现方法：" class="headerlink" title="1. 通用实现方法："></a>1. 通用实现方法：</h3><p>定义 Prototype 接口 和 clone() 方法。<br>原型对象继承其接口，实现clone 方法。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">interface</span> <span class="token class-name">Prototype</span><span class="token punctuation">{</span>
    Prototype  <span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -55,7 +55,7 @@
 obj1<span class="token punctuation">.</span><span class="token function">setAttr</span><span class="token punctuation">(</span><span class="token string">"Sunny"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 Prototype obj2  <span class="token operator">=</span> obj1<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3><span id="2-java-语言提供的-clone-方法">2. Java 语言提供的 clone 方法</span></h3><p>Java类都继承自java.lang.Object。事实上，Object类提供一个clone()方法，可以将一个Java对象复制一份。因此在Java中可以直接使用Object提供的clone()方法来实现对象的克隆，Java语言中的原型模式实现很简单。我们可以直接利用Object类的clone()方法，具体步骤如下：</p>
+<h3 id="2-Java-语言提供的-clone-方法"><a href="#2-Java-语言提供的-clone-方法" class="headerlink" title="2. Java 语言提供的 clone 方法"></a>2. Java 语言提供的 clone 方法</h3><p>Java类都继承自java.lang.Object。事实上，Object类提供一个clone()方法，可以将一个Java对象复制一份。因此在Java中可以直接使用Object提供的clone()方法来实现对象的克隆，Java语言中的原型模式实现很简单。我们可以直接利用Object类的clone()方法，具体步骤如下：</p>
 <ol>
 <li>在派生类中覆盖基类的clone()方法，并声明为public；</li>
 <li>在派生类的clone()方法中，调用super.clone()；</li>
@@ -85,11 +85,11 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 <p>(1) 对任何对象x，都有x.clone() != x，即克隆对象与原型对象不是同一个对象；</p>
 <p>(2) 对任何对象x，都有x.clone().getClass() == x.getClass()，即克隆对象与原型对象的类型一样；</p>
 <p>(3) 如果对象x的equals()方法定义恰当，那么x.clone().equals(x)应该成立。</p>
-<h2><span id="浅克隆-深克隆">浅克隆、深克隆</span></h2><p>通过 Java 的clone 方式可以实现原型模式，但是通过深克隆实现还是浅克隆实现，所达到的结果是不一样的。因为在Java语言中，<strong>数据类型</strong>分为<strong>值类型</strong>（基本数据类型）和<strong>引用类型</strong>，值类型包括int、double、byte、boolean、char等简单数据类型，引用类型包括类、接口、数组等复杂类型。浅克隆和深克隆的主要区别在于是否支持引用类型的成员变量的复制。</p>
-<h3><span id="1-浅克隆">1. 浅克隆</span></h3><p>在浅克隆中，如果原型对象的成员变量是值类型，将复制一份给克隆对象；如果原型对象的成员变量是引用类型，则将引用对象的地址复制一份给克隆对象，也就是说原型对象和克隆对象的成员变量指向相同的内存地址。</p>
+<h2 id="浅克隆、深克隆"><a href="#浅克隆、深克隆" class="headerlink" title="浅克隆、深克隆"></a>浅克隆、深克隆</h2><p>通过 Java 的clone 方式可以实现原型模式，但是通过深克隆实现还是浅克隆实现，所达到的结果是不一样的。因为在Java语言中，<strong>数据类型</strong>分为<strong>值类型</strong>（基本数据类型）和<strong>引用类型</strong>，值类型包括int、double、byte、boolean、char等简单数据类型，引用类型包括类、接口、数组等复杂类型。浅克隆和深克隆的主要区别在于是否支持引用类型的成员变量的复制。</p>
+<h3 id="1-浅克隆"><a href="#1-浅克隆" class="headerlink" title="1. 浅克隆"></a>1. 浅克隆</h3><p>在浅克隆中，如果原型对象的成员变量是值类型，将复制一份给克隆对象；如果原型对象的成员变量是引用类型，则将引用对象的地址复制一份给克隆对象，也就是说原型对象和克隆对象的成员变量指向相同的内存地址。</p>
 <p>简单来说，在浅克隆中，当对象被复制时只复制它本身和其中包含的值类型的成员变量，而引用类型的成员对象并没有复制。</p>
 <p><img src="https://github.com/brokge/drawio/raw/master/net-scapture/java%20%E5%AF%B9%E8%B1%A1%E5%85%8B%E9%9A%86-%E6%B5%85.png" alt="浅克隆"></p>
-<h3><span id="2-深克隆">2. 深克隆</span></h3><p>深克隆中，无论原型对象的成员变量是值类型还是引用类型，都将复制一份给克隆对象，深克隆将原型对象的所有引用对象也复制一份给克隆对象。</p>
+<h3 id="2-深克隆"><a href="#2-深克隆" class="headerlink" title="2. 深克隆"></a>2. 深克隆</h3><p>深克隆中，无论原型对象的成员变量是值类型还是引用类型，都将复制一份给克隆对象，深克隆将原型对象的所有引用对象也复制一份给克隆对象。</p>
 <p>简单来说，在深克隆中，除了对象本身被复制外，对象所包含的所有成员变量也将复制</p>
 <p><img src="https://github.com/brokge/drawio/raw/master/net-scapture/java%20%E5%AF%B9%E8%B1%A1%E5%85%8B%E9%9A%86.png" alt="深克隆"></p>
 <ol>
@@ -157,7 +157,7 @@ Prototype obj2  <span class="token operator">=</span> obj1<span class="token pun
 <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="总结">总结：</span></h2><ul>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><ul>
 <li>原型模式的主要优点如下：</li>
 </ul>
 <p>(1) 当创建新的对象实例较为复杂时，使用原型模式可以简化对象的创建过程，通过复制一个已有实例可以提高新实例的创建效率。</p>

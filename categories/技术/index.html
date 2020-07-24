@@ -14,25 +14,25 @@
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<h2><span id="多线程编程如何确定线程个数">多线程编程如何确定线程个数？</span></h2><p>在具体的优化场景中，可以分为以下两种场景着手。</p>
+<h2 id="多线程编程如何确定线程个数？"><a href="#多线程编程如何确定线程个数？" class="headerlink" title="多线程编程如何确定线程个数？"></a>多线程编程如何确定线程个数？</h2><p>在具体的优化场景中，可以分为以下两种场景着手。</p>
 <ul>
 <li><p>CPU 密集型程序</p>
 </li>
 <li><p>I/O 密集型程序</p>
 </li>
 </ul>
-<h3><span id="一-cpu-密集型">一、CPU 密集型</span></h3><ol>
+<h3 id="一、CPU-密集型"><a href="#一、CPU-密集型" class="headerlink" title="一、CPU 密集型"></a>一、CPU 密集型</h3><ol>
 <li>单核CPU处理 CPU 密集型程序，这种情况并不太适合使用多线程。</li>
 <li>如果是多核CPU 处理 CPU 密集型程序，我们完全可以最大化的利用 CPU 核心数，应用并发编程来提高效率</li>
 </ol>
 <p>线程数量 = CPU 核数（逻辑） 就可以了，但是实际上，数量一般会设置为 CPU 核数（逻辑）+ 1, 这是因为：计算(CPU)密集型的线程恰好在某时因为发生一个页错误或者因其他原因而暂停，刚好有一个“额外”的线程，可以确保在这种情况下CPU周期不会中断工作。</p>
-<h3><span id="二-io密集型">二、 I/O密集型</span></h3><blockquote>
+<h3 id="二、-I-O密集型"><a href="#二、-I-O密集型" class="headerlink" title="二、 I/O密集型"></a>二、 I/O密集型</h3><blockquote>
 <p>与 CPU 密集型程序相对，一个完整请求，CPU运算操作完成之后还有很多 I/O 操作要做，也就是说 I/O 操作占比很大部分</p>
 </blockquote>
 <p>线程等待时间所占比例越高，需要越多线程；线程CPU时间所占比例越高，需要越少线程。</p>
 <p>最佳线程数 = CPU核心数 *  (1/CPU利用率) =  CPU核心数 * (1 + (I/O耗时/CPU耗时))</p>
 <p>假如几乎全是 I/O耗时，所以纯理论你就可以说是 2N（N=CPU核数），当然也有说 2N + 1的。</p>
-<h3><span id="三-问题">三、问题</span></h3><blockquote>
+<h3 id="三、问题"><a href="#三、问题" class="headerlink" title="三、问题"></a>三、问题</h3><blockquote>
 <p>假设要求一个系统的 TPS（Transaction Per Second 或者 Task Per Second）至少为 20，然后假设每个Transaction由一个线程完成，继续假设平均每个线程处理一个Transaction的时间为4s</p>
 </blockquote>
 <p>答案：<br>因为 一个线程处理一个 Transaction 时间是4秒，那1秒 处理 0.25 个 Transaction；</p>
@@ -47,7 +47,7 @@
 </blockquote>
 <p>答案： 因为 1 s = 1000ms  完成一个完整的db 操作等于 100+5  =105 ms。 那一个线程一秒可以处理的任务数是  1000/105。168 个线程 就是 168 * 1000/105 = 1600（QPS）。</p>
 <p>如果 db 的QPS 上限是 1000 ，则168*1000/1600 = 105 个。</p>
-<h3><span id="四-增加-cpu-核数一定能解决问题吗">四、增加 CPU 核数一定能解决问题吗</span></h3><p>即便我算出了理论线程数，但实际CPU核数不够，会带来线程上下文切换的开销，所以下一步就需要增加 CPU 核数，那我们盲目的增加 CPU 核数就一定能解决问题吗？</p>
+<h3 id="四、增加-CPU-核数一定能解决问题吗"><a href="#四、增加-CPU-核数一定能解决问题吗" class="headerlink" title="四、增加 CPU 核数一定能解决问题吗"></a>四、增加 CPU 核数一定能解决问题吗</h3><p>即便我算出了理论线程数，但实际CPU核数不够，会带来线程上下文切换的开销，所以下一步就需要增加 CPU 核数，那我们盲目的增加 CPU 核数就一定能解决问题吗？</p>
 <p><img src="http://note.youdao.com/yws/res/9278/21A8D6F6DF074BAB8A79192C8190C38E" alt="image"></p>
 <p><img src="http://note.youdao.com/yws/res/9282/DC07610E6E0E4003B7B1F29B8219F936" alt="image"></p>
 <p>假如我们的串行率是 5%，那么我们无论采用什么技术，最高也就只能提高 20 倍的性能。</p>
@@ -118,19 +118,19 @@
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<h2><span id="一-前言">一、前言</span></h2><p><img src="http://note.youdao.com/yws/res/9311/64A03BA7F21B4BB29F4ABC5F11140870" alt="image"></p>
-<h4><span id="分布式架构的-有-3-种解决方案"><strong>分布式架构的 有 3 种解决方案</strong></span></h4><ol>
+<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p><img src="http://note.youdao.com/yws/res/9311/64A03BA7F21B4BB29F4ABC5F11140870" alt="image"></p>
+<h4 id="分布式架构的-有-3-种解决方案"><a href="#分布式架构的-有-3-种解决方案" class="headerlink" title="分布式架构的 有 3 种解决方案"></a><strong>分布式架构的 有 3 种解决方案</strong></h4><ol>
 <li>基于反向代理的中心化架构</li>
 <li>嵌入应用内部的去中心化架构</li>
 <li>基于独立代理进程的Service Mesh架构</li>
 </ol>
-<h4><span id="基于反向代理的集中式分布式架构">基于反向代理的集中式分布式架构</span></h4><p>这是最简单和传统做法，在服务消费者和生产者之间，代理作为独立一层集中部署，由独立团队(一般是运维或框架)负责治理和运维。常用的集中式代理有硬件负载均衡器(如F5)，或者软件负载均衡器(如Nginx)，这种软硬结合两层代理也是业内常见做法，兼顾配置的灵活性(Nginx比F5易于配置)。</p>
+<h4 id="基于反向代理的集中式分布式架构"><a href="#基于反向代理的集中式分布式架构" class="headerlink" title="基于反向代理的集中式分布式架构"></a>基于反向代理的集中式分布式架构</h4><p>这是最简单和传统做法，在服务消费者和生产者之间，代理作为独立一层集中部署，由独立团队(一般是运维或框架)负责治理和运维。常用的集中式代理有硬件负载均衡器(如F5)，或者软件负载均衡器(如Nginx)，这种软硬结合两层代理也是业内常见做法，兼顾配置的灵活性(Nginx比F5易于配置)。</p>
 <p><img src="http://note.youdao.com/yws/res/9352/29E919D8DA684D4E99671F5A16013855" alt="image"></p>
 <p><strong>Http+Nginx 方案总结</strong></p>
 <p><strong>优点：</strong> 简单快速、几乎没有学习成本</p>
 <p><strong>适用场景：</strong> 轻量级分布式系统、局部分布式架构。</p>
 <p><strong>瓶颈：</strong> Nginx中心负载、Http传输、JSON序列化、开发效率、运维效率。</p>
-<h3><span id="嵌入应用内部的去中心化架构">嵌入应用内部的去中心化架构</span></h3><p>这是很多互联网公司比较流行的一种做法，代理(包括服务发现和负载均衡逻辑)以客户库的形式嵌入在应用程序中。这种模式一般需要独立的服务注册中心组件配合，服务启动时自动注册到注册中心并定期报心跳，客户端代理则发现服务并做负载均衡。我们所熟悉的 duboo 和spring cloud Eureka +Ribbon/‘rɪbən/ 都是这种方式实现。</p>
+<h3 id="嵌入应用内部的去中心化架构"><a href="#嵌入应用内部的去中心化架构" class="headerlink" title="嵌入应用内部的去中心化架构"></a>嵌入应用内部的去中心化架构</h3><p>这是很多互联网公司比较流行的一种做法，代理(包括服务发现和负载均衡逻辑)以客户库的形式嵌入在应用程序中。这种模式一般需要独立的服务注册中心组件配合，服务启动时自动注册到注册中心并定期报心跳，客户端代理则发现服务并做负载均衡。我们所熟悉的 duboo 和spring cloud Eureka +Ribbon/‘rɪbən/ 都是这种方式实现。</p>
 <p><img src="http://note.youdao.com/yws/res/9359/91E7A4D0836A49B395A817DDC2CF2376" alt="image"><br>相比第一代架构它有以下特点几点：</p>
 <ul>
 <li>去中心化，客户端直连服务端</li>
@@ -138,9 +138,9 @@
 <li>高效稳定的网络传输</li>
 <li>高效可容错的序列化</li>
 </ul>
-<h3><span id="基于独立代理进程的架构service-mesh">基于独立代理进程的架构(Service Mesh)</span></h3><p>这种做法是上面两种模式的一个折中，代理既不是独立集中部署，也不嵌入在客户应用程序中，而是作为独立进程部署在每一个主机上，一个主机上的多个消费者应用可以共用这个代理，实现服务发现和负载均衡，如下图所示。这个模式一般也需要独立的服务注册中心组件配合，作用同第二代架构。</p>
+<h3 id="基于独立代理进程的架构-Service-Mesh"><a href="#基于独立代理进程的架构-Service-Mesh" class="headerlink" title="基于独立代理进程的架构(Service Mesh)"></a>基于独立代理进程的架构(Service Mesh)</h3><p>这种做法是上面两种模式的一个折中，代理既不是独立集中部署，也不嵌入在客户应用程序中，而是作为独立进程部署在每一个主机上，一个主机上的多个消费者应用可以共用这个代理，实现服务发现和负载均衡，如下图所示。这个模式一般也需要独立的服务注册中心组件配合，作用同第二代架构。</p>
 <p><img src="http://note.youdao.com/yws/res/9364/E7DE6B068DC74C7D8AE0808F46AB24AF" alt="image"></p>
-<h4><span id="三种架构的比较">三种架构的比较</span></h4><table>
+<h4 id="三种架构的比较"><a href="#三种架构的比较" class="headerlink" title="三种架构的比较"></a>三种架构的比较</h4><table>
 <thead>
 <tr>
 <th align="left"><strong>模式</strong></th>
@@ -172,7 +172,7 @@
 <td align="left">Smart Stack  Service Mesh</td>
 </tr>
 </tbody></table>
-<h2><span id="二-什么是-dubbo">二、什么是 Dubbo</span></h2><p>dubbo 阿里开源的一个 SOA（面向服务的架构） 服务治理框架，从目前来看把它称作是一个RPC远程调用框架更为贴切。单从RPC框架来说，功能较完善，支持多种传输和序列化方案。所以想必大家已经知道他的核心功能了：就是远程调用。</p>
+<h2 id="二、什么是-Dubbo"><a href="#二、什么是-Dubbo" class="headerlink" title="二、什么是 Dubbo"></a>二、什么是 Dubbo</h2><p>dubbo 阿里开源的一个 SOA（面向服务的架构） 服务治理框架，从目前来看把它称作是一个RPC远程调用框架更为贴切。单从RPC框架来说，功能较完善，支持多种传输和序列化方案。所以想必大家已经知道他的核心功能了：就是远程调用。</p>
 <p><img src="http://note.youdao.com/yws/res/9319/81A705F26C0346EA871AB8936296BFE1" alt="image"></p>
 <p><strong>流程说明：</strong></p>
 <ol>
@@ -204,7 +204,7 @@
 <li>serialize <strong>数据序列化层</strong>：可复用的一些工具，扩展接口为 Serialization, ObjectInput, ObjectOutput, ThreadPool</li>
 </ul>
 <p><img src="http://note.youdao.com/yws/res/9335/7DC769031DD64DDABC42BDFBC7384599" alt="image"></p>
-<h3><span id="dubbo-spi-机制">Dubbo SPI 机制</span></h3><p>Java SPI 的具体约定为:当服务的提供者，提供了服务接口的一种实现之后，在jar包的META-INF/services/目录里同时创建一个以服务接口命名的文件。该文件里就是实现该服务接口的具体实现类。而当外部程序装配这个模块的时候，就能通过该jar包META-INF/services/里的配置文件找到具体的实现类名，并装载实例化，完成模块的注入。 基于这样一个约定就能很好的找到服务接口的实现类，而不需要再代码里制定。jdk提供服务实现查找的一个工具类java.util.ServiceLoader</p>
+<h3 id="Dubbo-SPI-机制"><a href="#Dubbo-SPI-机制" class="headerlink" title="Dubbo SPI 机制"></a>Dubbo SPI 机制</h3><p>Java SPI 的具体约定为:当服务的提供者，提供了服务接口的一种实现之后，在jar包的META-INF/services/目录里同时创建一个以服务接口命名的文件。该文件里就是实现该服务接口的具体实现类。而当外部程序装配这个模块的时候，就能通过该jar包META-INF/services/里的配置文件找到具体的实现类名，并装载实例化，完成模块的注入。 基于这样一个约定就能很好的找到服务接口的实现类，而不需要再代码里制定。jdk提供服务实现查找的一个工具类java.util.ServiceLoader</p>
 <p><img src="http://note.youdao.com/yws/res/9338/0723FDE7587148BAB47925D8471D652D" alt="image"></p>
 <p>META-INF/services/xxx.dubbo.server.UserService 中的值：</p>
 <pre><code>xxx.dubbo.server.impl.UserServiceImpl2</code></pre>
@@ -223,7 +223,7 @@
 <p>装配自定义Filter</p>
 <p><img src="http://note.youdao.com/yws/res/9345/17D1822AA2FB4427A92566F2E64917B7" alt="image"></p>
 <p>想了解更详细信息：<br><a href="http://dubbo.apache.org/zh-cn/docs/source_code_guide/dubbo-spi.html">官方文档</a></p>
-<h2><span id="三-dubbo注册中心详解">三、Dubbo注册中心详解</span></h2><h3><span id="注册中心的作用">注册中心的作用</span></h3><p>为了到达服务集群动态扩容的目的，注册中心存储了服务的地址信息与可用状态信息，并实时推送给订阅了相关服务的客户端。<br><img src="http://note.youdao.com/yws/res/9386/8638BBF57BF946769ABFCE0DAF896809" alt="image"></p>
+<h2 id="三、Dubbo注册中心详解"><a href="#三、Dubbo注册中心详解" class="headerlink" title="三、Dubbo注册中心详解"></a>三、Dubbo注册中心详解</h2><h3 id="注册中心的作用"><a href="#注册中心的作用" class="headerlink" title="注册中心的作用"></a>注册中心的作用</h3><p>为了到达服务集群动态扩容的目的，注册中心存储了服务的地址信息与可用状态信息，并实时推送给订阅了相关服务的客户端。<br><img src="http://note.youdao.com/yws/res/9386/8638BBF57BF946769ABFCE0DAF896809" alt="image"></p>
 <p><strong>一个完整的注册中心需要实现以下功能：</strong></p>
 <ol>
 <li>接收服务端的注册与客户端的引用，即将引用与消费建立关联，并支持多对多。</li>
@@ -231,7 +231,7 @@
 <li>当注册中心重启时，能自动恢复注册数据，以及订阅请求</li>
 <li>注册中心本身的集群 。</li>
 </ol>
-<h3><span id="dubbo所支持的注册中心">Dubbo所支持的注册中心</span></h3><ol>
+<h3 id="Dubbo所支持的注册中心"><a href="#Dubbo所支持的注册中心" class="headerlink" title="Dubbo所支持的注册中心"></a>Dubbo所支持的注册中心</h3><ol>
 <li><strong>Multicast 注册中心</strong><ol>
 <li>基于组网广播技术，只能用在局域网内，一般用于简单的测试服务</li>
 </ol>
@@ -249,8 +249,8 @@
 </ol>
 </li>
 </ol>
-<h3><span id="redis-注册中心"><strong>Redis 注册中心</strong></span></h3><p>关于Redis注册中心我们需要了解两点，</p>
-<h4><span id="1-如何存储服务的注册与订阅关系">1. 如何存储服务的注册与订阅关系</span></h4><p>redis 注册中心配置</p>
+<h3 id="Redis-注册中心"><a href="#Redis-注册中心" class="headerlink" title="Redis 注册中心"></a><strong>Redis 注册中心</strong></h3><p>关于Redis注册中心我们需要了解两点，</p>
+<h4 id="1-如何存储服务的注册与订阅关系"><a href="#1-如何存储服务的注册与订阅关系" class="headerlink" title="1. 如何存储服务的注册与订阅关系"></a>1. 如何存储服务的注册与订阅关系</h4><p>redis 注册中心配置</p>
 <pre><code>&lt;dubbo:registry protocol=&quot;redis&quot; address=&quot;192.168.0.147:6379&quot;/&gt;</code></pre>
 <p>当我们启动两个服务端后发现，Reids中增加了一个Hash 类型的记录，其key为/dubbo/xxx.dubbo.server.UserService/providers。Value中分别存储了两个服务提供者的URL和有效期。</p>
 <p><img src="http://note.youdao.com/yws/res/9377/89233BE1BB03402C9224A6348FAA7007" alt="image"></p>
@@ -267,17 +267,17 @@
 <li>Map 中的 Key 为 URL 地址</li>
 <li>Map 中的 Value 为过期时间，用于判断脏数据，脏数据由监控中心删除</li>
 </ul>
-<h4><span id="2-是当服务状态改变时如何即时更新">2. 是当服务状态改变时如何即时更新？</span></h4><p>第二个问题 <strong>当提供者突然 宕机状态能即里变更吗</strong>？<br>这里Dubbo采用的是<strong>定时心跳的机制</strong> 来维护服务URL的有效期，默认<strong>每30秒更新一次有效期</strong>。即URL对应的毫秒值。具体代码参见：com.alibaba.dubbo.registry.redis.RedisRegistry#expireExecutor</p>
+<h4 id="2-是当服务状态改变时如何即时更新？"><a href="#2-是当服务状态改变时如何即时更新？" class="headerlink" title="2. 是当服务状态改变时如何即时更新？"></a>2. 是当服务状态改变时如何即时更新？</h4><p>第二个问题 <strong>当提供者突然 宕机状态能即里变更吗</strong>？<br>这里Dubbo采用的是<strong>定时心跳的机制</strong> 来维护服务URL的有效期，默认<strong>每30秒更新一次有效期</strong>。即URL对应的毫秒值。具体代码参见：com.alibaba.dubbo.registry.redis.RedisRegistry#expireExecutor</p>
 <p><img src="http://note.youdao.com/yws/res/9390/F32248B7D113492EBC48590051A3CD04" alt="image"></p>
 <p>com.alibaba.dubbo.registry.redis.RedisRegistry#deferExpired<br>com.alibaba.dubbo.registry.integration.RegistryDirectory<br>com.alibaba.dubbo.registry.support.ProviderConsumerRegTable</p>
-<h3><span id="zookeeper-注册中心"><strong>Zookeeper 注册中心</strong></span></h3><p>关于Zookeeper 注册中心同样需要了解其存储结构和更新机制。<br>Zookeper是一个树型的目录服务，本身支持变更推送相比 redis 的实现 Publish/Subscribe 功能更稳定。</p>
+<h3 id="Zookeeper-注册中心"><a href="#Zookeeper-注册中心" class="headerlink" title="Zookeeper 注册中心"></a><strong>Zookeeper 注册中心</strong></h3><p>关于Zookeeper 注册中心同样需要了解其存储结构和更新机制。<br>Zookeper是一个树型的目录服务，本身支持变更推送相比 redis 的实现 Publish/Subscribe 功能更稳定。</p>
 <ol>
 <li>Provider和Consumer向Zookeeper注册临时节点，当连接断开时删除相应的注册节点。</li>
 <li>Consumer订阅 Providers节点的子节点，通过 watch 事件，当 Zookeeper 删除临时节点时，实时感知 Provider 的变化情况，实时同步自身的Invoker对象，保证 RPC的可用性。</li>
 </ol>
 <p>结构：</p>
 <p><img src="http://note.youdao.com/yws/res/9425/D8B581F4BF944E94AF6382ECA1CB770F" alt="image"></p>
-<h4><span id="源码查看">源码查看</span></h4><pre class="line-numbers language-java"><code class="language-java"> <span class="token annotation punctuation">@Override</span>
+<h4 id="源码查看"><a href="#源码查看" class="headerlink" title="源码查看"></a>源码查看</h4><pre class="line-numbers language-java"><code class="language-java"> <span class="token annotation punctuation">@Override</span>
     <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doRegister</span><span class="token punctuation">(</span>URL url<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">try</span> <span class="token punctuation">{</span>
             zkClient<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token function">toUrlPath</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">,</span> url<span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span>Constants<span class="token punctuation">.</span>DYNAMIC_KEY<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -322,7 +322,7 @@ com.alibaba.dubbo.remoting.zookeeper.curator.CuratorZookeeperClient#createEpheme
 <pre><code>// 注册目录
 com.alibaba.dubbo.registry.integration.RegistryDirectory</code></pre>
 <p><img src="http://note.youdao.com/yws/res/9435/7903EF7E728C436EBABA5AB637CB1588" alt="image"></p>
-<h2><span id="三-dubbo-调用模块">三、 Dubbo 调用模块</span></h2><p>dubbo调用模块核心功能是发起一个远程方法的调用并顺利拿到返回结果，其体系组成如下：</p>
+<h2 id="三、-Dubbo-调用模块"><a href="#三、-Dubbo-调用模块" class="headerlink" title="三、 Dubbo 调用模块"></a>三、 Dubbo 调用模块</h2><p>dubbo调用模块核心功能是发起一个远程方法的调用并顺利拿到返回结果，其体系组成如下：</p>
 <ol>
 <li><strong>透明代理：</strong> 通过动态代理技术，屏蔽远程调用细节以提高编程友好性。</li>
 <li><strong>负载均衡：</strong> 当有多个提供者是，如何选择哪个进行调用的负载算法。</li>
@@ -330,7 +330,7 @@ com.alibaba.dubbo.registry.integration.RegistryDirectory</code></pre>
 <li><strong>调用方式：</strong> 支持同步调用、异步调用</li>
 </ol>
 <p><img src="http://note.youdao.com/yws/res/9440/C29CEB5BE9E4479EA5988A07FC429C28" alt="image"></p>
-<h3><span id="透明代理">透明代理：</span></h3><p>针对代理 dubbo 提供 三种方式：</p>
+<h3 id="透明代理："><a href="#透明代理：" class="headerlink" title="透明代理："></a>透明代理：</h3><p>针对代理 dubbo 提供 三种方式：</p>
 <p><img src="http://note.youdao.com/yws/res/9448/BCE9E2B8BB9F4E1DBE9E0249FCE1D4C7" alt="image"></p>
 <p>默认方式是：</p>
 <pre><code>    public static final String DEFAULT_PROXY = &quot;javassist&quot;;
@@ -348,7 +348,7 @@ com.alibaba.dubbo.registry.integration.RegistryDirectory</code></pre>
 <p><img src="http://note.youdao.com/yws/res/9451/5B1BA7C374ED444DAFD557DF5055D4D9" alt="image"></p>
 <p><img src="http://note.youdao.com/yws/res/9453/B8DCD49FB51847ED97BBA2C316A5BCDF" alt="image"></p>
 <p><img src="http://note.youdao.com/yws/res/9463/E7EF7C875FBD48A4B2037B3A74D5BC62" alt="image"></p>
-<h3><span id="负载均衡"><strong>负载均衡</strong></span></h3><p>Dubbo 目前官方支持以下负载均衡策略：</p>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a><strong>负载均衡</strong></h3><p>Dubbo 目前官方支持以下负载均衡策略：</p>
 <ol>
 <li><strong>随机</strong>(random)：按权重设置随机概率。此为默认算法.</li>
 <li><strong>轮循</strong>(roundrobin):按公约后的权重设置轮循比率。</li>
@@ -367,7 +367,7 @@ com.alibaba.dubbo.registry.integration.RegistryDirectory</code></pre>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>reference</span> <span class="token attr-name">interface</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>method</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">loadbalance</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>roundrobin<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">dubbo:</span>reference</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3><span id="容错"><strong>容错</strong></span></h3><p>Dubbo 官方目前支持以下容错策略：</p>
+<h3 id="容错"><a href="#容错" class="headerlink" title="容错"></a><strong>容错</strong></h3><p>Dubbo 官方目前支持以下容错策略：</p>
 <ol>
 <li><strong>失败自动切换：</strong> 调用失败后基于retries=“2” 属性重试其它服务器</li>
 <li><strong>快速失败：</strong> 快速失败，只发起一次调用，失败立即报错。</li>
@@ -388,7 +388,7 @@ Broadcast 广播调用
 <span class="token operator">&lt;</span>dubbo<span class="token operator">:</span>service <span class="token keyword">interface</span><span class="token operator">=</span><span class="token string">"..."</span> cluster<span class="token operator">=</span><span class="token string">"broadcast"</span> <span class="token operator">/</span><span class="token operator">></span>
 <span class="token operator">&lt;</span>dubbo<span class="token operator">:</span>reference <span class="token keyword">interface</span><span class="token operator">=</span><span class="token string">"..."</span> cluster<span class="token operator">=</span><span class="token string">"broadcast"</span><span class="token operator">/</span> <span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>注：容错机制 在基于 API设置时无效 如  referenceConfig.setCluster(“failback”); 经测试不启作用 </p>
-<h3><span id="异步调用"><strong>异步调用</strong></span></h3><p>异步调用是指发起远程调用之后获取结果的方式。</p>
+<h3 id="异步调用"><a href="#异步调用" class="headerlink" title="异步调用"></a><strong>异步调用</strong></h3><p>异步调用是指发起远程调用之后获取结果的方式。</p>
 <ol>
 <li>同步等待结果返回（默认）</li>
 <li>异步等待结果返回</li>
@@ -414,10 +414,10 @@ Object r1 <span class="token operator">=</span> null<span class="token punctuati
 r1 <span class="token operator">=</span> future1<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">// wait 直到拿到结果 或超时</span>
 r2 <span class="token operator">=</span> future2<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3><span id="过滤器"><strong>过滤器</strong></span></h3><p>** 类似于 WEB 中的Filter ，Dubbo本身提供了Filter 功能用于拦截远程方法的调用。其支持自定义过滤器与官方的过滤器使用：**<br>#TODO 演示添加日志访问过滤:</p>
+<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a><strong>过滤器</strong></h3><p>** 类似于 WEB 中的Filter ，Dubbo本身提供了Filter 功能用于拦截远程方法的调用。其支持自定义过滤器与官方的过滤器使用：**<br>#TODO 演示添加日志访问过滤:</p>
 <pre><code>&lt;dubbo:provider  filter=&quot;accesslog&quot; accesslog=&quot;logs/dubbo.log&quot;/&gt;</code></pre>
 <p>以上配置 就是 为 服务提供者 添加 日志记录过滤器， 所有访问日志将会集中打印至 accesslog 当中。</p>
-<h2><span id="调用通信-内部实现原理">调用通信  内部实现原理</span></h2><p><img src="http://note.youdao.com/yws/res/9490/17E56F436154424BA5E8AAC97BD84B13" alt="image"></p>
+<h2 id="调用通信-内部实现原理"><a href="#调用通信-内部实现原理" class="headerlink" title="调用通信  内部实现原理"></a>调用通信  内部实现原理</h2><p><img src="http://note.youdao.com/yws/res/9490/17E56F436154424BA5E8AAC97BD84B13" alt="image"></p>
 <p><strong>IO模型：</strong></p>
 <ol>
 <li>BIO 同步阻塞</li>
@@ -444,7 +444,7 @@ r2 <span class="token operator">=</span> future2<span class="token punctuation">
 <li>缓存线程池</li>
 <li>有限线程池</li>
 </ol>
-<h3><span id="dubbo-长连接实现与配置"><strong>Dubbo 长连接实现与配置</strong></span></h3><p><strong>初始连接：</strong></p>
+<h3 id="Dubbo-长连接实现与配置"><a href="#Dubbo-长连接实现与配置" class="headerlink" title="Dubbo 长连接实现与配置"></a><strong>Dubbo 长连接实现与配置</strong></h3><p><strong>初始连接：</strong></p>
 <p>引用服务增加提供者 —&gt; 获取连接 –&gt; 是否获取共享连接 –&gt;创建连接客户端–&gt;开启心跳检测状态检查定时任务–&gt; 开启连接状态检测.</p>
 <blockquote>
 <p>com.alibaba.dubbo.rpc.protocol.dubbo.DubboProtocol#getClients</p>
@@ -461,7 +461,7 @@ r2 <span class="token operator">=</span> future2<span class="token punctuation">
 <blockquote>
 <p>com.alibaba.dubbo.remoting.transport.AbstractClient#close()</p>
 </blockquote>
-<h3><span id="dubbo-传输协作线程"><strong>Dubbo 传输协作线程</strong></span></h3><ol>
+<h3 id="Dubbo-传输协作线程"><a href="#Dubbo-传输协作线程" class="headerlink" title="Dubbo 传输协作线程"></a><strong>Dubbo 传输协作线程</strong></h3><ol>
 <li><strong>客户端调度线程</strong>：用于发起远程方法调用的线程。</li>
 <li><strong>客户端结果Exchange线程：</strong> 当远程方法返回response后由该线程填充至指定ResponseFuture，并叫醒等待的调度线程。</li>
 <li><strong>客户端IO线程</strong> 由传输框架实现，用于request 消息流发送、response 消息流读取与解码等操作。</li>
@@ -510,7 +510,7 @@ r2 <span class="token operator">=</span> future2<span class="token punctuation">
 <li><strong>cached：</strong> 缓存线程池,此线程池可伸缩，线程空闲一分钟后回收，新请求重新创建线程</li>
 <li><strong>Limited：</strong> 有限线程池,此线程池一直增长，直到上限，增长后不收缩。</li>
 </ol>
-<h2><span id="四-dubbo-协议">四、Dubbo 协议</span></h2><h3><span id="rpc-协议名词解释"><strong>RPC 协议名词解释</strong></span></h3><p>在一个典型RPC的使用场景中，包含了服务发现、负载、容错、网络传输、序列化等组件，其中RPC协议就指明了程序如何进行网络传输和序列化 。也就是说一个RPC协议的实现就等于一个非透明的远程调用实现，如何做到的的呢？</p>
+<h2 id="四、Dubbo-协议"><a href="#四、Dubbo-协议" class="headerlink" title="四、Dubbo 协议"></a>四、Dubbo 协议</h2><h3 id="RPC-协议名词解释"><a href="#RPC-协议名词解释" class="headerlink" title="RPC 协议名词解释"></a><strong>RPC 协议名词解释</strong></h3><p>在一个典型RPC的使用场景中，包含了服务发现、负载、容错、网络传输、序列化等组件，其中RPC协议就指明了程序如何进行网络传输和序列化 。也就是说一个RPC协议的实现就等于一个非透明的远程调用实现，如何做到的的呢？</p>
 <p><img src="http://note.youdao.com/yws/res/9510/AFE8EDF1A5B0427FA856137A2B9C6B12" alt="image"></p>
 <p><img src="http://note.youdao.com/yws/res/9512/35AAA35E698A442687702615820C1AD7" alt="image"></p>
 <ol>
@@ -520,7 +520,7 @@ r2 <span class="token operator">=</span> future2<span class="token punctuation">
 <li>序列化方式：将请求体序列化成对象<br><img src="http://note.youdao.com/yws/res/9516/A8AA0D50758B4D9BA51737391F3AE4CE" alt="image"></li>
 <li>运行服务: 网络传输实现<br><img src="http://note.youdao.com/yws/res/9514/3DC6FD7E7BFB4F4786B0CCD6A9BF87DA" alt="image"></li>
 </ol>
-<h3><span id="dubbo-支持的rpc协议">dubbo 支持的RPC协议</span></h3><p><img src="http://note.youdao.com/yws/res/9523/DC0DB69BE0F449DF870E40A1093A57CC" alt="image"></p>
+<h3 id="dubbo-支持的RPC协议"><a href="#dubbo-支持的RPC协议" class="headerlink" title="dubbo 支持的RPC协议"></a>dubbo 支持的RPC协议</h3><p><img src="http://note.youdao.com/yws/res/9523/DC0DB69BE0F449DF870E40A1093A57CC" alt="image"></p>
 <table>
 <thead>
 <tr>
@@ -562,7 +562,7 @@ r2 <span class="token operator">=</span> future2<span class="token punctuation">
 </tr>
 </tbody></table>
 <p><strong><em>关于RMI不支持防火墙穿透的补充说明：</em></strong><br>    原因在于RMI 底层实现中会有两个端口，一个是固定的用于服务发现的注册端口，另外会生成一个**<em>随机**</em>端口用于网络传输。因为这个随机端口就不能在防火墙中提前设置开放开。所以存在<em>防火墙穿透问题</em></p>
-<h3><span id="协议的使用与配置"><strong>协议的使用与配置:</strong></span></h3><p>Dubbo框架配置协议非常方便，用户只需要在 provider 应用中 配置*&lt;**dubbo:protocol&gt;*元素即可。</p>
+<h3 id="协议的使用与配置"><a href="#协议的使用与配置" class="headerlink" title="协议的使用与配置:"></a><strong>协议的使用与配置:</strong></h3><p>Dubbo框架配置协议非常方便，用户只需要在 provider 应用中 配置*&lt;**dubbo:protocol&gt;*元素即可。</p>
 <pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--
  name: 协议名称 dubbo|rmi|hessian|http|
 host:本机IP可不填，则系统自动获取
@@ -574,7 +574,7 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>protocol</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>dubbo<span class="token punctuation">"</span></span> <span class="token attr-name">host</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>192.168.0.11<span class="token punctuation">"</span></span> <span class="token attr-name">port</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>20880<span class="token punctuation">"</span></span> <span class="token attr-name">server</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>netty<span class="token punctuation">"</span></span>
  <span class="token attr-name">serialization</span><span class="token attr-value"><span class="token punctuation">=</span>“hessian2”</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span>“UTF-8”</span> <span class="token punctuation">/></span></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3><span id="dubbo-支持的序列化">dubbo 支持的序列化：</span></h3><table>
+<h3 id="dubbo-支持的序列化："><a href="#dubbo-支持的序列化：" class="headerlink" title="dubbo 支持的序列化："></a>dubbo 支持的序列化：</h3><table>
 <thead>
 <tr>
 <th align="left"></th>
@@ -610,7 +610,7 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 <td align="left">二进制型：体积比hessian2 还要小，但容错性 没有hessian2 好</td>
 </tr>
 </tbody></table>
-<h3><span id="hessian-序列化">Hessian 序列化</span></h3><ul>
+<h3 id="Hessian-序列化"><a href="#Hessian-序列化" class="headerlink" title="Hessian 序列化"></a>Hessian 序列化</h3><ul>
 <li>参数及返回值需实现 Serializable 接口</li>
 <li>参数及返回值不能自定义实现 List,Map,Number,Date,Calendar等接口，只能用 JDK 自带的实现，因为 hessian 会做特殊处理，自定义实现类中的属性值都会丢失。</li>
 <li>Hessian 序列化，只传成员属性值和值的类型，不传方法或静态变量，兼容情况 <a href="http://dubbo.apache.org/zh-cn/docs/user/references/protocol/dubbo.html#fn1">[1]</a><a href="http://dubbo.apache.org/zh-cn/docs/user/references/protocol/dubbo.html#fn2">[2]</a>：</li>
@@ -653,22 +653,22 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 <p>接口增加方法，对客户端无影响，如果该方法不是客户端需要的，客户端不需要重新部署。输入参数和结果集中增加属性，对客户端无影响，如果客户端并不需要新属性，不用重新部署。<br>输入参数和结果集属性名变化，对客户端序列化无影响，但是如果客户端不重新部署，不管输入还是输出，属性名变化的属性值是获取不到的。</p>
 </blockquote>
 <p>总结：服务器端和客户端对领域对象并不需要完全一致，而是按照最大匹配原则。</p>
-<h2><span id="五-rpc协议报文编码与实现详解">五、RPC协议报文编码与实现详解</span></h2><h3><span id="rpc-传输实现"><strong>RPC 传输实现：</strong></span></h3><p>RPC的协议的传输是基于 TCP/IP 做为基础使用Socket 或Netty、mina等网络编程组件实现。但有个问题是TCP是面向字节流的无边边界协议，其只管负责数据传输并不会区分每次请求所对应的消息，这样就会出现TCP协义传输当中的拆包与粘包问题</p>
-<h3><span id="拆包与粘包产生的原因"><strong>拆包与粘包产生的原因：</strong></span></h3><p>我们知道tcp是以流动的方式传输数据，传输的最小单位为一个报文段（segment）。tcp Header中有个Options标识位，常见的标识为mss(Maximum Segment Size)指的是，连接层每次传输的数据有个最大限制MTU(Maximum Transmission Unit)，一般是1500比特，超过这个量要分成多个报文段，mss则是这个最大限制减去TCP的header，光是要传输的数据的大小，一般为1460比特。换算成字节，也就是180多字节。</p>
+<h2 id="五、RPC协议报文编码与实现详解"><a href="#五、RPC协议报文编码与实现详解" class="headerlink" title="五、RPC协议报文编码与实现详解"></a>五、RPC协议报文编码与实现详解</h2><h3 id="RPC-传输实现："><a href="#RPC-传输实现：" class="headerlink" title="RPC 传输实现："></a><strong>RPC 传输实现：</strong></h3><p>RPC的协议的传输是基于 TCP/IP 做为基础使用Socket 或Netty、mina等网络编程组件实现。但有个问题是TCP是面向字节流的无边边界协议，其只管负责数据传输并不会区分每次请求所对应的消息，这样就会出现TCP协义传输当中的拆包与粘包问题</p>
+<h3 id="拆包与粘包产生的原因："><a href="#拆包与粘包产生的原因：" class="headerlink" title="拆包与粘包产生的原因："></a><strong>拆包与粘包产生的原因：</strong></h3><p>我们知道tcp是以流动的方式传输数据，传输的最小单位为一个报文段（segment）。tcp Header中有个Options标识位，常见的标识为mss(Maximum Segment Size)指的是，连接层每次传输的数据有个最大限制MTU(Maximum Transmission Unit)，一般是1500比特，超过这个量要分成多个报文段，mss则是这个最大限制减去TCP的header，光是要传输的数据的大小，一般为1460比特。换算成字节，也就是180多字节。</p>
 <p>tcp为提高性能，发送端会将需要发送的数据发送到缓冲区，等待缓冲区满了之后，再将缓冲中的数据发送到接收方。同理，接收方也有缓冲区这样的机制，来接收数据。这时就会出现以下情况：</p>
 <ol>
 <li>应用程序写入的数据大于MSS大小，这将会发生拆包。</li>
 <li>应用程序写入数据小于MSS大小，这将会发生粘包。</li>
 <li>接收方法不及时读取套接字缓冲区数据，这将发生粘包。</li>
 </ol>
-<h3><span id="拆包与粘包解决办法"><strong>拆包与粘包解决办法：</strong></span></h3><ol>
+<h3 id="拆包与粘包解决办法："><a href="#拆包与粘包解决办法：" class="headerlink" title="拆包与粘包解决办法："></a><strong>拆包与粘包解决办法：</strong></h3><ol>
 <li>设置定长消息，服务端每次读取既定长度的内容作为一条完整消息。</li>
 <li>{“type”:”message”,”content”:”hello”}\n</li>
 <li>使用带消息头的协议、消息头存储消息开始标识及消息长度信息，服务端获取消息头的时候解析出消息长度，然后向后读取该长度的内容。</li>
 </ol>
 <p><strong>比如：</strong> Http协议 heade 中的 Content-Length 就表示消息体的大小。</p>
 <p><img src="http://note.youdao.com/yws/res/9536/1627E3D71B36459393AAD1066002AFE6" alt="image"></p>
-<h3><span id="dubbo-协议报文编码">Dubbo 协议报文编码：</span></h3><p><strong>dubbo 协议报文编码：</strong></p>
+<h3 id="Dubbo-协议报文编码："><a href="#Dubbo-协议报文编码：" class="headerlink" title="Dubbo 协议报文编码："></a>Dubbo 协议报文编码：</h3><p><strong>dubbo 协议报文编码：</strong></p>
 <p><img src="http://note.youdao.com/yws/res/9538/25B9C2C5C20C46168D641144B2B6A07E" alt="image"></p>
 <ul>
 <li><strong>magic</strong>：类似java字节码文件里的魔数，用来判断是不是dubbo协议的数据包。魔数是常量0xdabb,用于判断报文的开始。</li>
@@ -824,7 +824,7 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="http://note.youdao.com/yws/res/9545/298139E160AA428486709FD4E1641C6A" alt="image"></p>
-<h2><span id="六-最后">六、最后</span></h2><ol>
+<h2 id="六、最后"><a href="#六、最后" class="headerlink" title="六、最后"></a>六、最后</h2><ol>
 <li>负载均衡：多个机器调用哪一台?<blockquote>
 <p>答：多种负载均衡策略。</p>
 </blockquote>
@@ -879,32 +879,32 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<h2><span id="一-redis-基础数据结构">一、Redis 基础数据结构</span></h2><p>Redis 有 5 种基础数据结构，分别为：string (字符串)、list (列表)、set (集合)、hash (哈希) 和 zset (有序集合)，下面就详细说说这几种数据结构。<br><img src="http://note.youdao.com/yws/res/9583/0A3FCFF09EFA4D6A8B1F6D5CCCF848A8" alt="image"></p>
-<h3><span id="列表list">列表（list）</span></h3><p>我们先来看列表。列表这种数据类型支持存储一组数据。这种数据类型对应两种实现方法，一种是压缩列表（ziplist），另一种是双向循环链表。当列表中存储的数据量比较小的时候，列表就可以采用压缩列表的方式实现。具体需要同时满足下面两个条件：</p>
+<h2 id="一、Redis-基础数据结构"><a href="#一、Redis-基础数据结构" class="headerlink" title="一、Redis 基础数据结构"></a>一、Redis 基础数据结构</h2><p>Redis 有 5 种基础数据结构，分别为：string (字符串)、list (列表)、set (集合)、hash (哈希) 和 zset (有序集合)，下面就详细说说这几种数据结构。<br><img src="http://note.youdao.com/yws/res/9583/0A3FCFF09EFA4D6A8B1F6D5CCCF848A8" alt="image"></p>
+<h3 id="列表（list）"><a href="#列表（list）" class="headerlink" title="列表（list）"></a>列表（list）</h3><p>我们先来看列表。列表这种数据类型支持存储一组数据。这种数据类型对应两种实现方法，一种是压缩列表（ziplist），另一种是双向循环链表。当列表中存储的数据量比较小的时候，列表就可以采用压缩列表的方式实现。具体需要同时满足下面两个条件：</p>
 <ol>
 <li>列表中保存的单个数据（有可能是字符串类型的）小于 64 字节；</li>
 <li>列表中数据个数少于 512 个。</li>
 </ol>
 <p>所谓压缩列表，它并不是基础数据结构，而是 Redis为了<strong>压缩内存和支持存储不同类型的数据</strong>， 自己设计的一种数据存储结构。它有点儿类似数组，通过一片连续的内存空间，来存储数据。不过，它跟数组不同的一点是，它允许存储的数据大小不同,由于分配的空间不同，所以不能通过地址索引随机访问。<br><img src="http://note.youdao.com/yws/res/9733/5909E6B696754BF0BD809353853E6B34" alt="image"><br>如果不能同时满足刚刚讲的两个条件的时候，列表就要通过双向循环链表来实现了。</p>
-<h3><span id="字典hash">字典（hash）</span></h3><p>典类型用来存储一组数据对。每个数据对又包含键值两部分。字典类型也有两种实现方式。一种是我们刚刚讲到的压缩列表，另一种是散列表。同样，只有当存储的数据量比较小的情况下，Redis 才使用压缩列表来实现字典类型。<br>具体需要满足两个条件：</p>
+<h3 id="字典（hash）"><a href="#字典（hash）" class="headerlink" title="字典（hash）"></a>字典（hash）</h3><p>典类型用来存储一组数据对。每个数据对又包含键值两部分。字典类型也有两种实现方式。一种是我们刚刚讲到的压缩列表，另一种是散列表。同样，只有当存储的数据量比较小的情况下，Redis 才使用压缩列表来实现字典类型。<br>具体需要满足两个条件：</p>
 <ol>
 <li>字典中保存的键和值的大小都要小于 64 字节；</li>
 <li>字典中键值对的个数要小于 512 个。</li>
 </ol>
 <p>当不能同时满足上面两个条件的时候 Redis 就使用散列表来实现字典类型。Redis 使用<strong>MurmurHash2</strong>这种运行速度快、随机性好的哈希算法作为哈希函数。对于哈希冲突问题，Redis 使用链表法来解决。除此之外，Redis 还支持散列表的动态扩容、缩容。</p>
-<h3><span id="集合set">集合（set）</span></h3><p>集合这种数据类型用来存储一组不重复的数据。这种数据类型也有两种实现方法，一种是基于有序数组，另一种是基于散列表。当要存储的数据，同时满足下面这样两个条件的时候，Redis 就采用有序数组，来实现集合这种数据类型。</p>
+<h3 id="集合（set）"><a href="#集合（set）" class="headerlink" title="集合（set）"></a>集合（set）</h3><p>集合这种数据类型用来存储一组不重复的数据。这种数据类型也有两种实现方法，一种是基于有序数组，另一种是基于散列表。当要存储的数据，同时满足下面这样两个条件的时候，Redis 就采用有序数组，来实现集合这种数据类型。</p>
 <ol>
 <li>存储的数据都是整数；</li>
 <li>存储的数据元素个数不超过 512个。</li>
 </ol>
 <p>当不能同时满足这两个条件的时候，Redis 就使用散列表来存储集合中的数据。</p>
-<h3><span id="有序集合sortedset">有序集合（sortedset）</span></h3><p>有序集合这种数据类型，它用来存储一组数据，并且每个数据会附带一个得分。通过得分的大小，进行数据结构组织。当数据量比较小的时候，Redis 会用压缩列表来实现有序集合。</p>
+<h3 id="有序集合（sortedset）"><a href="#有序集合（sortedset）" class="headerlink" title="有序集合（sortedset）"></a>有序集合（sortedset）</h3><p>有序集合这种数据类型，它用来存储一组数据，并且每个数据会附带一个得分。通过得分的大小，进行数据结构组织。当数据量比较小的时候，Redis 会用压缩列表来实现有序集合。</p>
 <ol>
 <li>所有数据的大小都要小于 64 字节；</li>
 <li>元素个数要小于 128 个。</li>
 </ol>
 <p>当两者都不满足时，会采用跳表这样的数据结构来存储。通过得分的大小，我们将数据组织成跳表这样的数据结构，以支持快速地按照得分值、得分区间获取数据。</p>
-<h2><span id="一些高级命令">一些高级命令</span></h2><ul>
+<h2 id="一些高级命令"><a href="#一些高级命令" class="headerlink" title="一些高级命令"></a>一些高级命令</h2><ul>
 <li>keys：全量遍历键，用来列出所有满足特定正则字符串规则的key，当redis数据量比较大时，性能比较差，要避免使用</li>
 </ul>
 <ul>
@@ -916,7 +916,7 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 </blockquote>
 </li>
 </ul>
-<h2><span id="二-线程模型核心原理">二、线程模型核心原理</span></h2><p>Redis的单线程和高性能</p>
+<h2 id="二、线程模型核心原理"><a href="#二、线程模型核心原理" class="headerlink" title="二、线程模型核心原理"></a>二、线程模型核心原理</h2><p>Redis的单线程和高性能</p>
 <p>Redis 单线程为什么还能这么快？</p>
 <blockquote>
 <p>因为它所有的数据都在内存中，所有的运算都是内存级别的运算，而且单线程避免了多线程的切换性能损耗问题。正因为 Redis 是单线程，所以要小心使用 Redis 指令，对于那些耗时的指令(比如keys)，一定要谨慎使用，一不小心就可能会导致 Redis 卡顿。 </p>
@@ -927,11 +927,11 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 </blockquote>
 <p>Nginx也是采用IO多路复用原理解决C10K问题</p>
 <p><img src="http://note.youdao.com/yws/res/9595/F5F6FED5FA534F7CA467AD6D634E8E49" alt="image"></p>
-<h2><span id="三-持久化">三、持久化</span></h2><h3><span id="rdb快照snapshot">RDB快照（snapshot）</span></h3><p>在默认情况下， Redis 将内存数据库快照保存在名字为 dump.rdb 的二进制文件中。<br>你可以对 Redis 进行设置， 让它在“N秒内数据集至少有 M 个改动”这一条件被满足时， 自动保存一次数据集。<br>比如说， 以下设置会让 Redis 在满足“ 60 秒内有至少有 1000 个键被改动”这一条件时， 自动保存一次数据集：</p>
+<h2 id="三、持久化"><a href="#三、持久化" class="headerlink" title="三、持久化"></a>三、持久化</h2><h3 id="RDB快照（snapshot）"><a href="#RDB快照（snapshot）" class="headerlink" title="RDB快照（snapshot）"></a>RDB快照（snapshot）</h3><p>在默认情况下， Redis 将内存数据库快照保存在名字为 dump.rdb 的二进制文件中。<br>你可以对 Redis 进行设置， 让它在“N秒内数据集至少有 M 个改动”这一条件被满足时， 自动保存一次数据集。<br>比如说， 以下设置会让 Redis 在满足“ 60 秒内有至少有 1000 个键被改动”这一条件时， 自动保存一次数据集：</p>
 <blockquote>
 <p> save 60 1000</p>
 </blockquote>
-<h3><span id="aofappend-only-file">AOF（append-only file）</span></h3><p>快照功能并不是非常耐久（durable）： 如果 Redis 因为某些原因而造成故障停机， 那么服务器将丢失最近写入、且仍未保存到快照中的那些数据。从 1.1 版本开始， Redis 增加了一种完全耐久的持久化方式： AOF 持久化，将修改的每一条指令记录进文件<br>你可以通过修改配置文件来打开 AOF 功能：</p>
+<h3 id="AOF（append-only-file）"><a href="#AOF（append-only-file）" class="headerlink" title="AOF（append-only file）"></a>AOF（append-only file）</h3><p>快照功能并不是非常耐久（durable）： 如果 Redis 因为某些原因而造成故障停机， 那么服务器将丢失最近写入、且仍未保存到快照中的那些数据。从 1.1 版本开始， Redis 增加了一种完全耐久的持久化方式： AOF 持久化，将修改的每一条指令记录进文件<br>你可以通过修改配置文件来打开 AOF 功能：</p>
 <blockquote>
 <p>appendonly yes</p>
 </blockquote>
@@ -942,15 +942,15 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 <li>每秒 fsync 一次：足够快（和使用 RDB 持久化差不多），并且在故障时只会丢失 1 秒钟的数据。</li>
 <li>从不 fsync ：将数据交给操作系统来处理。更快，也更不安全的选择。<br>推荐（并且也是默认）的措施为每秒 fsync一次， 这种 fsync 策略可以兼顾速度和安全性。 </li>
 </ol>
-<h3><span id="rdb-和-aof-我应该用哪一个">RDB 和 AOF ，我应该用哪一个？</span></h3><p>如果你非常关心你的数据， 但仍然可以承受数分钟以内的数据丢失， 那么你可以只使用 RDB 持久化。<br>有很多用户都只使用 AOF 持久化， 但我们并不推荐这种方式： 因为定时生成 RDB 快照（snapshot）非常便于进行数据库备份， 并且 RDB 恢复数据集的速度也要比 AOF 恢复的速度要快。</p>
-<h3><span id="redis-40-混合持久化">Redis 4.0 混合持久化</span></h3><p>重启 Redis 时，我们很少使用 rdb 来恢复内存状态，因为会丢失大量数据。我们通常使用 AOF 日志重放，但是重放 AOF 日志性能相对 rdb 来说要慢很多，这样在 Redis 实例很大的情况下，启动需要花费很长的时间。 Redis 4.0 为了解决这个问题，带来了一个新的持久化选项——混合持久化。AOF在重写(aof文件里可能有太多没用指令，所以aof会定期根据内存的最新数据生成aof文件)时将重写这一刻之前的内存rdb快照文件的内容和增量的 AOF修改内存数据的命令日志文件存在一起，都写入新的aof文件，新的文件一开始不叫appendonly.aof，等到重写完新的AOF文件才会进行改名，原子的覆盖原有的AOF文件，完成新旧两个AOF文件的替换；<br>AOF根据配置规则在后台自动重写，也可以人为执行命令bgrewriteaof重写AOF。 于是在 Redis 重启的时候，可以先加载 rdb 的内容，然后再重放增量 AOF 日志就可以完全替代之前的 AOF 全量文件重放，重启效率因此大幅得到提升。</p>
+<h3 id="RDB-和-AOF-，我应该用哪一个？"><a href="#RDB-和-AOF-，我应该用哪一个？" class="headerlink" title="RDB 和 AOF ，我应该用哪一个？"></a>RDB 和 AOF ，我应该用哪一个？</h3><p>如果你非常关心你的数据， 但仍然可以承受数分钟以内的数据丢失， 那么你可以只使用 RDB 持久化。<br>有很多用户都只使用 AOF 持久化， 但我们并不推荐这种方式： 因为定时生成 RDB 快照（snapshot）非常便于进行数据库备份， 并且 RDB 恢复数据集的速度也要比 AOF 恢复的速度要快。</p>
+<h3 id="Redis-4-0-混合持久化"><a href="#Redis-4-0-混合持久化" class="headerlink" title="Redis 4.0 混合持久化"></a>Redis 4.0 混合持久化</h3><p>重启 Redis 时，我们很少使用 rdb 来恢复内存状态，因为会丢失大量数据。我们通常使用 AOF 日志重放，但是重放 AOF 日志性能相对 rdb 来说要慢很多，这样在 Redis 实例很大的情况下，启动需要花费很长的时间。 Redis 4.0 为了解决这个问题，带来了一个新的持久化选项——混合持久化。AOF在重写(aof文件里可能有太多没用指令，所以aof会定期根据内存的最新数据生成aof文件)时将重写这一刻之前的内存rdb快照文件的内容和增量的 AOF修改内存数据的命令日志文件存在一起，都写入新的aof文件，新的文件一开始不叫appendonly.aof，等到重写完新的AOF文件才会进行改名，原子的覆盖原有的AOF文件，完成新旧两个AOF文件的替换；<br>AOF根据配置规则在后台自动重写，也可以人为执行命令bgrewriteaof重写AOF。 于是在 Redis 重启的时候，可以先加载 rdb 的内容，然后再重放增量 AOF 日志就可以完全替代之前的 AOF 全量文件重放，重启效率因此大幅得到提升。</p>
 <p>开启混合持久化：</p>
 <blockquote>
 <p>aof-use-rdb-preamble yes   </p>
 </blockquote>
 <p>混合持久化aof文件结构</p>
 <p><img src="http://note.youdao.com/yws/res/9610/00BB6062917B4FC4A6F72ADD90007BB4" alt="image"></p>
-<h2><span id="四-缓存淘汰策略">四、缓存淘汰策略</span></h2><p>当 Redis 内存超出物理内存限制时，内存的数据会开始和磁盘产生频繁的交换 (swap)。交换会让 Redis 的性能急剧下降，对于访问量比较频繁的 Redis 来说，这样龟速的存取效率基本上等于不可用。<br>在生产环境中我们是不允许 Redis 出现交换行为的，为了限制最大使用内存，Redis 提供了配置参数 maxmemory 来限制内存超出期望大小。<br>当实际内存超出 maxmemory 时，Redis 提供了几种可选策略 (maxmemory-policy) 来让用户自己决定该如何腾出新的空间以继续提供读写服务。</p>
+<h2 id="四、缓存淘汰策略"><a href="#四、缓存淘汰策略" class="headerlink" title="四、缓存淘汰策略"></a>四、缓存淘汰策略</h2><p>当 Redis 内存超出物理内存限制时，内存的数据会开始和磁盘产生频繁的交换 (swap)。交换会让 Redis 的性能急剧下降，对于访问量比较频繁的 Redis 来说，这样龟速的存取效率基本上等于不可用。<br>在生产环境中我们是不允许 Redis 出现交换行为的，为了限制最大使用内存，Redis 提供了配置参数 maxmemory 来限制内存超出期望大小。<br>当实际内存超出 maxmemory 时，Redis 提供了几种可选策略 (maxmemory-policy) 来让用户自己决定该如何腾出新的空间以继续提供读写服务。</p>
 <ul>
 <li>noeviction 不会继续服务写请求 (DEL 请求可以继续服务)，读请求可以继续进行。这样可以保证不会丢失数据，但是会让线上的业务不能持续进行。这是默认的淘汰策略。</li>
 <li>volatile-lru 尝试淘汰设置了过期时间的 key，最少使用的 key 优先被淘汰。没有设置过期时间的 key 不会被淘汰，这样可以保证需要持久化的数据不会突然丢失。</li>
@@ -962,7 +962,7 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 <blockquote>
 <p>volatile-xxx 策略只会针对带过期时间的 key 进行淘汰，allkeys-xxx 策略会对所有的 key 进行淘汰。如果你只是拿 Redis 做缓存，那应该使用 allkeys-xxx，客户端写缓存时不必携带过期时间。如果你还想同时使用 Redis 的持久化功能，那就使用 volatile-xxx 策略，这样可以保留没有设置过期时间的 key，它们是永久的 key 不会被 LRU 算法淘汰。</p>
 </blockquote>
-<h2><span id="五-redis集群原理分析">五、Redis集群原理分析</span></h2><p>redis cluster 是 redis 分布式集群解决方案，从 3.0 之后推出解决 redis 分布式方面需求，实现数据分片、故障转移、扩容所容机制等。</p>
+<h2 id="五、Redis集群原理分析"><a href="#五、Redis集群原理分析" class="headerlink" title="五、Redis集群原理分析"></a>五、Redis集群原理分析</h2><p>redis cluster 是 redis 分布式集群解决方案，从 3.0 之后推出解决 redis 分布式方面需求，实现数据分片、故障转移、扩容所容机制等。</p>
 <p><img src="http://note.youdao.com/yws/res/9642/7EDE606229F6415BBA9A4C7A9FB975FB" alt="image"></p>
 <p>Redis Cluster 将所有数据划分为 16384 的 slots(槽位)，每个节点负责其中一部分槽 位。槽位的信息存储于每个节点中。 当 Redis Cluster 的客户端来连接集群时，它也会得到一份集群的槽位配置信息并将 其缓存在客户端本地。这样当客户端要查找某个 key 时，可以直接定位到目标节点。 同时因为槽位的信息可能会存在客户端与服务器不一致的情况，还需要纠正机制来实 现槽位信息的校验调整。</p>
 <ul>
@@ -971,7 +971,7 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 </blockquote>
 </li>
 </ul>
-<h3><span id="槽位定位算法">槽位定位算法</span></h3><p>槽位定位算法 也就是常说的 一致性Hash算法<br>Cluster 默认会对 key 值使用 crc16 算法进行 hash 得到一个整数值，然后用这个整 数值对 16384 进行取模来得到具体槽位。 HASH_SLOT = CRC16(key) mod 16384</p>
+<h3 id="槽位定位算法"><a href="#槽位定位算法" class="headerlink" title="槽位定位算法"></a>槽位定位算法</h3><p>槽位定位算法 也就是常说的 一致性Hash算法<br>Cluster 默认会对 key 值使用 crc16 算法进行 hash 得到一个整数值，然后用这个整 数值对 16384 进行取模来得到具体槽位。 HASH_SLOT = CRC16(key) mod 16384</p>
 <ul>
 <li>那么增加了slot槽的计算,是不是比单机性能差?<blockquote>
 <p>共16384个槽, slots槽计算方式公开的,<br>为了避免每次都需要服务器计算重定向,优秀的java客户端都实现了本地计算,并且缓存服务器slots分配,有变动时再更新本地内容,从而避免了多次重定向带来的性能损耗</p>
@@ -988,7 +988,7 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 </blockquote>
 </li>
 </ul>
-<h3><span id="跳转重定位">跳转重定位</span></h3><p>当客户端向一个错误的节点发出了指令，该节点会发现指令的 key 所在的槽位并不归 自己管理，这时它会向客户端发送一个特殊的跳转指令携带目标操作的节点地址，告 诉客户端去连这个节点去获取数据。客户端收到指令后除了跳转到正确的节点上去操 作，还会同步更新纠正本地的槽位映射表缓存，后续所有 key 将使用新的槽位映射 表。</p>
+<h3 id="跳转重定位"><a href="#跳转重定位" class="headerlink" title="跳转重定位"></a>跳转重定位</h3><p>当客户端向一个错误的节点发出了指令，该节点会发现指令的 key 所在的槽位并不归 自己管理，这时它会向客户端发送一个特殊的跳转指令携带目标操作的节点地址，告 诉客户端去连这个节点去获取数据。客户端收到指令后除了跳转到正确的节点上去操 作，还会同步更新纠正本地的槽位映射表缓存，后续所有 key 将使用新的槽位映射 表。</p>
 <p><img src="http://note.youdao.com/yws/res/9620/F13207F13DBB421EAD5B865697A65B79" alt="image"></p>
 <ul>
 <li>ask和moved重定向的区别<blockquote>
@@ -996,8 +996,8 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 </blockquote>
 </li>
 </ul>
-<h3><span id="网络抖动">网络抖动</span></h3><p>真实世界的机房网络往往并不是风平浪静的，它们经常会发生各种各样的小问题。比 如网络抖动就是非常常见的一种现象，突然之间部分连接变得不可访问，然后很快又 恢复正常。 为解决这种问题，Redis Cluster 提供了一种选项cluster node timeout，表示当某 个节点持续 timeout 的时间失联时，才可以认定该节点出现故障，需要进行主从切 换。如果没有这个选项，网络抖动会导致主从频繁切换 (数据的重新复制)。</p>
-<h3><span id="主从切换-选举原理">主从切换 选举原理</span></h3><p>Redis 集群使用一个类似于木筏算法（Raft algorithm）概念。如果没有了解过可以看看这个  <a href="http://thesecretlivesofdata.com/raft/">Raft</a>, 在 Redis 集群中这个术语叫做 阶段（epoch）。</p>
+<h3 id="网络抖动"><a href="#网络抖动" class="headerlink" title="网络抖动"></a>网络抖动</h3><p>真实世界的机房网络往往并不是风平浪静的，它们经常会发生各种各样的小问题。比 如网络抖动就是非常常见的一种现象，突然之间部分连接变得不可访问，然后很快又 恢复正常。 为解决这种问题，Redis Cluster 提供了一种选项cluster node timeout，表示当某 个节点持续 timeout 的时间失联时，才可以认定该节点出现故障，需要进行主从切 换。如果没有这个选项，网络抖动会导致主从频繁切换 (数据的重新复制)。</p>
+<h3 id="主从切换-选举原理"><a href="#主从切换-选举原理" class="headerlink" title="主从切换 选举原理"></a>主从切换 选举原理</h3><p>Redis 集群使用一个类似于木筏算法（Raft algorithm）概念。如果没有了解过可以看看这个  <a href="http://thesecretlivesofdata.com/raft/">Raft</a>, 在 Redis 集群中这个术语叫做 阶段（epoch）。</p>
 <p>Redis 集群中的每个节点，包括主节点和从节点，都在创建的时候设置了 currentEpoch 为0。每次主从选举之后 Epoch 会相应的加 1。如果出现脑裂的情况，其他主节点只认 epoch 最大的那个。</p>
 <p>Redis集群选举原理分析当 slave 发现自己的 master 变为FAIL状态时，便尝试进行 Failover，以期成为新的 master。由于挂掉的master 可能会有多个 slave，从而存在多个 slave 竞争成为 master节点的过程， 其过程如下：</p>
 <ol>
@@ -1016,8 +1016,8 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 </li>
 <li>SLAVE_RANK 表示此slave已经从master复制数据的总量的rank。Rank越小代表已复制的数据越新。这种方式下，持有最新数据的slave将会首先发起选举（理论上）。</li>
 </ul>
-<h2><span id="发布订阅机制">发布订阅机制</span></h2><p>发布/订阅（Publish/Subscribe）<br>在一个 Redis 集群中，客户端能订阅任何一个节点，也能发布消息给任何一个节点。集群会确保发布的消息都会按需进行转发。 目前的实现方式是单纯地向所有节点广播所有的发布消息，在将来的实现中会用 bloom filters 或其他算法来优化。</p>
-<h2><span id="参考">参考</span></h2><ul>
+<h2 id="发布订阅机制"><a href="#发布订阅机制" class="headerlink" title="发布订阅机制"></a>发布订阅机制</h2><p>发布/订阅（Publish/Subscribe）<br>在一个 Redis 集群中，客户端能订阅任何一个节点，也能发布消息给任何一个节点。集群会确保发布的消息都会按需进行转发。 目前的实现方式是单纯地向所有节点广播所有的发布消息，在将来的实现中会用 bloom filters 或其他算法来优化。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="http://redis.cn/topics/cluster-tutorial.html">Redis 集群教程</a></li>
 <li>数据结构与算法</li>
 </ul>
@@ -1045,13 +1045,13 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 
 
 <p>[TOC]</p>
-<h1><span id="1-环境信息">1、 环境信息</span></h1><pre class="line-numbers language-bash"><code class="language-bash">centos7
+<h1 id="1、-环境信息"><a href="#1、-环境信息" class="headerlink" title="1、 环境信息"></a>1、 环境信息</h1><pre class="line-numbers language-bash"><code class="language-bash">centos7
 redis5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h1><span id="2-整体集群信息">2、整体集群信息</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 以直接在一台机器上实现上述的伪集群，因为端口号特意设置为不同的。</span>
+<h1 id="2、整体集群信息"><a href="#2、整体集群信息" class="headerlink" title="2、整体集群信息"></a>2、整体集群信息</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 以直接在一台机器上实现上述的伪集群，因为端口号特意设置为不同的。</span>
 <span class="token comment" spellcheck="true"># 重点：不论机器多少，对于部署过程都是一样的，只不过是在不同机器启动redis-server而已</span>
 192.168.100.242 <span class="token punctuation">(</span>6381- 6386共6个端口）
 <span class="token comment" spellcheck="true"># 注意事项：如果你的服务器有多个IP，那你操作下面步骤时，尽量使用你的客户端能够访问的IP</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="3-每台服务器上面都要下载安装">3、每台服务器上面都要下载安装</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">wget</span> http://download.redis.io/releases/redis-5.0.3.tar.gz
+<h1 id="3、每台服务器上面都要下载安装"><a href="#3、每台服务器上面都要下载安装" class="headerlink" title="3、每台服务器上面都要下载安装"></a>3、每台服务器上面都要下载安装</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">wget</span> http://download.redis.io/releases/redis-5.0.3.tar.gz
 <span class="token function">tar</span> -zxvf redis-5.0.3.tar.gz
 <span class="token function">cd</span> redis-5.0.3 
 <span class="token function">make</span>
@@ -1060,7 +1060,7 @@ redis5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></sp
 
 <span class="token comment" spellcheck="true"># 创建配置文件和data存放目录</span>
 <span class="token function">mkdir</span> /usr/local/redis/conf /usr/local/redis/data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="4-准备6个redisconf配置文件为了方便学习redisconf根据不同端口来命名方便一台机器上构建伪集群">4、准备6个redis.conf配置文件（为了方便学习，redis.conf根据不同端口来命名，方便一台机器上构建伪集群）</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 配置文件进行了精简，完整配置可自行和官方提供的完整conf文件进行对照。端口号自行对应修改</span>
+<h1 id="4、准备6个redis-conf配置文件（为了方便学习，redis-conf根据不同端口来命名，方便一台机器上构建伪集群）"><a href="#4、准备6个redis-conf配置文件（为了方便学习，redis-conf根据不同端口来命名，方便一台机器上构建伪集群）" class="headerlink" title="4、准备6个redis.conf配置文件（为了方便学习，redis.conf根据不同端口来命名，方便一台机器上构建伪集群）"></a>4、准备6个redis.conf配置文件（为了方便学习，redis.conf根据不同端口来命名，方便一台机器上构建伪集群）</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 配置文件进行了精简，完整配置可自行和官方提供的完整conf文件进行对照。端口号自行对应修改</span>
 <span class="token comment" spellcheck="true">#后台启动的意思</span>
 daemonize <span class="token function">yes</span> 
  <span class="token comment" spellcheck="true">#端口号</span>
@@ -1078,14 +1078,14 @@ cluster-config-file nodes-6381.conf
 cluster-node-timeout 5000
 <span class="token comment" spellcheck="true"># 这个文件会自动生成</span>
 pidfile /var/run/redis_6381.pid <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="5-启动6个redis实例">5、启动6个Redis实例</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 一定要注意每个配置文件中的端口号哦</span>
+<h1 id="5、启动6个Redis实例"><a href="#5、启动6个Redis实例" class="headerlink" title="5、启动6个Redis实例"></a>5、启动6个Redis实例</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 一定要注意每个配置文件中的端口号哦</span>
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/6381.conf
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/6382.conf
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/6383.conf
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/6384.conf
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/6385.conf
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/6386.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="6-创建cluster">6、 创建cluster</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 5.0版本的方式</span>
+<h1 id="6、-创建cluster"><a href="#6、-创建cluster" class="headerlink" title="6、 创建cluster"></a>6、 创建cluster</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 5.0版本的方式</span>
 /usr/local/redis/bin/redis-cli --cluster create 192.168.100.242:6381 192.168.100.242:6382 \
 192.168.100.242:6383 192.168.100.242:6384 192.168.100.242:6385 192.168.100.242:6386 \
 --cluster-replicas 1
@@ -1143,7 +1143,7 @@ S: 42806ad3f740f639ec321b78ea492c42a4040176 192.168.100.242:6386
 <span class="token operator">>></span><span class="token operator">></span> Check <span class="token keyword">for</span> <span class="token function">open</span> slots<span class="token punctuation">..</span>.
 <span class="token operator">>></span><span class="token operator">></span> Check slots coverage<span class="token punctuation">..</span>.
 <span class="token punctuation">[</span>OK<span class="token punctuation">]</span> All 16384 slots covered.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="7-集群检验和测试">7、 集群检验和测试</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 检查集群，查看所有节点信息</span>
+<h1 id="7、-集群检验和测试"><a href="#7、-集群检验和测试" class="headerlink" title="7、 集群检验和测试"></a>7、 集群检验和测试</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 检查集群，查看所有节点信息</span>
 /usr/local/redis/bin/redis-cli -c -h 192.168.100.242 -p 6381 cluster nodes
 <span class="token comment" spellcheck="true"># 执行后的信息</span>
 <span class="token punctuation">[</span>root@node3 redis<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># /usr/local/redis/bin/redis-cli -c -h 192.168.100.242 -p 6381 cluster nodes</span>
@@ -1174,7 +1174,7 @@ OK
 
 <span class="token comment" spellcheck="true"># 查看一个key属于哪一个节点</span>
 CLUSTER KEYSLOT key<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="8-集群slot数量整理-reshard">8、集群slot数量整理 reshard</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#  /usr/local/redis/bin/redis-cli --cluster help 可以查看所有这个命令和子命令的帮助信息</span>
+<h1 id="8、集群slot数量整理-reshard"><a href="#8、集群slot数量整理-reshard" class="headerlink" title="8、集群slot数量整理 reshard"></a>8、集群slot数量整理 reshard</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true">#  /usr/local/redis/bin/redis-cli --cluster help 可以查看所有这个命令和子命令的帮助信息</span>
 
 <span class="token comment" spellcheck="true"># 默认是master平均分了0-16383的所有虚拟slot</span>
 <span class="token comment" spellcheck="true"># 可以进行调整，部分节点放多一点slot(槽或者位置)。</span>
@@ -1210,17 +1210,17 @@ M: 68326caa0238cb877afc3e6df23eb92558fcbc3c 192.168.100.242:6381
 <span class="token operator">>></span><span class="token operator">></span> Check <span class="token keyword">for</span> <span class="token function">open</span> slots<span class="token punctuation">..</span>.
 <span class="token operator">>></span><span class="token operator">></span> Check slots coverage<span class="token punctuation">..</span>.
 <span class="token punctuation">[</span>OK<span class="token punctuation">]</span> All 16384 slots covered.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="9-测试自动故障转移">9、 测试自动故障转移</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># cluster集群不保证数据一致，数据也可能丢失</span>
+<h1 id="9、-测试自动故障转移"><a href="#9、-测试自动故障转移" class="headerlink" title="9、 测试自动故障转移"></a>9、 测试自动故障转移</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># cluster集群不保证数据一致，数据也可能丢失</span>
 <span class="token comment" spellcheck="true"># 首先是运行客户端不断的写入或读取数据，以便能够发现问题</span>
 <span class="token comment" spellcheck="true"># 然后是模拟节点故障：找一个主节点关闭，主从故障切换的过程中，这个时间端的操作，客户端而言，只能是失败</span>
 <span class="token comment" spellcheck="true"># 官方描述 https://redis.io/topics/cluster-spec  </span>
 There is always a window of <span class="token function">time</span> when it is possible to lose writes during partitions.
 分区的时间窗口内总是有可能丢失写操作。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="10-手动故障转移">10、手动故障转移</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 可能某个节点需要维护（机器下线、硬件升级、系统版本调整等等场景），需要手动的实现转移</span>
+<h1 id="10、手动故障转移"><a href="#10、手动故障转移" class="headerlink" title="10、手动故障转移"></a>10、手动故障转移</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 可能某个节点需要维护（机器下线、硬件升级、系统版本调整等等场景），需要手动的实现转移</span>
 <span class="token comment" spellcheck="true"># 在slave节点上执行命令</span>
 CLUSTER FAILOVER 
 <span class="token comment" spellcheck="true"># 注：CLUSTER  help 可以看到帮助文档和简介。 相对安全的做法</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="11-扩容">11、扩容</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、 启动新节点</span>
+<h1 id="11、扩容"><a href="#11、扩容" class="headerlink" title="11、扩容"></a>11、扩容</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、 启动新节点</span>
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/6387.conf
 
 <span class="token comment" spellcheck="true"># 2、 加入到已经存在的集群作为master</span>
@@ -1237,9 +1237,9 @@ cluster replicate <span class="token operator">&lt;</span>master-node-id<span cl
 
 <span class="token comment" spellcheck="true"># 4、 检查集群</span>
 /usr/local/redis/bin/redis-cli --cluster check 192.168.100.242:6382<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="12-缩容删除节点">12、缩容（删除节点）</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 注意：删除master的时候要把数据清空或者分配给其他主节点</span>
+<h1 id="12、缩容（删除节点）"><a href="#12、缩容（删除节点）" class="headerlink" title="12、缩容（删除节点）"></a>12、缩容（删除节点）</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 注意：删除master的时候要把数据清空或者分配给其他主节点</span>
 /usr/local/redis/bin/redis-cli --cluster del-node 192.168.100.242:6381 <span class="token operator">&lt;</span>node-id<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h1><span id="13-关心的问题">13、关心的问题</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、 增加了slot槽的计算，是不是比单机性能差？</span>
+<h1 id="13、关心的问题"><a href="#13、关心的问题" class="headerlink" title="13、关心的问题"></a>13、关心的问题</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、 增加了slot槽的计算，是不是比单机性能差？</span>
 共16384个槽，slots槽计算方式公开的，java客户端中就使用了：HASH_SLOT <span class="token operator">=</span> CRC16<span class="token punctuation">(</span>key<span class="token punctuation">)</span> mod 16384
 为了避免每次都需要服务器计算重定向，优秀的java客户端都实现了本地计算，和服务器slots分配进行映射，有变动时再更新本地内容。
 
@@ -1288,7 +1288,7 @@ MEET <span class="token operator">&lt;</span>ip<span class="token operator">></s
 
 
 <p> [TOC]</p>
-<h1><span id="redis下载安装">Redis下载安装</span></h1><pre class="line-numbers language-bash"><code class="language-bash">下载redis
+<h1 id="Redis下载安装"><a href="#Redis下载安装" class="headerlink" title="Redis下载安装"></a>Redis下载安装</h1><pre class="line-numbers language-bash"><code class="language-bash">下载redis
 https://redis.io/download
 <span class="token comment" spellcheck="true"># 下载</span>
 <span class="token function">wget</span> http://download.redis.io/releases/redis-5.0.3.tar.gz
@@ -1319,7 +1319,7 @@ sysctl vm.overcommit_memory<span class="token operator">=</span>1
 
 <span class="token comment" spellcheck="true"># 云服务器要注意ip要写对，端口要开放</span>
 <span class="token comment" spellcheck="true"># 虚拟机要注意防火墙要关闭 systemctl stop firewalld.service</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="准备配置文件">准备配置文件</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 配置文件进行了精简，完整配置可自行和官方提供的完整conf文件进行对照。端口号自行对应修改</span>
+<h1 id="准备配置文件"><a href="#准备配置文件" class="headerlink" title="准备配置文件"></a>准备配置文件</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 配置文件进行了精简，完整配置可自行和官方提供的完整conf文件进行对照。端口号自行对应修改</span>
 <span class="token comment" spellcheck="true">#后台启动的意思</span>
 daemonize <span class="token function">yes</span> 
  <span class="token comment" spellcheck="true">#端口号(如果同一台服务器上启动，注意要修改为不同的端口)</span>
@@ -1328,7 +1328,7 @@ port 6380
 bind 0.0.0.0
 <span class="token comment" spellcheck="true"># 这个文件会自动生成(如果同一台服务器上启动，注意要修改为不同的端口)</span>
 pidfile /var/run/redis_6380.pid <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="准备三个redis服务">准备三个redis服务</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、启动三个Redis</span>
+<h1 id="准备三个redis服务"><a href="#准备三个redis服务" class="headerlink" title="准备三个redis服务"></a>准备三个redis服务</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、启动三个Redis</span>
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/redis-6380.conf
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/redis-6381.conf
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/redis-6382.conf
@@ -1340,7 +1340,7 @@ pidfile /var/run/redis_6380.pid <span aria-hidden="true" class="line-numbers-row
 <span class="token comment" spellcheck="true"># 3、检查集群</span>
 /usr/local/redis/bin/redis-cli -p 6380 info Replication
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="准备哨兵配置文件">准备哨兵配置文件</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 配置文件：sentinel.conf，在sentinel运行期间是会被动态修改的</span>
+<h1 id="准备哨兵配置文件"><a href="#准备哨兵配置文件" class="headerlink" title="准备哨兵配置文件"></a>准备哨兵配置文件</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 配置文件：sentinel.conf，在sentinel运行期间是会被动态修改的</span>
 <span class="token comment" spellcheck="true"># sentinel如果重启时，根据这个配置来恢复其之前所监控的redis集群的状态</span>
 <span class="token comment" spellcheck="true"># 绑定IP</span>
 bind 0.0.0.0
@@ -1365,10 +1365,10 @@ sentinel down-after-milliseconds mymaster 1000
 sentinel failover-timeout mymaster 3000
 <span class="token comment" spellcheck="true"># 指定了在执行故障转移时，最多可以有多少个从Redis实例在同步新的主实例，在从Redis实例较多的情况下这个数字越小，同步的时间越长，完成故障转移所需的时间就越长</span>
 sentinel parallel-syncs mymaster 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="启动哨兵集群">启动哨兵集群</span></h1><pre class="line-numbers language-bash"><code class="language-bash">/usr/local/redis/bin/redis-server /usr/local/redis/conf/sentinel-26380.conf --sentinel
+<h1 id="启动哨兵集群"><a href="#启动哨兵集群" class="headerlink" title="启动哨兵集群"></a>启动哨兵集群</h1><pre class="line-numbers language-bash"><code class="language-bash">/usr/local/redis/bin/redis-server /usr/local/redis/conf/sentinel-26380.conf --sentinel
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/sentinel-26381.conf --sentinel
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/sentinel-26382.conf --sentinel<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h1><span id="测试">测试</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 停掉master，主从切换过程</span>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 停掉master，主从切换过程</span>
 启动哨兵<span class="token punctuation">(</span>客户端通过哨兵发现Redis实例信息<span class="token punctuation">)</span>
 哨兵通过连接master发现主从集群内的所有实例信息
 哨兵监控redis实例的健康状况
@@ -1377,7 +1377,7 @@ sentinel parallel-syncs mymaster 1<span aria-hidden="true" class="line-numbers-r
 选举一个哨兵作为故障转移的执行者
 执行者在slave中选取一个作为新的master
 将其他slave重新设定为新master的从属<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="哨兵同步pubsub机制发出来的消息">哨兵同步pubsub机制发出来的消息</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># https://redis.io/topics/sentinel#pubsub-messages</span>
+<h1 id="哨兵同步pubsub机制发出来的消息"><a href="#哨兵同步pubsub机制发出来的消息" class="headerlink" title="哨兵同步pubsub机制发出来的消息"></a>哨兵同步pubsub机制发出来的消息</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># https://redis.io/topics/sentinel#pubsub-messages</span>
 +reset-master <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 当master被重置时.
 +slave <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 当检测到一个slave并添加进slave列表时.
 +failover-state-reconf-slaves <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- Failover状态变为reconf-slaves状态时
@@ -1408,7 +1408,7 @@ failover-end <span class="token operator">&lt;</span>instance details<span class
 switch-master <span class="token operator">&lt;</span>master name<span class="token operator">></span> <span class="token operator">&lt;</span>oldip<span class="token operator">></span> <span class="token operator">&lt;</span>oldport<span class="token operator">></span> <span class="token operator">&lt;</span>newip<span class="token operator">></span> <span class="token operator">&lt;</span>newport<span class="token operator">></span> -- 当master的地址发生变化时。通常这是客户端最感兴趣的消息了。
 +tilt -- 进入Tilt模式。
 -tilt -- 退出Tilt模式。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="哨兵日志分析">哨兵日志分析</span></h1><pre class="line-numbers language-bash"><code class="language-bash">sdow <span class="token punctuation">(</span>sdown subjectively down<span class="token punctuation">)</span>
+<h1 id="哨兵日志分析"><a href="#哨兵日志分析" class="headerlink" title="哨兵日志分析"></a>哨兵日志分析</h1><pre class="line-numbers language-bash"><code class="language-bash">sdow <span class="token punctuation">(</span>sdown subjectively down<span class="token punctuation">)</span>
 odown <span class="token punctuation">(</span>objectively down<span class="token punctuation">)</span>
 <span class="token comment" spellcheck="true"># 通过日志逐步分析</span>
 996:X 23 Nov 01:00:30.020 <span class="token comment" spellcheck="true"># +sdown master mymaster 60.205.209.106 6381</span>
@@ -1475,7 +1475,7 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
-<h2><span id="背景">背景</span></h2><p>在一般情况下，作为 Java 开发，如果事先在 Idea 或者 Eclipse中配置模版。在创建一个新类时，会自动生成 头部注释信息，比如下面这种。</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在一般情况下，作为 Java 开发，如果事先在 Idea 或者 Eclipse中配置模版。在创建一个新类时，会自动生成 头部注释信息，比如下面这种。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  *
  * @author name
@@ -1483,10 +1483,10 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
  */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如果没有在 Idea 或 Eclipse 配置模版，需要手动插入。文件少还好，文件多的话那就mmp了。特别是历史遗留问题，有很多类文件没有加头部注释且编译时又做了代码检查，领导又让你加的时候。<br>事实上本人就碰到了这个问题，大概两三百个文件。</p>
 <p>如果你属于上面的情况，那恭喜你。</p>
-<h2><span id="环境要求">环境要求</span></h2><blockquote>
+<h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><blockquote>
 <p>python3</p>
 </blockquote>
-<h2><span id="使用方法">使用方法</span></h2><ol>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><ol>
 <li><p>拷贝py脚本到对应文件</p>
 </li>
 <li><p>执行以下命令</p>
@@ -1496,17 +1496,17 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 <blockquote>
 <p>如：<code>python3 addAnnotation.py brokge </code><br>${authornName}  默认值为 <code>yusuzi</code> </p>
 </blockquote>
-<h2><span id="说明">说明</span></h2><blockquote>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><blockquote>
 <p>只处理脚本所在目录以下目录和文件 且后缀为 <code>.java</code> 文件 文件<br>如果存在 <code>@author</code> 或 <code>Created by xxx</code> 不处理</p>
 </blockquote>
-<h2><span id="支持的注释残缺类型">支持的注释残缺类型</span></h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">aa</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="支持的注释残缺类型"><a href="#支持的注释残缺类型" class="headerlink" title="支持的注释残缺类型"></a>支持的注释残缺类型</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">aa</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@xxxx</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">aa</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * 这是个测试类
  */</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">aa</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="addannotationpy-代码">addAnnotation.py 代码</span></h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true">#!usr/bin/python3</span>
+<h2 id="addAnnotation-py-代码"><a href="#addAnnotation-py-代码" class="headerlink" title="addAnnotation.py 代码"></a>addAnnotation.py 代码</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true">#!usr/bin/python3</span>
 <span class="token comment" spellcheck="true"># -*- coding:UTF-8 -*-</span>
 <span class="token keyword">import</span> pickle
 <span class="token keyword">import</span> pprint
@@ -1674,8 +1674,8 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 
 
 
-<h2><span id="一-zookeeper-简介">一、Zookeeper 简介</span></h2><p>Zookeeper 是一个开源的分布式应用程序协调服务器，是 Hadoop 的重要组件。<br>ZooKeeper 是一个分布式的，开放源码的分布式应用程序协调服务器，是 Google 的<br>Chubby 一个开源的实现，是 Hadoop 和 Hbase 的重要组件。它是一个为分布式应用提供<strong>一致<br>性</strong>服务的软件，提供的功能包括：<strong>配置维护、域名服务、分布式同步、集群管理等</strong>。ZooKeeper<br>的目标就是封装复杂易出错的关键服务，将简单易用的接口和性能高效、功能稳定的系统提供给用户。</p>
-<h3><span id="zk-的一特性">ZK 的一特性</span></h3><ul>
+<h2 id="一、Zookeeper-简介"><a href="#一、Zookeeper-简介" class="headerlink" title="一、Zookeeper 简介"></a>一、Zookeeper 简介</h2><p>Zookeeper 是一个开源的分布式应用程序协调服务器，是 Hadoop 的重要组件。<br>ZooKeeper 是一个分布式的，开放源码的分布式应用程序协调服务器，是 Google 的<br>Chubby 一个开源的实现，是 Hadoop 和 Hbase 的重要组件。它是一个为分布式应用提供<strong>一致<br>性</strong>服务的软件，提供的功能包括：<strong>配置维护、域名服务、分布式同步、集群管理等</strong>。ZooKeeper<br>的目标就是封装复杂易出错的关键服务，将简单易用的接口和性能高效、功能稳定的系统提供给用户。</p>
+<h3 id="ZK-的一特性"><a href="#ZK-的一特性" class="headerlink" title="ZK 的一特性"></a>ZK 的一特性</h3><ul>
 <li><strong>顺序一致性</strong><br>从同一客户端发起的多个事务请求（写操作请求），最终会严格按照发起顺序存储到 zk中。</li>
 <li><strong>原子性</strong><br>所有的事务请求结果，在集群中所有 Server 上的应用情况是一致的，要么全部成功要么都不成功，不会出现部分成功，部分失败的情况。</li>
 <li><strong>单一视图</strong><br>无论客户端连接集群中的任意服务器，其读取到的数据模型都是一致的。</li>
@@ -1683,11 +1683,11 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 <li><strong>最终一致性</strong><br>zk 可以保证在一段较短的时间内，客户端最终一定能够从服务端读取到最新的数据。但不保证实时性。</li>
 </ul>
 <p>以上特性 则由 zab 协议保证，后面会说。</p>
-<h2><span id="二-数据模型">二、数据模型</span></h2><p>Zookeeper 数据模型，是一个树状目录结构（类似于我们的文件系统），最小单位为 znode.</p>
+<h2 id="二、数据模型"><a href="#二、数据模型" class="headerlink" title="二、数据模型"></a>二、数据模型</h2><p>Zookeeper 数据模型，是一个树状目录结构（类似于我们的文件系统），最小单位为 znode.</p>
 <p><img src="http://note.youdao.com/yws/res/9807/72B20BCC72D64D039C85C9EBF221B2F4" alt="image"></p>
 <p>Znode 对象包含多个属性字段，其对象结构如下。</p>
 <p><img src="http://note.youdao.com/yws/res/9810/3E46C0319A5C4E169200641D4EF68D66" alt="image"><br><img src="http://note.youdao.com/yws/res/9817/1B62DE5CC5E24BC980B64BAAB939FD27" alt="image"></p>
-<h3><span id="四种节点类型">四种节点类型</span></h3><p>2 大类、四种类型： 持久、临时、持久有序、临时有序</p>
+<h3 id="四种节点类型"><a href="#四种节点类型" class="headerlink" title="四种节点类型"></a>四种节点类型</h3><p>2 大类、四种类型： 持久、临时、持久有序、临时有序</p>
 <ol>
 <li>PERSISTENT 持久类型，如果不手动删除 是一直存在的</li>
 <li>PERSISTENT_SEQUENTIAL 持久有序</li>
@@ -1695,20 +1695,20 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 <li>EPHEMERAL_SEQUENTIAL 临时有序 自增</li>
 </ol>
 <p>注意：有序节点 在创建 znode 时设置顺序标识，znode 名称后会附加一个值<br>顺序号是一个单调递增的计数器，由父节点维护<br>在分布式系统中，顺序号可以被用于为所有的事件进行全局排序，这样客户端可以通过顺<br>序号推断事件的顺序</p>
-<h2><span id="三-watcher-机制">三、 Watcher 机制</span></h2><p>Watcher实现由三个部分组成：</p>
+<h2 id="三、-Watcher-机制"><a href="#三、-Watcher-机制" class="headerlink" title="三、 Watcher 机制"></a>三、 Watcher 机制</h2><p>Watcher实现由三个部分组成：</p>
 <ol>
 <li>Zookeeper服务端；</li>
 <li>Zookeeper客户端（常用 Zkclient、Curator）；</li>
 <li>客户端的ZKWatchManager对象；</li>
 </ol>
 <p><img src="http://note.youdao.com/yws/res/9913/07DC35A8DE9E439F96B82D9C6BE95C36" alt="image"><br>客户端首先将Watcher注册到服务端，同时将Watcher 对象保存到客户端的 Watch管理器中。当 ZooKeeper 服务端监听的数据状态发生变化时，服务端会主动通知客户端，接着客户端的Watch管理器会触发相关Watcher来回调相应处理逻辑，从而完成整体的数据发布/订阅流程。</p>
-<h3><span id="watcher特性">Watcher特性</span></h3><ul>
+<h3 id="Watcher特性"><a href="#Watcher特性" class="headerlink" title="Watcher特性"></a>Watcher特性</h3><ul>
 <li>一次性：Watcher是一次性的，一旦被触发就会移除，再次使用时需要重新注册。</li>
 <li>客户端顺序回调： Watcher回调是顺序串行化执行的，只有回调后客户端才能看到最新的数据状态。一个Watcher回调逻辑不应该太多，以免影响别的watcher执行</li>
 <li>轻量级： WatchEvent是最小的通信单元，结构上只包含通知状态、事件类型和节点路径，并不会告诉数据节点变化前后的具体内容；</li>
 <li>时效性：Watcher只有在当前session彻底失效时才会无效，若在 session 有效期内快速重连成功，则 watcher 依然存在，仍可接收到通知；</li>
 </ul>
-<h2><span id="四-一致性-协议">四、一致性 协议</span></h2><p>说起 一致性协议，则不得不说，Paxos 算法 。<br>常用一致性协议包含 Paxos / Raft / zab 等协议，而 Raft，zab 其实就是 Paxos 的变种。</p>
+<h2 id="四、一致性-协议"><a href="#四、一致性-协议" class="headerlink" title="四、一致性 协议"></a>四、一致性 协议</h2><p>说起 一致性协议，则不得不说，Paxos 算法 。<br>常用一致性协议包含 Paxos / Raft / zab 等协议，而 Raft，zab 其实就是 Paxos 的变种。</p>
 <p>Paxos 算法由图灵奖获得者 Leslie Lamport 于 1990 年提出的一种基于消息传递且具有高度容错的特性的一致性算法。Paxos的出现就是为了解决 一致性问题。 </p>
 <p>Paxos 有三种角色 </p>
 <ol>
@@ -1719,7 +1719,7 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 <p>Paxos 算法明确提出： 一个或多个倡议者发出提案。 必须针对所有提案中的某个提案达成一致也就是（接受者）半数以上；最多只能对一个确定的提案达成一致。</p>
 <p>只要超半数的节点存活且可互相通信，整个系统一定能达成一致状态。</p>
 <p>详细可查看： <a href="https://blog.xiaohansong.com/Paxos.html">一致性算法 Paxos</a></p>
-<h3><span id="zab-协议">ZAB 协议</span></h3><p>Zookeeper 的核心是广播，这个机制保证了各个 zkServer 间数据的同步，即数据的一致<br>性。实现这个机制的协议叫做 ZAB 协议，即 Zookeeper Atomic Broadcast，Zookeeper 原子广播协议。</p>
+<h3 id="ZAB-协议"><a href="#ZAB-协议" class="headerlink" title="ZAB 协议"></a>ZAB 协议</h3><p>Zookeeper 的核心是广播，这个机制保证了各个 zkServer 间数据的同步，即数据的一致<br>性。实现这个机制的协议叫做 ZAB 协议，即 Zookeeper Atomic Broadcast，Zookeeper 原子广播协议。</p>
 <p>ZAB 协议有三种模式：恢复模式、同步模式 和 广播模式。</p>
 <ul>
 <li>恢复模式：在服务重启过程中，或在 Leader 崩溃后，就进入了恢复模式，要恢复到 zk<br>集群正常的工作状态。</li>
@@ -1727,7 +1727,7 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 <li>广播模式：当 Leader 的提议被大多数 zkServer 同意后，Leader 会修改自身数据，然后会将修改后的数据广播给其它 Follower。</li>
 </ul>
 <p><img src="http://note.youdao.com/yws/res/9857/668AE0E49ED84CAE89DC441022551BA0" alt="image"></p>
-<h2><span id="五-cap-原则">五、CAP 原则</span></h2><p><img src="http://note.youdao.com/yws/res/9840/3AA3192A598B4B11AEDD922A59D764D7" alt="image"></p>
+<h2 id="五、CAP-原则"><a href="#五、CAP-原则" class="headerlink" title="五、CAP 原则"></a>五、CAP 原则</h2><p><img src="http://note.youdao.com/yws/res/9840/3AA3192A598B4B11AEDD922A59D764D7" alt="image"></p>
 <p>分布式领域 CAP 理论</p>
 <ol>
 <li>Consistency(一致性), 数据一致更新，所有数据变动都是同步的</li>
@@ -1736,13 +1736,13 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 </ol>
 <p>定理：任何分布式系统只可同时满足二点，没法三者兼顾。</p>
 <p>zookeeper是需要提供强一致性的服务，但是在zk集群中如果leader宕机，会进入leader选举过程，而在这个过程中zk不对外提供服务的，这会造成注册服务短时不可用。所以在分区容错性和数据一致性上得到保证的前提下，对 Availability(可用性) 做了折中。 <strong>所以 ZooKeeper 是个 CP 的，即任何时刻对 ZooKeeper 的访问请求能得到一致的数据结果，同时系统对网络分割具备容错性</strong>。也就是在极端环境下，ZooKeeper 可能会丢弃一些请求，消费者程序需要重新请求才能获得结果</p>
-<h2><span id="六-选举机制">六、选举机制</span></h2><h3><span id="三类角色">三类角色</span></h3><p>为了避免 Zookeeper 的单点问题，zk 也是以集群的形式出现的。zk 集群中的角色主要有<br>以下三类：</p>
+<h2 id="六、选举机制"><a href="#六、选举机制" class="headerlink" title="六、选举机制"></a>六、选举机制</h2><h3 id="三类角色"><a href="#三类角色" class="headerlink" title="三类角色"></a>三类角色</h3><p>为了避免 Zookeeper 的单点问题，zk 也是以集群的形式出现的。zk 集群中的角色主要有<br>以下三类：</p>
 <ul>
 <li>Leader：zk 集群写请求的唯一处理者，并负责进行投票的发起和决议，更新系统状态。<br>Leader 是很民主的，并不是说其在接收到写请求后马上就修改其中保存的数据，而是首<br>先根据写请求提出一个提议，在大多数 zkServer 均同意时才会做出修改。</li>
 <li>Follower：接收客户端请求，处理读请求，并向客户端返回结果；将写请求转给 Leader；<br>在选主(选 Leader)过程中参与投票。 </li>
 <li>Observer：可以理解为无选主投票权的 Flollower，其主要是为了协助 Follower 处理更多<br>的读请求。如果 Zookeeper 集群的读请求负载很高，或者客户端非常非常多，多到跨机房，则可以设置一些 Observer 服务器，以提高读取的吞吐量。</li>
 </ul>
-<h3><span id="四个数据">四个数据</span></h3><ol>
+<h3 id="四个数据"><a href="#四个数据" class="headerlink" title="四个数据"></a>四个数据</h3><ol>
 <li>myid <blockquote>
 <p>这是 zk 集群中服务器的唯一标识，称为 myid。例如，有三个 zk 服务器，那么编号分别<br>是 1,2,3。</p>
 </blockquote>
@@ -1760,20 +1760,20 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 </blockquote>
 </li>
 </ol>
-<h3><span id="四种状态">四种状态</span></h3><p>根据不同角色和进行中的流程，每个服务器存在不同的状态，包括以下 4 中。</p>
+<h3 id="四种状态"><a href="#四种状态" class="headerlink" title="四种状态"></a>四种状态</h3><p>根据不同角色和进行中的流程，每个服务器存在不同的状态，包括以下 4 中。</p>
 <ol>
 <li>LOOKING，选举状态(查找 Leader 的状态)。 </li>
 <li>FOLLOWING，随从状态，同步 leader 状态。处于该状态的服务器称为 Follower。 </li>
 <li>OBSERVING，观察状态，同步 leader 状态。处于该状态的服务器称为 Observer。 </li>
 <li>LEADING，领导者状态。处于该状态的服务器称为 Leader。</li>
 </ol>
-<h2><span id="七-应用场景">七、应用场景</span></h2><ul>
+<h2 id="七、应用场景"><a href="#七、应用场景" class="headerlink" title="七、应用场景"></a>七、应用场景</h2><ul>
 <li>分布式配置中心</li>
 <li>分布式锁</li>
 <li>服务注册中心</li>
 <li>分布式通知</li>
 </ul>
-<h2><span id="八-引用">八、引用</span></h2><p><a href="https://blog.xiaohansong.com/Paxos.html">图解 Paxos 一致性协议</a></p>
+<h2 id="八、引用"><a href="#八、引用" class="headerlink" title="八、引用"></a>八、引用</h2><p><a href="https://blog.xiaohansong.com/Paxos.html">图解 Paxos 一致性协议</a></p>
 <p><a href="https://www.jianshu.com/p/703f4eb40e92">zooKeeper中的CAP模型以及它作为服务发现的缺点</a></p>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2019-09-06T08:22:07.000Z" title="2019-09-06T08:22:07.000Z">2019-09-06</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span><span class="level-item">8 分钟 读完 (大约 1157 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2019/09/06/%E6%B3%A8%E8%A7%A3/">注解</a></h1><div class="content"><!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -1794,8 +1794,8 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 
 
 <p>注解是代码里的特殊标记，这些标记可以在编译、类加载、运行时被读取。并执行相应的处理。</p>
-<h2><span id="一-注解分类">一 、注解分类</span></h2><h4><span id="1-java-内置注解">1.  <strong>Java 内置注解</strong></span></h4><p> @Override、 @Deprecated、@SuppressWarnings、@SafeVarargs(jdk 7 新增)</p>
-<h4><span id="2-标注注解的元注解">2. <strong>标注注解的元注解</strong></span></h4><p>元注解是用来修饰注解的注解，从而创建新的注解。</p>
+<h2 id="一-、注解分类"><a href="#一-、注解分类" class="headerlink" title="一 、注解分类"></a>一 、注解分类</h2><h4 id="1-Java-内置注解"><a href="#1-Java-内置注解" class="headerlink" title="1.  Java 内置注解"></a>1.  <strong>Java 内置注解</strong></h4><p> @Override、 @Deprecated、@SuppressWarnings、@SafeVarargs(jdk 7 新增)</p>
+<h4 id="2-标注注解的元注解"><a href="#2-标注注解的元注解" class="headerlink" title="2. 标注注解的元注解"></a>2. <strong>标注注解的元注解</strong></h4><p>元注解是用来修饰注解的注解，从而创建新的注解。</p>
 <p><strong>@Targe</strong> </p>
 <p>注解取值是一个 ElementType 类型的数组。<br>说明了Annotation所修饰的对象范围：Annotation可被用于 packages、types（类、接口、枚举、Annotation类型）、类型成员（方法、构造方法、成员变量、枚举值）、方法参数和本地变量（如循环变量、catch参数）。在Annotation类型的声明中使用了target可更加明晰其修饰的目的。</p>
 <table>
@@ -1840,7 +1840,7 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 <p>当前注解是否可以继承。</p>
 <p><strong>@Repeatable</strong></p>
 <p>JDK 8 新增，允许一个注解在同一声明类型（类、属性或方法）上多次使用。</p>
-<h2><span id="二-注解定义">二、 注解定义</span></h2><ol>
+<h2 id="二、-注解定义"><a href="#二、-注解定义" class="headerlink" title="二、 注解定义"></a>二、 注解定义</h2><ol>
 <li>基本定义</li>
 </ol>
 <p>定义新的注解类型使用 @interface 关键字。</p>
@@ -1927,7 +1927,7 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="三-注解的提取">三、注解的提取</span></h2><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
+<h2 id="三、注解的提取"><a href="#三、注解的提取" class="headerlink" title="三、注解的提取"></a>三、注解的提取</h2><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isAnnotationPresent</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后通过 getAnnotation() / getAnnotationsByType()（since 1.8） 方法来获取 Annotation 对象。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token operator">&lt;</span>A <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> A <span class="token function">getAnnotation</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span>A<span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
@@ -1943,7 +1943,7 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 
 <span class="token keyword">public</span> Method <span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span>String methodName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">public</span> Method<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="四-其他">四、其他</span></h2><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
+<h2 id="四、其他"><a href="#四、其他" class="headerlink" title="四、其他"></a>四、其他</h2><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
 <p>运行时注解：<br>例如：ButterKnife ，黑科技、低性能</p>
 <p>编译时注解：<br>Dagger2：生成中间代码，所以性能高</p>
 <p>注解处理器：<br>编译时处理器、<br>运行时处理器。</p>
@@ -1966,20 +1966,20 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 
 
 
-<h1><span id="线程池">线程池</span></h1><h2><span id="线程是不是越多越好">线程是不是越多越好？</span></h2><ol>
+<h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><h2 id="线程是不是越多越好？"><a href="#线程是不是越多越好？" class="headerlink" title="线程是不是越多越好？"></a>线程是不是越多越好？</h2><ol>
 <li>线程在 Java 中是一个对象，更是操作系统的资源，线程创建、销毁需要时间。如果创建时间+销毁时间 <code>&gt;</code> 执行任务时间，这样就很不合算。</li>
 <li>Java 对象占用堆内存，操作系统线程占用系统内存，根据 JVM 规范，一个线程默认最大栈大小为 1 M，这个栈空间是需要从系统内存中分配的。线程过多，会消耗很多的内存。</li>
 <li>操作系统需要频繁切换线程上下文（大家都想被运行），影响性能。</li>
 </ol>
 <p>线程池的推出，就是为了方便控制线程数量。</p>
-<h2><span id="线程池组成部分">线程池组成部分：</span></h2><ol>
+<h2 id="线程池组成部分："><a href="#线程池组成部分：" class="headerlink" title="线程池组成部分："></a>线程池组成部分：</h2><ol>
 <li>线程池管理器：用于创建并管理线程池，包括创建线程池，销毁线程池，添加新任务。</li>
 <li>工作线程：线程池中线程，在没有任务时处于等待状态，可以循环的执行任务。</li>
 <li>任务接口（Runnable）: 每个任务必须实现接口，以供工作线程调度任务执行，它主要规定了任务的入口、任务执行完后的收尾工作、任务的执行状态等。</li>
 <li>任务队列：用于存放没有处理的任务。提供一种缓冲机制</li>
 </ol>
 <p><img src="https://github.com/brokge/drawio/raw/master/net-scapture/%E7%BA%BF%E7%A8%8B%E6%B1%A0.png"></p>
-<h2><span id="线程池-api-接口定义和实现类">线程池 API-接口定义和实现类</span></h2><table>
+<h2 id="线程池-API-接口定义和实现类"><a href="#线程池-API-接口定义和实现类" class="headerlink" title="线程池 API-接口定义和实现类"></a>线程池 API-接口定义和实现类</h2><table>
 <thead>
 <tr>
 <th>类型</th>
@@ -2016,14 +2016,14 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 <p><code>ScheduledThreadPoolExecutor</code>是功能最为丰富的类。</p>
 <p><img src="media/15674328999538/15674332671245.jpg"></p>
 <p><img src="media/15674328999538/15674335746028.jpg"></p>
-<h2><span id="线程池原理-任务-execute-过程">线程池原理-任务 execute 过程</span></h2><ol>
+<h2 id="线程池原理-任务-execute-过程"><a href="#线程池原理-任务-execute-过程" class="headerlink" title="线程池原理-任务 execute 过程"></a>线程池原理-任务 execute 过程</h2><ol>
 <li>是否达到核心线程数量？没达到，创建一个工作线程来执行任务。</li>
 <li>工作队列是否已满？没满，则将新提交的任务存储在工作队列里。</li>
 <li>是否达到线程池最大数量？没达到，则创建一个新的工作线程来执行任务。</li>
 <li>最后，执行拒绝策略来处理这个任务。</li>
 </ol>
 <p><img src="https://github.com/brokge/drawio/raw/master/net-scapture/%E7%BA%BF%E7%A8%8B%E6%B1%A0Execute%E5%8E%9F%E7%90%86.png"></p>
-<h2><span id="示例代码分析">示例代码分析</span></h2><p>测试： 提交15个执行时间需要3秒的任务，看超过大小的2个，对应的处理情况</p>
+<h2 id="示例代码分析"><a href="#示例代码分析" class="headerlink" title="示例代码分析"></a>示例代码分析</h2><p>测试： 提交15个执行时间需要3秒的任务，看超过大小的2个，对应的处理情况</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testCommon</span><span class="token punctuation">(</span>ThreadPoolExecutor threadPoolExecutor<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">// 测试： 提交15个执行时间需要3秒的任务，看超过大小的2个，对应的处理情况</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">15</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -2201,7 +2201,7 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 <p>测试场景：提交的任务需要3秒才能执行完毕。看两种不同调度方式的区别<br>效果1： 提交后，2秒后开始第一次执行，之后每间隔1秒，固定执行一次(如果发现上次执行还未完毕，则等待完毕，完毕后立刻执行)。<br> 也就是说这个代码中是，3秒钟执行一次（计算方式：每次执行三秒，间隔时间1秒，执行结束后马上开始下一次执行，无需等待）</p>
 <p>效果2： 提交后，2秒后开始第一次执行，之后每间隔1秒，固定执行一次(如果发现上次执行还未完毕，则等待完毕，等上一次执行完毕后再开始计时，等待1秒)。也就是说这个代码钟的效果看到的是：4秒执行一次。 （计算方式：每次执行3秒，间隔时间1秒，执行完以后再等待1秒，所以是 3+1）</p>
 </blockquote>
-<h2><span id="线程终止">线程终止</span></h2><p>线程池信息： 核心线程数量5，最大数量10，队列大小3，超出核心线程数量的线程存活时间：5秒， 指定拒绝策略.</p>
+<h2 id="线程终止"><a href="#线程终止" class="headerlink" title="线程终止"></a>线程终止</h2><p>线程池信息： 核心线程数量5，最大数量10，队列大小3，超出核心线程数量的线程存活时间：5秒， 指定拒绝策略.</p>
 <ul>
 <li>shutdown()</li>
 </ul>
@@ -2303,7 +2303,7 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 <li>追加的任务在线程池关闭后，无法再提交，会被拒绝执行</li>
 </ol>
 </blockquote>
-<h2><span id="最后线程数量的选择">最后线程数量的选择</span></h2><ul>
+<h2 id="最后线程数量的选择"><a href="#最后线程数量的选择" class="headerlink" title="最后线程数量的选择"></a>最后线程数量的选择</h2><ul>
 <li><strong>计算型任务</strong>： cpu 数量的 1-2 倍。</li>
 <li><strong>IO型任务</strong>：相对比计算型任务，需多一些线程，要根据具体的 IO阻塞时长进行考量决定。<br>如 tomcat 中默认的最大线程数为：200</li>
 </ul>
@@ -2617,8 +2617,8 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<h2><span id="注解">注解</span></h2><p>注解是代码里的特殊标记，这些标记可以在编译、类加载、运行时被读取。并执行相应的处理。</p>
-<h3><span id="一-注解分类">一 、注解分类</span></h3><ol>
+<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>注解是代码里的特殊标记，这些标记可以在编译、类加载、运行时被读取。并执行相应的处理。</p>
+<h3 id="一-、注解分类"><a href="#一-、注解分类" class="headerlink" title="一 、注解分类"></a>一 、注解分类</h3><ol>
 <li><p><strong>java 内置注解</strong> </p>
 <p>@Override、 @Deprecated、@SuppressWarnings、@SafeVarargs(jdk 7 新增)</p>
 </li>
@@ -2669,7 +2669,7 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 </blockquote>
 </li>
 </ul>
-<h3><span id="定义注解">定义注解</span></h3><p><strong>1. 基本定义</strong></p>
+<h3 id="定义注解"><a href="#定义注解" class="headerlink" title="定义注解"></a>定义注解</h3><p><strong>1. 基本定义</strong></p>
 <p>定义新的注解类型使用 @interface 关键字。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Cup</span><span class="token punctuation">{</span>
 
@@ -2747,7 +2747,7 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
     Person<span class="token punctuation">[</span><span class="token punctuation">]</span>  <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3><span id="二-注解的提取">二、注解的提取</span></h3><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
+<h3 id="二、注解的提取"><a href="#二、注解的提取" class="headerlink" title="二、注解的提取"></a>二、注解的提取</h3><p>注解通过反射获取。<br>首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isAnnotationPresent</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后通过 getAnnotation() 方法来获取 Annotation 对象。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token operator">&lt;</span>A <span class="token keyword">extends</span> <span class="token class-name">Annotation</span><span class="token operator">></span> A <span class="token function">getAnnotation</span><span class="token punctuation">(</span>Class<span class="token operator">&lt;</span>A<span class="token operator">></span> annotationClass<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -2758,7 +2758,7 @@ min-slaves-max-lag 10<span aria-hidden="true" class="line-numbers-rows"><span></
 <pre class="line-numbers language-java"><code class="language-java">Field <span class="token function">getDeclaredField</span><span class="token punctuation">(</span>String attrbuteName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 Method <span class="token function">getDeclaredMethod</span><span class="token punctuation">(</span>String methodName<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3><span id="三-其他">三、其他</span></h3><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
+<h3 id="三、其他"><a href="#三、其他" class="headerlink" title="三、其他"></a>三、其他</h3><p>注解： 使用场景 分为 三类：<br>编译前、<br>编译时生成代码、<br>运行时。</p>
 <p>运行时注解：<br>例如：ButterKnife ，黑科技、低性能</p>
 <p>编译时注解：<br>Dagger2：生成中间代码，所以性能高</p>
 <p>注解处理器：<br>编译时处理器、<br>运行时处理器。</p>

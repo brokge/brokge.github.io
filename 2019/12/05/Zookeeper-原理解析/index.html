@@ -34,8 +34,8 @@
 
 
 
-<h2><span id="一-zookeeper-简介">一、Zookeeper 简介</span></h2><p>Zookeeper 是一个开源的分布式应用程序协调服务器，是 Hadoop 的重要组件。<br>ZooKeeper 是一个分布式的，开放源码的分布式应用程序协调服务器，是 Google 的<br>Chubby 一个开源的实现，是 Hadoop 和 Hbase 的重要组件。它是一个为分布式应用提供<strong>一致<br>性</strong>服务的软件，提供的功能包括：<strong>配置维护、域名服务、分布式同步、集群管理等</strong>。ZooKeeper<br>的目标就是封装复杂易出错的关键服务，将简单易用的接口和性能高效、功能稳定的系统提供给用户。</p>
-<h3><span id="zk-的一特性">ZK 的一特性</span></h3><ul>
+<h2 id="一、Zookeeper-简介"><a href="#一、Zookeeper-简介" class="headerlink" title="一、Zookeeper 简介"></a>一、Zookeeper 简介</h2><p>Zookeeper 是一个开源的分布式应用程序协调服务器，是 Hadoop 的重要组件。<br>ZooKeeper 是一个分布式的，开放源码的分布式应用程序协调服务器，是 Google 的<br>Chubby 一个开源的实现，是 Hadoop 和 Hbase 的重要组件。它是一个为分布式应用提供<strong>一致<br>性</strong>服务的软件，提供的功能包括：<strong>配置维护、域名服务、分布式同步、集群管理等</strong>。ZooKeeper<br>的目标就是封装复杂易出错的关键服务，将简单易用的接口和性能高效、功能稳定的系统提供给用户。</p>
+<h3 id="ZK-的一特性"><a href="#ZK-的一特性" class="headerlink" title="ZK 的一特性"></a>ZK 的一特性</h3><ul>
 <li><strong>顺序一致性</strong><br>从同一客户端发起的多个事务请求（写操作请求），最终会严格按照发起顺序存储到 zk中。</li>
 <li><strong>原子性</strong><br>所有的事务请求结果，在集群中所有 Server 上的应用情况是一致的，要么全部成功要么都不成功，不会出现部分成功，部分失败的情况。</li>
 <li><strong>单一视图</strong><br>无论客户端连接集群中的任意服务器，其读取到的数据模型都是一致的。</li>
@@ -43,11 +43,11 @@
 <li><strong>最终一致性</strong><br>zk 可以保证在一段较短的时间内，客户端最终一定能够从服务端读取到最新的数据。但不保证实时性。</li>
 </ul>
 <p>以上特性 则由 zab 协议保证，后面会说。</p>
-<h2><span id="二-数据模型">二、数据模型</span></h2><p>Zookeeper 数据模型，是一个树状目录结构（类似于我们的文件系统），最小单位为 znode.</p>
+<h2 id="二、数据模型"><a href="#二、数据模型" class="headerlink" title="二、数据模型"></a>二、数据模型</h2><p>Zookeeper 数据模型，是一个树状目录结构（类似于我们的文件系统），最小单位为 znode.</p>
 <p><img src="http://note.youdao.com/yws/res/9807/72B20BCC72D64D039C85C9EBF221B2F4" alt="image"></p>
 <p>Znode 对象包含多个属性字段，其对象结构如下。</p>
 <p><img src="http://note.youdao.com/yws/res/9810/3E46C0319A5C4E169200641D4EF68D66" alt="image"><br><img src="http://note.youdao.com/yws/res/9817/1B62DE5CC5E24BC980B64BAAB939FD27" alt="image"></p>
-<h3><span id="四种节点类型">四种节点类型</span></h3><p>2 大类、四种类型： 持久、临时、持久有序、临时有序</p>
+<h3 id="四种节点类型"><a href="#四种节点类型" class="headerlink" title="四种节点类型"></a>四种节点类型</h3><p>2 大类、四种类型： 持久、临时、持久有序、临时有序</p>
 <ol>
 <li>PERSISTENT 持久类型，如果不手动删除 是一直存在的</li>
 <li>PERSISTENT_SEQUENTIAL 持久有序</li>
@@ -55,20 +55,20 @@
 <li>EPHEMERAL_SEQUENTIAL 临时有序 自增</li>
 </ol>
 <p>注意：有序节点 在创建 znode 时设置顺序标识，znode 名称后会附加一个值<br>顺序号是一个单调递增的计数器，由父节点维护<br>在分布式系统中，顺序号可以被用于为所有的事件进行全局排序，这样客户端可以通过顺<br>序号推断事件的顺序</p>
-<h2><span id="三-watcher-机制">三、 Watcher 机制</span></h2><p>Watcher实现由三个部分组成：</p>
+<h2 id="三、-Watcher-机制"><a href="#三、-Watcher-机制" class="headerlink" title="三、 Watcher 机制"></a>三、 Watcher 机制</h2><p>Watcher实现由三个部分组成：</p>
 <ol>
 <li>Zookeeper服务端；</li>
 <li>Zookeeper客户端（常用 Zkclient、Curator）；</li>
 <li>客户端的ZKWatchManager对象；</li>
 </ol>
 <p><img src="http://note.youdao.com/yws/res/9913/07DC35A8DE9E439F96B82D9C6BE95C36" alt="image"><br>客户端首先将Watcher注册到服务端，同时将Watcher 对象保存到客户端的 Watch管理器中。当 ZooKeeper 服务端监听的数据状态发生变化时，服务端会主动通知客户端，接着客户端的Watch管理器会触发相关Watcher来回调相应处理逻辑，从而完成整体的数据发布/订阅流程。</p>
-<h3><span id="watcher特性">Watcher特性</span></h3><ul>
+<h3 id="Watcher特性"><a href="#Watcher特性" class="headerlink" title="Watcher特性"></a>Watcher特性</h3><ul>
 <li>一次性：Watcher是一次性的，一旦被触发就会移除，再次使用时需要重新注册。</li>
 <li>客户端顺序回调： Watcher回调是顺序串行化执行的，只有回调后客户端才能看到最新的数据状态。一个Watcher回调逻辑不应该太多，以免影响别的watcher执行</li>
 <li>轻量级： WatchEvent是最小的通信单元，结构上只包含通知状态、事件类型和节点路径，并不会告诉数据节点变化前后的具体内容；</li>
 <li>时效性：Watcher只有在当前session彻底失效时才会无效，若在 session 有效期内快速重连成功，则 watcher 依然存在，仍可接收到通知；</li>
 </ul>
-<h2><span id="四-一致性-协议">四、一致性 协议</span></h2><p>说起 一致性协议，则不得不说，Paxos 算法 。<br>常用一致性协议包含 Paxos / Raft / zab 等协议，而 Raft，zab 其实就是 Paxos 的变种。</p>
+<h2 id="四、一致性-协议"><a href="#四、一致性-协议" class="headerlink" title="四、一致性 协议"></a>四、一致性 协议</h2><p>说起 一致性协议，则不得不说，Paxos 算法 。<br>常用一致性协议包含 Paxos / Raft / zab 等协议，而 Raft，zab 其实就是 Paxos 的变种。</p>
 <p>Paxos 算法由图灵奖获得者 Leslie Lamport 于 1990 年提出的一种基于消息传递且具有高度容错的特性的一致性算法。Paxos的出现就是为了解决 一致性问题。 </p>
 <p>Paxos 有三种角色 </p>
 <ol>
@@ -79,7 +79,7 @@
 <p>Paxos 算法明确提出： 一个或多个倡议者发出提案。 必须针对所有提案中的某个提案达成一致也就是（接受者）半数以上；最多只能对一个确定的提案达成一致。</p>
 <p>只要超半数的节点存活且可互相通信，整个系统一定能达成一致状态。</p>
 <p>详细可查看： <a href="https://blog.xiaohansong.com/Paxos.html">一致性算法 Paxos</a></p>
-<h3><span id="zab-协议">ZAB 协议</span></h3><p>Zookeeper 的核心是广播，这个机制保证了各个 zkServer 间数据的同步，即数据的一致<br>性。实现这个机制的协议叫做 ZAB 协议，即 Zookeeper Atomic Broadcast，Zookeeper 原子广播协议。</p>
+<h3 id="ZAB-协议"><a href="#ZAB-协议" class="headerlink" title="ZAB 协议"></a>ZAB 协议</h3><p>Zookeeper 的核心是广播，这个机制保证了各个 zkServer 间数据的同步，即数据的一致<br>性。实现这个机制的协议叫做 ZAB 协议，即 Zookeeper Atomic Broadcast，Zookeeper 原子广播协议。</p>
 <p>ZAB 协议有三种模式：恢复模式、同步模式 和 广播模式。</p>
 <ul>
 <li>恢复模式：在服务重启过程中，或在 Leader 崩溃后，就进入了恢复模式，要恢复到 zk<br>集群正常的工作状态。</li>
@@ -87,7 +87,7 @@
 <li>广播模式：当 Leader 的提议被大多数 zkServer 同意后，Leader 会修改自身数据，然后会将修改后的数据广播给其它 Follower。</li>
 </ul>
 <p><img src="http://note.youdao.com/yws/res/9857/668AE0E49ED84CAE89DC441022551BA0" alt="image"></p>
-<h2><span id="五-cap-原则">五、CAP 原则</span></h2><p><img src="http://note.youdao.com/yws/res/9840/3AA3192A598B4B11AEDD922A59D764D7" alt="image"></p>
+<h2 id="五、CAP-原则"><a href="#五、CAP-原则" class="headerlink" title="五、CAP 原则"></a>五、CAP 原则</h2><p><img src="http://note.youdao.com/yws/res/9840/3AA3192A598B4B11AEDD922A59D764D7" alt="image"></p>
 <p>分布式领域 CAP 理论</p>
 <ol>
 <li>Consistency(一致性), 数据一致更新，所有数据变动都是同步的</li>
@@ -96,13 +96,13 @@
 </ol>
 <p>定理：任何分布式系统只可同时满足二点，没法三者兼顾。</p>
 <p>zookeeper是需要提供强一致性的服务，但是在zk集群中如果leader宕机，会进入leader选举过程，而在这个过程中zk不对外提供服务的，这会造成注册服务短时不可用。所以在分区容错性和数据一致性上得到保证的前提下，对 Availability(可用性) 做了折中。 <strong>所以 ZooKeeper 是个 CP 的，即任何时刻对 ZooKeeper 的访问请求能得到一致的数据结果，同时系统对网络分割具备容错性</strong>。也就是在极端环境下，ZooKeeper 可能会丢弃一些请求，消费者程序需要重新请求才能获得结果</p>
-<h2><span id="六-选举机制">六、选举机制</span></h2><h3><span id="三类角色">三类角色</span></h3><p>为了避免 Zookeeper 的单点问题，zk 也是以集群的形式出现的。zk 集群中的角色主要有<br>以下三类：</p>
+<h2 id="六、选举机制"><a href="#六、选举机制" class="headerlink" title="六、选举机制"></a>六、选举机制</h2><h3 id="三类角色"><a href="#三类角色" class="headerlink" title="三类角色"></a>三类角色</h3><p>为了避免 Zookeeper 的单点问题，zk 也是以集群的形式出现的。zk 集群中的角色主要有<br>以下三类：</p>
 <ul>
 <li>Leader：zk 集群写请求的唯一处理者，并负责进行投票的发起和决议，更新系统状态。<br>Leader 是很民主的，并不是说其在接收到写请求后马上就修改其中保存的数据，而是首<br>先根据写请求提出一个提议，在大多数 zkServer 均同意时才会做出修改。</li>
 <li>Follower：接收客户端请求，处理读请求，并向客户端返回结果；将写请求转给 Leader；<br>在选主(选 Leader)过程中参与投票。 </li>
 <li>Observer：可以理解为无选主投票权的 Flollower，其主要是为了协助 Follower 处理更多<br>的读请求。如果 Zookeeper 集群的读请求负载很高，或者客户端非常非常多，多到跨机房，则可以设置一些 Observer 服务器，以提高读取的吞吐量。</li>
 </ul>
-<h3><span id="四个数据">四个数据</span></h3><ol>
+<h3 id="四个数据"><a href="#四个数据" class="headerlink" title="四个数据"></a>四个数据</h3><ol>
 <li>myid <blockquote>
 <p>这是 zk 集群中服务器的唯一标识，称为 myid。例如，有三个 zk 服务器，那么编号分别<br>是 1,2,3。</p>
 </blockquote>
@@ -120,20 +120,20 @@
 </blockquote>
 </li>
 </ol>
-<h3><span id="四种状态">四种状态</span></h3><p>根据不同角色和进行中的流程，每个服务器存在不同的状态，包括以下 4 中。</p>
+<h3 id="四种状态"><a href="#四种状态" class="headerlink" title="四种状态"></a>四种状态</h3><p>根据不同角色和进行中的流程，每个服务器存在不同的状态，包括以下 4 中。</p>
 <ol>
 <li>LOOKING，选举状态(查找 Leader 的状态)。 </li>
 <li>FOLLOWING，随从状态，同步 leader 状态。处于该状态的服务器称为 Follower。 </li>
 <li>OBSERVING，观察状态，同步 leader 状态。处于该状态的服务器称为 Observer。 </li>
 <li>LEADING，领导者状态。处于该状态的服务器称为 Leader。</li>
 </ol>
-<h2><span id="七-应用场景">七、应用场景</span></h2><ul>
+<h2 id="七、应用场景"><a href="#七、应用场景" class="headerlink" title="七、应用场景"></a>七、应用场景</h2><ul>
 <li>分布式配置中心</li>
 <li>分布式锁</li>
 <li>服务注册中心</li>
 <li>分布式通知</li>
 </ul>
-<h2><span id="八-引用">八、引用</span></h2><p><a href="https://blog.xiaohansong.com/Paxos.html">图解 Paxos 一致性协议</a></p>
+<h2 id="八、引用"><a href="#八、引用" class="headerlink" title="八、引用"></a>八、引用</h2><p><a href="https://blog.xiaohansong.com/Paxos.html">图解 Paxos 一致性协议</a></p>
 <p><a href="https://www.jianshu.com/p/703f4eb40e92">zooKeeper中的CAP模型以及它作为服务发现的缺点</a></p>
 </div><div class="article-tags size-small mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a></div><div class="a2a_kit a2a_kit_size_32 a2a_default_style"><a class="a2a_dd" href="https://www.addtoany.com/share"></a><a class="a2a_button_facebook"></a><a class="a2a_button_twitter"></a><a class="a2a_button_telegram"></a><a class="a2a_button_whatsapp"></a><a class="a2a_button_reddit"></a></div><script src="https://static.addtoany.com/menu/page.js" defer></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button is-info donate"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/" alt="支付宝"></span></a><a class="button is-success donate"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2019/12/08/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">单例模式</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2019/09/23/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/"><span class="level-item">责任链模式</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
             id: '1493dcd4fe548df2aec78c55046ff849',

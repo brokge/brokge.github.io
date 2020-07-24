@@ -19,20 +19,20 @@
 
 
 
-<h1><span id="线程池">线程池</span></h1><h2><span id="线程是不是越多越好">线程是不是越多越好？</span></h2><ol>
+<h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><h2 id="线程是不是越多越好？"><a href="#线程是不是越多越好？" class="headerlink" title="线程是不是越多越好？"></a>线程是不是越多越好？</h2><ol>
 <li>线程在 Java 中是一个对象，更是操作系统的资源，线程创建、销毁需要时间。如果创建时间+销毁时间 <code>&gt;</code> 执行任务时间，这样就很不合算。</li>
 <li>Java 对象占用堆内存，操作系统线程占用系统内存，根据 JVM 规范，一个线程默认最大栈大小为 1 M，这个栈空间是需要从系统内存中分配的。线程过多，会消耗很多的内存。</li>
 <li>操作系统需要频繁切换线程上下文（大家都想被运行），影响性能。</li>
 </ol>
 <p>线程池的推出，就是为了方便控制线程数量。</p>
-<h2><span id="线程池组成部分">线程池组成部分：</span></h2><ol>
+<h2 id="线程池组成部分："><a href="#线程池组成部分：" class="headerlink" title="线程池组成部分："></a>线程池组成部分：</h2><ol>
 <li>线程池管理器：用于创建并管理线程池，包括创建线程池，销毁线程池，添加新任务。</li>
 <li>工作线程：线程池中线程，在没有任务时处于等待状态，可以循环的执行任务。</li>
 <li>任务接口（Runnable）: 每个任务必须实现接口，以供工作线程调度任务执行，它主要规定了任务的入口、任务执行完后的收尾工作、任务的执行状态等。</li>
 <li>任务队列：用于存放没有处理的任务。提供一种缓冲机制</li>
 </ol>
 <p><img src="https://github.com/brokge/drawio/raw/master/net-scapture/%E7%BA%BF%E7%A8%8B%E6%B1%A0.png"></p>
-<h2><span id="线程池-api-接口定义和实现类">线程池 API-接口定义和实现类</span></h2><table>
+<h2 id="线程池-API-接口定义和实现类"><a href="#线程池-API-接口定义和实现类" class="headerlink" title="线程池 API-接口定义和实现类"></a>线程池 API-接口定义和实现类</h2><table>
 <thead>
 <tr>
 <th>类型</th>
@@ -69,14 +69,14 @@
 <p><code>ScheduledThreadPoolExecutor</code>是功能最为丰富的类。</p>
 <p><img src="media/15674328999538/15674332671245.jpg"></p>
 <p><img src="media/15674328999538/15674335746028.jpg"></p>
-<h2><span id="线程池原理-任务-execute-过程">线程池原理-任务 execute 过程</span></h2><ol>
+<h2 id="线程池原理-任务-execute-过程"><a href="#线程池原理-任务-execute-过程" class="headerlink" title="线程池原理-任务 execute 过程"></a>线程池原理-任务 execute 过程</h2><ol>
 <li>是否达到核心线程数量？没达到，创建一个工作线程来执行任务。</li>
 <li>工作队列是否已满？没满，则将新提交的任务存储在工作队列里。</li>
 <li>是否达到线程池最大数量？没达到，则创建一个新的工作线程来执行任务。</li>
 <li>最后，执行拒绝策略来处理这个任务。</li>
 </ol>
 <p><img src="https://github.com/brokge/drawio/raw/master/net-scapture/%E7%BA%BF%E7%A8%8B%E6%B1%A0Execute%E5%8E%9F%E7%90%86.png"></p>
-<h2><span id="示例代码分析">示例代码分析</span></h2><p>测试： 提交15个执行时间需要3秒的任务，看超过大小的2个，对应的处理情况</p>
+<h2 id="示例代码分析"><a href="#示例代码分析" class="headerlink" title="示例代码分析"></a>示例代码分析</h2><p>测试： 提交15个执行时间需要3秒的任务，看超过大小的2个，对应的处理情况</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testCommon</span><span class="token punctuation">(</span>ThreadPoolExecutor threadPoolExecutor<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">// 测试： 提交15个执行时间需要3秒的任务，看超过大小的2个，对应的处理情况</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">15</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -254,7 +254,7 @@
 <p>测试场景：提交的任务需要3秒才能执行完毕。看两种不同调度方式的区别<br>效果1： 提交后，2秒后开始第一次执行，之后每间隔1秒，固定执行一次(如果发现上次执行还未完毕，则等待完毕，完毕后立刻执行)。<br> 也就是说这个代码中是，3秒钟执行一次（计算方式：每次执行三秒，间隔时间1秒，执行结束后马上开始下一次执行，无需等待）</p>
 <p>效果2： 提交后，2秒后开始第一次执行，之后每间隔1秒，固定执行一次(如果发现上次执行还未完毕，则等待完毕，等上一次执行完毕后再开始计时，等待1秒)。也就是说这个代码钟的效果看到的是：4秒执行一次。 （计算方式：每次执行3秒，间隔时间1秒，执行完以后再等待1秒，所以是 3+1）</p>
 </blockquote>
-<h2><span id="线程终止">线程终止</span></h2><p>线程池信息： 核心线程数量5，最大数量10，队列大小3，超出核心线程数量的线程存活时间：5秒， 指定拒绝策略.</p>
+<h2 id="线程终止"><a href="#线程终止" class="headerlink" title="线程终止"></a>线程终止</h2><p>线程池信息： 核心线程数量5，最大数量10，队列大小3，超出核心线程数量的线程存活时间：5秒， 指定拒绝策略.</p>
 <ul>
 <li>shutdown()</li>
 </ul>
@@ -356,7 +356,7 @@
 <li>追加的任务在线程池关闭后，无法再提交，会被拒绝执行</li>
 </ol>
 </blockquote>
-<h2><span id="最后线程数量的选择">最后线程数量的选择</span></h2><ul>
+<h2 id="最后线程数量的选择"><a href="#最后线程数量的选择" class="headerlink" title="最后线程数量的选择"></a>最后线程数量的选择</h2><ul>
 <li><strong>计算型任务</strong>： cpu 数量的 1-2 倍。</li>
 <li><strong>IO型任务</strong>：相对比计算型任务，需多一些线程，要根据具体的 IO阻塞时长进行考量决定。<br>如 tomcat 中默认的最大线程数为：200</li>
 </ul>

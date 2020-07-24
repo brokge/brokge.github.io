@@ -18,7 +18,7 @@
 
 
 <p> [TOC]</p>
-<h1><span id="redis下载安装">Redis下载安装</span></h1><pre class="line-numbers language-bash"><code class="language-bash">下载redis
+<h1 id="Redis下载安装"><a href="#Redis下载安装" class="headerlink" title="Redis下载安装"></a>Redis下载安装</h1><pre class="line-numbers language-bash"><code class="language-bash">下载redis
 https://redis.io/download
 <span class="token comment" spellcheck="true"># 下载</span>
 <span class="token function">wget</span> http://download.redis.io/releases/redis-5.0.3.tar.gz
@@ -49,7 +49,7 @@ sysctl vm.overcommit_memory<span class="token operator">=</span>1
 
 <span class="token comment" spellcheck="true"># 云服务器要注意ip要写对，端口要开放</span>
 <span class="token comment" spellcheck="true"># 虚拟机要注意防火墙要关闭 systemctl stop firewalld.service</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="准备配置文件">准备配置文件</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 配置文件进行了精简，完整配置可自行和官方提供的完整conf文件进行对照。端口号自行对应修改</span>
+<h1 id="准备配置文件"><a href="#准备配置文件" class="headerlink" title="准备配置文件"></a>准备配置文件</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 配置文件进行了精简，完整配置可自行和官方提供的完整conf文件进行对照。端口号自行对应修改</span>
 <span class="token comment" spellcheck="true">#后台启动的意思</span>
 daemonize <span class="token function">yes</span> 
  <span class="token comment" spellcheck="true">#端口号(如果同一台服务器上启动，注意要修改为不同的端口)</span>
@@ -58,7 +58,7 @@ port 6380
 bind 0.0.0.0
 <span class="token comment" spellcheck="true"># 这个文件会自动生成(如果同一台服务器上启动，注意要修改为不同的端口)</span>
 pidfile /var/run/redis_6380.pid <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="准备三个redis服务">准备三个redis服务</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、启动三个Redis</span>
+<h1 id="准备三个redis服务"><a href="#准备三个redis服务" class="headerlink" title="准备三个redis服务"></a>准备三个redis服务</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、启动三个Redis</span>
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/redis-6380.conf
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/redis-6381.conf
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/redis-6382.conf
@@ -70,7 +70,7 @@ pidfile /var/run/redis_6380.pid <span aria-hidden="true" class="line-numbers-row
 <span class="token comment" spellcheck="true"># 3、检查集群</span>
 /usr/local/redis/bin/redis-cli -p 6380 info Replication
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="准备哨兵配置文件">准备哨兵配置文件</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 配置文件：sentinel.conf，在sentinel运行期间是会被动态修改的</span>
+<h1 id="准备哨兵配置文件"><a href="#准备哨兵配置文件" class="headerlink" title="准备哨兵配置文件"></a>准备哨兵配置文件</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 配置文件：sentinel.conf，在sentinel运行期间是会被动态修改的</span>
 <span class="token comment" spellcheck="true"># sentinel如果重启时，根据这个配置来恢复其之前所监控的redis集群的状态</span>
 <span class="token comment" spellcheck="true"># 绑定IP</span>
 bind 0.0.0.0
@@ -95,10 +95,10 @@ sentinel down-after-milliseconds mymaster 1000
 sentinel failover-timeout mymaster 3000
 <span class="token comment" spellcheck="true"># 指定了在执行故障转移时，最多可以有多少个从Redis实例在同步新的主实例，在从Redis实例较多的情况下这个数字越小，同步的时间越长，完成故障转移所需的时间就越长</span>
 sentinel parallel-syncs mymaster 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="启动哨兵集群">启动哨兵集群</span></h1><pre class="line-numbers language-bash"><code class="language-bash">/usr/local/redis/bin/redis-server /usr/local/redis/conf/sentinel-26380.conf --sentinel
+<h1 id="启动哨兵集群"><a href="#启动哨兵集群" class="headerlink" title="启动哨兵集群"></a>启动哨兵集群</h1><pre class="line-numbers language-bash"><code class="language-bash">/usr/local/redis/bin/redis-server /usr/local/redis/conf/sentinel-26380.conf --sentinel
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/sentinel-26381.conf --sentinel
 /usr/local/redis/bin/redis-server /usr/local/redis/conf/sentinel-26382.conf --sentinel<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h1><span id="测试">测试</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 停掉master，主从切换过程</span>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 停掉master，主从切换过程</span>
 启动哨兵<span class="token punctuation">(</span>客户端通过哨兵发现Redis实例信息<span class="token punctuation">)</span>
 哨兵通过连接master发现主从集群内的所有实例信息
 哨兵监控redis实例的健康状况
@@ -107,7 +107,7 @@ sentinel parallel-syncs mymaster 1<span aria-hidden="true" class="line-numbers-r
 选举一个哨兵作为故障转移的执行者
 执行者在slave中选取一个作为新的master
 将其他slave重新设定为新master的从属<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="哨兵同步pubsub机制发出来的消息">哨兵同步pubsub机制发出来的消息</span></h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># https://redis.io/topics/sentinel#pubsub-messages</span>
+<h1 id="哨兵同步pubsub机制发出来的消息"><a href="#哨兵同步pubsub机制发出来的消息" class="headerlink" title="哨兵同步pubsub机制发出来的消息"></a>哨兵同步pubsub机制发出来的消息</h1><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># https://redis.io/topics/sentinel#pubsub-messages</span>
 +reset-master <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 当master被重置时.
 +slave <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- 当检测到一个slave并添加进slave列表时.
 +failover-state-reconf-slaves <span class="token operator">&lt;</span>instance details<span class="token operator">></span> -- Failover状态变为reconf-slaves状态时
@@ -138,7 +138,7 @@ failover-end <span class="token operator">&lt;</span>instance details<span class
 switch-master <span class="token operator">&lt;</span>master name<span class="token operator">></span> <span class="token operator">&lt;</span>oldip<span class="token operator">></span> <span class="token operator">&lt;</span>oldport<span class="token operator">></span> <span class="token operator">&lt;</span>newip<span class="token operator">></span> <span class="token operator">&lt;</span>newport<span class="token operator">></span> -- 当master的地址发生变化时。通常这是客户端最感兴趣的消息了。
 +tilt -- 进入Tilt模式。
 -tilt -- 退出Tilt模式。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1><span id="哨兵日志分析">哨兵日志分析</span></h1><pre class="line-numbers language-bash"><code class="language-bash">sdow <span class="token punctuation">(</span>sdown subjectively down<span class="token punctuation">)</span>
+<h1 id="哨兵日志分析"><a href="#哨兵日志分析" class="headerlink" title="哨兵日志分析"></a>哨兵日志分析</h1><pre class="line-numbers language-bash"><code class="language-bash">sdow <span class="token punctuation">(</span>sdown subjectively down<span class="token punctuation">)</span>
 odown <span class="token punctuation">(</span>objectively down<span class="token punctuation">)</span>
 <span class="token comment" spellcheck="true"># 通过日志逐步分析</span>
 996:X 23 Nov 01:00:30.020 <span class="token comment" spellcheck="true"># +sdown master mymaster 60.205.209.106 6381</span>

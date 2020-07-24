@@ -26,19 +26,19 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
-<h2><span id="用户手中好的应用指标">用户手中好的应用指标：</span></h2><ol>
+<h2 id="用户手中好的应用指标："><a href="#用户手中好的应用指标：" class="headerlink" title="用户手中好的应用指标："></a>用户手中好的应用指标：</h2><ol>
 <li>满足需求</li>
 <li>合理的交互</li>
 <li>高性能</li>
 </ol>
-<h2><span id="android-性能优化总结">Android 性能优化总结</span></h2><h4><span id="目标">目标:</span></h4><ol>
+<h2 id="Android-性能优化总结"><a href="#Android-性能优化总结" class="headerlink" title="Android 性能优化总结"></a>Android 性能优化总结</h2><h4 id="目标"><a href="#目标" class="headerlink" title="目标:"></a>目标:</h4><ol>
 <li>流畅</li>
 <li>稳定</li>
 <li>省电、省流量</li>
 <li>安装包小</li>
 </ol>
 <p>简称： 快、稳、省、小</p>
-<h4><span id="建议">建议：</span></h4><h5><span id="1-流畅">1. 流畅</span></h5><p>卡顿场景：<br>UI 绘制、应用启动、页面跳转、事件响应</p>
+<h4 id="建议："><a href="#建议：" class="headerlink" title="建议："></a>建议：</h4><h5 id="1-流畅"><a href="#1-流畅" class="headerlink" title="1. 流畅"></a>1. 流畅</h5><p>卡顿场景：<br>UI 绘制、应用启动、页面跳转、事件响应</p>
 <p>卡顿原因：</p>
 <ol>
 <li>界面绘制。<blockquote>
@@ -66,10 +66,10 @@
 <li>合理的刷新机制</li>
 <li>在实现动画效果时，需要根据不同场景选择合适的动画框架来实现。有些情况下，可以用硬件加速方式来提供流畅度。</li>
 </ol>
-<h5><span id="2-稳定">2. 稳定</span></h5><blockquote>
+<h5 id="2-稳定"><a href="#2-稳定" class="headerlink" title="2. 稳定"></a>2. 稳定</h5><blockquote>
 <p>Android 应用的稳定性定义很宽泛，影响稳定性的原因很多，比如内存使用不合理、代码异常场景考虑不周全、代码逻辑不合理等，都会对应用的稳定性造成影响。其中最常见的两个场景是：Crash 和 ANR，这两个错误将会使得程序无法使用，比较常用的解决方式如下：</p>
 </blockquote>
-<h5><span id="21内存优化">2.1.内存优化</span></h5><p>虚拟机有两种运行模式：Dalvik 和 ART。</p>
+<h5 id="2-1-内存优化"><a href="#2-1-内存优化" class="headerlink" title="2.1.内存优化"></a>2.1.内存优化</h5><p>虚拟机有两种运行模式：Dalvik 和 ART。</p>
 <p>Android 内存控制权 Generational Heap Memory 。</p>
 <ul>
 <li>对象的生命周期：</li>
@@ -109,20 +109,20 @@
 <li>使用最优的数据类型。比如针对数据类容器结构，可以使用ArrayMap数据结构，避免使用枚举类型，使用缓存Lrucache等等。</li>
 <li>图片内存优化。可以设置位图规格，根据采样因子做压缩，用一些图片缓存方式对图片进行管理等等。</li>
 </ol>
-<h5><span id="22-提高代码质量">2.2. 提高代码质量</span></h5><blockquote>
+<h5 id="2-2-提高代码质量"><a href="#2-2-提高代码质量" class="headerlink" title="2.2. 提高代码质量"></a>2.2. 提高代码质量</h5><blockquote>
 <p>提高代码质量。比如开发期间的代码审核，看些代码设计逻辑，业务合理性等。<br>代码静态扫描工具。常见工具有Android Lint、Findbugs、Checkstyle、PMD等等。<br>Crash监控。把一些崩溃的信息，异常信息及时地记录下来，以便后续分析解决。<br>Crash上传机制。在Crash后，尽量先保存日志到本地，然后等下一次网络正常时再上传日志信息。</p>
 </blockquote>
-<h5><span id="3-电量优化">3. 电量优化</span></h5><ol>
+<h5 id="3-电量优化"><a href="#3-电量优化" class="headerlink" title="3. 电量优化"></a>3. 电量优化</h5><ol>
 <li>优化耗时的计算。</li>
 </ol>
-<h5><span id="4-安装包大小">4. 安装包大小</span></h5><ol>
+<h5 id="4-安装包大小"><a href="#4-安装包大小" class="headerlink" title="4. 安装包大小"></a>4. 安装包大小</h5><ol>
 <li>代码混淆。</li>
 <li>资源优化。比如使用 Android Lint 删除冗余资源。</li>
 <li>图片优化。比如利用 AAPT 工具对 PNG 格式的图片做压缩处理，降低图片色彩位数、使用 WebP图片格式等。</li>
 <li>避免重复功能的库。</li>
 <li>插件化。</li>
 </ol>
-<h3><span id="参考">参考</span></h3><ul>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a href="https://blog.dxdoctor.com/2019/06/30/Android-%E5%BA%94%E7%94%A8%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90/">Android 应用内存分析</a></li>
 </ul>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2019-06-30T02:56:51.000Z" title="2019-06-30T02:56:51.000Z">2019-06-30</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span><span class="level-item">6 分钟 读完 (大约 919 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2019/06/30/Android-%E5%BA%94%E7%94%A8%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90/">Android 应用内存分析</a></h1><div class="content"><!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -142,9 +142,9 @@
 
 
 <p>Android 开发场景中，分析内存泄漏情况</p>
-<h2><span id="所需工具">所需工具</span></h2><h3><span id="1-mta">1. MTA</span></h3><p>Eclipse Memory Analysis Tools (MAT) 是一个分析 Java堆数据的专业工具，用它可以定位内存泄漏的原因。</p>
+<h2 id="所需工具"><a href="#所需工具" class="headerlink" title="所需工具"></a>所需工具</h2><h3 id="1-MTA"><a href="#1-MTA" class="headerlink" title="1. MTA"></a>1. MTA</h3><p>Eclipse Memory Analysis Tools (MAT) 是一个分析 Java堆数据的专业工具，用它可以定位内存泄漏的原因。</p>
 <p>工具地址 : <a href="https://www.eclipse.org/mat/">https://www.eclipse.org/mat/</a></p>
-<h3><span id="2-androidstudio">2. AndroidStudio</span></h3><ul>
+<h3 id="2-AndroidStudio"><a href="#2-AndroidStudio" class="headerlink" title="2. AndroidStudio"></a>2. AndroidStudio</h3><ul>
 <li>monitor</li>
 </ul>
 <p>存在 sdk/toools/ 下的 monitor</p>
@@ -160,7 +160,7 @@
 <li>profiler </li>
 </ul>
 <p>AndroidStudio 内置的 内存检测工具，可以回收内存和下载dump。</p>
-<h2><span id="使用">使用</span></h2><ol>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
 <li>通过 AndroidStudio 内置工具 profiler 进行分析并获取到.hprof 文件。</li>
 </ol>
 <blockquote>
@@ -184,7 +184,7 @@
 <blockquote>
 <p>进入Histogram<br>可以点击表头进行排序,在表的第一行可以输入正则表达式来匹配结果,找到我们想要找的类，然后右键选择<code>merge shortest paths to Gc roots</code> 然后在选择<code>exclude all phantom/weak/soft etc.references</code>选项.</p>
 </blockquote>
-<h2><span id="分析小技巧">分析小技巧</span></h2><ol>
+<h2 id="分析小技巧"><a href="#分析小技巧" class="headerlink" title="分析小技巧"></a>分析小技巧</h2><ol>
 <li><code>Histogram</code> 对比</li>
 </ol>
 <p>为查找内存泄漏，通常需要两个 Dump结果作对比，打开 <code>Navigator History</code>面板，将两个表的 <code>Histogram</code>结果都添加到 <code>Compare Basket</code>中去 :<br>添加好后，打开 Compare Basket面板，得到结果。</p>

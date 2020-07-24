@@ -29,7 +29,7 @@
 
 <p>我们都知道，在 Android 应用开发中，需要数据和状态的传递，其中还包括在 跨进程 之间的传递 （比如 IPC/Binder）。关于数据传递有多种方式，其中最常见的就是通过 Bundle 。Bundle 中文意思：捆; 一批，顾名思义就很直观了。</p>
 <p>Bundle 相当于传输过程的邮包，里面包裹的是具体的数据。</p>
-<h5><span id="实现">实现</span></h5><p>Activity 之间可以通过 创建 intent 并传递参数 的方式来传递，</p>
+<h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><p>Activity 之间可以通过 创建 intent 并传递参数 的方式来传递，</p>
 <pre class="line-numbers language-java"><code class="language-java">Intent intent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Intent</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> MyActivity<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 intent<span class="token punctuation">.</span><span class="token function">putExtra</span><span class="token punctuation">(</span><span class="token string">"media_id"</span><span class="token punctuation">,</span> <span class="token string">"a1b2c3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
@@ -51,7 +51,7 @@ intent<span class="token punctuation">.</span><span class="token function">putEx
 <blockquote>
 <p>Parcel不是通用的序列化机制（Serializable是通用的序列化机制） 所以不能把 Parcel数据存储在磁盘上或通过网络发送出去。</p>
 </blockquote>
-<h5><span id="源码分析">源码分析</span></h5><p>通过源码查看，Bundle 继承 BaseBundle 且实现了 Parcelable 接口。BaseBundle 内部 维护一个 ArrayMap&lt;String, Object&gt; mMap 常量来承载我们需要操作的对象。</p>
+<h5 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h5><p>通过源码查看，Bundle 继承 BaseBundle 且实现了 Parcelable 接口。BaseBundle 内部 维护一个 ArrayMap&lt;String, Object&gt; mMap 常量来承载我们需要操作的对象。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Bundle</span> <span class="token keyword">extends</span> <span class="token class-name">BaseBundle</span> <span class="token keyword">implements</span> <span class="token class-name">Cloneable</span><span class="token punctuation">,</span> Parcelable<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>BaseBundle 声明常量 mMap：</p>
 <pre class="line-numbers language-java"><code class="language-java"> ArrayMap<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> mMap <span class="token operator">=</span> null<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -63,7 +63,7 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
         <span class="token function">unparcel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         mMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="parcelable">Parcelable</span></h2><p>假设我们需要将<code>String  str = &quot;Hanmeimei&quot;;</code>，从 Activity  A 传递到 Activity B 时，我们可以使用  intent.putExtra(“name”,str ); 这样在 Activity B 中就能获取到由 Activity A 传递过来的字符串 str  .那么如果我想将一个对象由 Activity  A 传递到  Activity B 该怎么办，比如 User 对象。</p>
+<h2 id="Parcelable"><a href="#Parcelable" class="headerlink" title="Parcelable"></a>Parcelable</h2><p>假设我们需要将<code>String  str = &quot;Hanmeimei&quot;;</code>，从 Activity  A 传递到 Activity B 时，我们可以使用  intent.putExtra(“name”,str ); 这样在 Activity B 中就能获取到由 Activity A 传递过来的字符串 str  .那么如果我想将一个对象由 Activity  A 传递到  Activity B 该怎么办，比如 User 对象。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String password<span class="token punctuation">;</span>
@@ -100,10 +100,10 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Android 并没有提供在两个 activity之间传递任意对象或者引用的方法，但是就是需要传递对象该怎么办呢，这个时候就需要  让该对象实现 Android 提供的 parcelable接口，说到 parcelable 就得说Parcel。</p>
-<h3><span id="parcel-是什么">Parcel 是什么？</span></h3><p>简单说Parcel就是一个存放读取数据的容器， Android系统中的binder进程间通信(IPC)就使用了Parcel类来进行客户端与服务端数据的交互，而且AIDL的数据也是通过Parcel来交互的。在Java空间和C++都实现了Parcel，由于它在C/C++中，直接使用了内存来读取数据，因此，它更有效率。Parcel不是通用的序列化机制（Serialize 是通用的序列化机制） 所以不能把 Parcel数据存储在磁盘上或通过网络传输。</p>
+<h3 id="Parcel-是什么？"><a href="#Parcel-是什么？" class="headerlink" title="Parcel 是什么？"></a>Parcel 是什么？</h3><p>简单说Parcel就是一个存放读取数据的容器， Android系统中的binder进程间通信(IPC)就使用了Parcel类来进行客户端与服务端数据的交互，而且AIDL的数据也是通过Parcel来交互的。在Java空间和C++都实现了Parcel，由于它在C/C++中，直接使用了内存来读取数据，因此，它更有效率。Parcel不是通用的序列化机制（Serialize 是通用的序列化机制） 所以不能把 Parcel数据存储在磁盘上或通过网络传输。</p>
 <p>Parcel 的标记接口 是 Parcelable，如果该对象实现了parcelable接口，且实现了对应的方法，就拥有了 Parcel 的特性。</p>
-<h3><span id="parcelable-在数据传递的用法">Parcelable 在数据传递的用法</span></h3><p>在Android 对象传递需求中，那么就可以利用下图红框中的方法进行传递了，putExtra(String name,Parcelable user);可以看出，我们可以传递一个实现 Parcelable接口的对象了</p>
-<h2><span id="serializable">Serializable</span></h2><h3><span id="概念">概念</span></h3><ol>
+<h3 id="Parcelable-在数据传递的用法"><a href="#Parcelable-在数据传递的用法" class="headerlink" title="Parcelable 在数据传递的用法"></a>Parcelable 在数据传递的用法</h3><p>在Android 对象传递需求中，那么就可以利用下图红框中的方法进行传递了，putExtra(String name,Parcelable user);可以看出，我们可以传递一个实现 Parcelable接口的对象了</p>
+<h2 id="Serializable"><a href="#Serializable" class="headerlink" title="Serializable"></a>Serializable</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ol>
 <li>序列化就是将对象转化为字节流。</li>
 <li>反序列化就是将字节流转化为对象。</li>
 <li>默认的序列化是深度系列化（即类中嵌套其他对象引用的对象也会被序列化）。</li>
@@ -113,7 +113,7 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
 <span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Serializable</span> <span class="token punctuation">{</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>以上是 <code>Serializable</code> 的接口定义，且 <code>Serializable</code> 只是一个没有定义任何方法的标记接口。</p>
-<h3><span id="为什么定义标记接口即可实现序列化了呢">为什么定义标记接口即可实现序列化了呢？</span></h3><p>声明实现 <code>Serializable</code> 接口后保存读取对象就可以使用 <code>ObjectOutputStream</code>、<code>ObjectInputStream</code> 流了，<code>ObjectOutputStream</code> 是 <code>OutputStream</code> 的子类，但实现了 <code>ObjectOutput</code> 接口，<code>ObjectOutput</code> 是 <code>DataOutput</code> 的子接口，增加了一个 <code>writeObject(Object obj)</code> 方法将对象转化为字节写到流中，<code>ObjectInputStream</code> 是 <code>InputStream</code> 的子类，实现了<code>ObjectInput</code> 接口，<code>ObjectInput</code> 是 <code>DataInput</code> 的子接口，增加了一个 <code>readObject()</code> 方法从流中读取字节转为对象。</p>
+<h3 id="为什么定义标记接口即可实现序列化了呢？"><a href="#为什么定义标记接口即可实现序列化了呢？" class="headerlink" title="为什么定义标记接口即可实现序列化了呢？"></a>为什么定义标记接口即可实现序列化了呢？</h3><p>声明实现 <code>Serializable</code> 接口后保存读取对象就可以使用 <code>ObjectOutputStream</code>、<code>ObjectInputStream</code> 流了，<code>ObjectOutputStream</code> 是 <code>OutputStream</code> 的子类，但实现了 <code>ObjectOutput</code> 接口，<code>ObjectOutput</code> 是 <code>DataOutput</code> 的子接口，增加了一个 <code>writeObject(Object obj)</code> 方法将对象转化为字节写到流中，<code>ObjectInputStream</code> 是 <code>InputStream</code> 的子类，实现了<code>ObjectInput</code> 接口，<code>ObjectInput</code> 是 <code>DataInput</code> 的子接口，增加了一个 <code>readObject()</code> 方法从流中读取字节转为对象。</p>
 <blockquote>
 <p>序列化和反序列化的实质在于 <code>ObjectOutputStream</code> 的 <code>writeObject</code> 和 <code>ObjectInputStream</code> 的 <code>readObject</code> 方法实现，常见的 <code>String</code>、<code>Date</code>、<code>Double</code>、<code>ArrayList</code>、<code>LinkedList</code>、<code>HashMap</code>、<code>TreeMap</code> 等都默认实现了 <code>Serializable</code>,.</p>
 </blockquote>
@@ -161,17 +161,17 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="最后">最后</span></h2><p>通过以上我们了解 Serializable 和 Parcelable都可以实现复杂数据结构的封装传输，两者的区别是什么？</p>
-<h3><span id="两者的设计初衷">两者的设计初衷：</span></h3><ol>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>通过以上我们了解 Serializable 和 Parcelable都可以实现复杂数据结构的封装传输，两者的区别是什么？</p>
+<h3 id="两者的设计初衷："><a href="#两者的设计初衷：" class="headerlink" title="两者的设计初衷："></a>两者的设计初衷：</h3><ol>
 <li><strong>Serializable</strong> 的作用是为了保存对象的属性到本地文件、数据库、网络流等以方便数据传输，当然这种传输可以是程序内的也可以是两个程序间的。</li>
 <li><strong>Parcelable</strong> 的设计初衷是因为Serializable 效率过慢，为了在程序内不同组件间以及不同 Android 程序间(AIDL)高效的传输数据而设计，这些数据仅在内存中存在，而且 Parcelable 是通过 IBinder 通信的消息的载体。</li>
 </ol>
-<h3><span id="两者的区别">两者的区别：</span></h3><ol>
+<h3 id="两者的区别："><a href="#两者的区别：" class="headerlink" title="两者的区别："></a>两者的区别：</h3><ol>
 <li>在使用内存的时候，Parcelable 类比 Serializable 性能高。</li>
 <li>Serializable在序列化的时候会产生大量的临时变量，从而引起频繁的GC。</li>
 <li>Parcelable不能适用在要将数据存储在磁盘上的情况，因为Parcelable 在外界有变化的情况下，不能很好的保证数据的持续性。</li>
 </ol>
-<h3><span id="适用场景">适用场景：</span></h3><ol>
+<h3 id="适用场景："><a href="#适用场景：" class="headerlink" title="适用场景："></a>适用场景：</h3><ol>
 <li>只在内存中操作数据时，比如两个 Activity 之间 传输数据。</li>
 <li>需要持久化数据时，比如需要将数据保存的本地文件、数据库，所以尽管 Serializable 效率低点， 也不提倡用，但在这种情况下，还是建议你用 Serializable 。</li>
 </ol>

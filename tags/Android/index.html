@@ -12,7 +12,7 @@
 
 
 
-<h2><span id="原理分析">原理分析：</span></h2><p> LinkedHashMap 是 HashMap 的子类，其在 HashMap 的基础上只添加了一个双向链表和一个顺序模式属性，其每次 put 元素都会往这个双向链表上添加节点，其构造方法比 HashMap 多了一个 boolean 类型的 accessOrder 参数，当该参数为 true 时则按照元素最后访问时间在双向链表中排序，为 false 则按照插入顺序排序，默认为 false。<br> 具体源码如下：</p>
+<h2 id="原理分析："><a href="#原理分析：" class="headerlink" title="原理分析："></a>原理分析：</h2><p> LinkedHashMap 是 HashMap 的子类，其在 HashMap 的基础上只添加了一个双向链表和一个顺序模式属性，其每次 put 元素都会往这个双向链表上添加节点，其构造方法比 HashMap 多了一个 boolean 类型的 accessOrder 参数，当该参数为 true 时则按照元素最后访问时间在双向链表中排序，为 false 则按照插入顺序排序，默认为 false。<br> 具体源码如下：</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LinkedHashMap</span><span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> <span class="token keyword">extends</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> <span class="token keyword">implements</span> <span class="token class-name">Map</span><span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">/**
      * The head of the doubly linked list.
@@ -144,7 +144,7 @@
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>所以 <code>LinkedHashMap</code> 继承自 <code>HashMap</code>，除过具备 <code>HashMap</code> 的一切优缺点外自身具备插入有序性或者访问有序性，其实现依赖 <code>HashMap</code> 自身的存储结构不变外在 put、get 操作处添加了一个对自己内部维护的双向有序链表的操作。</p>
-<h2><span id="场景使用">场景使用</span></h2><ol>
+<h2 id="场景使用"><a href="#场景使用" class="headerlink" title="场景使用"></a>场景使用</h2><ol>
 <li>LRU 的结合：</li>
 </ol>
 <blockquote>
@@ -202,19 +202,19 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
-<h2><span id="用户手中好的应用指标">用户手中好的应用指标：</span></h2><ol>
+<h2 id="用户手中好的应用指标："><a href="#用户手中好的应用指标：" class="headerlink" title="用户手中好的应用指标："></a>用户手中好的应用指标：</h2><ol>
 <li>满足需求</li>
 <li>合理的交互</li>
 <li>高性能</li>
 </ol>
-<h2><span id="android-性能优化总结">Android 性能优化总结</span></h2><h4><span id="目标">目标:</span></h4><ol>
+<h2 id="Android-性能优化总结"><a href="#Android-性能优化总结" class="headerlink" title="Android 性能优化总结"></a>Android 性能优化总结</h2><h4 id="目标"><a href="#目标" class="headerlink" title="目标:"></a>目标:</h4><ol>
 <li>流畅</li>
 <li>稳定</li>
 <li>省电、省流量</li>
 <li>安装包小</li>
 </ol>
 <p>简称： 快、稳、省、小</p>
-<h4><span id="建议">建议：</span></h4><h5><span id="1-流畅">1. 流畅</span></h5><p>卡顿场景：<br>UI 绘制、应用启动、页面跳转、事件响应</p>
+<h4 id="建议："><a href="#建议：" class="headerlink" title="建议："></a>建议：</h4><h5 id="1-流畅"><a href="#1-流畅" class="headerlink" title="1. 流畅"></a>1. 流畅</h5><p>卡顿场景：<br>UI 绘制、应用启动、页面跳转、事件响应</p>
 <p>卡顿原因：</p>
 <ol>
 <li>界面绘制。<blockquote>
@@ -242,10 +242,10 @@
 <li>合理的刷新机制</li>
 <li>在实现动画效果时，需要根据不同场景选择合适的动画框架来实现。有些情况下，可以用硬件加速方式来提供流畅度。</li>
 </ol>
-<h5><span id="2-稳定">2. 稳定</span></h5><blockquote>
+<h5 id="2-稳定"><a href="#2-稳定" class="headerlink" title="2. 稳定"></a>2. 稳定</h5><blockquote>
 <p>Android 应用的稳定性定义很宽泛，影响稳定性的原因很多，比如内存使用不合理、代码异常场景考虑不周全、代码逻辑不合理等，都会对应用的稳定性造成影响。其中最常见的两个场景是：Crash 和 ANR，这两个错误将会使得程序无法使用，比较常用的解决方式如下：</p>
 </blockquote>
-<h5><span id="21内存优化">2.1.内存优化</span></h5><p>虚拟机有两种运行模式：Dalvik 和 ART。</p>
+<h5 id="2-1-内存优化"><a href="#2-1-内存优化" class="headerlink" title="2.1.内存优化"></a>2.1.内存优化</h5><p>虚拟机有两种运行模式：Dalvik 和 ART。</p>
 <p>Android 内存控制权 Generational Heap Memory 。</p>
 <ul>
 <li>对象的生命周期：</li>
@@ -285,20 +285,20 @@
 <li>使用最优的数据类型。比如针对数据类容器结构，可以使用ArrayMap数据结构，避免使用枚举类型，使用缓存Lrucache等等。</li>
 <li>图片内存优化。可以设置位图规格，根据采样因子做压缩，用一些图片缓存方式对图片进行管理等等。</li>
 </ol>
-<h5><span id="22-提高代码质量">2.2. 提高代码质量</span></h5><blockquote>
+<h5 id="2-2-提高代码质量"><a href="#2-2-提高代码质量" class="headerlink" title="2.2. 提高代码质量"></a>2.2. 提高代码质量</h5><blockquote>
 <p>提高代码质量。比如开发期间的代码审核，看些代码设计逻辑，业务合理性等。<br>代码静态扫描工具。常见工具有Android Lint、Findbugs、Checkstyle、PMD等等。<br>Crash监控。把一些崩溃的信息，异常信息及时地记录下来，以便后续分析解决。<br>Crash上传机制。在Crash后，尽量先保存日志到本地，然后等下一次网络正常时再上传日志信息。</p>
 </blockquote>
-<h5><span id="3-电量优化">3. 电量优化</span></h5><ol>
+<h5 id="3-电量优化"><a href="#3-电量优化" class="headerlink" title="3. 电量优化"></a>3. 电量优化</h5><ol>
 <li>优化耗时的计算。</li>
 </ol>
-<h5><span id="4-安装包大小">4. 安装包大小</span></h5><ol>
+<h5 id="4-安装包大小"><a href="#4-安装包大小" class="headerlink" title="4. 安装包大小"></a>4. 安装包大小</h5><ol>
 <li>代码混淆。</li>
 <li>资源优化。比如使用 Android Lint 删除冗余资源。</li>
 <li>图片优化。比如利用 AAPT 工具对 PNG 格式的图片做压缩处理，降低图片色彩位数、使用 WebP图片格式等。</li>
 <li>避免重复功能的库。</li>
 <li>插件化。</li>
 </ol>
-<h3><span id="参考">参考</span></h3><ul>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a href="https://blog.dxdoctor.com/2019/06/30/Android-%E5%BA%94%E7%94%A8%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90/">Android 应用内存分析</a></li>
 </ul>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2019-07-10T13:20:58.000Z" title="2019-07-10T13:20:58.000Z">2019-07-10</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span><span class="level-item">18 分钟 读完 (大约 2680 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2019/07/10/Android-Bundle/">Android Bundle 详解 </a></h1><div class="content"><!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -330,7 +330,7 @@
 
 <p>我们都知道，在 Android 应用开发中，需要数据和状态的传递，其中还包括在 跨进程 之间的传递 （比如 IPC/Binder）。关于数据传递有多种方式，其中最常见的就是通过 Bundle 。Bundle 中文意思：捆; 一批，顾名思义就很直观了。</p>
 <p>Bundle 相当于传输过程的邮包，里面包裹的是具体的数据。</p>
-<h5><span id="实现">实现</span></h5><p>Activity 之间可以通过 创建 intent 并传递参数 的方式来传递，</p>
+<h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><p>Activity 之间可以通过 创建 intent 并传递参数 的方式来传递，</p>
 <pre class="line-numbers language-java"><code class="language-java">Intent intent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Intent</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> MyActivity<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 intent<span class="token punctuation">.</span><span class="token function">putExtra</span><span class="token punctuation">(</span><span class="token string">"media_id"</span><span class="token punctuation">,</span> <span class="token string">"a1b2c3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
@@ -352,7 +352,7 @@ intent<span class="token punctuation">.</span><span class="token function">putEx
 <blockquote>
 <p>Parcel不是通用的序列化机制（Serializable是通用的序列化机制） 所以不能把 Parcel数据存储在磁盘上或通过网络发送出去。</p>
 </blockquote>
-<h5><span id="源码分析">源码分析</span></h5><p>通过源码查看，Bundle 继承 BaseBundle 且实现了 Parcelable 接口。BaseBundle 内部 维护一个 ArrayMap&lt;String, Object&gt; mMap 常量来承载我们需要操作的对象。</p>
+<h5 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h5><p>通过源码查看，Bundle 继承 BaseBundle 且实现了 Parcelable 接口。BaseBundle 内部 维护一个 ArrayMap&lt;String, Object&gt; mMap 常量来承载我们需要操作的对象。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Bundle</span> <span class="token keyword">extends</span> <span class="token class-name">BaseBundle</span> <span class="token keyword">implements</span> <span class="token class-name">Cloneable</span><span class="token punctuation">,</span> Parcelable<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>BaseBundle 声明常量 mMap：</p>
 <pre class="line-numbers language-java"><code class="language-java"> ArrayMap<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> mMap <span class="token operator">=</span> null<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -364,7 +364,7 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
         <span class="token function">unparcel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         mMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="parcelable">Parcelable</span></h2><p>假设我们需要将<code>String  str = &quot;Hanmeimei&quot;;</code>，从 Activity  A 传递到 Activity B 时，我们可以使用  intent.putExtra(“name”,str ); 这样在 Activity B 中就能获取到由 Activity A 传递过来的字符串 str  .那么如果我想将一个对象由 Activity  A 传递到  Activity B 该怎么办，比如 User 对象。</p>
+<h2 id="Parcelable"><a href="#Parcelable" class="headerlink" title="Parcelable"></a>Parcelable</h2><p>假设我们需要将<code>String  str = &quot;Hanmeimei&quot;;</code>，从 Activity  A 传递到 Activity B 时，我们可以使用  intent.putExtra(“name”,str ); 这样在 Activity B 中就能获取到由 Activity A 传递过来的字符串 str  .那么如果我想将一个对象由 Activity  A 传递到  Activity B 该怎么办，比如 User 对象。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String password<span class="token punctuation">;</span>
@@ -401,10 +401,10 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Android 并没有提供在两个 activity之间传递任意对象或者引用的方法，但是就是需要传递对象该怎么办呢，这个时候就需要  让该对象实现 Android 提供的 parcelable接口，说到 parcelable 就得说Parcel。</p>
-<h3><span id="parcel-是什么">Parcel 是什么？</span></h3><p>简单说Parcel就是一个存放读取数据的容器， Android系统中的binder进程间通信(IPC)就使用了Parcel类来进行客户端与服务端数据的交互，而且AIDL的数据也是通过Parcel来交互的。在Java空间和C++都实现了Parcel，由于它在C/C++中，直接使用了内存来读取数据，因此，它更有效率。Parcel不是通用的序列化机制（Serialize 是通用的序列化机制） 所以不能把 Parcel数据存储在磁盘上或通过网络传输。</p>
+<h3 id="Parcel-是什么？"><a href="#Parcel-是什么？" class="headerlink" title="Parcel 是什么？"></a>Parcel 是什么？</h3><p>简单说Parcel就是一个存放读取数据的容器， Android系统中的binder进程间通信(IPC)就使用了Parcel类来进行客户端与服务端数据的交互，而且AIDL的数据也是通过Parcel来交互的。在Java空间和C++都实现了Parcel，由于它在C/C++中，直接使用了内存来读取数据，因此，它更有效率。Parcel不是通用的序列化机制（Serialize 是通用的序列化机制） 所以不能把 Parcel数据存储在磁盘上或通过网络传输。</p>
 <p>Parcel 的标记接口 是 Parcelable，如果该对象实现了parcelable接口，且实现了对应的方法，就拥有了 Parcel 的特性。</p>
-<h3><span id="parcelable-在数据传递的用法">Parcelable 在数据传递的用法</span></h3><p>在Android 对象传递需求中，那么就可以利用下图红框中的方法进行传递了，putExtra(String name,Parcelable user);可以看出，我们可以传递一个实现 Parcelable接口的对象了</p>
-<h2><span id="serializable">Serializable</span></h2><h3><span id="概念">概念</span></h3><ol>
+<h3 id="Parcelable-在数据传递的用法"><a href="#Parcelable-在数据传递的用法" class="headerlink" title="Parcelable 在数据传递的用法"></a>Parcelable 在数据传递的用法</h3><p>在Android 对象传递需求中，那么就可以利用下图红框中的方法进行传递了，putExtra(String name,Parcelable user);可以看出，我们可以传递一个实现 Parcelable接口的对象了</p>
+<h2 id="Serializable"><a href="#Serializable" class="headerlink" title="Serializable"></a>Serializable</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ol>
 <li>序列化就是将对象转化为字节流。</li>
 <li>反序列化就是将字节流转化为对象。</li>
 <li>默认的序列化是深度系列化（即类中嵌套其他对象引用的对象也会被序列化）。</li>
@@ -414,7 +414,7 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
 <span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Serializable</span> <span class="token punctuation">{</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>以上是 <code>Serializable</code> 的接口定义，且 <code>Serializable</code> 只是一个没有定义任何方法的标记接口。</p>
-<h3><span id="为什么定义标记接口即可实现序列化了呢">为什么定义标记接口即可实现序列化了呢？</span></h3><p>声明实现 <code>Serializable</code> 接口后保存读取对象就可以使用 <code>ObjectOutputStream</code>、<code>ObjectInputStream</code> 流了，<code>ObjectOutputStream</code> 是 <code>OutputStream</code> 的子类，但实现了 <code>ObjectOutput</code> 接口，<code>ObjectOutput</code> 是 <code>DataOutput</code> 的子接口，增加了一个 <code>writeObject(Object obj)</code> 方法将对象转化为字节写到流中，<code>ObjectInputStream</code> 是 <code>InputStream</code> 的子类，实现了<code>ObjectInput</code> 接口，<code>ObjectInput</code> 是 <code>DataInput</code> 的子接口，增加了一个 <code>readObject()</code> 方法从流中读取字节转为对象。</p>
+<h3 id="为什么定义标记接口即可实现序列化了呢？"><a href="#为什么定义标记接口即可实现序列化了呢？" class="headerlink" title="为什么定义标记接口即可实现序列化了呢？"></a>为什么定义标记接口即可实现序列化了呢？</h3><p>声明实现 <code>Serializable</code> 接口后保存读取对象就可以使用 <code>ObjectOutputStream</code>、<code>ObjectInputStream</code> 流了，<code>ObjectOutputStream</code> 是 <code>OutputStream</code> 的子类，但实现了 <code>ObjectOutput</code> 接口，<code>ObjectOutput</code> 是 <code>DataOutput</code> 的子接口，增加了一个 <code>writeObject(Object obj)</code> 方法将对象转化为字节写到流中，<code>ObjectInputStream</code> 是 <code>InputStream</code> 的子类，实现了<code>ObjectInput</code> 接口，<code>ObjectInput</code> 是 <code>DataInput</code> 的子接口，增加了一个 <code>readObject()</code> 方法从流中读取字节转为对象。</p>
 <blockquote>
 <p>序列化和反序列化的实质在于 <code>ObjectOutputStream</code> 的 <code>writeObject</code> 和 <code>ObjectInputStream</code> 的 <code>readObject</code> 方法实现，常见的 <code>String</code>、<code>Date</code>、<code>Double</code>、<code>ArrayList</code>、<code>LinkedList</code>、<code>HashMap</code>、<code>TreeMap</code> 等都默认实现了 <code>Serializable</code>,.</p>
 </blockquote>
@@ -462,17 +462,17 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="最后">最后</span></h2><p>通过以上我们了解 Serializable 和 Parcelable都可以实现复杂数据结构的封装传输，两者的区别是什么？</p>
-<h3><span id="两者的设计初衷">两者的设计初衷：</span></h3><ol>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>通过以上我们了解 Serializable 和 Parcelable都可以实现复杂数据结构的封装传输，两者的区别是什么？</p>
+<h3 id="两者的设计初衷："><a href="#两者的设计初衷：" class="headerlink" title="两者的设计初衷："></a>两者的设计初衷：</h3><ol>
 <li><strong>Serializable</strong> 的作用是为了保存对象的属性到本地文件、数据库、网络流等以方便数据传输，当然这种传输可以是程序内的也可以是两个程序间的。</li>
 <li><strong>Parcelable</strong> 的设计初衷是因为Serializable 效率过慢，为了在程序内不同组件间以及不同 Android 程序间(AIDL)高效的传输数据而设计，这些数据仅在内存中存在，而且 Parcelable 是通过 IBinder 通信的消息的载体。</li>
 </ol>
-<h3><span id="两者的区别">两者的区别：</span></h3><ol>
+<h3 id="两者的区别："><a href="#两者的区别：" class="headerlink" title="两者的区别："></a>两者的区别：</h3><ol>
 <li>在使用内存的时候，Parcelable 类比 Serializable 性能高。</li>
 <li>Serializable在序列化的时候会产生大量的临时变量，从而引起频繁的GC。</li>
 <li>Parcelable不能适用在要将数据存储在磁盘上的情况，因为Parcelable 在外界有变化的情况下，不能很好的保证数据的持续性。</li>
 </ol>
-<h3><span id="适用场景">适用场景：</span></h3><ol>
+<h3 id="适用场景："><a href="#适用场景：" class="headerlink" title="适用场景："></a>适用场景：</h3><ol>
 <li>只在内存中操作数据时，比如两个 Activity 之间 传输数据。</li>
 <li>需要持久化数据时，比如需要将数据保存的本地文件、数据库，所以尽管 Serializable 效率低点， 也不提倡用，但在这种情况下，还是建议你用 Serializable 。</li>
 </ol>
@@ -493,9 +493,9 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
 
 
 <p>Android 开发场景中，分析内存泄漏情况</p>
-<h2><span id="所需工具">所需工具</span></h2><h3><span id="1-mta">1. MTA</span></h3><p>Eclipse Memory Analysis Tools (MAT) 是一个分析 Java堆数据的专业工具，用它可以定位内存泄漏的原因。</p>
+<h2 id="所需工具"><a href="#所需工具" class="headerlink" title="所需工具"></a>所需工具</h2><h3 id="1-MTA"><a href="#1-MTA" class="headerlink" title="1. MTA"></a>1. MTA</h3><p>Eclipse Memory Analysis Tools (MAT) 是一个分析 Java堆数据的专业工具，用它可以定位内存泄漏的原因。</p>
 <p>工具地址 : <a href="https://www.eclipse.org/mat/">https://www.eclipse.org/mat/</a></p>
-<h3><span id="2-androidstudio">2. AndroidStudio</span></h3><ul>
+<h3 id="2-AndroidStudio"><a href="#2-AndroidStudio" class="headerlink" title="2. AndroidStudio"></a>2. AndroidStudio</h3><ul>
 <li>monitor</li>
 </ul>
 <p>存在 sdk/toools/ 下的 monitor</p>
@@ -511,7 +511,7 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
 <li>profiler </li>
 </ul>
 <p>AndroidStudio 内置的 内存检测工具，可以回收内存和下载dump。</p>
-<h2><span id="使用">使用</span></h2><ol>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
 <li>通过 AndroidStudio 内置工具 profiler 进行分析并获取到.hprof 文件。</li>
 </ol>
 <blockquote>
@@ -535,7 +535,7 @@ bundle<span class="token punctuation">.</span><span class="token function">putXX
 <blockquote>
 <p>进入Histogram<br>可以点击表头进行排序,在表的第一行可以输入正则表达式来匹配结果,找到我们想要找的类，然后右键选择<code>merge shortest paths to Gc roots</code> 然后在选择<code>exclude all phantom/weak/soft etc.references</code>选项.</p>
 </blockquote>
-<h2><span id="分析小技巧">分析小技巧</span></h2><ol>
+<h2 id="分析小技巧"><a href="#分析小技巧" class="headerlink" title="分析小技巧"></a>分析小技巧</h2><ol>
 <li><code>Histogram</code> 对比</li>
 </ol>
 <p>为查找内存泄漏，通常需要两个 Dump结果作对比，打开 <code>Navigator History</code>面板，将两个表的 <code>Histogram</code>结果都添加到 <code>Compare Basket</code>中去 :<br>添加好后，打开 Compare Basket面板，得到结果。</p>
@@ -580,12 +580,12 @@ Shallow size就是对象本身占用内存的大小，不包含其引用的对�
 
 
 
-<h3><span id="特点">特点：</span></h3><ol>
+<h3 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h3><ol>
 <li>并行处理任务。</li>
 <li>存在 线程数据安全、死锁、内存消耗、对象的生命周期管理、ui 的卡顿 等等。</li>
 <li>存在优先级。</li>
 </ol>
-<h3><span id="线程优先级">线程优先级</span></h3><p>线程寄宿在进程当中，线程的生命周期直接被进程所影响，而进程的存活又和其优先级直接相关。在处理进程优先级的时候，大部分人靠直觉都能知道前台进程（<code>Foreground Process</code>）优先级要高于后台进程（<code>Background Process</code>）。但这种粗糙的划分无法满足操作系统高精度调度的需求。无论 Android 还是 iOS，系统对于 Foreground，Background 进程有进一步的细化。</p>
+<h3 id="线程优先级"><a href="#线程优先级" class="headerlink" title="线程优先级"></a>线程优先级</h3><p>线程寄宿在进程当中，线程的生命周期直接被进程所影响，而进程的存活又和其优先级直接相关。在处理进程优先级的时候，大部分人靠直觉都能知道前台进程（<code>Foreground Process</code>）优先级要高于后台进程（<code>Background Process</code>）。但这种粗糙的划分无法满足操作系统高精度调度的需求。无论 Android 还是 iOS，系统对于 Foreground，Background 进程有进一步的细化。</p>
 <ol>
 <li>Foreground Process</li>
 </ol>
@@ -637,7 +637,7 @@ Shallow size就是对象本身占用内存的大小，不包含其引用的对�
 <p>虽说Android系统在任务调度上是以线程为基础单位，设置单个thread的优先级也可以改变其所属的control groups，从而影响CPU time slice的分配。但进程的属性变化也会影响到线程的调度，当一个App进入后台的时候，该App所属的整个进程都将进入background group，以确保处于foreground，用户可见的新进程能获取到尽可能多的CPU资源。用adb可以查看不同进程的当前调度策略。</p>
 <pre class="line-numbers language-shell"><code class="language-shell">adb shell ps -P<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>当你的App重新被用户切换到前台的时候，进程当中所属的线程又会回归的原来的group。在这些用户频繁切换的过程当中，thread的优先级并不会发生变化，但系统在time slice的分配上却在不停的调整。</p>
-<h3><span id="是否真的需要新线程">是否真的需要新线程？</span></h3><p>开线程并不是提升App性能，解决UI卡顿的万金油。每一个新启的线程会消耗至少64KB的内存，系统在不同的线程之间switch context也会带来额外的开销。如果随意开启新线程，随着业务的膨胀，很容易在App运行的某个时间点发现几十个线程同时在运行。后果是原本想解决UI流畅性，却反而导致了偶现的不可控的卡顿。</p>
+<h3 id="是否真的需要新线程？"><a href="#是否真的需要新线程？" class="headerlink" title="是否真的需要新线程？"></a>是否真的需要新线程？</h3><p>开线程并不是提升App性能，解决UI卡顿的万金油。每一个新启的线程会消耗至少64KB的内存，系统在不同的线程之间switch context也会带来额外的开销。如果随意开启新线程，随着业务的膨胀，很容易在App运行的某个时间点发现几十个线程同时在运行。后果是原本想解决UI流畅性，却反而导致了偶现的不可控的卡顿。</p>
 <p>移动端App新启线程一般都是为了保证UI的流畅性，增加App用户操作的响应度。但是否需要将任务放入工作线程需要先了解任务的瓶颈在哪，是i/o，gpu还是cpu？UI出现卡顿并不一定是UI线程出现了费时的计算，有可能是其它原因，比如layout层级太深。</p>
 <p>尽量重用已有的工作线程（使用线程池）可以避免出现大量同时活跃的线程，比如对HTTP请求设置最大并发数。或者将任务放入某个串行的队列（HandlerThread）按顺序执行，工作线程任务队列适合处理大量耗时较短的任务，避免出现单个任务阻塞整个队列的情况。</p>
 <p>用什么姿势开线程？</p>
@@ -655,7 +655,7 @@ Shallow size就是对象本身占用内存的大小，不包含其引用的对�
 <p>如果从UI线程启动，则该线程优先级默认为Default，归于default cgroup，会平等的和UI线程争夺CPU资源。这一点尤其需要注意，在对UI性能要求高的场景下要记得</p>
 <pre class="line-numbers language-java"><code class="language-java">Process<span class="token punctuation">.</span><span class="token function">setThreadPriority</span><span class="token punctuation">(</span>Process<span class="token punctuation">.</span>THREAD_PRIORITY_BACKGROUND<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>虽说处于background group的线程总共只能争取到5～10%的CPU资源，但这对绝大部分的后台任务处理都绰绰有余了，1ms和10ms对用户来说，都是快到无法感知，所以我们一般都偏向于在background group当中执行工作线程任务。</p>
-<h3><span id="asynctask">AsyncTask</span></h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyAsyncTask</span> <span class="token keyword">extends</span> <span class="token class-name">AsyncTask</span> <span class="token punctuation">{</span>
+<h3 id="AsyncTask"><a href="#AsyncTask" class="headerlink" title="AsyncTask"></a>AsyncTask</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyAsyncTask</span> <span class="token keyword">extends</span> <span class="token class-name">AsyncTask</span> <span class="token punctuation">{</span>
 
         <span class="token annotation punctuation">@Override</span>
         <span class="token keyword">protected</span> Object <span class="token function">doInBackground</span><span class="token punctuation">(</span>Object<span class="token punctuation">[</span><span class="token punctuation">]</span> params<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -677,18 +677,18 @@ Shallow size就是对象本身占用内存的大小，不包含其引用的对�
 <p>==AsyncTask也有隐式的持有外部类对象引用的问题，需要特别注意防止出现意外的内存泄漏。==</p>
 <p>AsyncTask由于在不同的系统版本上串行与并行的执行行为不一致，被不少开发者所诟病，这确实是硬伤，绝大部分的多线程场景都需要明确任务是串行还是并行。</p>
 <p>线程优先级为background，对UI线程的执行影响极小。</p>
-<h3><span id="handlerthread">HandlerThread</span></h3><p>在需要对多任务做更精细控制，线程切换更频繁的场景之下，Thread()和AsyncTask都会显得力不从心。HandlerThread却能胜任这些需求甚至更多。</p>
+<h3 id="HandlerThread"><a href="#HandlerThread" class="headerlink" title="HandlerThread"></a>HandlerThread</h3><p>在需要对多任务做更精细控制，线程切换更频繁的场景之下，Thread()和AsyncTask都会显得力不从心。HandlerThread却能胜任这些需求甚至更多。</p>
 <p>HandlerThread将Handler，Thread，Looper，MessageQueue几个概念相结合。Handler是线程对外的接口，所有新的message或者runnable都通过handler post到工作线程。Looper在MessageQueue取到新的任务就切换到工作线程去执行。不同的post方法可以让我们对任务做精细的控制，什么时候执行，执行的顺序都可以控制。HandlerThread最大的优势在于引入MessageQueue概念，可以进行多任务队列管理。</p>
 <p>HandlerThread背后只有一个线程，所以任务是==串行==执行的。串行相对于并行来说更安全，各任务之间不会存在多线程安全问题。</p>
 <p>==HandlerThread所产生的线程会一直存活==，Looper会在该线程中持续的检查MessageQueue。这一点和Thread()，AsyncTask都不同，thread实例的重用可以避免线程相关的对象的频繁重建和销毁。</p>
 <p>HandlerThread较之Thread()，AsyncTask需要写更多的代码，但在实用性，灵活度，安全性上都有更好的表现。</p>
-<h3><span id="threadpoolexecutor">ThreadPoolExecutor</span></h3><p>Thread(),AsyncTask适合处理单个任务的场景，HandlerThread适合串行处理多任务的场景。当需要并行的处理多任务之时，ThreadPoolExecutor是更好的选择。</p>
+<h3 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h3><p>Thread(),AsyncTask适合处理单个任务的场景，HandlerThread适合串行处理多任务的场景。当需要并行的处理多任务之时，ThreadPoolExecutor是更好的选择。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Executor THREAD_POOL_EXECUTOR
             <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadPoolExecutor</span><span class="token punctuation">(</span>CORE_POOL_SIZE<span class="token punctuation">,</span> MAXIMUM_POOL_SIZE<span class="token punctuation">,</span> KEEP_ALIVE<span class="token punctuation">,</span>
             TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">,</span> sPoolWorkQueue<span class="token punctuation">,</span> sThreadFactory<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>线程池可以避免线程的频繁创建和销毁，显然性能更好，但线程池并发的特性往往也是疑难杂症的源头，是代码降级和失控的开始。多线程并行导致的bug往往是偶现的，不方便调试，一旦出现就会耗掉大量的开发精力。</p>
 <p>ThreadPool较之HandlerThread在处理多任务上有更高的灵活性，但也带来了更大的复杂度和不确定性。</p>
-<h3><span id="intentservice">IntentService</span></h3><p>不得不说Android在API设计上粒度很细，同一样工作可以通过各种不同的类来完成。IntentService又是另一种开工作线程的方式，从名字就可以看出这个工作线程会带有service的属性。和AsyncTask不同，没有和UI线程的交互，也不像HandlerThread的工作线程会一直存活。IntentService背后其实也有一个HandlerThread来串行的处理Message Queue，从IntentService的onCreate方法可以看出：</p>
+<h3 id="IntentService"><a href="#IntentService" class="headerlink" title="IntentService"></a>IntentService</h3><p>不得不说Android在API设计上粒度很细，同一样工作可以通过各种不同的类来完成。IntentService又是另一种开工作线程的方式，从名字就可以看出这个工作线程会带有service的属性。和AsyncTask不同，没有和UI线程的交互，也不像HandlerThread的工作线程会一直存活。IntentService背后其实也有一个HandlerThread来串行的处理Message Queue，从IntentService的onCreate方法可以看出：</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">// TODO: It would be nice to have an option to hold a partial wakelock</span>
@@ -704,7 +704,7 @@ Shallow size就是对象本身占用内存的大小，不包含其引用的对�
     <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>只不过在所有的Message处理完毕之后，工作线程会自动结束。所以可以把IntentService看做是Service和HandlerThread的结合体，适合需要在工作线程处理UI无关任务的场景。</p>
-<h3><span id="结束语">结束语</span></h3><p>Android开线程的方式虽然五花八门，但归根到底最后还是映射到linux下的pthread，业务的设计还是脱不了和线程相关的基础概念范畴：线程的执行顺序，调度策略，生命周期，串行还是并行，同步还是异步等等。摸清楚各类API下线程的行为特点，在设计具体业务的线程模型的时候自然轻车熟路了，线程模型的设计要有整个app视角的广度，切忌各业务模块各玩各的。</p>
+<h3 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h3><p>Android开线程的方式虽然五花八门，但归根到底最后还是映射到linux下的pthread，业务的设计还是脱不了和线程相关的基础概念范畴：线程的执行顺序，调度策略，生命周期，串行还是并行，同步还是异步等等。摸清楚各类API下线程的行为特点，在设计具体业务的线程模型的时候自然轻车熟路了，线程模型的设计要有整个app视角的广度，切忌各业务模块各玩各的。</p>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2019-04-16T13:01:11.000Z" title="2019-04-16T13:01:11.000Z">2019-04-16</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span><span class="level-item">11 分钟 读完 (大约 1590 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2019/04/16/Android-Dagger2%E5%88%86%E6%9E%90/">Android Dagger2分析</a></h1><div class="content"><!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -721,7 +721,7 @@ Shallow size就是对象本身占用内存的大小，不包含其引用的对�
 
 <p><a href="https://google.github.io/dagger/">官方地址 </a></p>
 <p><a href="https://blog.csdn.net/briblue/article/details/75578459">参考博客地址</a></p>
-<h3><span id="注解">注解</span></h3><h3><span id="依赖注入">依赖注入</span></h3><p>Dagger2 是一个依赖注入框架，依赖注入的目的就是为了给需求方在合适的时候注入依赖。<br>**@Inject**<br>@Inject 注解就如同一个标签，或者说它是一个记号，它是给 Dagger2 看的。它运用的地方有两处。</p>
+<h3 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h3><h3 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h3><p>Dagger2 是一个依赖注入框架，依赖注入的目的就是为了给需求方在合适的时候注入依赖。<br>**@Inject**<br>@Inject 注解就如同一个标签，或者说它是一个记号，它是给 Dagger2 看的。它运用的地方有两处。</p>
 <ul>
 <li><p>@Inject 给一个类的相应的属性做标记时，说明了它是一个依赖需求方，需要一些依赖。</p>
 </li>
@@ -849,7 +849,7 @@ DaggerParentComponent<span class="token punctuation">.</span><span class="token 
 <p>但是，SubComponent 同时具备了 ParentComponent 和自身的 @Scope 作用域。所以，这经常会造成混乱的地方。大家需要注意。</p>
 <p>如果你要我比较，SubComponent 和 dependency 形式哪种更好时，我承认各有优点，但我自己倾向于 dependency，因为它更灵活。</p>
 <p>不是说 组合优于继承嘛。</p>
-<h3><span id="反射">反射</span></h3><h3><span id="基于-javaxinject">基于 </span></h3><p>Dagger 2 是一个设计非常巧妙且粗暴的框架。为什么说巧妙呢？</p>
+<h3 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h3><h3 id="基于-javax-inject"><a href="#基于-javax-inject" class="headerlink" title="基于 javax.inject "></a>基于 <a href="https://jcp.org/en/jsr/detail?id=330">javax.inject </a></h3><p>Dagger 2 是一个设计非常巧妙且粗暴的框架。为什么说巧妙呢？</p>
 <ol>
 <li>Dagger 是为Android和Java平台提供的一个完全静态的，在编译时进行依赖注入的框架。</li>
 <li>Dagger 通过生成中间代码，解决了基于反射带来的开发和性能上的问题。</li>
@@ -881,12 +881,12 @@ DaggerParentComponent<span class="token punctuation">.</span><span class="token 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
-<h2><span id="android-线程池特点">Android  线程池特点</span></h2><ol>
+<h2 id="Android-线程池特点"><a href="#Android-线程池特点" class="headerlink" title="Android  线程池特点"></a>Android  线程池特点</h2><ol>
 <li><code>Thread()</code>,<code>AsyncTask</code>适合处理单个任务的场景，<code>HandlerThread</code>适合串行处理多任务的场景。当需要并行的处理多任务之时，<code>ThreadPoolExecutor</code>是更好的选择。</li>
 <li>线程池可以避免线程的频繁创建和销毁，显然性能更好，但线程池并发的特性往往也是疑难杂症的源头，是代码降级和失控的开始。多线程并行导致的bug往往是偶现的，不方便调试，一旦出现就会耗掉大量的开发精力。</li>
 <li><code>ThreadPool</code>较之<code>HandlerThread</code>在处理多任务上有更高的灵活性，但也带来了更大的复杂度和不确定性。</li>
 </ol>
-<h2><span id="常用创建线程池的方式">常用创建线程池的方式</span></h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token function">ThreadPoolExecutor</span><span class="token punctuation">(</span><span class="token keyword">int</span> corePoolSize<span class="token punctuation">,</span>
+<h2 id="常用创建线程池的方式"><a href="#常用创建线程池的方式" class="headerlink" title="常用创建线程池的方式"></a>常用创建线程池的方式</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token function">ThreadPoolExecutor</span><span class="token punctuation">(</span><span class="token keyword">int</span> corePoolSize<span class="token punctuation">,</span>
                           <span class="token keyword">int</span> maximumPoolSize<span class="token punctuation">,</span>
                           <span class="token keyword">long</span> keepAliveTime<span class="token punctuation">,</span>
                           TimeUnit unit<span class="token punctuation">,</span>
@@ -908,8 +908,8 @@ DaggerParentComponent<span class="token punctuation">.</span><span class="token 
 <li>如果上一步骤中线程数量达到了限定线程总量，那么线程池则拒绝执行该任务，且<code>ThreadPoolExecutor</code>会调用<code>RejectedtionHandler</code>的<code>rejectedExecution</code>方法来通知调用者。</li>
 </ol>
 </blockquote>
-<h2><span id="实践场景">实践场景</span></h2><p>从我们现实的业务种，所用到的场景是大同小异。所以官方准备了几个不同类型的线程池。通过工厂方法创建以下类型：</p>
-<h3><span id="newfixthreadpool">#newFixThreadPool</span></h3><p>通过<code>Executors</code>的<code>newFixedThreadPool()</code>方法创建，它是个线程数量固定的线程池，该线程池的线程全部为核心线程，它们没有超时机制且排队任务队列无限制，因为全都是核心线程，所以响应较快，且不用担心线程会被回收。</p>
+<h2 id="实践场景"><a href="#实践场景" class="headerlink" title="实践场景"></a>实践场景</h2><p>从我们现实的业务种，所用到的场景是大同小异。所以官方准备了几个不同类型的线程池。通过工厂方法创建以下类型：</p>
+<h3 id="newFixThreadPool"><a href="#newFixThreadPool" class="headerlink" title="#newFixThreadPool"></a>#newFixThreadPool</h3><p>通过<code>Executors</code>的<code>newFixedThreadPool()</code>方法创建，它是个线程数量固定的线程池，该线程池的线程全部为核心线程，它们没有超时机制且排队任务队列无限制，因为全都是核心线程，所以响应较快，且不用担心线程会被回收。</p>
 <pre class="line-numbers language-java"><code class="language-java">ExecutorService mExecutor <span class="token operator">=</span> Executors<span class="token punctuation">.</span><span class="token function">newFixedThreadPool</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 Runnable runnable <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
      <span class="token annotation punctuation">@Override</span>
@@ -919,7 +919,7 @@ Runnable runnable <span class="token operator">=</span> <span class="token keywo
 <span class="token punctuation">}</span>
 mExecutor<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span>runnable<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3><span id="newcachedthreadpool">#newCachedThreadPool</span></h3><p>通过<code>Executors</code>的<code>newCachedThreadPool()</code>方法来创建，它是一个数量无限多的线程池，它所有的线程都是非核心线程，当有新任务来时如果没有空闲的线程则直接创建新的线程不会去排队而直接执行，并且超时时间都是60s，所以此线程池适合执行大量耗时小的任务。由于设置了超时时间为60s，所以当线程空闲一定时间时就会被系统回收，所以理论上该线程池不会有占用系统资源的无用线程。</p>
+<h3 id="newCachedThreadPool"><a href="#newCachedThreadPool" class="headerlink" title="#newCachedThreadPool"></a>#newCachedThreadPool</h3><p>通过<code>Executors</code>的<code>newCachedThreadPool()</code>方法来创建，它是一个数量无限多的线程池，它所有的线程都是非核心线程，当有新任务来时如果没有空闲的线程则直接创建新的线程不会去排队而直接执行，并且超时时间都是60s，所以此线程池适合执行大量耗时小的任务。由于设置了超时时间为60s，所以当线程空闲一定时间时就会被系统回收，所以理论上该线程池不会有占用系统资源的无用线程。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> ExecutorService <span class="token keyword">new</span> <span class="token class-name">CachedThreadPool</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ThreadPoolExecutor</span><span class="token punctuation">(</span>
         <span class="token number">0</span><span class="token punctuation">,</span> Integer<span class="token punctuation">.</span>MAX_VALUE<span class="token punctuation">,</span> 60L<span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">,</span>
@@ -935,7 +935,7 @@ Runnable runnable <span class="token operator">=</span> <span class="token keywo
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 mExecutor<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span>runnable<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3><span id="newscheduledthreadpool">#newScheduledThreadPool</span></h3><p>通过<code>Executors</code>的<code>newScheduledThreadPool()</code>方法来创建，<code>ScheduledThreadPool</code>线程池像是上两种的合体，它有数量固定的核心线程，且有数量无限多的非核心线程，但是它的非核心线程超时时间是0s，所以非核心线程一旦空闲立马就会被回收。这类线程池适合用于执行定时任务和固定周期的重复任务。</p>
+<h3 id="newScheduledThreadPool"><a href="#newScheduledThreadPool" class="headerlink" title="#newScheduledThreadPool"></a>#newScheduledThreadPool</h3><p>通过<code>Executors</code>的<code>newScheduledThreadPool()</code>方法来创建，<code>ScheduledThreadPool</code>线程池像是上两种的合体，它有数量固定的核心线程，且有数量无限多的非核心线程，但是它的非核心线程超时时间是0s，所以非核心线程一旦空闲立马就会被回收。这类线程池适合用于执行定时任务和固定周期的重复任务。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> ScheduledThreadPool <span class="token function">newScheduledThreadPool</span><span class="token punctuation">(</span><span class="token keyword">int</span> corePoolSize<span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ScheduledThreadPoolExecutor</span><span class="token punctuation">(</span>corePoolSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -955,7 +955,7 @@ Runnable runnable <span class="token operator">=</span> <span class="token keywo
 <span class="token punctuation">}</span>
 mExecutor<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span>runnable<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3><span id="newsinglethreadexecutor">#newSingleThreadExecutor</span></h3><p>通过<code>Executors</code>的<code>newSingleThreadExecutor()</code>方法来创建，它内部只有一个核心线程，它确保所有任务进来都要排队按顺序执行。它的意义在于，统一所有的外界任务到同一线程中，让调用者可以忽略线程同步问题。</p>
+<h3 id="newSingleThreadExecutor"><a href="#newSingleThreadExecutor" class="headerlink" title="#newSingleThreadExecutor"></a>#newSingleThreadExecutor</h3><p>通过<code>Executors</code>的<code>newSingleThreadExecutor()</code>方法来创建，它内部只有一个核心线程，它确保所有任务进来都要排队按顺序执行。它的意义在于，统一所有的外界任务到同一线程中，让调用者可以忽略线程同步问题。</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> ExecutorService <span class="token function">newSingleThreadExecutor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">FinalizableDelegatedExecutorService</span><span class="token punctuation">(</span>
         <span class="token keyword">new</span> <span class="token class-name">ThreadPoolExecutor</span><span class="token punctuation">(</span>
@@ -973,7 +973,7 @@ Runnable runnable <span class="token operator">=</span> <span class="token keywo
 <span class="token punctuation">}</span>
 mExecutor<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span>runnable<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2><span id="executorservice"><code>ExecutorService</code></span></h2><p>通过以上代码我们可以看出，所返回的皆是 <code>ExecutorService</code>，一个接口且继承于 <code>Executor</code>;</p>
+<h2 id="ExecutorService"><a href="#ExecutorService" class="headerlink" title="ExecutorService"></a><code>ExecutorService</code></h2><p>通过以上代码我们可以看出，所返回的皆是 <code>ExecutorService</code>，一个接口且继承于 <code>Executor</code>;</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">interface</span> <span class="token class-name">ExecutorService</span> <span class="token keyword">extends</span> <span class="token class-name">Executor</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>接口方法：</p>
 <ol>
@@ -983,7 +983,7 @@ mExecutor<span class="token punctuation">.</span><span class="token function">ex
 <li><code>execute()</code>，提交任务无返回值； </li>
 <li><code>submit()</code>，提交任务有返回值；</li>
 </ol>
-<h4><span id="参数">参数</span></h4><blockquote>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><blockquote>
 <ol>
 <li><code>corePoolSize</code>：核心线程数，如果运行的线程少于<code>corePoolSize</code>，则创建新线程来执行新任务，即使线程池中的其他线程是空闲的</li>
 <li><code>maximumPoolSize</code>:最大线程数，可允许创建的线程数，<code>corePoolSize</code>和<code>maximumPoolSize</code>设置的边界自动调整池大小：</li>
