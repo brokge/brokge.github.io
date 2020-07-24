@@ -1,19 +1,21 @@
 <!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Dubbo详解 - 玉蘇子</title><meta description="一、前言 分布式架构的 有 3 种解决方案 基于反向代理的中心化架构 嵌入应用内部的去中心化架构 基于独立代理进程的Service Mesh架构"><meta property="og:type" content="blog"><meta property="og:title" content="Dubbo详解"><meta property="og:url" content="https://brokge.github.io/2020/06/02/Dubbo%E8%AF%A6%E8%A7%A3/"><meta property="og:site_name" content="玉蘇子"><meta property="og:description" content="一、前言 分布式架构的 有 3 种解决方案 基于反向代理的中心化架构 嵌入应用内部的去中心化架构 基于独立代理进程的Service Mesh架构"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://note.youdao.com/yws/res/9311/64A03BA7F21B4BB29F4ABC5F11140870"><meta property="og:image" content="http://note.youdao.com/yws/res/9352/29E919D8DA684D4E99671F5A16013855"><meta property="og:image" content="http://note.youdao.com/yws/res/9359/91E7A4D0836A49B395A817DDC2CF2376"><meta property="og:image" content="http://note.youdao.com/yws/res/9364/E7DE6B068DC74C7D8AE0808F46AB24AF"><meta property="og:image" content="http://note.youdao.com/yws/res/9319/81A705F26C0346EA871AB8936296BFE1"><meta property="og:image" content="http://note.youdao.com/yws/res/9322/60BD217B1ED345898A01578CF19291CB"><meta property="og:image" content="http://note.youdao.com/yws/res/9335/7DC769031DD64DDABC42BDFBC7384599"><meta property="og:image" content="http://note.youdao.com/yws/res/9338/0723FDE7587148BAB47925D8471D652D"><meta property="og:image" content="http://note.youdao.com/yws/res/9343/B158D3A511A54EE0819951B33A188F0D"><meta property="og:image" content="http://note.youdao.com/yws/res/9345/17D1822AA2FB4427A92566F2E64917B7"><meta property="og:image" content="http://note.youdao.com/yws/res/9386/8638BBF57BF946769ABFCE0DAF896809"><meta property="og:image" content="http://note.youdao.com/yws/res/9377/89233BE1BB03402C9224A6348FAA7007"><meta property="og:image" content="http://note.youdao.com/yws/res/9390/F32248B7D113492EBC48590051A3CD04"><meta property="og:image" content="http://note.youdao.com/yws/res/9425/D8B581F4BF944E94AF6382ECA1CB770F"><meta property="og:image" content="http://note.youdao.com/yws/res/9435/7903EF7E728C436EBABA5AB637CB1588"><meta property="og:image" content="http://note.youdao.com/yws/res/9440/C29CEB5BE9E4479EA5988A07FC429C28"><meta property="og:image" content="http://note.youdao.com/yws/res/9448/BCE9E2B8BB9F4E1DBE9E0249FCE1D4C7"><meta property="og:image" content="http://note.youdao.com/yws/res/9461/2835D117E1FE424F84ED8907FC986A2B"><meta property="og:image" content="http://note.youdao.com/yws/res/9451/5B1BA7C374ED444DAFD557DF5055D4D9"><meta property="og:image" content="http://note.youdao.com/yws/res/9453/B8DCD49FB51847ED97BBA2C316A5BCDF"><meta property="og:image" content="http://note.youdao.com/yws/res/9463/E7EF7C875FBD48A4B2037B3A74D5BC62"><meta property="og:image" content="http://note.youdao.com/yws/res/9468/EDE99CF742414CB5921E56E2BD341282"><meta property="og:image" content="http://note.youdao.com/yws/res/9473/CD04A0766E944919A0D62EBFE9F964C6"><meta property="og:image" content="http://note.youdao.com/yws/res/9475/F1C320C5A219405B8EFC66F1FE4CC78B"><meta property="og:image" content="http://note.youdao.com/yws/res/9490/17E56F436154424BA5E8AAC97BD84B13"><meta property="og:image" content="http://note.youdao.com/yws/res/9495/9564293312B2420DB80E156C7FB00CF5"><meta property="og:image" content="http://note.youdao.com/yws/res/9500/6E0C6D20EF8C4276B16C4BCF37D183CF"><meta property="og:image" content="http://note.youdao.com/yws/res/9510/AFE8EDF1A5B0427FA856137A2B9C6B12"><meta property="og:image" content="http://note.youdao.com/yws/res/9512/35AAA35E698A442687702615820C1AD7"><meta property="og:image" content="http://note.youdao.com/yws/res/9516/A8AA0D50758B4D9BA51737391F3AE4CE"><meta property="og:image" content="http://note.youdao.com/yws/res/9514/3DC6FD7E7BFB4F4786B0CCD6A9BF87DA"><meta property="og:image" content="http://note.youdao.com/yws/res/9523/DC0DB69BE0F449DF870E40A1093A57CC"><meta property="og:image" content="http://note.youdao.com/yws/res/9536/1627E3D71B36459393AAD1066002AFE6"><meta property="og:image" content="http://note.youdao.com/yws/res/9538/25B9C2C5C20C46168D641144B2B6A07E"><meta property="og:image" content="http://note.youdao.com/yws/res/9542/B37D5C57C013452AA75C1DCB90F2766A"><meta property="og:image" content="http://note.youdao.com/yws/res/9545/298139E160AA428486709FD4E1641C6A"><meta property="article:published_time" content="2020-06-02T08:28:45.000Z"><meta property="article:modified_time" content="2020-07-24T05:02:20.468Z"><meta property="article:author" content="brokge"><meta property="article:tag" content="分布式"><meta property="article:tag" content="微服务"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="http://note.youdao.com/yws/res/9311/64A03BA7F21B4BB29F4ABC5F11140870"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://brokge.github.io/2020/06/02/Dubbo%E8%AF%A6%E8%A7%A3/"},"headline":"玉蘇子","image":[],"datePublished":"2020-06-02T08:28:45.000Z","dateModified":"2020-07-24T05:02:20.468Z","author":{"@type":"Person","name":"brokge"},"description":"一、前言 分布式架构的 有 3 种解决方案 基于反向代理的中心化架构 嵌入应用内部的去中心化架构 基于独立代理进程的Service Mesh架构"}</script><link rel="canonical" href="https://brokge.github.io/2020/06/02/Dubbo%E8%AF%A6%E8%A7%A3/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="玉蘇子" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-06-02T08:28:45.000Z" title="2020-06-02T08:28:45.000Z">2020-06-02</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span><span class="level-item">1 小时 读完 (大约 7974 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Dubbo详解</h1><div class="content"><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p><img src="http://note.youdao.com/yws/res/9311/64A03BA7F21B4BB29F4ABC5F11140870" alt="image"></p>
+<html lang="zh"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Dubbo详解 - 玉蘇子</title><meta description="一、前言 分布式架构的 有 3 种解决方案 基于反向代理的中心化架构 嵌入应用内部的去中心化架构 基于独立代理进程的Service Mesh架构"><meta property="og:type" content="blog"><meta property="og:title" content="Dubbo详解"><meta property="og:url" content="https://brokge.github.io/2020/06/02/Dubbo%E8%AF%A6%E8%A7%A3/"><meta property="og:site_name" content="玉蘇子"><meta property="og:description" content="一、前言 分布式架构的 有 3 种解决方案 基于反向代理的中心化架构 嵌入应用内部的去中心化架构 基于独立代理进程的Service Mesh架构"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/64A03BA7F21B4BB29F4ABC5F11140870.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/29E919D8DA684D4E99671F5A16013855.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/91E7A4D0836A49B395A817DDC2CF2376.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/E7DE6B068DC74C7D8AE0808F46AB24AF.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/81A705F26C0346EA871AB8936296BFE1.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/60BD217B1ED345898A01578CF19291CB.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/7DC769031DD64DDABC42BDFBC7384599.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/0723FDE7587148BAB47925D8471D652D.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/B158D3A511A54EE0819951B33A188F0D.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/17D1822AA2FB4427A92566F2E64917B7.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/8638BBF57BF946769ABFCE0DAF896809.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/89233BE1BB03402C9224A6348FAA7007.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/F32248B7D113492EBC48590051A3CD04.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/D8B581F4BF944E94AF6382ECA1CB770F.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/7903EF7E728C436EBABA5AB637CB1588.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/C29CEB5BE9E4479EA5988A07FC429C28.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/BCE9E2B8BB9F4E1DBE9E0249FCE1D4C7.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/2835D117E1FE424F84ED8907FC986A2B.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/5B1BA7C374ED444DAFD557DF5055D4D9.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/B8DCD49FB51847ED97BBA2C316A5BCDF.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/E7EF7C875FBD48A4B2037B3A74D5BC62.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/EDE99CF742414CB5921E56E2BD341282.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/CD04A0766E944919A0D62EBFE9F964C6.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/F1C320C5A219405B8EFC66F1FE4CC78B.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/17E56F436154424BA5E8AAC97BD84B13.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/9564293312B2420DB80E156C7FB00CF5.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/6E0C6D20EF8C4276B16C4BCF37D183CF.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/AFE8EDF1A5B0427FA856137A2B9C6B12.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/35AAA35E698A442687702615820C1AD7.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/A8AA0D50758B4D9BA51737391F3AE4CE.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/3DC6FD7E7BFB4F4786B0CCD6A9BF87DA.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/DC0DB69BE0F449DF870E40A1093A57CC.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/1627E3D71B36459393AAD1066002AFE6.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/25B9C2C5C20C46168D641144B2B6A07E.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/B37D5C57C013452AA75C1DCB90F2766A.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/298139E160AA428486709FD4E1641C6A.jpg"><meta property="article:published_time" content="2020-06-02T08:28:45.000Z"><meta property="article:modified_time" content="2020-07-24T17:43:00.152Z"><meta property="article:author" content="brokge"><meta property="article:tag" content="分布式"><meta property="article:tag" content="微服务"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/64A03BA7F21B4BB29F4ABC5F11140870.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://brokge.github.io/2020/06/02/Dubbo%E8%AF%A6%E8%A7%A3/"},"headline":"玉蘇子","image":["https://cdn.jsdelivr.net/gh/brokge/drawio/img/64A03BA7F21B4BB29F4ABC5F11140870.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/29E919D8DA684D4E99671F5A16013855.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/91E7A4D0836A49B395A817DDC2CF2376.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/E7DE6B068DC74C7D8AE0808F46AB24AF.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/81A705F26C0346EA871AB8936296BFE1.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/60BD217B1ED345898A01578CF19291CB.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/7DC769031DD64DDABC42BDFBC7384599.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/0723FDE7587148BAB47925D8471D652D.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/B158D3A511A54EE0819951B33A188F0D.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/17D1822AA2FB4427A92566F2E64917B7.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/8638BBF57BF946769ABFCE0DAF896809.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/89233BE1BB03402C9224A6348FAA7007.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/F32248B7D113492EBC48590051A3CD04.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/D8B581F4BF944E94AF6382ECA1CB770F.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/7903EF7E728C436EBABA5AB637CB1588.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/C29CEB5BE9E4479EA5988A07FC429C28.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/BCE9E2B8BB9F4E1DBE9E0249FCE1D4C7.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/2835D117E1FE424F84ED8907FC986A2B.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/5B1BA7C374ED444DAFD557DF5055D4D9.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/B8DCD49FB51847ED97BBA2C316A5BCDF.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/E7EF7C875FBD48A4B2037B3A74D5BC62.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/EDE99CF742414CB5921E56E2BD341282.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/CD04A0766E944919A0D62EBFE9F964C6.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/F1C320C5A219405B8EFC66F1FE4CC78B.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/17E56F436154424BA5E8AAC97BD84B13.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/9564293312B2420DB80E156C7FB00CF5.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/6E0C6D20EF8C4276B16C4BCF37D183CF.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/AFE8EDF1A5B0427FA856137A2B9C6B12.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/35AAA35E698A442687702615820C1AD7.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/A8AA0D50758B4D9BA51737391F3AE4CE.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/3DC6FD7E7BFB4F4786B0CCD6A9BF87DA.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/DC0DB69BE0F449DF870E40A1093A57CC.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/1627E3D71B36459393AAD1066002AFE6.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/25B9C2C5C20C46168D641144B2B6A07E.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/B37D5C57C013452AA75C1DCB90F2766A.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/298139E160AA428486709FD4E1641C6A.jpg"],"datePublished":"2020-06-02T08:28:45.000Z","dateModified":"2020-07-24T17:43:00.152Z","author":{"@type":"Person","name":"brokge"},"description":"一、前言 分布式架构的 有 3 种解决方案 基于反向代理的中心化架构 嵌入应用内部的去中心化架构 基于独立代理进程的Service Mesh架构"}</script><link rel="canonical" href="https://brokge.github.io/2020/06/02/Dubbo%E8%AF%A6%E8%A7%A3/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="玉蘇子" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-06-02T08:28:45.000Z" title="2020-06-02T08:28:45.000Z">2020-06-02</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span><span class="level-item">1 小时 读完 (大约 8082 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Dubbo详解</h1><div class="content"><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/64A03BA7F21B4BB29F4ABC5F11140870.jpg" alt="image"></p>
 <h4 id="分布式架构的-有-3-种解决方案"><a href="#分布式架构的-有-3-种解决方案" class="headerlink" title="分布式架构的 有 3 种解决方案"></a><strong>分布式架构的 有 3 种解决方案</strong></h4><ol>
 <li>基于反向代理的中心化架构</li>
 <li>嵌入应用内部的去中心化架构</li>
 <li>基于独立代理进程的Service Mesh架构<a id="more"></a>
-<h4 id="基于反向代理的集中式分布式架构"><a href="#基于反向代理的集中式分布式架构" class="headerlink" title="基于反向代理的集中式分布式架构"></a>基于反向代理的集中式分布式架构</h4>这是最简单和传统做法，在服务消费者和生产者之间，代理作为独立一层集中部署，由独立团队(一般是运维或框架)负责治理和运维。常用的集中式代理有硬件负载均衡器(如F5)，或者软件负载均衡器(如Nginx)，这种软硬结合两层代理也是业内常见做法，兼顾配置的灵活性(Nginx比F5易于配置)。</li>
+
+</li>
 </ol>
-<p><img src="http://note.youdao.com/yws/res/9352/29E919D8DA684D4E99671F5A16013855" alt="image"></p>
+<h4 id="基于反向代理的集中式分布式架构"><a href="#基于反向代理的集中式分布式架构" class="headerlink" title="基于反向代理的集中式分布式架构"></a>基于反向代理的集中式分布式架构</h4><p>这是最简单和传统做法，在服务消费者和生产者之间，代理作为独立一层集中部署，由独立团队(一般是运维或框架)负责治理和运维。常用的集中式代理有硬件负载均衡器(如F5)，或者软件负载均衡器(如Nginx)，这种软硬结合两层代理也是业内常见做法，兼顾配置的灵活性(Nginx比F5易于配置)。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/29E919D8DA684D4E99671F5A16013855.jpg" alt="image"></p>
 <p><strong>Http+Nginx 方案总结</strong></p>
 <p><strong>优点：</strong> 简单快速、几乎没有学习成本</p>
 <p><strong>适用场景：</strong> 轻量级分布式系统、局部分布式架构。</p>
 <p><strong>瓶颈：</strong> Nginx中心负载、Http传输、JSON序列化、开发效率、运维效率。</p>
 <h3 id="嵌入应用内部的去中心化架构"><a href="#嵌入应用内部的去中心化架构" class="headerlink" title="嵌入应用内部的去中心化架构"></a>嵌入应用内部的去中心化架构</h3><p>这是很多互联网公司比较流行的一种做法，代理(包括服务发现和负载均衡逻辑)以客户库的形式嵌入在应用程序中。这种模式一般需要独立的服务注册中心组件配合，服务启动时自动注册到注册中心并定期报心跳，客户端代理则发现服务并做负载均衡。我们所熟悉的 duboo 和spring cloud Eureka +Ribbon/‘rɪbən/ 都是这种方式实现。</p>
-<p><img src="http://note.youdao.com/yws/res/9359/91E7A4D0836A49B395A817DDC2CF2376" alt="image"><br>相比第一代架构它有以下特点几点：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/91E7A4D0836A49B395A817DDC2CF2376.jpg" alt="image"><br>相比第一代架构它有以下特点几点：</p>
 <ul>
 <li>去中心化，客户端直连服务端</li>
 <li>动态注册和发现服务</li>
@@ -21,7 +23,7 @@
 <li>高效可容错的序列化</li>
 </ul>
 <h3 id="基于独立代理进程的架构-Service-Mesh"><a href="#基于独立代理进程的架构-Service-Mesh" class="headerlink" title="基于独立代理进程的架构(Service Mesh)"></a>基于独立代理进程的架构(Service Mesh)</h3><p>这种做法是上面两种模式的一个折中，代理既不是独立集中部署，也不嵌入在客户应用程序中，而是作为独立进程部署在每一个主机上，一个主机上的多个消费者应用可以共用这个代理，实现服务发现和负载均衡，如下图所示。这个模式一般也需要独立的服务注册中心组件配合，作用同第二代架构。</p>
-<p><img src="http://note.youdao.com/yws/res/9364/E7DE6B068DC74C7D8AE0808F46AB24AF" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/E7DE6B068DC74C7D8AE0808F46AB24AF.jpg" alt="image"></p>
 <h4 id="三种架构的比较"><a href="#三种架构的比较" class="headerlink" title="三种架构的比较"></a>三种架构的比较</h4><table>
 <thead>
 <tr>
@@ -55,7 +57,7 @@
 </tr>
 </tbody></table>
 <h2 id="二、什么是-Dubbo"><a href="#二、什么是-Dubbo" class="headerlink" title="二、什么是 Dubbo"></a>二、什么是 Dubbo</h2><p>dubbo 阿里开源的一个 SOA（面向服务的架构） 服务治理框架，从目前来看把它称作是一个RPC远程调用框架更为贴切。单从RPC框架来说，功能较完善，支持多种传输和序列化方案。所以想必大家已经知道他的核心功能了：就是远程调用。</p>
-<p><img src="http://note.youdao.com/yws/res/9319/81A705F26C0346EA871AB8936296BFE1" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/81A705F26C0346EA871AB8936296BFE1.jpg" alt="image"></p>
 <p><strong>流程说明：</strong></p>
 <ol>
 <li>Provider(提供者)绑定指定端口并启动服务</li>
@@ -73,7 +75,7 @@
 <li>服务提供者无状态，任意一台宕掉后，不影响使用</li>
 </ol>
 <p><strong>Dubbo 设计层级</strong></p>
-<p><img src="http://note.youdao.com/yws/res/9322/60BD217B1ED345898A01578CF19291CB" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/60BD217B1ED345898A01578CF19291CB.jpg" alt="image"></p>
 <ul>
 <li>config <strong>配置层</strong>：对外配置接口，以 ServiceConfig, ReferenceConfig 为中心，可以直接初始化配置类，也可以通过 spring 解析配置生成配置类</li>
 <li>proxy <strong>服务代理层</strong>：服务接口透明代理，生成动态代理 扩展接口为 ProxyFactory</li>
@@ -85,9 +87,9 @@
 <li>transport <strong>网络传输层</strong>：抽象 mina 和 netty 为统一接口，以 Message 为中心，扩展接口为 Channel, Transporter, Client, Server, Codec</li>
 <li>serialize <strong>数据序列化层</strong>：可复用的一些工具，扩展接口为 Serialization, ObjectInput, ObjectOutput, ThreadPool</li>
 </ul>
-<p><img src="http://note.youdao.com/yws/res/9335/7DC769031DD64DDABC42BDFBC7384599" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/7DC769031DD64DDABC42BDFBC7384599.jpg" alt="image"></p>
 <h3 id="Dubbo-SPI-机制"><a href="#Dubbo-SPI-机制" class="headerlink" title="Dubbo SPI 机制"></a>Dubbo SPI 机制</h3><p>Java SPI 的具体约定为:当服务的提供者，提供了服务接口的一种实现之后，在jar包的META-INF/services/目录里同时创建一个以服务接口命名的文件。该文件里就是实现该服务接口的具体实现类。而当外部程序装配这个模块的时候，就能通过该jar包META-INF/services/里的配置文件找到具体的实现类名，并装载实例化，完成模块的注入。 基于这样一个约定就能很好的找到服务接口的实现类，而不需要再代码里制定。jdk提供服务实现查找的一个工具类java.util.ServiceLoader</p>
-<p><img src="http://note.youdao.com/yws/res/9338/0723FDE7587148BAB47925D8471D652D" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/0723FDE7587148BAB47925D8471D652D.jpg" alt="image"></p>
 <p>META-INF/services/xxx.dubbo.server.UserService 中的值：</p>
 <pre><code>xxx.dubbo.server.impl.UserServiceImpl2</code></pre>
 <p>装载获取SPI实现类：</p>
@@ -100,12 +102,12 @@
     System.out.println(service.getUser(111));
 }</code></pre>
 <p>Dubbo SPI 在JAVA自带的SPI基础上加入了扩展点的功能，即每个实现类都会对应至一个扩展点名称，其目的是 应用可基于此名称进行相应的装配。</p>
-<p><img src="http://note.youdao.com/yws/res/9343/B158D3A511A54EE0819951B33A188F0D" alt="image"><br>dubbo spi  文件内容：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/B158D3A511A54EE0819951B33A188F0D.jpg" alt="image"><br>dubbo spi  文件内容：</p>
 <pre><code>luban=xxx.dubbo.server.LubanFilter</code></pre>
 <p>装配自定义Filter</p>
-<p><img src="http://note.youdao.com/yws/res/9345/17D1822AA2FB4427A92566F2E64917B7" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/17D1822AA2FB4427A92566F2E64917B7.jpg" alt="image"></p>
 <p>想了解更详细信息：<br><a href="http://dubbo.apache.org/zh-cn/docs/source_code_guide/dubbo-spi.html">官方文档</a></p>
-<h2 id="三、Dubbo注册中心详解"><a href="#三、Dubbo注册中心详解" class="headerlink" title="三、Dubbo注册中心详解"></a>三、Dubbo注册中心详解</h2><h3 id="注册中心的作用"><a href="#注册中心的作用" class="headerlink" title="注册中心的作用"></a>注册中心的作用</h3><p>为了到达服务集群动态扩容的目的，注册中心存储了服务的地址信息与可用状态信息，并实时推送给订阅了相关服务的客户端。<br><img src="http://note.youdao.com/yws/res/9386/8638BBF57BF946769ABFCE0DAF896809" alt="image"></p>
+<h2 id="三、Dubbo注册中心详解"><a href="#三、Dubbo注册中心详解" class="headerlink" title="三、Dubbo注册中心详解"></a>三、Dubbo注册中心详解</h2><h3 id="注册中心的作用"><a href="#注册中心的作用" class="headerlink" title="注册中心的作用"></a>注册中心的作用</h3><p>为了到达服务集群动态扩容的目的，注册中心存储了服务的地址信息与可用状态信息，并实时推送给订阅了相关服务的客户端。<br><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/8638BBF57BF946769ABFCE0DAF896809.jpg" alt="image"></p>
 <p><strong>一个完整的注册中心需要实现以下功能：</strong></p>
 <ol>
 <li>接收服务端的注册与客户端的引用，即将引用与消费建立关联，并支持多对多。</li>
@@ -135,7 +137,7 @@
 <h4 id="1-如何存储服务的注册与订阅关系"><a href="#1-如何存储服务的注册与订阅关系" class="headerlink" title="1. 如何存储服务的注册与订阅关系"></a>1. 如何存储服务的注册与订阅关系</h4><p>redis 注册中心配置</p>
 <pre><code>&lt;dubbo:registry protocol=&quot;redis&quot; address=&quot;192.168.0.147:6379&quot;/&gt;</code></pre>
 <p>当我们启动两个服务端后发现，Reids中增加了一个Hash 类型的记录，其key为/dubbo/xxx.dubbo.server.UserService/providers。Value中分别存储了两个服务提供者的URL和有效期。</p>
-<p><img src="http://note.youdao.com/yws/res/9377/89233BE1BB03402C9224A6348FAA7007" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/89233BE1BB03402C9224A6348FAA7007.jpg" alt="image"></p>
 <p><strong>同样消费者也是类似其整体结构如下：</strong></p>
 <pre><code>//服务提供者注册信息 
 /dubbbo/com.xxx.teach.service.DemoService/providers
@@ -150,7 +152,7 @@
 <li>Map 中的 Value 为过期时间，用于判断脏数据，脏数据由监控中心删除</li>
 </ul>
 <h4 id="2-是当服务状态改变时如何即时更新？"><a href="#2-是当服务状态改变时如何即时更新？" class="headerlink" title="2. 是当服务状态改变时如何即时更新？"></a>2. 是当服务状态改变时如何即时更新？</h4><p>第二个问题 <strong>当提供者突然 宕机状态能即里变更吗</strong>？<br>这里Dubbo采用的是<strong>定时心跳的机制</strong> 来维护服务URL的有效期，默认<strong>每30秒更新一次有效期</strong>。即URL对应的毫秒值。具体代码参见：com.alibaba.dubbo.registry.redis.RedisRegistry#expireExecutor</p>
-<p><img src="http://note.youdao.com/yws/res/9390/F32248B7D113492EBC48590051A3CD04" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/F32248B7D113492EBC48590051A3CD04.jpg" alt="image"></p>
 <p>com.alibaba.dubbo.registry.redis.RedisRegistry#deferExpired<br>com.alibaba.dubbo.registry.integration.RegistryDirectory<br>com.alibaba.dubbo.registry.support.ProviderConsumerRegTable</p>
 <h3 id="Zookeeper-注册中心"><a href="#Zookeeper-注册中心" class="headerlink" title="Zookeeper 注册中心"></a><strong>Zookeeper 注册中心</strong></h3><p>关于Zookeeper 注册中心同样需要了解其存储结构和更新机制。<br>Zookeper是一个树型的目录服务，本身支持变更推送相比 redis 的实现 Publish/Subscribe 功能更稳定。</p>
 <ol>
@@ -158,7 +160,7 @@
 <li>Consumer订阅 Providers节点的子节点，通过 watch 事件，当 Zookeeper 删除临时节点时，实时感知 Provider 的变化情况，实时同步自身的Invoker对象，保证 RPC的可用性。</li>
 </ol>
 <p>结构：</p>
-<p><img src="http://note.youdao.com/yws/res/9425/D8B581F4BF944E94AF6382ECA1CB770F" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/D8B581F4BF944E94AF6382ECA1CB770F.jpg" alt="image"></p>
 <h4 id="源码查看"><a href="#源码查看" class="headerlink" title="源码查看"></a>源码查看</h4><pre class="line-numbers language-java"><code class="language-java"> <span class="token annotation punctuation">@Override</span>
     <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">doRegister</span><span class="token punctuation">(</span>URL url<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">try</span> <span class="token punctuation">{</span>
@@ -203,7 +205,7 @@ com.alibaba.dubbo.remoting.zookeeper.curator.CuratorZookeeperClient#createEpheme
 <p><strong>服务订阅机制实现：</strong></p>
 <pre><code>// 注册目录
 com.alibaba.dubbo.registry.integration.RegistryDirectory</code></pre>
-<p><img src="http://note.youdao.com/yws/res/9435/7903EF7E728C436EBABA5AB637CB1588" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/7903EF7E728C436EBABA5AB637CB1588.jpg" alt="image"></p>
 <h2 id="三、-Dubbo-调用模块"><a href="#三、-Dubbo-调用模块" class="headerlink" title="三、 Dubbo 调用模块"></a>三、 Dubbo 调用模块</h2><p>dubbo调用模块核心功能是发起一个远程方法的调用并顺利拿到返回结果，其体系组成如下：</p>
 <ol>
 <li><strong>透明代理：</strong> 通过动态代理技术，屏蔽远程调用细节以提高编程友好性。</li>
@@ -211,9 +213,9 @@ com.alibaba.dubbo.registry.integration.RegistryDirectory</code></pre>
 <li><strong>容错机制：</strong> 当服务调用失败时采取的策略</li>
 <li><strong>调用方式：</strong> 支持同步调用、异步调用</li>
 </ol>
-<p><img src="http://note.youdao.com/yws/res/9440/C29CEB5BE9E4479EA5988A07FC429C28" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/C29CEB5BE9E4479EA5988A07FC429C28.jpg" alt="image"></p>
 <h3 id="透明代理："><a href="#透明代理：" class="headerlink" title="透明代理："></a>透明代理：</h3><p>针对代理 dubbo 提供 三种方式：</p>
-<p><img src="http://note.youdao.com/yws/res/9448/BCE9E2B8BB9F4E1DBE9E0249FCE1D4C7" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/BCE9E2B8BB9F4E1DBE9E0249FCE1D4C7.jpg" alt="image"></p>
 <p>默认方式是：</p>
 <pre><code>    public static final String DEFAULT_PROXY = &quot;javassist&quot;;
 </code></pre>
@@ -226,10 +228,10 @@ com.alibaba.dubbo.registry.integration.RegistryDirectory</code></pre>
 
 <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">></span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>common<span class="token punctuation">.</span>bytecode<span class="token punctuation">.</span>ClassGenerator#<span class="token function">newInstance</span><span class="token punctuation">(</span>java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>ClassLoader<span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="http://note.youdao.com/yws/res/9461/2835D117E1FE424F84ED8907FC986A2B" alt="image"></p>
-<p><img src="http://note.youdao.com/yws/res/9451/5B1BA7C374ED444DAFD557DF5055D4D9" alt="image"></p>
-<p><img src="http://note.youdao.com/yws/res/9453/B8DCD49FB51847ED97BBA2C316A5BCDF" alt="image"></p>
-<p><img src="http://note.youdao.com/yws/res/9463/E7EF7C875FBD48A4B2037B3A74D5BC62" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/2835D117E1FE424F84ED8907FC986A2B.jpg" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/5B1BA7C374ED444DAFD557DF5055D4D9.jpg" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/B8DCD49FB51847ED97BBA2C316A5BCDF.jpg" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/E7EF7C875FBD48A4B2037B3A74D5BC62.jpg" alt="image"></p>
 <h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a><strong>负载均衡</strong></h3><p>Dubbo 目前官方支持以下负载均衡策略：</p>
 <ol>
 <li><strong>随机</strong>(random)：按权重设置随机概率。此为默认算法.</li>
@@ -237,7 +239,7 @@ com.alibaba.dubbo.registry.integration.RegistryDirectory</code></pre>
 <li><strong>最少活跃调用数</strong>(leastactive):相同活跃数的随机，活跃数指调用前后计数差。</li>
 <li><strong>一致性Hash</strong>(consistenthash ):相同的参数总是发到同一台机器</li>
 </ol>
-<p><img src="http://note.youdao.com/yws/res/9468/EDE99CF742414CB5921E56E2BD341282" alt="image"><br>设置方式支持如下四种方式设置，优先级由低至高</p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/EDE99CF742414CB5921E56E2BD341282.jpg" alt="image"><br>设置方式支持如下四种方式设置，优先级由低至高</p>
 <pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- 服务端级别--></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>service</span> <span class="token attr-name">interface</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span> <span class="token attr-name">loadbalance</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>roundrobin<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
 <span class="token comment" spellcheck="true">&lt;!-- 客户端级别--></span>
@@ -258,7 +260,7 @@ com.alibaba.dubbo.registry.integration.RegistryDirectory</code></pre>
 <li><strong>并行调用:</strong> 只要一个成功即返回，并行调用指定数量机器，可通过 forks=”2” 来设置最大并行数。</li>
 <li><strong>广播调用：</strong> 广播调用所有提供者，逐个调用，任意一台报错则报错</li>
 </ol>
-<p><img src="http://note.youdao.com/yws/res/9473/CD04A0766E944919A0D62EBFE9F964C6" alt="image"><br>设置方式支持如下两种方式设置，优先级由低至高</p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/CD04A0766E944919A0D62EBFE9F964C6.jpg" alt="image"><br>设置方式支持如下两种方式设置，优先级由低至高</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>
 Failover 失败自动切换 retries<span class="token operator">=</span><span class="token string">"1"</span> 切换次数
 Failfast 快速失败
@@ -276,7 +278,7 @@ Broadcast 广播调用
 <li>异步等待结果返回</li>
 <li>不需要返回结果</li>
 </ol>
-<p><img src="http://note.youdao.com/yws/res/9475/F1C320C5A219405B8EFC66F1FE4CC78B" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/F1C320C5A219405B8EFC66F1FE4CC78B.jpg" alt="image"></p>
 <p>异步调用配置:</p>
 <pre><code>&lt;dubbo:reference id=&quot;asyncDemoService&quot;
     interface=&quot;com.xxx.teach.service.async.AsyncDemoService&quot;&gt;
@@ -299,7 +301,7 @@ r2 <span class="token operator">=</span> future2<span class="token punctuation">
 <h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a><strong>过滤器</strong></h3><p>** 类似于 WEB 中的Filter ，Dubbo本身提供了Filter 功能用于拦截远程方法的调用。其支持自定义过滤器与官方的过滤器使用：**<br>#TODO 演示添加日志访问过滤:</p>
 <pre><code>&lt;dubbo:provider  filter=&quot;accesslog&quot; accesslog=&quot;logs/dubbo.log&quot;/&gt;</code></pre>
 <p>以上配置 就是 为 服务提供者 添加 日志记录过滤器， 所有访问日志将会集中打印至 accesslog 当中。</p>
-<h2 id="调用通信-内部实现原理"><a href="#调用通信-内部实现原理" class="headerlink" title="调用通信  内部实现原理"></a>调用通信  内部实现原理</h2><p><img src="http://note.youdao.com/yws/res/9490/17E56F436154424BA5E8AAC97BD84B13" alt="image"></p>
+<h2 id="调用通信-内部实现原理"><a href="#调用通信-内部实现原理" class="headerlink" title="调用通信  内部实现原理"></a>调用通信  内部实现原理</h2><p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/17E56F436154424BA5E8AAC97BD84B13.jpg" alt="image"></p>
 <p><strong>IO模型：</strong></p>
 <ol>
 <li>BIO 同步阻塞</li>
@@ -350,7 +352,7 @@ r2 <span class="token operator">=</span> future2<span class="token punctuation">
 <li><strong>服务端IO线程</strong>：由传输框架实现，用于request消息流读取与解码 与Response发送。</li>
 <li><strong>业务执行线程：</strong> 服务端具体执行业务方法的线程</li>
 </ol>
-<p><strong>客户端线程协作：</strong><br><img src="http://note.youdao.com/yws/res/9495/9564293312B2420DB80E156C7FB00CF5" alt="image"></p>
+<p><strong>客户端线程协作：</strong><br><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/9564293312B2420DB80E156C7FB00CF5.jpg" alt="image"></p>
 <ol>
 <li><strong>调度线程</strong><ol>
 <li>调用远程方法</li>
@@ -371,7 +373,7 @@ r2 <span class="token operator">=</span> future2<span class="token punctuation">
 </ol>
 </li>
 </ol>
-<p><strong>服务端线程协作：</strong><br><img src="http://note.youdao.com/yws/res/9500/6E0C6D20EF8C4276B16C4BCF37D183CF" alt="image"></p>
+<p><strong>服务端线程协作：</strong><br><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/6E0C6D20EF8C4276B16C4BCF37D183CF.jpg" alt="image"></p>
 <ol>
 <li><strong>IO线程：</strong><ol>
 <li>request 流读取</li>
@@ -393,16 +395,16 @@ r2 <span class="token operator">=</span> future2<span class="token punctuation">
 <li><strong>Limited：</strong> 有限线程池,此线程池一直增长，直到上限，增长后不收缩。</li>
 </ol>
 <h2 id="四、Dubbo-协议"><a href="#四、Dubbo-协议" class="headerlink" title="四、Dubbo 协议"></a>四、Dubbo 协议</h2><h3 id="RPC-协议名词解释"><a href="#RPC-协议名词解释" class="headerlink" title="RPC 协议名词解释"></a><strong>RPC 协议名词解释</strong></h3><p>在一个典型RPC的使用场景中，包含了服务发现、负载、容错、网络传输、序列化等组件，其中RPC协议就指明了程序如何进行网络传输和序列化 。也就是说一个RPC协议的实现就等于一个非透明的远程调用实现，如何做到的的呢？</p>
-<p><img src="http://note.youdao.com/yws/res/9510/AFE8EDF1A5B0427FA856137A2B9C6B12" alt="image"></p>
-<p><img src="http://note.youdao.com/yws/res/9512/35AAA35E698A442687702615820C1AD7" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/AFE8EDF1A5B0427FA856137A2B9C6B12.jpg" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/35AAA35E698A442687702615820C1AD7.jpg" alt="image"></p>
 <ol>
 <li>地址：服务提供者地址</li>
 <li>端口：协议指定开放的端口</li>
 <li>报文编码：协议报文编码 ，分为请求头和请求体两部分。</li>
-<li>序列化方式：将请求体序列化成对象<br><img src="http://note.youdao.com/yws/res/9516/A8AA0D50758B4D9BA51737391F3AE4CE" alt="image"></li>
-<li>运行服务: 网络传输实现<br><img src="http://note.youdao.com/yws/res/9514/3DC6FD7E7BFB4F4786B0CCD6A9BF87DA" alt="image"></li>
+<li>序列化方式：将请求体序列化成对象<br><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/A8AA0D50758B4D9BA51737391F3AE4CE.jpg" alt="image"></li>
+<li>运行服务: 网络传输实现<br><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/3DC6FD7E7BFB4F4786B0CCD6A9BF87DA.jpg" alt="image"></li>
 </ol>
-<h3 id="dubbo-支持的RPC协议"><a href="#dubbo-支持的RPC协议" class="headerlink" title="dubbo 支持的RPC协议"></a>dubbo 支持的RPC协议</h3><p><img src="http://note.youdao.com/yws/res/9523/DC0DB69BE0F449DF870E40A1093A57CC" alt="image"></p>
+<h3 id="dubbo-支持的RPC协议"><a href="#dubbo-支持的RPC协议" class="headerlink" title="dubbo 支持的RPC协议"></a>dubbo 支持的RPC协议</h3><p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/DC0DB69BE0F449DF870E40A1093A57CC.jpg" alt="image"></p>
 <table>
 <thead>
 <tr>
@@ -549,9 +551,9 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 <li>使用带消息头的协议、消息头存储消息开始标识及消息长度信息，服务端获取消息头的时候解析出消息长度，然后向后读取该长度的内容。</li>
 </ol>
 <p><strong>比如：</strong> Http协议 heade 中的 Content-Length 就表示消息体的大小。</p>
-<p><img src="http://note.youdao.com/yws/res/9536/1627E3D71B36459393AAD1066002AFE6" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/1627E3D71B36459393AAD1066002AFE6.jpg" alt="image"></p>
 <h3 id="Dubbo-协议报文编码："><a href="#Dubbo-协议报文编码：" class="headerlink" title="Dubbo 协议报文编码："></a>Dubbo 协议报文编码：</h3><p><strong>dubbo 协议报文编码：</strong></p>
-<p><img src="http://note.youdao.com/yws/res/9538/25B9C2C5C20C46168D641144B2B6A07E" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/25B9C2C5C20C46168D641144B2B6A07E.jpg" alt="image"></p>
 <ul>
 <li><strong>magic</strong>：类似java字节码文件里的魔数，用来判断是不是dubbo协议的数据包。魔数是常量0xdabb,用于判断报文的开始。</li>
 <li><strong>flag</strong>：标志位, 一共8个地址位。低四位用来表示消息体数据用的序列化工具的类型（默认hessian），高四位中，第一位为1表示是request请求，第二位为1表示双向传输（即有返回response），第三位为1表示是心跳ping事件。</li>
@@ -559,7 +561,7 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
 <li><strong>invoke id：</strong> 消息id, long 类型。每一个请求的唯一识别id（由于采用异步通讯的方式，用来把请求request和返回的response对应上）</li>
 <li><strong>body length：</strong> 消息体 body 长度, int 类型，即记录Body Content有多少个字节。</li>
 </ul>
-<p><img src="http://note.youdao.com/yws/res/9542/B37D5C57C013452AA75C1DCB90F2766A" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/B37D5C57C013452AA75C1DCB90F2766A.jpg" alt="image"></p>
 <ul>
 <li>com.alibaba.dubbo.rpc.protocol.dubbo.DubboCodec#encodeRequestData()</li>
 </ul>
@@ -705,7 +707,7 @@ server：运行服务 mina|netty|grizzy|servlet|jetty
             <span class="token keyword">return</span> req<span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="http://note.youdao.com/yws/res/9545/298139E160AA428486709FD4E1641C6A" alt="image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/298139E160AA428486709FD4E1641C6A.jpg" alt="image"></p>
 <h2 id="六、最后"><a href="#六、最后" class="headerlink" title="六、最后"></a>六、最后</h2><ol>
 <li>负载均衡：多个机器调用哪一台?<blockquote>
 <p>答：多种负载均衡策略。</p>
