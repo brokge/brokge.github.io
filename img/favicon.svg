@@ -1,6 +1,13 @@
-<svg
-    xmlns="http://www.w3.org/2000/svg" version="1.1" width="256" height="256" viewbox="0 0 949 256">
-    <path fill="#2366d1" d="M110.85125168440814 128L221.70250336881628 192L110.85125168440814 256L0 192Z"/>
-    <path fill="#609dff" d="M110.85125168440814 64L221.70250336881628 128L110.85125168440814 192L0 128Z"/>
-    <path fill="#a4c7ff" d="M110.85125168440814 0L221.70250336881628 64L110.85125168440814 128L0 64Z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="221px" height="267px" viewBox="0 0 221 267" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>Untitled</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="logo" transform="translate(1.000000, 1.000000)">
+            <ellipse id="Oval" stroke="#2366D1" fill="#2366D1" cx="109.5" cy="201" rx="109.5" ry="64"></ellipse>
+            <ellipse id="Oval" stroke="#609DFF" fill="#609DFF" cx="109.5" cy="137.5" rx="109.5" ry="64.5"></ellipse>
+            <ellipse id="Oval" stroke="#A4C7FF" fill="#A4C7FF" cx="109.5" cy="64" rx="109.5" ry="64"></ellipse>
+        </g>
+    </g>
 </svg>
