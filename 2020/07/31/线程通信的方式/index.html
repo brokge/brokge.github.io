@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>线程通信的方式 - 玉蘇子</title><meta description="线程通信也就是线程之间的协作方式。"><meta property="og:type" content="blog"><meta property="og:title" content="线程通信的方式"><meta property="og:url" content="https://brokge.github.io/2020/07/31/%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F/"><meta property="og:site_name" content="玉蘇子"><meta property="og:description" content="线程通信也就是线程之间的协作方式。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/C7A478DEEB2D4E9482227967CCCA941E.jpg"><meta property="article:published_time" content="2020-07-31T09:49:53.000Z"><meta property="article:modified_time" content="2020-07-31T10:06:58.590Z"><meta property="article:author" content="brokge"><meta property="article:tag" content="Java"><meta property="article:tag" content="并发编程"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/C7A478DEEB2D4E9482227967CCCA941E.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://brokge.github.io/2020/07/31/%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F/"},"headline":"玉蘇子","image":["https://cdn.jsdelivr.net/gh/brokge/drawio/img/C7A478DEEB2D4E9482227967CCCA941E.jpg"],"datePublished":"2020-07-31T09:49:53.000Z","dateModified":"2020-07-31T10:06:58.590Z","author":{"@type":"Person","name":"brokge"},"description":"线程通信也就是线程之间的协作方式。"}</script><link rel="canonical" href="https://brokge.github.io/2020/07/31/%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="玉蘇子" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-07-31T09:49:53.000Z" title="2020-07-31T09:49:53.000Z">2020-07-31</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span><span class="level-item">20 分钟 读完 (大约 2978 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">线程通信的方式</h1><div class="content"><p>线程通信也就是线程之间的协作方式。</p>
+<html lang="zh"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>线程通信的方式 - 玉蘇子</title><meta description="线程通信也就是线程之间的协作方式。"><meta property="og:type" content="blog"><meta property="og:title" content="线程通信的方式"><meta property="og:url" content="https://brokge.github.io/2020/07/31/%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F/"><meta property="og:site_name" content="玉蘇子"><meta property="og:description" content="线程通信也就是线程之间的协作方式。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/C7A478DEEB2D4E9482227967CCCA941E.jpg"><meta property="article:published_time" content="2020-07-31T09:49:53.000Z"><meta property="article:modified_time" content="2020-07-31T14:39:44.242Z"><meta property="article:author" content="brokge"><meta property="article:tag" content="Java"><meta property="article:tag" content="并发编程"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/C7A478DEEB2D4E9482227967CCCA941E.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://brokge.github.io/2020/07/31/%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F/"},"headline":"玉蘇子","image":["https://cdn.jsdelivr.net/gh/brokge/drawio/img/C7A478DEEB2D4E9482227967CCCA941E.jpg"],"datePublished":"2020-07-31T09:49:53.000Z","dateModified":"2020-07-31T14:39:44.242Z","author":{"@type":"Person","name":"brokge"},"description":"线程通信也就是线程之间的协作方式。"}</script><link rel="canonical" href="https://brokge.github.io/2020/07/31/%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="玉蘇子" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-07-31T09:49:53.000Z" title="2020-07-31T09:49:53.000Z">2020-07-31</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span><span class="level-item">20 分钟 读完 (大约 2982 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">线程通信的方式</h1><div class="content"><p>线程通信也就是线程之间的协作方式。</p>
 <a id="more"></a>
 <h1 id="1-线程协作的方式"><a href="#1-线程协作的方式" class="headerlink" title="1. 线程协作的方式"></a>1. 线程协作的方式</h1><p>要想实现多个线程之间的通信协作<br>如： 线程执行的先后顺序、获取某个线程执行的结果等。</p>
 <p>涉及到线程之间的相互通信/协作，可以分为 以下四类：</p>
@@ -146,31 +146,31 @@
 <li>suspendResumeDeadLockTest2 写法种，由于线程休眠的问题，导致<code>resume()</code> 再 <code>suspend()</code>之前调用，由于后续没有调用 <code>resume()</code>的操作，导致死锁。</li>
 </ul>
 <h2 id="3-2-notify-wait"><a href="#3-2-notify-wait" class="headerlink" title="3.2 notify/wait"></a>3.2 notify/wait</h2><p>notify / wait 必须再 synchronized 代码块中才会有效，而且 <code>wait</code> 和 <code>notify()</code> 调用之后会自动释放持有的锁。</p>
-<pre><code>
-/** 正常的wait/notify */
-    public void waitNotifyTest() throws Exception {
-        // 启动线程
-        new Thread(() -&gt; {
-                synchronized (this) {
-                    while (baozidian == null) { // 如果没包子，则进入等待
-                    try {
-                        System.out.println(&quot;1、进入等待&quot;);
-                        this.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            System.out.println(&quot;3、买到包子，回家&quot;);
-        }).start();
-        // 3秒之后，生产一个包子
-        Thread.sleep(3000L);
-        baozidian = new Object();
-        synchronized (this) {
-            this.notifyAll();
-            System.out.println(&quot;2、通知消费者&quot;);
-        }
-    }</code></pre>
+<pre class="line-numbers language-java"><code class="language-java">
+<span class="token comment" spellcheck="true">/** 正常的wait/notify */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">waitNotifyTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 启动线程</span>
+        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+                <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">while</span> <span class="token punctuation">(</span>baozidian <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 如果没包子，则进入等待</span>
+                    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"1、进入等待"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">wait</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3、买到包子，回家"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3秒之后，生产一个包子</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>3000L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        baozidian <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">notifyAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"2、通知消费者"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>但是也会写出死锁的代码，比如以下写法：</p>
 <pre class="line-numbers language-java"><code class="language-java">
     <span class="token comment" spellcheck="true">/** 会导致程序永久等待的wait/notify */</span>
@@ -205,238 +205,238 @@
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>虽然 <code>wait()</code> 会自动解锁，但是对顺序有要求。 如果 <code>wait()</code> 方法，是在 <code>notify</code> 之后调用，则线程会永远处于 <code>waitting</code> 状态。</p>
 <h2 id="3-3-park-unpark"><a href="#3-3-park-unpark" class="headerlink" title="3.3 park/unpark"></a>3.3 park/unpark</h2><p><code>park</code> 是等待许可，<code>unpark</code> 是为指定线程提供许可，他的主要特性就是对顺序没有要求，调用<code>park</code>时候，如果调用过 <code>unpark</code> 则，线程直接执行。</p>
-<pre><code>/** 正常的park/unpark */
-    public void parkUnparkTest() throws Exception {
-        // 启动线程
-        Thread consumerThread = new Thread(() -&gt; {
-            while (baozidian == null) { // 如果没包子，则进入等待
-                System.out.println(&quot;1、进入等待&quot;);
-                LockSupport.park();
-            }
-            System.out.println(&quot;2、买到包子，回家&quot;);
-        });
-        consumerThread.start();
-        // 3秒之后，生产一个包子
-        Thread.sleep(3000L);
-        baozidian = new Object();
-        LockSupport.unpark(consumerThread);
-        System.out.println(&quot;3、通知消费者&quot;);
-    }
-</code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/** 正常的park/unpark */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">parkUnparkTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 启动线程</span>
+        Thread consumerThread <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>baozidian <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 如果没包子，则进入等待</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"1、进入等待"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                LockSupport<span class="token punctuation">.</span><span class="token function">park</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"2、买到包子，回家"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        consumerThread<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3秒之后，生产一个包子</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>3000L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        baozidian <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        LockSupport<span class="token punctuation">.</span><span class="token function">unpark</span><span class="token punctuation">(</span>consumerThread<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3、通知消费者"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>但是 <code>unpark</code> 调用之后，许可只能使用一次。即只要调一次park，则许可就会失效。后续调用 <code>park</code>，则该线程会进入等待状态。</p>
-<pre><code>    /** 死锁的park/unpark */
-    public void parkUnparkDeadLockTest() throws Exception {
-        // 启动线程
-        Thread consumerThread = new Thread(() -&gt; {
-            if (baozidian == null) { // 如果没包子，则进入等待
-                System.out.println(&quot;1、进入等待&quot;);
-                // 当前线程拿到锁，然后挂起
-                synchronized (this) {
-                    LockSupport.park();
-                }
-            }
-            System.out.println(&quot;3、买到包子，回家&quot;);
-        });
-        consumerThread.start();
-        // 3秒之后，生产一个包子
-        Thread.sleep(3000L);
-        baozidian = new Object();
-        // 争取到锁以后，再恢复consumerThread
-        synchronized (this) {
-            LockSupport.unpark(consumerThread);
-        }
-        System.out.println(&quot;2、通知消费者&quot;);
-    }
-</code></pre>
-<h2 id="3-4-所有代码"><a href="#3-4-所有代码" class="headerlink" title="3.4 所有代码"></a>3.4 所有代码</h2><pre><code>package com.study.hc.thread.chapter1.thread;
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token comment" spellcheck="true">/** 死锁的park/unpark */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">parkUnparkDeadLockTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 启动线程</span>
+        Thread consumerThread <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>baozidian <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 如果没包子，则进入等待</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"1、进入等待"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">// 当前线程拿到锁，然后挂起</span>
+                <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    LockSupport<span class="token punctuation">.</span><span class="token function">park</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3、买到包子，回家"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        consumerThread<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3秒之后，生产一个包子</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>3000L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        baozidian <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 争取到锁以后，再恢复consumerThread</span>
+        <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            LockSupport<span class="token punctuation">.</span><span class="token function">unpark</span><span class="token punctuation">(</span>consumerThread<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"2、通知消费者"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="3-4-所有代码"><a href="#3-4-所有代码" class="headerlink" title="3.4 所有代码"></a>3.4 所有代码</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>study<span class="token punctuation">.</span>hc<span class="token punctuation">.</span>thread<span class="token punctuation">.</span>chapter1<span class="token punctuation">.</span>thread<span class="token punctuation">;</span>
 
-import java.util.concurrent.locks.LockSupport;
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>locks<span class="token punctuation">.</span>LockSupport<span class="token punctuation">;</span>
 
-/** 三种线程协作通信的方式：suspend/resume、wait/notify、park/unpark */
-public class Demo6 {
-    /** 包子店 */
-    public static Object baozidian = null;
+<span class="token comment" spellcheck="true">/** 三种线程协作通信的方式：suspend/resume、wait/notify、park/unpark */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Demo6</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/** 包子店 */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Object baozidian <span class="token operator">=</span> null<span class="token punctuation">;</span>
 
-    /** 正常的suspend/resume */
-    public void suspendResumeTest() throws Exception {
-        // 启动线程
-        Thread consumerThread = new Thread(() -&gt; {
-            if (baozidian == null) { // 如果没包子，则进入等待
-                System.out.println(&quot;1、进入等待&quot;);
-                Thread.currentThread().suspend();
-            }
-            System.out.println(&quot;2、买到包子，回家&quot;);
-        });
-        consumerThread.start();
-        // 3秒之后，生产一个包子
-        Thread.sleep(3000L);
-        baozidian = new Object();
-        consumerThread.resume();
-        System.out.println(&quot;3、通知消费者&quot;);
-    }
+    <span class="token comment" spellcheck="true">/** 正常的suspend/resume */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">suspendResumeTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 启动线程</span>
+        Thread consumerThread <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>baozidian <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 如果没包子，则进入等待</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"1、进入等待"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">suspend</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"2、买到包子，回家"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        consumerThread<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3秒之后，生产一个包子</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>3000L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        baozidian <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        consumerThread<span class="token punctuation">.</span><span class="token function">resume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3、通知消费者"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /** 死锁的suspend/resume。 suspend并不会像wait一样释放锁，故此容易写出死锁代码 */
-    public void suspendResumeDeadLockTest() throws Exception {
-        // 启动线程
-        Thread consumerThread = new Thread(() -&gt; {
-            if (baozidian == null) { // 如果没包子，则进入等待
-                System.out.println(&quot;1、进入等待&quot;);
-                // 当前线程拿到锁，然后挂起
-                synchronized (this) {
-                    Thread.currentThread().suspend();
-                }
-            }
-            System.out.println(&quot;2、买到包子，回家&quot;);
-        });
-        consumerThread.start();
-        // 3秒之后，生产一个包子
-        Thread.sleep(3000L);
-        baozidian = new Object();
-        // 争取到锁以后，再恢复consumerThread
-        synchronized (this) {
-            consumerThread.resume();
-        }
-        System.out.println(&quot;3、通知消费者&quot;);
-    }
+    <span class="token comment" spellcheck="true">/** 死锁的suspend/resume。 suspend并不会像wait一样释放锁，故此容易写出死锁代码 */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">suspendResumeDeadLockTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 启动线程</span>
+        Thread consumerThread <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>baozidian <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 如果没包子，则进入等待</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"1、进入等待"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">// 当前线程拿到锁，然后挂起</span>
+                <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">suspend</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"2、买到包子，回家"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        consumerThread<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3秒之后，生产一个包子</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>3000L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        baozidian <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 争取到锁以后，再恢复consumerThread</span>
+        <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            consumerThread<span class="token punctuation">.</span><span class="token function">resume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3、通知消费者"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /** 导致程序永久挂起的suspend/resume */
-    public void suspendResumeDeadLockTest2() throws Exception {
-        // 启动线程
-        Thread consumerThread = new Thread(() -&gt; {
-            if (baozidian == null) {
-                System.out.println(&quot;1、没包子，进入等待&quot;);
-                try { // 为这个线程加上一点延时
-                    Thread.sleep(5000L);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                // 这里的挂起执行在resume后面
-                Thread.currentThread().suspend();
-            }
-            System.out.println(&quot;2、买到包子，回家&quot;);
-        });
-        consumerThread.start();
-        // 3秒之后，生产一个包子
-        Thread.sleep(3000L);
-        baozidian = new Object();
-        consumerThread.resume();
-        System.out.println(&quot;3、通知消费者&quot;);
-        consumerThread.join();
-    }
+    <span class="token comment" spellcheck="true">/** 导致程序永久挂起的suspend/resume */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">suspendResumeDeadLockTest2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 启动线程</span>
+        Thread consumerThread <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>baozidian <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"1、没包子，进入等待"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">try</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 为这个线程加上一点延时</span>
+                    Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>5000L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token comment" spellcheck="true">// 这里的挂起执行在resume后面</span>
+                Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">suspend</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"2、买到包子，回家"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        consumerThread<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3秒之后，生产一个包子</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>3000L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        baozidian <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        consumerThread<span class="token punctuation">.</span><span class="token function">resume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3、通知消费者"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        consumerThread<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /** 正常的wait/notify */
-    public void waitNotifyTest() throws Exception {
-        // 启动线程
-        new Thread(() -&gt; {
-                synchronized (this) {
-                    while (baozidian == null) { // 如果没包子，则进入等待
-                    try {
-                        System.out.println(&quot;1、进入等待&quot;);
-                        this.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            System.out.println(&quot;2、买到包子，回家&quot;);
-        }).start();
-        // 3秒之后，生产一个包子
-        Thread.sleep(3000L);
-        baozidian = new Object();
-        synchronized (this) {
-            this.notifyAll();
-            System.out.println(&quot;3、通知消费者&quot;);
-        }
-    }
+    <span class="token comment" spellcheck="true">/** 正常的wait/notify */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">waitNotifyTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 启动线程</span>
+        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+                <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">while</span> <span class="token punctuation">(</span>baozidian <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 如果没包子，则进入等待</span>
+                    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"1、进入等待"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">wait</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"2、买到包子，回家"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3秒之后，生产一个包子</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>3000L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        baozidian <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">notifyAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3、通知消费者"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    /** 会导致程序永久等待的wait/notify */
-    public void waitNotifyDeadLockTest() throws Exception {
-        // 启动线程
-        new Thread(() -&gt; {
-            if (baozidian == null) { // 如果没包子，则进入等待
-                try {
-                    Thread.sleep(5000L);
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
-                }
-                synchronized (this) {
-                    try {
-                        System.out.println(&quot;1、进入等待&quot;);
-                        this.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            System.out.println(&quot;2、买到包子，回家&quot;);
-        }).start();
-        // 3秒之后，生产一个包子
-        Thread.sleep(3000L);
-        baozidian = new Object();
-        synchronized (this) {
-            this.notifyAll();
-            System.out.println(&quot;3、通知消费者&quot;);
-        }
-    }
+    <span class="token comment" spellcheck="true">/** 会导致程序永久等待的wait/notify */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">waitNotifyDeadLockTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 启动线程</span>
+        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>baozidian <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 如果没包子，则进入等待</span>
+                <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                    Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>5000L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e1<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    e1<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"1、进入等待"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">wait</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"2、买到包子，回家"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3秒之后，生产一个包子</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>3000L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        baozidian <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">notifyAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3、通知消费者"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    /** 正常的park/unpark */
-    public void parkUnparkTest() throws Exception {
-        // 启动线程
-        Thread consumerThread = new Thread(() -&gt; {
-            while (baozidian == null) { // 如果没包子，则进入等待
-                System.out.println(&quot;1、进入等待&quot;);
-                LockSupport.park();
-            }
-            System.out.println(&quot;2、买到包子，回家&quot;);
-        });
-        consumerThread.start();
-        // 3秒之后，生产一个包子
-        Thread.sleep(3000L);
-        baozidian = new Object();
-        LockSupport.unpark(consumerThread);
-        System.out.println(&quot;3、通知消费者&quot;);
-    }
+    <span class="token comment" spellcheck="true">/** 正常的park/unpark */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">parkUnparkTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 启动线程</span>
+        Thread consumerThread <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>baozidian <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 如果没包子，则进入等待</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"1、进入等待"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                LockSupport<span class="token punctuation">.</span><span class="token function">park</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"2、买到包子，回家"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        consumerThread<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3秒之后，生产一个包子</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>3000L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        baozidian <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        LockSupport<span class="token punctuation">.</span><span class="token function">unpark</span><span class="token punctuation">(</span>consumerThread<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3、通知消费者"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /** 死锁的park/unpark */
-    public void parkUnparkDeadLockTest() throws Exception {
-        // 启动线程
-        Thread consumerThread = new Thread(() -&gt; {
-            if (baozidian == null) { // 如果没包子，则进入等待
-                System.out.println(&quot;1、进入等待&quot;);
-                // 当前线程拿到锁，然后挂起
-                synchronized (this) {
-                    LockSupport.park();
-                }
-            }
-            System.out.println(&quot;2、买到包子，回家&quot;);
-        });
-        consumerThread.start();
-        // 3秒之后，生产一个包子
-        Thread.sleep(3000L);
-        baozidian = new Object();
-        // 争取到锁以后，再恢复consumerThread
-        synchronized (this) {
-            LockSupport.unpark(consumerThread);
-        }
-        System.out.println(&quot;3、通知消费者&quot;);
-    }
+    <span class="token comment" spellcheck="true">/** 死锁的park/unpark */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">parkUnparkDeadLockTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 启动线程</span>
+        Thread consumerThread <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>baozidian <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 如果没包子，则进入等待</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"1、进入等待"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">// 当前线程拿到锁，然后挂起</span>
+                <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    LockSupport<span class="token punctuation">.</span><span class="token function">park</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"2、买到包子，回家"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        consumerThread<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 3秒之后，生产一个包子</span>
+        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span>3000L<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        baozidian <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 争取到锁以后，再恢复consumerThread</span>
+        <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            LockSupport<span class="token punctuation">.</span><span class="token function">unpark</span><span class="token punctuation">(</span>consumerThread<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"3、通知消费者"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) throws Exception {
-        // 对调用顺序有要求，也要开发自己注意锁的释放。这个被弃用的API， 容易死锁，也容易导致永久挂起。
-//         new Demo6().suspendResumeTest();
-//         new Demo6().suspendResumeDeadLockTest();
-//         new Demo6().suspendResumeDeadLockTest2();
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 对调用顺序有要求，也要开发自己注意锁的释放。这个被弃用的API， 容易死锁，也容易导致永久挂起。</span>
+<span class="token comment" spellcheck="true">//         new Demo6().suspendResumeTest();</span>
+<span class="token comment" spellcheck="true">//         new Demo6().suspendResumeDeadLockTest();</span>
+<span class="token comment" spellcheck="true">//         new Demo6().suspendResumeDeadLockTest2();</span>
 
-        // wait/notify要求再同步关键字里面使用，免去了死锁的困扰，但是一定要先调用wait，再调用notify，否则永久等待了
-        // new Demo6().waitNotifyTest();
-//         new Demo6().waitNotifyDeadLockTest();
+        <span class="token comment" spellcheck="true">// wait/notify要求再同步关键字里面使用，免去了死锁的困扰，但是一定要先调用wait，再调用notify，否则永久等待了</span>
+        <span class="token comment" spellcheck="true">// new Demo6().waitNotifyTest();</span>
+<span class="token comment" spellcheck="true">//         new Demo6().waitNotifyDeadLockTest();</span>
 
-        // park/unpark没有顺序要求，但是park并不会释放锁，所有再同步代码中使用要注意
-//         new Demo6().parkUnparkTest();
-         new Demo6().parkUnparkDeadLockTest();
+        <span class="token comment" spellcheck="true">// park/unpark没有顺序要求，但是park并不会释放锁，所有再同步代码中使用要注意</span>
+<span class="token comment" spellcheck="true">//         new Demo6().parkUnparkTest();</span>
+         <span class="token keyword">new</span> <span class="token class-name">Demo6</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">parkUnparkDeadLockTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    }
-}</code></pre>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h1><ol>
 <li><p><strong>suspend 和 resume</strong> 容易写出死锁代码所以被弃用，导致死锁的原因： suspend 挂起之后不会释放锁；suspend 和 resume 先后顺序不保证。</p>
 </li>
