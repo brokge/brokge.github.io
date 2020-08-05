@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>深入理解Mysql索引底层数据结构与算法 - 玉蘇子</title><meta description="一、索引优化面试题分析"><meta property="og:type" content="blog"><meta property="og:title" content="深入理解Mysql索引底层数据结构与算法"><meta property="og:url" content="https://brokge.github.io/2020/08/05/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E7%B4%A2%E5%BC%95%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"><meta property="og:site_name" content="玉蘇子"><meta property="og:description" content="一、索引优化面试题分析"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/56891307BDC64F33A02FBC942C108A50.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/AF528CD17AC44F86A458243B4FBC4268.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/A27A5822516D41ADA83D082A07ADF8D1.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/CF305DBAECD843518162BBF1F15DD14A.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/0619AC2863944836AFA2B35232B777E0.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/E57C60E2EDAA4863ADBEF76B2A5EAC01.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/341B6DF11EB34172BA8DA3C2D7BA79B5.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/9AAD735E36F94A52AFDEDD8B3D2DAA07.jpg"><meta property="article:published_time" content="2020-08-05T15:38:26.000Z"><meta property="article:modified_time" content="2020-08-05T15:59:16.150Z"><meta property="article:author" content="brokge"><meta property="article:tag" content="mysql"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/56891307BDC64F33A02FBC942C108A50.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://brokge.github.io/2020/08/05/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E7%B4%A2%E5%BC%95%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"},"headline":"玉蘇子","image":["https://cdn.jsdelivr.net/gh/brokge/drawio/img/56891307BDC64F33A02FBC942C108A50.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/AF528CD17AC44F86A458243B4FBC4268.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/A27A5822516D41ADA83D082A07ADF8D1.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/CF305DBAECD843518162BBF1F15DD14A.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/0619AC2863944836AFA2B35232B777E0.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/E57C60E2EDAA4863ADBEF76B2A5EAC01.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/341B6DF11EB34172BA8DA3C2D7BA79B5.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/9AAD735E36F94A52AFDEDD8B3D2DAA07.jpg"],"datePublished":"2020-08-05T15:38:26.000Z","dateModified":"2020-08-05T15:59:16.150Z","author":{"@type":"Person","name":"brokge"},"description":"一、索引优化面试题分析"}</script><link rel="canonical" href="https://brokge.github.io/2020/08/05/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E7%B4%A2%E5%BC%95%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="玉蘇子" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-08-05T15:38:26.000Z" title="2020-08-05T15:38:26.000Z">2020-08-05</time><span class="level-item">13 分钟 读完 (大约 2020 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">深入理解Mysql索引底层数据结构与算法</h1><div class="content"><h2 id="一、索引优化面试题分析"><a href="#一、索引优化面试题分析" class="headerlink" title="一、索引优化面试题分析"></a>一、索引优化面试题分析</h2><a id="more"></a>
+<p>分析以下几条sql的索引使用情况</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> titles <span class="token keyword">WHERE</span> emp_no<span class="token operator">=</span><span class="token string">'10001'</span> <span class="token operator">AND</span> title<span class="token operator">=</span><span class="token string">'Senior Engineer'</span> <span class="token operator">AND</span> from_date<span class="token operator">=</span><span class="token string">'1986-06-26'</span><span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> titles <span class="token keyword">WHERE</span> title<span class="token operator">=</span><span class="token string">'Senior Engineer'</span> <span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> titles <span class="token keyword">WHERE</span> emp_no <span class="token operator">></span> ‘<span class="token number">10001</span><span class="token string">';
+SELECT * FROM titles WHERE emp_no > ‘10001'</span> <span class="token operator">and</span> title<span class="token operator">=</span><span class="token string">'Senior Engineer'</span><span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> titles <span class="token keyword">WHERE</span> emp_no <span class="token operator">></span> ‘<span class="token number">10001</span>' <span class="token keyword">order</span> <span class="token keyword">BY</span> title<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/56891307BDC64F33A02FBC942C108A50.jpg" alt="image"></p>
+<h2 id="二、索引到底是什么"><a href="#二、索引到底是什么" class="headerlink" title="二、索引到底是什么"></a>二、索引到底是什么</h2><p>索引是帮助MySQL高效获取数据的排好序的数据结构<br>,索引存储在文件里。</p>
+<ul>
+<li>索引结构 二叉树、红黑树、HASH、Btree(B+tree)</li>
+</ul>
+<h3 id="磁盘存储原理"><a href="#磁盘存储原理" class="headerlink" title="磁盘存储原理"></a>磁盘存储原理</h3><p>磁盘存储耗时分为两个部分：</p>
+<ol>
+<li>寻道时间，指针移动时间(速度慢，费时)</li>
+<li>旋转时间，磁盘旋转(速度较快)<br><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/AF528CD17AC44F86A458243B4FBC4268.jpg" alt="image"></li>
+</ol>
+<p>所以从mysql索引的角度，要减少寻道时间。</p>
+<p>磁盘IO 以页为单位（固定大小 4KB）。所以一次数据库查询或写入操作，要尽可能的减少IO 次数，则每页包含的尽量多的要操作的目标数据。</p>
+<h2 id="三、索引底层数据结构与算法"><a href="#三、索引底层数据结构与算法" class="headerlink" title="三、索引底层数据结构与算法"></a>三、索引底层数据结构与算法</h2><p>树简单分为：二叉树、B树、B+树。<br>度(Degree)-代表节点的数据存储个数，也指代节点最大的子节点个数。</p>
+<h3 id="B-Tree"><a href="#B-Tree" class="headerlink" title="B-Tree"></a>B-Tree</h3><ol>
+<li>每个节点都（包含叶子节点）存储数据</li>
+<li>节点中的数据 key 从左到右递增排列</li>
+<li>叶子节点不存储指针。</li>
+<li>每个节点的子节点个数m/2&lt;= 个数 &lt;=m,但根节点的节点个数可以不超过m/2。</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/A27A5822516D41ADA83D082A07ADF8D1.jpg" alt="image"></p>
+<h3 id="B-Tree-B-Tree变种"><a href="#B-Tree-B-Tree变种" class="headerlink" title="B+Tree(B-Tree变种)"></a>B+Tree(B-Tree变种)</h3><ol>
+<li>一般情况下，根节点存储在内存中，其他节点存储在磁盘中</li>
+<li>非叶子节点不存储数据，只存储索引，可以增大度，类似跳表。</li>
+<li>叶子节点不存储指针，存储数据</li>
+<li>每个节点的子节点个数m/2&lt;= 个数 &lt;=m,但根节点的节点个数可以不超过m/2。</li>
+<li>叶子节点不存储指针</li>
+<li>叶子节点是通过链表串在一起（方便区间查找）。</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/CF305DBAECD843518162BBF1F15DD14A.jpg" alt="image"></p>
+<h3 id="B与-B-树的区别"><a href="#B与-B-树的区别" class="headerlink" title="B与 B+树的区别"></a>B与 B+树的区别</h3><ol>
+<li>B+树中的节点不存储数据，只是索引,而 B 树中的节点存储数据。</li>
+<li>B 树中的叶子节点不需要链表来串联。</li>
+</ol>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><h4 id="B-Tree-索引的性能分析"><a href="#B-Tree-索引的性能分析" class="headerlink" title="B+Tree 索引的性能分析"></a>B+Tree 索引的性能分析</h4><p>一般使用磁盘I/O次数评价索引结构的优劣</p>
+<ul>
+<li>预读：磁盘一般会顺序向后读取一定长度的数据(页的整数倍)放入内存。</li>
+<li>局部性原理：当一个数据被用到时，其附近的数据也通常会马上被使用B+Tree节点的大小设为等于一个页，每次新建节点直接申请一个页的空间，这样就保证一个节点物理上也存储在一个页里，就实现了一个节点的载入只需一次I/O。</li>
+<li>B+Tree的度d一般会超过100，因此h非常小(一般为3到5之间)</li>
+</ul>
+<h2 id="索引实现"><a href="#索引实现" class="headerlink" title="索引实现"></a>索引实现</h2><p>Mysql 常用存储引擎为：MyISAM 和 InnoDB。在创建表的时候指定存储引擎，</p>
+<h3 id="MyISAM索引实现-非聚集"><a href="#MyISAM索引实现-非聚集" class="headerlink" title="MyISAM索引实现(非聚集)"></a>MyISAM索引实现(非聚集)</h3><p>MyISAM索引文件和数据文件是分离的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/0619AC2863944836AFA2B35232B777E0.jpg" alt="image"></p>
+<h3 id="InnoDB索引实现-聚集"><a href="#InnoDB索引实现-聚集" class="headerlink" title="InnoDB索引实现(聚集)"></a>InnoDB索引实现(聚集)</h3><ol>
+<li>数据文件本身就是索引文件。</li>
+<li>表数据文件本身就是按B+Tree组织的一个索引结构文件。</li>
+<li>聚集索引-叶节点包含了完整的数据记录。</li>
+<li>为什么 InnoDB表必须有主键，并且推荐使用整型的自增主键？<blockquote>
+<p>因为主键索引存储的有数据，基于这个原因，必须要有主键，如果没主键会默认添加一个整型自增主键。</p>
+</blockquote>
+</li>
+<li>为什么非主键索引结构叶子节点存储的是主键值？<br>基于一致性和节省存储空间的考虑，非主键索引节点存储主键值。<br><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/E57C60E2EDAA4863ADBEF76B2A5EAC01.jpg" alt="image"></li>
+</ol>
+<h2 id="联合索引，索引最左前缀原理"><a href="#联合索引，索引最左前缀原理" class="headerlink" title="联合索引，索引最左前缀原理"></a>联合索引，索引最左前缀原理</h2><p><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/341B6DF11EB34172BA8DA3C2D7BA79B5.jpg" alt="image"></p>
+<p>如果索引了多列，要遵守最左前缀法则。指的是查询从引的最左前列开始并且不跳过索引中的列。</p>
+<p>例：<br>idx(a,b,c)</p>
+<pre><code>select * from table where a=10002 and b=&#39;staff&#39; and c=&#39;199600823&#39;;(Y)
+select * from table where a=10002;(Y)
+select * from table where a=10002 and c = &#39;199600823&#39;;(部分索引Y,部分 N)
+select * from table where b=&#39;staff&#39; and c = &#39;199600823&#39;;(N)
+elect * from table where b=&#39;staff&#39;;(N)
+elect * from table where c = &#39;199600823&#39;;(N)</code></pre>
+<table>
+<thead>
+<tr>
+<th>语句</th>
+<th>是否用到索引</th>
+<th>使用的索引</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>where a=3</td>
+<td>Y</td>
+<td>a</td>
+</tr>
+<tr>
+<td>where a=3 and b = 5</td>
+<td>Y</td>
+<td>a，b</td>
+</tr>
+<tr>
+<td>where a=3 and b = 5 and c = 4</td>
+<td>Y</td>
+<td>a，b, c</td>
+</tr>
+<tr>
+<td>where b=3 或者 where b = 3 and c = 4 或者 where c=4</td>
+<td>N</td>
+<td></td>
+</tr>
+<tr>
+<td>where a=3 and c = 5</td>
+<td>Y</td>
+<td>使用到 a,但 c 没有使用，b中间断了</td>
+</tr>
+<tr>
+<td>where a=3 and b&gt;4 and c = 5</td>
+<td>Y</td>
+<td>使用到 a,b,但 c 不能用在范围之后，所以 b 断了。</td>
+</tr>
+<tr>
+<td>where a=3 and b like ‘kk%’ and c = 5</td>
+<td>Y</td>
+<td>只用到 a，b ,c</td>
+</tr>
+<tr>
+<td>where a=3 and b like ‘%kk’ and c = 5</td>
+<td>Y</td>
+<td>只用到 a</td>
+</tr>
+<tr>
+<td>where a=3 and b like ‘%kk%’ and c = 5</td>
+<td>Y</td>
+<td>只用到 a</td>
+</tr>
+<tr>
+<td>where a=3 and b like ‘k%kk%’ and c = 5</td>
+<td>Y</td>
+<td>只用到 a,b,c</td>
+</tr>
+<tr>
+<td><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/9AAD735E36F94A52AFDEDD8B3D2DAA07.jpg" alt="image"></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li><p>MySQL支持两种方式的排序filesort和index，Using index是指MySQL扫描索引本身完成排序。index效率高，filesort效率低。</p>
+</li>
+<li><p>order by满足两种情况会使用Using index。<br>#1.order by语句使用索引最左前列。<br>#2.使用where子句与order by子句条件列组合满足索引最左前列。</p>
+</li>
+<li><p>尽量在索引列上完成排序，遵循索引建立（索引创建的顺序）时的最佳左前缀法则。</p>
+</li>
+<li><p>如果order by的条件不在索引列上，就会产生Using filesort。</p>
+</li>
+<li><p>group by与order by很类似，其实质是先排序后分组，遵照索引创建顺序的最佳左前缀法则。注意where高于having，能写在where中的限定条件就不要去having限定了。</p>
+</li>
+</ol>
+<p>通俗理解口诀：</p>
+<blockquote>
+</blockquote>
+<pre><code>全值匹配我最爱，最左前缀要遵守；
+带头大哥不能死，中间兄弟不能断；
+索引列上少计算，范围之后全失效；
+LIKE百分写最右，覆盖索引不写星；
+不等空值还有or，索引失效要少用。</code></pre>
+<p><strong>补充：in和exsits优化</strong></p>
+<p>原则：小表驱动大表，即小的数据集驱动大的数据集</p>
+<p>in：当B表的数据集必须小于A表的数据集时，in优于exists</p>
+<pre><code>select * from A where id in (select id from B)
+#等价于：
+　　for select id from B
+　　for select * from A where A.id = B.id</code></pre>
+<p>exists：当A表的数据集小于B表的数据集时，exists优于in<br>　　将主查询A的数据，放到子查询B中做条件验证，根据验证结果（true或false）来决定主查询的数据是否保留</p>
+<pre><code>select * from A where exists (select 1 from B where B.id = A.id)
+#等价于
+    for select * from A
+    for select * from B where B.id = A.id</code></pre>
+<p>A表与B表的ID字段应建立索引</p>
+<blockquote>
+</blockquote>
+<ol>
+<li>EXISTS (subquery)只返回TRUE或FALSE,因此子查询中的SELECT * 也可以是SELECT 1或select X,官方说法是实际执行时会忽略SELECT清单,因此没有区别</li>
+<li>EXISTS子查询的实际执行过程可能经过了优化而不是我们理解上的逐条对比</li>
+<li>EXISTS子查询往往也可以用JOIN来代替，何种最优需要具体问题具体分析</li>
+</ol>
+</div><div class="article-tags size-small mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/mysql/">mysql</a></div><div class="a2a_kit a2a_kit_size_32 a2a_default_style"><a class="a2a_dd" href="https://www.addtoany.com/share"></a><a class="a2a_button_facebook"></a><a class="a2a_button_twitter"></a><a class="a2a_button_telegram"></a><a class="a2a_button_whatsapp"></a><a class="a2a_button_reddit"></a></div><script src="https://static.addtoany.com/menu/page.js" defer></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button is-info donate"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/" alt="支付宝"></span></a><a class="button is-success donate"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/08/05/Mysql-explain%E8%AF%A6%E8%A7%A3%E5%92%8C%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Mysql explain详解和最佳实践</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/08/05/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3MySql%E9%94%81-%E5%92%8C%E4%BA%8B%E7%89%A9%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"><span class="level-item">深入理解MySql锁 和事物隔离级别</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: 'b5d77236dafdf9cf9d32a49c96337835',
+            repo: 'brokge.github.io',
+            owner: 'brokge',
+            clientID: '91fb002c2cb0c95da7a5',
+            clientSecret: '2abab94501220cd174f24097d08cec6053d71b3f',
+            admin: ["brokge"],
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 20,
+            pagerDirection: 'last',
+            
+            
+            enableHotKey: true
+        })
+        gitalk.render('comment-container')</script></div></div></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3"><div class="card widget" id="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="is-flex" href="#一、索引优化面试题分析"><span class="mr-2">1</span><span>一、索引优化面试题分析</span></a></li><li><a class="is-flex" href="#二、索引到底是什么"><span class="mr-2">2</span><span>二、索引到底是什么</span></a><ul class="menu-list"><li><a class="is-flex" href="#磁盘存储原理"><span class="mr-2">2.1</span><span>磁盘存储原理</span></a></li></ul></li><li><a class="is-flex" href="#三、索引底层数据结构与算法"><span class="mr-2">3</span><span>三、索引底层数据结构与算法</span></a><ul class="menu-list"><li><a class="is-flex" href="#B-Tree"><span class="mr-2">3.1</span><span>B-Tree</span></a></li><li><a class="is-flex" href="#B-Tree-B-Tree变种"><span class="mr-2">3.2</span><span>B+Tree(B-Tree变种)</span></a></li><li><a class="is-flex" href="#B与-B-树的区别"><span class="mr-2">3.3</span><span>B与 B+树的区别</span></a></li><li><a class="is-flex" href="#性能分析"><span class="mr-2">3.4</span><span>性能分析</span></a><ul class="menu-list"><li><a class="is-flex" href="#B-Tree-索引的性能分析"><span class="mr-2">3.4.1</span><span>B+Tree 索引的性能分析</span></a></li></ul></li></ul></li><li><a class="is-flex" href="#索引实现"><span class="mr-2">4</span><span>索引实现</span></a><ul class="menu-list"><li><a class="is-flex" href="#MyISAM索引实现-非聚集"><span class="mr-2">4.1</span><span>MyISAM索引实现(非聚集)</span></a></li><li><a class="is-flex" href="#InnoDB索引实现-聚集"><span class="mr-2">4.2</span><span>InnoDB索引实现(聚集)</span></a></li></ul></li><li><a class="is-flex" href="#联合索引，索引最左前缀原理"><span class="mr-2">5</span><span>联合索引，索引最左前缀原理</span></a></li><li><a class="is-flex" href="#总结"><span class="mr-2">6</span><span>总结</span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-05T15:40:00.000Z">2020-08-05</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/05/Mysql-explain%E8%AF%A6%E8%A7%A3%E5%92%8C%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">Mysql explain详解和最佳实践</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-05T15:38:26.000Z">2020-08-05</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/05/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E7%B4%A2%E5%BC%95%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">深入理解Mysql索引底层数据结构与算法</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-05T15:36:29.000Z">2020-08-05</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/05/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3MySql%E9%94%81-%E5%92%8C%E4%BA%8B%E7%89%A9%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">深入理解MySql锁 和事物隔离级别</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-31T09:49:53.000Z">2020-07-31</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/31/%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F/">线程通信的方式</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-25T04:30:57.000Z">2020-07-25</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/25/kafka-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">kafka 集群搭建</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Android/"><span class="tag">Android</span><span class="tag is-grey-lightest">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JVM/"><span class="tag">JVM</span><span class="tag is-grey-lightest">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Java/"><span class="tag">Java</span><span class="tag is-grey-lightest">17</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MQ/"><span class="tag">MQ</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Redis/"><span class="tag">Redis</span><span class="tag is-grey-lightest">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag is-grey-lightest">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BC%98%E5%8C%96/"><span class="tag">优化</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"><span class="tag">分布式</span><span class="tag is-grey-lightest">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8F%8D%E5%B0%84/"><span class="tag">反射</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"><span class="tag">多线程</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"><span class="tag">并发编程</span><span class="tag is-grey-lightest">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><span class="tag">微服务</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%9D%E7%BB%B4%E6%A8%A1%E5%9E%8B/"><span class="tag">思维模型</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><span class="tag">性能优化</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="tag">数据结构</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%AD%A3%E5%88%99/"><span class="tag">正则</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B3%A8%E8%A7%A3/"><span class="tag">注解</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BA%BF%E7%A8%8B/"><span class="tag">线程</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BC%93%E5%AD%98/"><span class="tag">缓存</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="tag">网络编程</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="tag">设计模式</span><span class="tag is-grey-lightest">7</span></a></div></div></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button is-primary" type="submit" value="订阅"></div></div></form></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="玉蘇子" height="28"></a><p class="size-small"><span>&copy; 2020 brokge</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            site: {
+                url: 'https://brokge.github.io',
+                external_link: {"enable":true,"exclude":[]}
+            },
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
