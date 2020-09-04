@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="baidu-site-verification" content="ojkjVnGTuN"><meta name="generator" content="Hexo 4.2.1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Spring cloud Feign原理分析 - 玉蘇子</title><meta description="Feign是一个http请求调用的轻量级框架，可以以Java接口注解的方式调用Http请求。Spring Cloud引入 Feign并且集成了Ribbon实现客户端负载均衡调用。集成 Hystrix 实现客户端限流降级。封装了Http调用流程，更适合面向接口化的变成习惯。"><meta property="og:type" content="blog"><meta property="og:title" content="Spring cloud Feign原理分析"><meta property="og:url" content="https://brokge.github.io/2020/09/04/Spring-cloud-Feign%E5%AE%9E%E8%B7%B5/"><meta property="og:site_name" content="玉蘇子"><meta property="og:description" content="Feign是一个http请求调用的轻量级框架，可以以Java接口注解的方式调用Http请求。Spring Cloud引入 Feign并且集成了Ribbon实现客户端负载均衡调用。集成 Hystrix 实现客户端限流降级。封装了Http调用流程，更适合面向接口化的变成习惯。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/33C8169A6EA1442C90CCC83C42CF3CFE.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/3A6A4AD8528643E68BED64B25ECCFA7E.jpg"><meta property="article:published_time" content="2020-09-04T02:46:41.000Z"><meta property="article:modified_time" content="2020-09-04T02:53:48.052Z"><meta property="article:author" content="brokge"><meta property="article:tag" content="Java"><meta property="article:tag" content="Spring Cloud"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/33C8169A6EA1442C90CCC83C42CF3CFE.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://brokge.github.io/2020/09/04/Spring-cloud-Feign%E5%AE%9E%E8%B7%B5/"},"headline":"玉蘇子","image":["https://cdn.jsdelivr.net/gh/brokge/drawio/img/33C8169A6EA1442C90CCC83C42CF3CFE.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/3A6A4AD8528643E68BED64B25ECCFA7E.jpg"],"datePublished":"2020-09-04T02:46:41.000Z","dateModified":"2020-09-04T02:53:48.052Z","author":{"@type":"Person","name":"brokge"},"description":"Feign是一个http请求调用的轻量级框架，可以以Java接口注解的方式调用Http请求。Spring Cloud引入 Feign并且集成了Ribbon实现客户端负载均衡调用。集成 Hystrix 实现客户端限流降级。封装了Http调用流程，更适合面向接口化的变成习惯。"}</script><link rel="canonical" href="https://brokge.github.io/2020/09/04/Spring-cloud-Feign%E5%AE%9E%E8%B7%B5/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="玉蘇子" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-09-04T02:46:41.000Z" title="2020-09-04T02:46:41.000Z">2020-09-04</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span> / </span><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a></span><span class="level-item">15 分钟 读完 (大约 2178 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Spring cloud Feign原理分析</h1><div class="content"><p>Feign是一个http请求调用的轻量级框架，可以以Java接口注解的方式调用Http请求。Spring Cloud引入 Feign并且集成了Ribbon实现客户端负载均衡调用。<br>集成 Hystrix 实现客户端限流降级。<br>封装了Http调用流程，更适合面向接口化的变成习惯。</p>
+<html lang="zh"><head><meta charset="utf-8"><meta name="baidu-site-verification" content="ojkjVnGTuN"><meta name="generator" content="Hexo 4.2.1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Spring cloud Feign原理分析 - 玉蘇子</title><meta description="Feign是一个http请求调用的轻量级框架，可以以Java接口注解的方式调用Http请求。Spring Cloud引入 Feign并且集成了Ribbon实现客户端负载均衡调用。集成 Hystrix 实现客户端限流降级。封装了Http调用流程，更适合面向接口化的变成习惯。"><meta property="og:type" content="blog"><meta property="og:title" content="Spring cloud Feign原理分析"><meta property="og:url" content="https://brokge.github.io/2020/09/04/Spring-cloud-Feign%E5%AE%9E%E8%B7%B5/"><meta property="og:site_name" content="玉蘇子"><meta property="og:description" content="Feign是一个http请求调用的轻量级框架，可以以Java接口注解的方式调用Http请求。Spring Cloud引入 Feign并且集成了Ribbon实现客户端负载均衡调用。集成 Hystrix 实现客户端限流降级。封装了Http调用流程，更适合面向接口化的变成习惯。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/33C8169A6EA1442C90CCC83C42CF3CFE.jpg"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/3A6A4AD8528643E68BED64B25ECCFA7E.jpg"><meta property="article:published_time" content="2020-09-04T02:46:41.000Z"><meta property="article:modified_time" content="2020-09-04T03:23:00.351Z"><meta property="article:author" content="brokge"><meta property="article:tag" content="Java"><meta property="article:tag" content="Spring Cloud"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://cdn.jsdelivr.net/gh/brokge/drawio/img/33C8169A6EA1442C90CCC83C42CF3CFE.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://brokge.github.io/2020/09/04/Spring-cloud-Feign%E5%AE%9E%E8%B7%B5/"},"headline":"玉蘇子","image":["https://cdn.jsdelivr.net/gh/brokge/drawio/img/33C8169A6EA1442C90CCC83C42CF3CFE.jpg","https://cdn.jsdelivr.net/gh/brokge/drawio/img/3A6A4AD8528643E68BED64B25ECCFA7E.jpg"],"datePublished":"2020-09-04T02:46:41.000Z","dateModified":"2020-09-04T03:23:00.351Z","author":{"@type":"Person","name":"brokge"},"description":"Feign是一个http请求调用的轻量级框架，可以以Java接口注解的方式调用Http请求。Spring Cloud引入 Feign并且集成了Ribbon实现客户端负载均衡调用。集成 Hystrix 实现客户端限流降级。封装了Http调用流程，更适合面向接口化的变成习惯。"}</script><link rel="canonical" href="https://brokge.github.io/2020/09/04/Spring-cloud-Feign%E5%AE%9E%E8%B7%B5/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="玉蘇子" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-09-04T02:46:41.000Z" title="2020-09-04T02:46:41.000Z">2020-09-04</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span> / </span><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a></span><span class="level-item">15 分钟 读完 (大约 2186 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Spring cloud Feign原理分析</h1><div class="content"><p>Feign是一个http请求调用的轻量级框架，可以以Java接口注解的方式调用Http请求。Spring Cloud引入 Feign并且集成了Ribbon实现客户端负载均衡调用。<br>集成 Hystrix 实现客户端限流降级。<br>封装了Http调用流程，更适合面向接口化的变成习惯。</p>
 <a id="more"></a>
 <p>Spring Cloud  对 Feign 的增强和改造：</p>
 <ol>
@@ -200,119 +200,119 @@ public class UserController {
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="2-2-请求对象的转码和返回对象的解析解码。"><a href="#2-2-请求对象的转码和返回对象的解析解码。" class="headerlink" title="2.2 请求对象的转码和返回对象的解析解码。"></a>2.2 请求对象的转码和返回对象的解析解码。</h2><ol>
-<li>首先 Spring Cloud Feign 支持对请求和响应进行GZIP压缩，以提高通信效率。<br>application.yml 配置信息如下：<pre><code>feign:
-compression:
- request: #请求
-   enabled: true #开启
-   mime-types: text/xml,application/xml,application/json #开启支持压缩的MIME TYPE
-   min-request-size: 2048 #配置压缩数据大小的下限
- response: #响应
-   enabled: true #开启响应GZIP压缩
-</code></pre>
-</li>
+<li>首先 Spring Cloud Feign 支持对请求和响应进行GZIP压缩，以提高通信效率。<br>application.yml 配置信息如下：</li>
 </ol>
-<pre><code>同时要注意：
-&gt; 由于开启GZIP压缩之后，Feign之间的调用数据通过二进制协议进行传输，返回值需要修改为ResponseEntity&lt;byte[]&gt;才可以正常显示，否则会导致服务之间的调用乱码。
-
-代码大概像以下这样子。
-```java
-@PostMapping(&quot;/order/{productId}&quot;)
-ResponseEntity&lt;byte[]&gt; addCart(@PathVariable(&quot;productId&quot;) Long productId);</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml">feign:
+  compression:
+    request: #请求
+      enabled: true #开启
+      mime-types: text/xml,application/xml,application/json #开启支持压缩的MIME TYPE
+      min-request-size: 2048 #配置压缩数据大小的下限
+    response: #响应
+      enabled: true #开启响应GZIP压缩<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>同时要注意：</p>
+<blockquote>
+<p>由于开启GZIP压缩之后，Feign之间的调用数据通过二进制协议进行传输，返回值需要修改为ResponseEntity&lt;byte[]&gt;才可以正常显示，否则会导致服务之间的调用乱码。</p>
+</blockquote>
+<p>代码大概像以下这样子。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"/order/{productId}"</span><span class="token punctuation">)</span>
+ResponseEntity<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> <span class="token function">addCart</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">"productId"</span><span class="token punctuation">)</span> Long productId<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <ol start="2">
-<li>针对 encode 和 decode 也做了支持,在yaml 配置文件中有这样<pre><code>feign:
-client:
- config:
-   feignName:
-     connectTimeout: 5000
-     readTimeout: 5000
-     loggerLevel: full
-     errorDecoder: com.example.SimpleErrorDecoder
-     retryer: com.example.SimpleRetryer
-     requestInterceptors:
-       - com.example.FooRequestInterceptor
-       - com.example.BarRequestInterceptor
-     decode404: false
-     encoder: com.example.SimpleEncoder
-     decoder: com.example.SimpleDecoder
-     contract: com.example.SimpleContract</code></pre>
-也可以通过手动方式，在代码中直接配置</li>
+<li>针对 encode 和 decode 也做了支持,在yaml 配置文件中有这样</li>
 </ol>
-<pre><code>@Import(FeignClientsConfiguration.class)
-class FooController {
+<pre class="line-numbers language-xml"><code class="language-xml">feign:
+  client:
+    config:
+      feignName:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
+        errorDecoder: com.example.SimpleErrorDecoder
+        retryer: com.example.SimpleRetryer
+        requestInterceptors:
+          - com.example.FooRequestInterceptor
+          - com.example.BarRequestInterceptor
+        decode404: false
+        encoder: com.example.SimpleEncoder
+        decoder: com.example.SimpleDecoder
+        contract: com.example.SimpleContract<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>也可以通过手动方式，在代码中直接配置</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Import</span><span class="token punctuation">(</span>FeignClientsConfiguration<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">FooController</span> <span class="token punctuation">{</span>
 
-    private FooClient fooClient;
+    <span class="token keyword">private</span> FooClient fooClient<span class="token punctuation">;</span>
 
-    private FooClient adminClient;
+    <span class="token keyword">private</span> FooClient adminClient<span class="token punctuation">;</span>
 
-        @Autowired
-    public FooController(Decoder decoder, Encoder encoder, Client client, Contract contract) {
-        this.fooClient = Feign.builder().client(client)
-                .encoder(encoder)
-                .decoder(decoder)
-                .contract(contract)
-                .requestInterceptor(new BasicAuthRequestInterceptor(&quot;user&quot;, &quot;user&quot;))
-                .target(FooClient.class, &quot;https://PROD-SVC&quot;);
+        <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">public</span> <span class="token function">FooController</span><span class="token punctuation">(</span>Decoder decoder<span class="token punctuation">,</span> Encoder encoder<span class="token punctuation">,</span> Client client<span class="token punctuation">,</span> Contract contract<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>fooClient <span class="token operator">=</span> Feign<span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">client</span><span class="token punctuation">(</span>client<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">encoder</span><span class="token punctuation">(</span>encoder<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">decoder</span><span class="token punctuation">(</span>decoder<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">contract</span><span class="token punctuation">(</span>contract<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">requestInterceptor</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">BasicAuthRequestInterceptor</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">,</span> <span class="token string">"user"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">target</span><span class="token punctuation">(</span>FooClient<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token string">"https://PROD-SVC"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        this.adminClient = Feign.builder().client(client)
-                .encoder(encoder)
-                .decoder(decoder)
-                .contract(contract)
-                .requestInterceptor(new BasicAuthRequestInterceptor(&quot;admin&quot;, &quot;admin&quot;))
-                .target(FooClient.class, &quot;https://PROD-SVC&quot;);
-    }
-}</code></pre>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>adminClient <span class="token operator">=</span> Feign<span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">client</span><span class="token punctuation">(</span>client<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">encoder</span><span class="token punctuation">(</span>encoder<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">decoder</span><span class="token punctuation">(</span>decoder<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">contract</span><span class="token punctuation">(</span>contract<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">requestInterceptor</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">BasicAuthRequestInterceptor</span><span class="token punctuation">(</span><span class="token string">"admin"</span><span class="token punctuation">,</span> <span class="token string">"admin"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">target</span><span class="token punctuation">(</span>FooClient<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token string">"https://PROD-SVC"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="2-3-不同-http-框架的支持"><a href="#2-3-不同-http-框架的支持" class="headerlink" title="2.3 不同 http 框架的支持"></a>2.3 不同 http 框架的支持</h2><p>Feign 默认底层通过JDK 的 java.net.HttpURLConnection 实现了feign.Client接口类,在每次发送请求的时候，都会创建新的HttpURLConnection链接，这也就是为什么默认情况下Feign的性能很差的原因。可以通过拓展该接口，使用Apache HttpClient 或者OkHttp3等基于连接池的高性能Http客户端。</p>
 <p>Apache提供的HttpClient框架相比传统JDK自带的HttpURLConnection，它封装了访问http的请求头，参数，内容体，响应等等；它不仅使客户端发送HTTP请求变得容易，而且也方便了开发人员测试接口（基于Http协议的），即提高了开发的效率，也方便提高代码的健壮性；另外高并发大量的请求网络的时候，还是用“HTTP连接池”提升吞吐量。</p>
 <p>OKHttp 是一个处理网络请求的开源项目,是安卓端常用的轻量级框架。OKHttp拥有共享Socket,减少对服务器的请求次数，通过连接池,减少了请求延迟等技术特点。</p>
 <p>使用Feign 内部的 HttpClient 或 okhttp 的方式：</p>
-<pre><code>feign.httpclient.enabled = true
-feign.okhttp.enabled = true</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml">feign.httpclient.enabled = true
+feign.okhttp.enabled = true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h2 id="2-4-针对-断路器的支持-hystrix"><a href="#2-4-针对-断路器的支持-hystrix" class="headerlink" title="2.4 针对 断路器的支持(hystrix)"></a>2.4 针对 断路器的支持(hystrix)</h2><p>Feign 默认是不开启 Hystrix 的。默认为：false。</p>
 <p>开启需要在yaml文件进行配置</p>
-<pre><code>feign.hystrix.enabled=true</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml">feign.hystrix.enabled=true<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>源码体现在FeignClientsConfiguration.java中</p>
-<pre><code>    @Configuration
-    @ConditionalOnClass({ HystrixCommand.class, HystrixFeign.class })
-    protected static class HystrixFeignConfiguration {
-        @Bean
-        @Scope(&quot;prototype&quot;)
-        @ConditionalOnMissingBean
-        @ConditionalOnProperty(name = &quot;feign.hystrix.enabled&quot;)
-        public Feign.Builder feignHystrixBuilder() {
-            return HystrixFeign.builder();
-        }
-    }</code></pre>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token annotation punctuation">@Configuration</span>
+    <span class="token annotation punctuation">@ConditionalOnClass</span><span class="token punctuation">(</span><span class="token punctuation">{</span> HystrixCommand<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> HystrixFeign<span class="token punctuation">.</span><span class="token keyword">class</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">protected</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">HystrixFeignConfiguration</span> <span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@Bean</span>
+        <span class="token annotation punctuation">@Scope</span><span class="token punctuation">(</span><span class="token string">"prototype"</span><span class="token punctuation">)</span>
+        <span class="token annotation punctuation">@ConditionalOnMissingBean</span>
+        <span class="token annotation punctuation">@ConditionalOnProperty</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"feign.hystrix.enabled"</span><span class="token punctuation">)</span>
+        <span class="token keyword">public</span> Feign<span class="token punctuation">.</span>Builder <span class="token function">feignHystrixBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> HystrixFeign<span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>同时定义 fallback 对降级进行处理逻辑。</p>
-<pre><code>@FeignClient(name = &quot;hello&quot;, fallback = HystrixClientFallback.class)
-protected interface HystrixClient {
-    @RequestMapping(method = RequestMethod.GET, value = &quot;/hello&quot;)
-    Hello iFailSometimes();
-}
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@FeignClient</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">,</span> fallback <span class="token operator">=</span> HystrixClientFallback<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token keyword">protected</span> <span class="token keyword">interface</span> <span class="token class-name">HystrixClient</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span>method <span class="token operator">=</span> RequestMethod<span class="token punctuation">.</span>GET<span class="token punctuation">,</span> value <span class="token operator">=</span> <span class="token string">"/hello"</span><span class="token punctuation">)</span>
+    Hello <span class="token function">iFailSometimes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-static class HystrixClientFallback implements HystrixClient {
-    @Override
-    public Hello iFailSometimes() {
-        return new Hello(&quot;fallback&quot;);
-    }
-}</code></pre>
+<span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">HystrixClientFallback</span> <span class="token keyword">implements</span> <span class="token class-name">HystrixClient</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Hello <span class="token function">iFailSometimes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Hello</span><span class="token punctuation">(</span><span class="token string">"fallback"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>开启之后既可以进行 hystrix 的常规配置，详细可以查看 hystrix 相关内容。</p>
-<h2 id="2-5-针对-日志的处理"><a href="#2-5-针对-日志的处理" class="headerlink" title="2.5 针对 日志的处理"></a>2.5 针对 日志的处理</h2><pre><code>protected Feign.Builder feign(FeignContext context) {
-        FeignLoggerFactory loggerFactory = get(context, FeignLoggerFactory.class);
-        Logger logger = loggerFactory.create(this.type);
+<h2 id="2-5-针对-日志的处理"><a href="#2-5-针对-日志的处理" class="headerlink" title="2.5 针对 日志的处理"></a>2.5 针对 日志的处理</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">protected</span> Feign<span class="token punctuation">.</span>Builder <span class="token function">feign</span><span class="token punctuation">(</span>FeignContext context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        FeignLoggerFactory loggerFactory <span class="token operator">=</span> <span class="token function">get</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> FeignLoggerFactory<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Logger logger <span class="token operator">=</span> loggerFactory<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        // @formatter:off
-        Feign.Builder builder = get(context, Feign.Builder.class)
-                // required values
-                .logger(logger)
-                .encoder(get(context, Encoder.class))
-                .decoder(get(context, Decoder.class))
-                .contract(get(context, Contract.class));
-        // @formatter:on
+        <span class="token comment" spellcheck="true">// @formatter:off</span>
+        Feign<span class="token punctuation">.</span>Builder builder <span class="token operator">=</span> <span class="token function">get</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> Feign<span class="token punctuation">.</span>Builder<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+                <span class="token comment" spellcheck="true">// required values</span>
+                <span class="token punctuation">.</span><span class="token function">logger</span><span class="token punctuation">(</span>logger<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">encoder</span><span class="token punctuation">(</span><span class="token function">get</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> Encoder<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">decoder</span><span class="token punctuation">(</span><span class="token function">get</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> Decoder<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">contract</span><span class="token punctuation">(</span><span class="token function">get</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> Contract<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// @formatter:on</span>
 
-        configureFeign(context, builder);
+        <span class="token function">configureFeign</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> builder<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        return builder;
-    }</code></pre>
+        <span class="token keyword">return</span> builder<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>默认实现是 <code>DefaultFeignLoggerFactory</code></p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><a href="https://docs.spring.io/spring-cloud-openfeign/docs/2.2.5.RELEASE/reference/html/#configuration-properties">https://docs.spring.io/spring-cloud-openfeign/docs/2.2.5.RELEASE/reference/html/#configuration-properties</a></li>
