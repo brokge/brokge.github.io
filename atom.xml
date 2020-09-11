@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://brokge.github.io/"/>
+  <link href="http://www.yusuzi.cn/"/>
   <updated>2020-09-10T04:34:41.667Z</updated>
-  <id>https://brokge.github.io/</id>
+  <id>http://www.yusuzi.cn/</id>
   
   <author>
     <name>brokge</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>网站收录提交反馈</title>
-    <link href="https://brokge.github.io/2020/09/10/%E7%BD%91%E7%AB%99%E6%94%B6%E5%BD%95%E6%8F%90%E4%BA%A4%E5%8F%8D%E9%A6%88/"/>
-    <id>https://brokge.github.io/2020/09/10/网站收录提交反馈/</id>
+    <link href="http://www.yusuzi.cn/2020/09/10/%E7%BD%91%E7%AB%99%E6%94%B6%E5%BD%95%E6%8F%90%E4%BA%A4%E5%8F%8D%E9%A6%88/"/>
+    <id>http://www.yusuzi.cn/2020/09/10/网站收录提交反馈/</id>
     <published>2020-09-10T04:28:16.000Z</published>
     <updated>2020-09-10T04:34:41.667Z</updated>
     
@@ -40,8 +40,8 @@
   
   <entry>
     <title>Github pages 多域名映射</title>
-    <link href="https://brokge.github.io/2020/09/08/github-pages-%E5%A4%9A%E5%9F%9F%E5%90%8D%E6%98%A0%E5%B0%84/"/>
-    <id>https://brokge.github.io/2020/09/08/github-pages-多域名映射/</id>
+    <link href="http://www.yusuzi.cn/2020/09/08/github-pages-%E5%A4%9A%E5%9F%9F%E5%90%8D%E6%98%A0%E5%B0%84/"/>
+    <id>http://www.yusuzi.cn/2020/09/08/github-pages-多域名映射/</id>
     <published>2020-09-08T07:53:43.000Z</published>
     <updated>2020-09-08T07:59:16.867Z</updated>
     
@@ -53,15 +53,15 @@
     
     </summary>
     
-      <category term="经验" scheme="https://brokge.github.io/categories/%E7%BB%8F%E9%AA%8C/"/>
+      <category term="经验" scheme="http://www.yusuzi.cn/categories/%E7%BB%8F%E9%AA%8C/"/>
     
     
   </entry>
   
   <entry>
     <title>nacos 导入配置数据不合法</title>
-    <link href="https://brokge.github.io/2020/09/07/nacos-%E5%AF%BC%E5%85%A5%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%90%88%E6%B3%95/"/>
-    <id>https://brokge.github.io/2020/09/07/nacos-导入配置数据不合法/</id>
+    <link href="http://www.yusuzi.cn/2020/09/07/nacos-%E5%AF%BC%E5%85%A5%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%90%88%E6%B3%95/"/>
+    <id>http://www.yusuzi.cn/2020/09/07/nacos-导入配置数据不合法/</id>
     <published>2020-09-07T13:05:35.000Z</published>
     <updated>2020-09-07T13:10:47.154Z</updated>
     
@@ -73,21 +73,21 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="微服务" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
+      <category term="微服务" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
     
     
-      <category term="Java" scheme="https://brokge.github.io/tags/Java/"/>
+      <category term="Java" scheme="http://www.yusuzi.cn/tags/Java/"/>
     
-      <category term="Spring Cloud" scheme="https://brokge.github.io/tags/Spring-Cloud/"/>
+      <category term="Spring Cloud" scheme="http://www.yusuzi.cn/tags/Spring-Cloud/"/>
     
   </entry>
   
   <entry>
     <title>Spring cloud Feign原理分析</title>
-    <link href="https://brokge.github.io/2020/09/04/Spring-cloud-Feign%E5%AE%9E%E8%B7%B5/"/>
-    <id>https://brokge.github.io/2020/09/04/Spring-cloud-Feign实践/</id>
+    <link href="http://www.yusuzi.cn/2020/09/04/Spring-cloud-Feign%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://www.yusuzi.cn/2020/09/04/Spring-cloud-Feign实践/</id>
     <published>2020-09-04T02:46:41.000Z</published>
     <updated>2020-09-04T03:34:51.060Z</updated>
     
@@ -99,21 +99,21 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="微服务" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
+      <category term="微服务" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
     
     
-      <category term="Java" scheme="https://brokge.github.io/tags/Java/"/>
+      <category term="Java" scheme="http://www.yusuzi.cn/tags/Java/"/>
     
-      <category term="Spring Cloud" scheme="https://brokge.github.io/tags/Spring-Cloud/"/>
+      <category term="Spring Cloud" scheme="http://www.yusuzi.cn/tags/Spring-Cloud/"/>
     
   </entry>
   
   <entry>
     <title>Rocket MQ 扫盲</title>
-    <link href="https://brokge.github.io/2020/08/23/Rocket-MQ-%E6%89%AB%E7%9B%B2/"/>
-    <id>https://brokge.github.io/2020/08/23/Rocket-MQ-扫盲/</id>
+    <link href="http://www.yusuzi.cn/2020/08/23/Rocket-MQ-%E6%89%AB%E7%9B%B2/"/>
+    <id>http://www.yusuzi.cn/2020/08/23/Rocket-MQ-扫盲/</id>
     <published>2020-08-23T10:52:48.000Z</published>
     <updated>2020-08-23T10:57:12.522Z</updated>
     
@@ -126,21 +126,21 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="分布式" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+      <category term="分布式" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
     
-      <category term="Java" scheme="https://brokge.github.io/tags/Java/"/>
+      <category term="Java" scheme="http://www.yusuzi.cn/tags/Java/"/>
     
-      <category term="MQ" scheme="https://brokge.github.io/tags/MQ/"/>
+      <category term="MQ" scheme="http://www.yusuzi.cn/tags/MQ/"/>
     
   </entry>
   
   <entry>
     <title>关于大型系统架构的10个问题</title>
-    <link href="https://brokge.github.io/2020/08/21/%E5%85%B3%E4%BA%8E%E5%A4%A7%E5%9E%8B%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E7%9A%8410%E4%B8%AA%E9%97%AE%E9%A2%98/"/>
-    <id>https://brokge.github.io/2020/08/21/关于大型系统架构的10个问题/</id>
+    <link href="http://www.yusuzi.cn/2020/08/21/%E5%85%B3%E4%BA%8E%E5%A4%A7%E5%9E%8B%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E7%9A%8410%E4%B8%AA%E9%97%AE%E9%A2%98/"/>
+    <id>http://www.yusuzi.cn/2020/08/21/关于大型系统架构的10个问题/</id>
     <published>2020-08-21T06:22:37.000Z</published>
     <updated>2020-08-21T06:32:02.456Z</updated>
     
@@ -152,19 +152,19 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="架构" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E6%9E%B6%E6%9E%84/"/>
+      <category term="架构" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E6%9E%B6%E6%9E%84/"/>
     
     
-      <category term="架构" scheme="https://brokge.github.io/tags/%E6%9E%B6%E6%9E%84/"/>
+      <category term="架构" scheme="http://www.yusuzi.cn/tags/%E6%9E%B6%E6%9E%84/"/>
     
   </entry>
   
   <entry>
     <title>Java-分布式锁这样实现</title>
-    <link href="https://brokge.github.io/2020/08/13/Java-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E8%BF%99%E6%A0%B7%E5%AE%9E%E7%8E%B0/"/>
-    <id>https://brokge.github.io/2020/08/13/Java-分布式锁这样实现/</id>
+    <link href="http://www.yusuzi.cn/2020/08/13/Java-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E8%BF%99%E6%A0%B7%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://www.yusuzi.cn/2020/08/13/Java-分布式锁这样实现/</id>
     <published>2020-08-13T12:41:41.000Z</published>
     <updated>2020-08-21T04:57:50.587Z</updated>
     
@@ -176,23 +176,23 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="分布式" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+      <category term="分布式" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
     
-      <category term="Java" scheme="https://brokge.github.io/tags/Java/"/>
+      <category term="微服务" scheme="http://www.yusuzi.cn/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
     
-      <category term="微服务" scheme="https://brokge.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
+      <category term="Java" scheme="http://www.yusuzi.cn/tags/Java/"/>
     
-      <category term="锁" scheme="https://brokge.github.io/tags/%E9%94%81/"/>
+      <category term="锁" scheme="http://www.yusuzi.cn/tags/%E9%94%81/"/>
     
   </entry>
   
   <entry>
     <title>Python 疫苗爬虫脚本</title>
-    <link href="https://brokge.github.io/2020/08/12/Python-%E7%96%AB%E8%8B%97%E7%88%AC%E8%99%AB%E8%84%9A%E6%9C%AC/"/>
-    <id>https://brokge.github.io/2020/08/12/Python-疫苗爬虫脚本/</id>
+    <link href="http://www.yusuzi.cn/2020/08/12/Python-%E7%96%AB%E8%8B%97%E7%88%AC%E8%99%AB%E8%84%9A%E6%9C%AC/"/>
+    <id>http://www.yusuzi.cn/2020/08/12/Python-疫苗爬虫脚本/</id>
     <published>2020-08-12T07:03:28.000Z</published>
     <updated>2020-08-21T04:52:03.076Z</updated>
     
@@ -204,21 +204,21 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="工具" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E5%B7%A5%E5%85%B7/"/>
+      <category term="工具" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="python" scheme="https://brokge.github.io/tags/python/"/>
+      <category term="python" scheme="http://www.yusuzi.cn/tags/python/"/>
     
-      <category term="爬虫" scheme="https://brokge.github.io/tags/%E7%88%AC%E8%99%AB/"/>
+      <category term="爬虫" scheme="http://www.yusuzi.cn/tags/%E7%88%AC%E8%99%AB/"/>
     
   </entry>
   
   <entry>
     <title>Mysql explain详解和最佳实践</title>
-    <link href="https://brokge.github.io/2020/08/05/Mysql-explain%E8%AF%A6%E8%A7%A3%E5%92%8C%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
-    <id>https://brokge.github.io/2020/08/05/Mysql-explain详解和最佳实践/</id>
+    <link href="http://www.yusuzi.cn/2020/08/05/Mysql-explain%E8%AF%A6%E8%A7%A3%E5%92%8C%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://www.yusuzi.cn/2020/08/05/Mysql-explain详解和最佳实践/</id>
     <published>2020-08-05T15:40:00.000Z</published>
     <updated>2020-08-21T04:56:19.793Z</updated>
     
@@ -230,19 +230,19 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="数据库" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-      <category term="mysql" scheme="https://brokge.github.io/tags/mysql/"/>
+      <category term="mysql" scheme="http://www.yusuzi.cn/tags/mysql/"/>
     
   </entry>
   
   <entry>
     <title>深入理解Mysql索引底层数据结构与算法</title>
-    <link href="https://brokge.github.io/2020/08/05/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E7%B4%A2%E5%BC%95%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
-    <id>https://brokge.github.io/2020/08/05/深入理解Mysql索引底层数据结构与算法/</id>
+    <link href="http://www.yusuzi.cn/2020/08/05/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Mysql%E7%B4%A2%E5%BC%95%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    <id>http://www.yusuzi.cn/2020/08/05/深入理解Mysql索引底层数据结构与算法/</id>
     <published>2020-08-05T15:38:26.000Z</published>
     <updated>2020-08-21T05:02:21.555Z</updated>
     
@@ -254,19 +254,19 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="数据库" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-      <category term="mysql" scheme="https://brokge.github.io/tags/mysql/"/>
+      <category term="mysql" scheme="http://www.yusuzi.cn/tags/mysql/"/>
     
   </entry>
   
   <entry>
     <title>深入理解MySql锁 和事物隔离级别</title>
-    <link href="https://brokge.github.io/2020/08/05/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3MySql%E9%94%81-%E5%92%8C%E4%BA%8B%E7%89%A9%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
-    <id>https://brokge.github.io/2020/08/05/深入理解MySql锁-和事物隔离级别/</id>
+    <link href="http://www.yusuzi.cn/2020/08/05/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3MySql%E9%94%81-%E5%92%8C%E4%BA%8B%E7%89%A9%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
+    <id>http://www.yusuzi.cn/2020/08/05/深入理解MySql锁-和事物隔离级别/</id>
     <published>2020-08-05T15:36:29.000Z</published>
     <updated>2020-08-21T05:02:27.721Z</updated>
     
@@ -278,19 +278,19 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="数据库" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-      <category term="mysql" scheme="https://brokge.github.io/tags/mysql/"/>
+      <category term="mysql" scheme="http://www.yusuzi.cn/tags/mysql/"/>
     
   </entry>
   
   <entry>
     <title>线程通信的方式</title>
-    <link href="https://brokge.github.io/2020/07/31/%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F/"/>
-    <id>https://brokge.github.io/2020/07/31/线程通信的方式/</id>
+    <link href="http://www.yusuzi.cn/2020/07/31/%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F/"/>
+    <id>http://www.yusuzi.cn/2020/07/31/线程通信的方式/</id>
     <published>2020-07-31T09:49:53.000Z</published>
     <updated>2020-08-21T04:40:32.285Z</updated>
     
@@ -302,19 +302,19 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="并发编程" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+      <category term="并发编程" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
     
-      <category term="Java" scheme="https://brokge.github.io/tags/Java/"/>
+      <category term="Java" scheme="http://www.yusuzi.cn/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>kafka 集群搭建</title>
-    <link href="https://brokge.github.io/2020/07/25/kafka-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/"/>
-    <id>https://brokge.github.io/2020/07/25/kafka-集群搭建/</id>
+    <link href="http://www.yusuzi.cn/2020/07/25/kafka-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/"/>
+    <id>http://www.yusuzi.cn/2020/07/25/kafka-集群搭建/</id>
     <published>2020-07-25T04:30:57.000Z</published>
     <updated>2020-08-21T04:54:27.882Z</updated>
     
@@ -326,21 +326,21 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="分布式" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+      <category term="分布式" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
     
-      <category term="Java" scheme="https://brokge.github.io/tags/Java/"/>
+      <category term="Java" scheme="http://www.yusuzi.cn/tags/Java/"/>
     
-      <category term="MQ" scheme="https://brokge.github.io/tags/MQ/"/>
+      <category term="MQ" scheme="http://www.yusuzi.cn/tags/MQ/"/>
     
   </entry>
   
   <entry>
     <title>kafka 概念和原理详解</title>
-    <link href="https://brokge.github.io/2020/07/22/kafka-%E6%A6%82%E5%BF%B5%E5%92%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/"/>
-    <id>https://brokge.github.io/2020/07/22/kafka-概念和原理详解/</id>
+    <link href="http://www.yusuzi.cn/2020/07/22/kafka-%E6%A6%82%E5%BF%B5%E5%92%8C%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/"/>
+    <id>http://www.yusuzi.cn/2020/07/22/kafka-概念和原理详解/</id>
     <published>2020-07-22T04:28:51.000Z</published>
     <updated>2020-08-21T04:56:34.525Z</updated>
     
@@ -352,21 +352,21 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="分布式" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+      <category term="分布式" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
     
-      <category term="Java" scheme="https://brokge.github.io/tags/Java/"/>
+      <category term="Java" scheme="http://www.yusuzi.cn/tags/Java/"/>
     
-      <category term="MQ" scheme="https://brokge.github.io/tags/MQ/"/>
+      <category term="MQ" scheme="http://www.yusuzi.cn/tags/MQ/"/>
     
   </entry>
   
   <entry>
     <title>JVM- 虚拟机调优工具</title>
-    <link href="https://brokge.github.io/2020/07/10/JVM-%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%B0%83%E4%BC%98%E5%B7%A5%E5%85%B7/"/>
-    <id>https://brokge.github.io/2020/07/10/JVM-虚拟机调优工具/</id>
+    <link href="http://www.yusuzi.cn/2020/07/10/JVM-%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%B0%83%E4%BC%98%E5%B7%A5%E5%85%B7/"/>
+    <id>http://www.yusuzi.cn/2020/07/10/JVM-虚拟机调优工具/</id>
     <published>2020-07-10T12:46:00.000Z</published>
     <updated>2020-08-21T04:56:55.615Z</updated>
     
@@ -378,21 +378,21 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="虚拟机" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+      <category term="虚拟机" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
     
     
-      <category term="JVM" scheme="https://brokge.github.io/tags/JVM/"/>
+      <category term="JVM" scheme="http://www.yusuzi.cn/tags/JVM/"/>
     
-      <category term="Java" scheme="https://brokge.github.io/tags/Java/"/>
+      <category term="Java" scheme="http://www.yusuzi.cn/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>JVM- 内存回收机制</title>
-    <link href="https://brokge.github.io/2020/07/08/JVM-%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/"/>
-    <id>https://brokge.github.io/2020/07/08/JVM-内存回收机制/</id>
+    <link href="http://www.yusuzi.cn/2020/07/08/JVM-%E5%86%85%E5%AD%98%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/"/>
+    <id>http://www.yusuzi.cn/2020/07/08/JVM-内存回收机制/</id>
     <published>2020-07-08T08:44:57.000Z</published>
     <updated>2020-08-21T04:57:07.389Z</updated>
     
@@ -404,21 +404,21 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="虚拟机" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+      <category term="虚拟机" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
     
     
-      <category term="JVM" scheme="https://brokge.github.io/tags/JVM/"/>
+      <category term="JVM" scheme="http://www.yusuzi.cn/tags/JVM/"/>
     
-      <category term="Java" scheme="https://brokge.github.io/tags/Java/"/>
+      <category term="Java" scheme="http://www.yusuzi.cn/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>JVM-Java 虚拟机入门</title>
-    <link href="https://brokge.github.io/2020/07/01/JVM-Java-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%85%A5%E9%97%A8/"/>
-    <id>https://brokge.github.io/2020/07/01/JVM-Java-虚拟机入门/</id>
+    <link href="http://www.yusuzi.cn/2020/07/01/JVM-Java-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%85%A5%E9%97%A8/"/>
+    <id>http://www.yusuzi.cn/2020/07/01/JVM-Java-虚拟机入门/</id>
     <published>2020-06-30T18:43:39.000Z</published>
     <updated>2020-08-21T04:56:47.017Z</updated>
     
@@ -430,21 +430,21 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="虚拟机" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+      <category term="虚拟机" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
     
     
-      <category term="JVM" scheme="https://brokge.github.io/tags/JVM/"/>
+      <category term="JVM" scheme="http://www.yusuzi.cn/tags/JVM/"/>
     
-      <category term="Java" scheme="https://brokge.github.io/tags/Java/"/>
+      <category term="Java" scheme="http://www.yusuzi.cn/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>Nginx 动态页面缓存方式实现</title>
-    <link href="https://brokge.github.io/2020/06/25/Nginx-%E5%8A%A8%E6%80%81%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0/"/>
-    <id>https://brokge.github.io/2020/06/25/Nginx-动态页面缓存方式实现/</id>
+    <link href="http://www.yusuzi.cn/2020/06/25/Nginx-%E5%8A%A8%E6%80%81%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://www.yusuzi.cn/2020/06/25/Nginx-动态页面缓存方式实现/</id>
     <published>2020-06-24T18:40:22.000Z</published>
     <updated>2020-08-21T05:05:00.592Z</updated>
     
@@ -456,17 +456,17 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="Java" scheme="https://brokge.github.io/tags/Java/"/>
+      <category term="Java" scheme="http://www.yusuzi.cn/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>网络协议梳理</title>
-    <link href="https://brokge.github.io/2020/06/06/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86/"/>
-    <id>https://brokge.github.io/2020/06/06/网络协议梳理/</id>
+    <link href="http://www.yusuzi.cn/2020/06/06/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E6%A2%B3%E7%90%86/"/>
+    <id>http://www.yusuzi.cn/2020/06/06/网络协议梳理/</id>
     <published>2020-06-06T09:35:01.000Z</published>
     <updated>2020-07-24T14:12:49.138Z</updated>
     
@@ -484,17 +484,17 @@
     
     </summary>
     
-      <category term="网络" scheme="https://brokge.github.io/categories/%E7%BD%91%E7%BB%9C/"/>
+      <category term="网络" scheme="http://www.yusuzi.cn/categories/%E7%BD%91%E7%BB%9C/"/>
     
     
-      <category term="网络编程" scheme="https://brokge.github.io/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
+      <category term="网络编程" scheme="http://www.yusuzi.cn/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>多线程编程如何确定线程个数</title>
-    <link href="https://brokge.github.io/2020/06/05/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B%E5%A6%82%E4%BD%95%E7%A1%AE%E5%AE%9A%E7%BA%BF%E7%A8%8B%E4%B8%AA%E6%95%B0/"/>
-    <id>https://brokge.github.io/2020/06/05/多线程编程如何确定线程个数/</id>
+    <link href="http://www.yusuzi.cn/2020/06/05/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B%E5%A6%82%E4%BD%95%E7%A1%AE%E5%AE%9A%E7%BA%BF%E7%A8%8B%E4%B8%AA%E6%95%B0/"/>
+    <id>http://www.yusuzi.cn/2020/06/05/多线程编程如何确定线程个数/</id>
     <published>2020-06-05T13:08:38.000Z</published>
     <updated>2020-08-21T04:44:45.952Z</updated>
     
@@ -510,14 +510,14 @@
     
     </summary>
     
-      <category term="技术" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="并发编程" scheme="https://brokge.github.io/categories/%E6%8A%80%E6%9C%AF/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+      <category term="并发编程" scheme="http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
     
-      <category term="Java" scheme="https://brokge.github.io/tags/Java/"/>
+      <category term="Java" scheme="http://www.yusuzi.cn/tags/Java/"/>
     
-      <category term="优化" scheme="https://brokge.github.io/tags/%E4%BC%98%E5%8C%96/"/>
+      <category term="优化" scheme="http://www.yusuzi.cn/tags/%E4%BC%98%E5%8C%96/"/>
     
   </entry>
   
