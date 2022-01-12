@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="baidu-site-verification" content="ojkjVnGTuN"><meta name="generator" content="Hexo 4.2.1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>MySQL 主从配置问题汇总 - 玉蘇子</title><meta description="一、主从配置启动错误ERROR 1872 (HY000): Slave failed to initialize relay log info structure from the repository解决方法： mysql&amp;gt; start slave; ERROR 1872 (HY000): Slave failed to initialize relay log info structur"><meta property="og:type" content="blog"><meta property="og:title" content="MySQL 主从配置问题汇总"><meta property="og:url" content="http://www.yusuzi.cn/2021/06/05/MySQL%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"><meta property="og:site_name" content="玉蘇子"><meta property="og:description" content="一、主从配置启动错误ERROR 1872 (HY000): Slave failed to initialize relay log info structure from the repository解决方法： mysql&amp;gt; start slave; ERROR 1872 (HY000): Slave failed to initialize relay log info structur"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://www.yusuzi.cn/img/og_image.png"><meta property="article:published_time" content="2021-06-05T15:40:00.000Z"><meta property="article:modified_time" content="2022-01-12T14:57:44.899Z"><meta property="article:author" content="brokge"><meta property="article:tag" content="mysql"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.yusuzi.cn/2021/06/05/MySQL%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"},"headline":"玉蘇子","image":["http://www.yusuzi.cn/img/og_image.png"],"datePublished":"2021-06-05T15:40:00.000Z","dateModified":"2022-01-12T14:57:44.899Z","author":{"@type":"Person","name":"brokge"},"description":"一、主从配置启动错误ERROR 1872 (HY000): Slave failed to initialize relay log info structure from the repository解决方法： mysql&gt; start slave; ERROR 1872 (HY000): Slave failed to initialize relay log info structur"}</script><link rel="canonical" href="http://www.yusuzi.cn/2021/06/05/MySQL%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="玉蘇子" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a><a class="navbar-item" href="http://www.haojava.cn">网址导航</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2021-06-05T15:40:00.000Z" title="2021-06-05T15:40:00.000Z">2021-06-05</time><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span> / </span><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span><span class="level-item">11 分钟 读完 (大约 1666 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">MySQL 主从配置问题汇总</h1><div class="content"><h1 id="一、主从配置启动错误"><a href="#一、主从配置启动错误" class="headerlink" title="一、主从配置启动错误"></a>一、主从配置启动错误</h1><h2 id="ERROR-1872-HY000-Slave-failed-to-initialize-relay-log-info-structure-from-the-repository"><a href="#ERROR-1872-HY000-Slave-failed-to-initialize-relay-log-info-structure-from-the-repository" class="headerlink" title="ERROR 1872 (HY000): Slave failed to initialize relay log info structure from the repository"></a>ERROR 1872 (HY000): Slave failed to initialize relay log info structure from the repository</h2><p>解决方法：</p>
+<pre><code>mysql&gt; start slave;
+ERROR 1872 (HY000): Slave failed to initialize relay log info structure from the repository
+mysql&gt; reset slave;
+Query OK, 0 rows affected (0.04 sec)</code></pre>
+<h3 id="reset-slave"><a href="#reset-slave" class="headerlink" title="reset slave"></a><code>reset slave</code></h3><p>可以使用Mysql命令reset slave重置slave。</p>
+<p>reset slave干的那些事：</p>
+<ol>
+<li>删除<code>slave_master_info</code> ，<code>slave_relay_log_info</code>两个表中数据；</li>
+<li>删除所有<code>relay log</code>文件，并重新创建新的<code>relay log</code>文件；</li>
+<li>不会改变<code>gtid_executed</code> 或者 <code>gtid_purged</code>的值</li>
+</ol>
+<h2 id="跳过错误"><a href="#跳过错误" class="headerlink" title="跳过错误"></a>跳过错误</h2><pre><code>mysql&gt;slave stop;
+mysql&gt;SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1  #跳过一个事务 多个就改变数字。
+mysql&gt;slave start
+mysql&gt; show slave status\G #查看主从状态；</code></pre>
+<h3 id="配置跳过指定错误"><a href="#配置跳过指定错误" class="headerlink" title="配置跳过指定错误"></a>配置跳过指定错误</h3><p>从服务器上配置</p>
+<pre><code>vim my.cnf
+slave-skip-errors=1032,1062 #跳过指定error no类型的错误
+slave-skip-errors=all #跳过所有错误</code></pre>
+<h2 id="批量-dump-方式"><a href="#批量-dump-方式" class="headerlink" title="批量 dump 方式"></a>批量 dump 方式</h2><h3 id="常规方式："><a href="#常规方式：" class="headerlink" title="常规方式："></a>常规方式：</h3><ul>
+<li>备份并压缩<pre><code>mysqldump -uusername -ppassword dbname | gzip &gt; /data/wwwroot/www/dbname.sql.gz</code></pre>
+</li>
+<li>解压并还原<pre><code>gunzip &lt; /root/dbname.sql.gz | mysql -uusernameb -ppasswordb dbnamenew</code></pre>
+<h3 id="最优方式"><a href="#最优方式" class="headerlink" title="最优方式"></a>最优方式</h3>保证两台机器能互相访问。<pre><code>mysqldump --default-character-set=utf8mb4 --host=127.0.0.1 -uusername -ppassword --opt dbname | mysql --host=127.0.0.2 -uusernameb -ppasswordb --default-character-set=utf8mb4 -C dbnamenew</code></pre>
+</li>
+</ul>
+<h1 id="二、同步过程中最常见的3种情况"><a href="#二、同步过程中最常见的3种情况" class="headerlink" title="二、同步过程中最常见的3种情况"></a>二、同步过程中最常见的3种情况</h1><p>这3种情况是在HA切换时，由于是异步复制，且sync_binlog=0，会造成一小部分binlog没接收完导致同步报错。</p>
+<h3 id="第一种：在master上删除一条记录，而slave上找不到。"><a href="#第一种：在master上删除一条记录，而slave上找不到。" class="headerlink" title="第一种：在master上删除一条记录，而slave上找不到。"></a>第一种：在master上删除一条记录，而slave上找不到。</h3><pre><code>Last_SQL_Error: Could not execute Delete_rows event on table hcy.t1; 
+Can&#39;t find record in &#39;t1&#39;, 
+Error_code: 1032; handler error HA_ERR_KEY_NOT_FOUND; 
+the event&#39;s master log mysql-bin.000006, end_log_pos 254&#39;</code></pre>
+<ul>
+<li>解决方法：</li>
+</ul>
+<p>由于master要删除一条记录，而slave上找不到故报错，这种情况主上都将其删除了，那么从机可以直接跳过。可用命令：</p>
+<pre><code>stop slave;
+set global sql_slave_skip_counter=1;
+start slave;</code></pre>
+<p>如果这种情况很多，可用我写的一个脚本skip_error_replcation.sh，默认跳过10个错误（只针对这种情况才跳，其他情况输出错误结果，等待处理），这个脚本是参考maakit工具包的mk-slave-restart原理用shell写的，功能上定义了一些自己的东西，不是无论什么错误都一律跳过。）</p>
+<h3 id="第二种：主键重复。在slave已经有该记录，又在master上插入了同一条记录。"><a href="#第二种：主键重复。在slave已经有该记录，又在master上插入了同一条记录。" class="headerlink" title="第二种：主键重复。在slave已经有该记录，又在master上插入了同一条记录。"></a>第二种：主键重复。在slave已经有该记录，又在master上插入了同一条记录。</h3><pre><code>Last_SQL_Error: Could not execute Write_rows event on table hcy.t1; 
+Duplicate entry &#39;2&#39; for key &#39;PRIMARY&#39;, 
+Error_code: 1062; 
+handler error HA_ERR_FOUND_DUPP_KEY; the event&#39;s master log mysql-bin.000006, end_log_pos 924</code></pre>
+<ul>
+<li>解决方法：</li>
+</ul>
+<p>在slave上用desc hcy.t1; 先看下表结构：</p>
+<pre><code>mysql&gt; desc hcy.t1;
++-------+---------+------+-----+---------+-------+
+| Field | Type  | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| id  | int(11) | NO  | PRI | 0    |    | 
+| name | char(4) | YES |   | NULL  |    | 
++-------+---------+------+-----+---------+-------+</code></pre>
+<p>删除重复的主键</p>
+<pre><code>mysql&gt; delete from t1 where id=2;
+Query OK, 1 row affected (0.00 sec)
+
+mysql&gt; start slave;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; show slave status\G;
+……
+Slave_IO_Running: Yes
+Slave_SQL_Running: Yes
+……
+mysql&gt; select * from t1 where id=2;</code></pre>
+<p>在master上和slave上再分别确认一下。</p>
+<h3 id="第三种：在master上更新一条记录，而slave上找不到，丢失了数据。"><a href="#第三种：在master上更新一条记录，而slave上找不到，丢失了数据。" class="headerlink" title="第三种：在master上更新一条记录，而slave上找不到，丢失了数据。"></a>第三种：在master上更新一条记录，而slave上找不到，丢失了数据。</h3><pre><code>Last_SQL_Error: Could not execute Update_rows event on table hcy.t1;
+Can&#39;t find record in &#39;t1&#39;, 
+Error_code: 1032; 
+handler error HA_ERR_KEY_NOT_FOUND; the event&#39;s master log mysql-bin.000010, end_log_pos 263</code></pre>
+<ul>
+<li>解决方法：</li>
+</ul>
+<p>在master上，用mysqlbinlog 分析下出错的binlog日志在干什么。</p>
+<pre><code>/usr/local/mysql/bin/mysqlbinlog --no-defaults -v -v --base64-output=DECODE-ROWS mysql-bin.000010 | grep -A &#39;10&#39; 794
+
+#120302 12:08:36 server id 22 end_log_pos 794 Update_rows: table id 33 flags: STMT_END_F
+### UPDATE hcy.t1
+### WHERE
+###  @1=2 /* INT meta=0 nullable=0 is_null=0 */
+###  @2=&#39;bbc&#39; /* STRING(4) meta=65028 nullable=1 is_null=0 */
+### SET
+###  @1=2 /* INT meta=0 nullable=0 is_null=0 */
+###  @2=&#39;BTV&#39; /* STRING(4) meta=65028 nullable=1 is_null=0 */
+# at 794
+#120302 12:08:36 server id 22 end_log_pos 821 Xid = 60
+COMMIT/*!*/;
+DELIMITER ;
+# End of log file
+ROLLBACK /* added by mysqlbinlog */;
+/*!50003 SET COMPLETION_TYPE=@OLD_COMPLETION_TYPE*/;</code></pre>
+<p>在slave上，查找下更新后的那条记录，应该是不存在的。</p>
+<p>mysql&gt; select * from t1 where id=2;<br>Empty set (0.00 sec)</p>
+<p>然后再到master查看</p>
+<pre><code>mysql&gt; select * from t1 where id=2;
++----+------+
+| id | name |
++----+------+
+| 2 | BTV | 
++----+------+
+1 row in set (0.00 sec)</code></pre>
+<p>把丢失的数据在slave上填补，然后跳过报错即可。</p>
+<pre><code>mysql&gt; insert into t1 values (2,&#39;BTV&#39;);
+Query OK, 1 row affected (0.00 sec)
+
+mysql&gt; select * from t1 where id=2;  
++----+------+
+| id | name |
++----+------+
+| 2 | BTV | 
++----+------+
+1 row in set (0.00 sec)
+
+mysql&gt; stop slave ;set global sql_slave_skip_counter=1;start slave;
+Query OK, 0 rows affected (0.01 sec)
+Query OK, 0 rows affected (0.00 sec)
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; show slave status\G;
+……
+ Slave_IO_Running: Yes
+ Slave_SQL_Running: Yes
+……</code></pre>
+<h3 id="异步半同步区别"><a href="#异步半同步区别" class="headerlink" title="异步半同步区别"></a>异步半同步区别</h3><ul>
+<li><p>异步复制<br>简单的说就是master把binlog发送过去，不管slave是否接收完，也不管是否执行完，这一动作就结束了.</p>
+</li>
+<li><p>半同步复制<br>简单的说就是master把binlog发送过去，slave确认接收完，但不管它是否执行完，给master一个信号我这边收到了，这一动作就结束了。（谷歌写的代码，5.5上正式应用。）</p>
+</li>
+</ul>
+<p>异步的劣势<br>当master上写操作繁忙时，当前POS点例如是10，而slave上IO_THREAD线程接收过来的是3，此时master宕机，会造成相差7个点未传送到slave上而数据丢失。</p>
+<h3 id="特殊的情况"><a href="#特殊的情况" class="headerlink" title="特殊的情况"></a>特殊的情况</h3><p>slave的中继日志relay-bin损坏。</p>
+<pre><code>Last_SQL_Error: Error initializing relay log position: I/O error reading the header from the binary log
+Last_SQL_Error: Error initializing relay log position: Binlog has bad magic number; 
+It&#39;s not a binary log file that can be used by this version of MySQL</code></pre>
+<p>这种情况SLAVE在宕机，或者非法关机，例如电源故障、主板烧了等，造成中继日志损坏，同步停掉。</p>
+<p>人为失误需谨慎：多台slave存在重复server-id<br>这种情况同步会一直延时，永远也同步不完，error错误日志里一直出现上面两行信息。解决方法就是把server-id改成不一致即可。</p>
+<pre><code>Slave: received end packet from server, apparent master shutdown:
+Slave I/O thread: Failed reading log event, reconnecting to retry, log &#39;mysql-bin.000012&#39; at postion 106</code></pre>
+<p>手工修复</p>
+<p>解决方法：找到同步的binlog和POS点，然后重新做同步，这样就可以有新的中继日值了。</p>
+<p>例子：</p>
+<pre><code>mysql&gt; show slave status\G;
+*************************** 1. row ***************************
+       Master_Log_File: mysql-bin.000010
+     Read_Master_Log_Pos: 1191
+        Relay_Log_File: vm02-relay-bin.000005
+        Relay_Log_Pos: 253
+    Relay_Master_Log_File: mysql-bin.000010
+       Slave_IO_Running: Yes
+      Slave_SQL_Running: No
+       Replicate_Do_DB: 
+     Replicate_Ignore_DB: 
+      Replicate_Do_Table: 
+    Replicate_Ignore_Table: 
+   Replicate_Wild_Do_Table: 
+ Replicate_Wild_Ignore_Table: 
+          Last_Errno: 1593
+          Last_Error: Error initializing relay log position: I/O error reading the header from the binary log
+         Skip_Counter: 1
+     Exec_Master_Log_Pos: 821</code></pre>
+<ol>
+<li><p>Slave_IO_Running ：接收master的binlog信息       </p>
+</li>
+<li><p>Master_Log_File</p>
+</li>
+<li><p>Read_Master_Log_Pos</p>
+</li>
+<li><p>Slave_SQL_Running：执行写操作</p>
+</li>
+<li><p>Relay_Master_Log_File</p>
+</li>
+<li><p>Exec_Master_Log_Pos</p>
+</li>
+</ol>
+<p>以执行写的binlog和POS点为准。</p>
+<pre><code>Relay_Master_Log_File: mysql-bin.000010
+Exec_Master_Log_Pos: 821
+mysql&gt; stop slave;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql&gt; CHANGE MASTER TO MASTER_LOG_FILE=&#39;mysql-bin.000010&#39;,MASTER_LOG_POS=821;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql&gt; start slave;
+Query OK, 0 rows affected (0.00 sec)
+mysql&gt; show slave status\G;</code></pre>
+</div><div class="article-tags size-small mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/mysql/">mysql</a></div><div class="a2a_kit a2a_kit_size_32 a2a_default_style"><a class="a2a_dd" href="https://www.addtoany.com/share"></a><a class="a2a_button_facebook"></a><a class="a2a_button_twitter"></a><a class="a2a_button_telegram"></a><a class="a2a_button_whatsapp"></a><a class="a2a_button_reddit"></a></div><script src="https://static.addtoany.com/menu/page.js" defer></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？关注下作者吧</h3><div class="buttons is-centered"><a class="button is-success donate"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="https://cdn.jsdelivr.net/gh/brokge/drawio/img/20200911125339.png" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/03/05/MySQL%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/"><span class="level-item">MySQL 主从配置</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: '8c75904237972eb01d5fb6dc870c3543',
+            repo: 'brokge.github.io',
+            owner: 'brokge',
+            clientID: '91fb002c2cb0c95da7a5',
+            clientSecret: '2abab94501220cd174f24097d08cec6053d71b3f',
+            admin: ["brokge"],
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 20,
+            pagerDirection: 'last',
+            
+            
+            enableHotKey: true
+        })
+        gitalk.render('comment-container')</script></div></div></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3"><div class="card widget" id="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="is-flex" href="#一、主从配置启动错误"><span class="mr-2">1</span><span>一、主从配置启动错误</span></a><ul class="menu-list"><li><a class="is-flex" href="#ERROR-1872-HY000-Slave-failed-to-initialize-relay-log-info-structure-from-the-repository"><span class="mr-2">1.1</span><span>ERROR 1872 (HY000): Slave failed to initialize relay log info structure from the repository</span></a><ul class="menu-list"><li><a class="is-flex" href="#reset-slave"><span class="mr-2">1.1.1</span><span>reset slave</span></a></li></ul></li><li><a class="is-flex" href="#跳过错误"><span class="mr-2">1.2</span><span>跳过错误</span></a><ul class="menu-list"><li><a class="is-flex" href="#配置跳过指定错误"><span class="mr-2">1.2.1</span><span>配置跳过指定错误</span></a></li></ul></li><li><a class="is-flex" href="#批量-dump-方式"><span class="mr-2">1.3</span><span>批量 dump 方式</span></a><ul class="menu-list"><li><a class="is-flex" href="#常规方式："><span class="mr-2">1.3.1</span><span>常规方式：</span></a></li><li><a class="is-flex" href="#最优方式"><span class="mr-2">1.3.2</span><span>最优方式</span></a></li></ul></li></ul></li><li><a class="is-flex" href="#二、同步过程中最常见的3种情况"><span class="mr-2">2</span><span>二、同步过程中最常见的3种情况</span></a><ul class="menu-list"><ul class="menu-list"><li><a class="is-flex" href="#第一种：在master上删除一条记录，而slave上找不到。"><span class="mr-2">2.1.1</span><span>第一种：在master上删除一条记录，而slave上找不到。</span></a></li><li><a class="is-flex" href="#第二种：主键重复。在slave已经有该记录，又在master上插入了同一条记录。"><span class="mr-2">2.1.2</span><span>第二种：主键重复。在slave已经有该记录，又在master上插入了同一条记录。</span></a></li><li><a class="is-flex" href="#第三种：在master上更新一条记录，而slave上找不到，丢失了数据。"><span class="mr-2">2.1.3</span><span>第三种：在master上更新一条记录，而slave上找不到，丢失了数据。</span></a></li><li><a class="is-flex" href="#异步半同步区别"><span class="mr-2">2.1.4</span><span>异步半同步区别</span></a></li><li><a class="is-flex" href="#特殊的情况"><span class="mr-2">2.1.5</span><span>特殊的情况</span></a></li></ul></ul></li></ul></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content size-small"><p><time dateTime="2021-06-05T15:40:00.000Z">2021-06-05</time></p><p class="title is-6"><a class="link-muted" href="/2021/06/05/MySQL%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/">MySQL 主从配置问题汇总</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a> / <a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2021-03-05T15:40:00.000Z">2021-03-05</time></p><p class="title is-6"><a class="link-muted" href="/2021/03/05/MySQL%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/">MySQL 主从配置</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a> / <a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-09-08T07:53:43.000Z">2020-09-08</time></p><p class="title is-6"><a class="link-muted" href="/2020/09/08/github-pages-%E5%A4%9A%E5%9F%9F%E5%90%8D%E6%98%A0%E5%B0%84/">Github pages 多域名映射</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E7%BB%8F%E9%AA%8C/">经验</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-09-07T13:05:35.000Z">2020-09-07</time></p><p class="title is-6"><a class="link-muted" href="/2020/09/07/nacos-%E5%AF%BC%E5%85%A5%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%90%88%E6%B3%95/">nacos 导入配置数据不合法</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a> / <a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-09-04T02:46:41.000Z">2020-09-04</time></p><p class="title is-6"><a class="link-muted" href="/2020/09/04/Spring-cloud-Feign%E5%AE%9E%E8%B7%B5/">Spring cloud Feign原理分析</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a> / <a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a></p></div></article></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Android/"><span class="tag">Android</span><span class="tag is-grey-lightest">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JVM/"><span class="tag">JVM</span><span class="tag is-grey-lightest">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Java/"><span class="tag">Java</span><span class="tag is-grey-lightest">21</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MQ/"><span class="tag">MQ</span><span class="tag is-grey-lightest">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Redis/"><span class="tag">Redis</span><span class="tag is-grey-lightest">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Spring-Cloud/"><span class="tag">Spring Cloud</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag is-grey-lightest">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BC%98%E5%8C%96/"><span class="tag">优化</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8F%8D%E5%B0%84/"><span class="tag">反射</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><span class="tag">微服务</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%9D%E7%BB%B4%E6%A8%A1%E5%9E%8B/"><span class="tag">思维模型</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><span class="tag">性能优化</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="tag">数据结构</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9E%B6%E6%9E%84/"><span class="tag">架构</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%AD%A3%E5%88%99/"><span class="tag">正则</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/"><span class="tag">注册中心</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B3%A8%E8%A7%A3/"><span class="tag">注解</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%88%AC%E8%99%AB/"><span class="tag">爬虫</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BC%93%E5%AD%98/"><span class="tag">缓存</span><span class="tag is-grey-lightest">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"><span class="tag">网络编程</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><span class="tag">设计模式</span><span class="tag is-grey-lightest">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%94%81/"><span class="tag">锁</span><span class="tag is-grey-lightest">1</span></a></div></div></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button is-primary" type="submit" value="订阅"></div></div></form></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="玉蘇子" height="28"></a><p class="size-small"><span>&copy; 2022 brokge</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            site: {
+                url: 'http://www.yusuzi.cn',
+                external_link: {"enable":true,"exclude":[]}
+            },
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
