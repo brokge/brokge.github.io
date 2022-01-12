@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.yusuzi.cn/2021/03/05/MySQL%20ibtemp1%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/</loc>
+    
+    <lastmod>2022-01-12</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.yusuzi.cn/2021/06/05/MySQL%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</loc>
     
     <lastmod>2022-01-12</lastmod>
@@ -403,14 +410,14 @@
   </url>
   
   <url>
-    <loc>http://www.yusuzi.cn/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</loc>
+    <loc>http://www.yusuzi.cn/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.yusuzi.cn/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
+    <loc>http://www.yusuzi.cn/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -438,13 +445,6 @@
   </url>
   
   <url>
-    <loc>http://www.yusuzi.cn/tags/%E9%94%81/</loc>
-    <lastmod>2022-01-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://www.yusuzi.cn/tags/%E5%8F%8D%E5%B0%84/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
@@ -459,7 +459,28 @@
   </url>
   
   <url>
+    <loc>http://www.yusuzi.cn/tags/%E9%94%81/</loc>
+    <lastmod>2022-01-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://www.yusuzi.cn/tags/mysql/</loc>
+    <lastmod>2022-01-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.yusuzi.cn/tags/%E7%BC%93%E5%AD%98/</loc>
+    <lastmod>2022-01-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.yusuzi.cn/tags/Redis/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -480,7 +501,7 @@
   </url>
   
   <url>
-    <loc>http://www.yusuzi.cn/tags/MQ/</loc>
+    <loc>http://www.yusuzi.cn/tags/Spring-Cloud/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -494,21 +515,14 @@
   </url>
   
   <url>
-    <loc>http://www.yusuzi.cn/tags/Spring-Cloud/</loc>
+    <loc>http://www.yusuzi.cn/tags/MQ/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.yusuzi.cn/tags/Redis/</loc>
-    <lastmod>2022-01-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.yusuzi.cn/tags/%E7%BC%93%E5%AD%98/</loc>
+    <loc>http://www.yusuzi.cn/tags/%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -522,7 +536,7 @@
   </url>
   
   <url>
-    <loc>http://www.yusuzi.cn/tags/%E6%9E%B6%E6%9E%84/</loc>
+    <loc>http://www.yusuzi.cn/tags/%E4%BC%98%E5%8C%96/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -549,17 +563,17 @@
     <priority>0.6</priority>
   </url>
   
+
+  
   <url>
-    <loc>http://www.yusuzi.cn/tags/%E4%BC%98%E5%8C%96/</loc>
+    <loc>http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
-
-  
   <url>
-    <loc>http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <loc>http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -573,7 +587,7 @@
   </url>
   
   <url>
-    <loc>http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E5%9F%BA%E7%A1%80/</loc>
+    <loc>http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -588,13 +602,6 @@
   
   <url>
     <loc>http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E8%99%9A%E6%8B%9F%E6%9C%BA/</loc>
-    <lastmod>2022-01-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -629,14 +636,14 @@
   </url>
   
   <url>
-    <loc>http://www.yusuzi.cn/categories/%E4%BA%BA%E6%96%87/</loc>
+    <loc>http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E6%9E%B6%E6%9E%84/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.yusuzi.cn/categories/%E6%8A%80%E6%9C%AF/%E6%9E%B6%E6%9E%84/</loc>
+    <loc>http://www.yusuzi.cn/categories/%E4%BA%BA%E6%96%87/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -650,14 +657,14 @@
   </url>
   
   <url>
-    <loc>http://www.yusuzi.cn/categories/%E4%BA%BA%E6%96%87/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>http://www.yusuzi.cn/categories/%E7%BD%91%E7%BB%9C/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.yusuzi.cn/categories/%E7%BD%91%E7%BB%9C/</loc>
+    <loc>http://www.yusuzi.cn/categories/%E4%BA%BA%E6%96%87/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2022-01-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
